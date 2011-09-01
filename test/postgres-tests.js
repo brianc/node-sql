@@ -82,3 +82,7 @@ assert.textEqual(q, 'SELECT u."name" FROM "user" AS u INNER JOIN post AS p ON ((
 
 var q = u.select(p.content, u.name).from(u.join(p).on(u.id.equals(p.userId).and(p.content.isNotNull())));
 assert.textEqual(q, 'SELECT p."content", u."name" FROM "user" AS u INNER JOIN post AS p ON ((u."id" = p."userId") AND (p."content" IS NOT NULL))');
+
+console.log("inserting plain SQL");
+var q = user.select('name').from('user').where('name <> NULL');
+assert.textEqual(q, 'SELECT name FROM user WHERE name <> NULL');
