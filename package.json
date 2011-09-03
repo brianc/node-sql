@@ -1,0 +1,20 @@
+{
+  "author": "brianc <brian.m.carlson@gmail.com>",
+  "name": "sql",
+  "description": "sql builder",
+  "version": "0.0.2",
+  "homepage": "https://github.com/brianc/node-sql",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/brianc/node-sql.git"
+  },
+  "main": "lib/",
+  "scripts": {
+    "test": "node test/"
+  },
+  "engines": {
+    "node": "*"
+  },
+  "dependencies": {},
+  "devDependencies": {}
+}
