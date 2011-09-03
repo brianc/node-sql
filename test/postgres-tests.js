@@ -93,22 +93,10 @@ assert.textEqual(q, 'SELECT post."content" FROM post');
 var q = post.select(post.content).where(post.userId.equals(1));
 assert.textEqual(q, 'SELECT post."content" FROM post WHERE (post."userId" = $1)');
 
-//var q = user.select(user.name).orderBy(user.name.descending);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+console.log('order by');
+var q = post.select(post.content).order(post.content);
+assert.textEqual(q, 'SELECT post."content" FROM post ORDER BY post."content"');
+var q = post.select(post.content).order(post.content, post.userId.descending);
+assert.textEqual(q, 'SELECT post."content" FROM post ORDER BY post."content", (post."userId"  DESC)');
+var q = post.select(post.content).order(post.content.asc, post.userId.desc);
+assert.textEqual(q, 'SELECT post."content" FROM post ORDER BY post."content", (post."userId"  DESC)');
