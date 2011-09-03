@@ -89,7 +89,9 @@ assert.textEqual(q, 'SELECT name FROM user WHERE name <> NULL');
 
 console.log('automatic FROM on "easy" queries');
 var q = post.select(post.content);
-//assert.textEqual(q, 'SELECT post."content" FROM post');
+assert.textEqual(q, 'SELECT post."content" FROM post');
+var q = post.select(post.content).where(post.userId.equals(1));
+assert.textEqual(q, 'SELECT post."content" FROM post WHERE (post."userId" = $1)');
 
 //var q = user.select(user.name).orderBy(user.name.descending);
 
