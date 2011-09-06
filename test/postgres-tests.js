@@ -21,6 +21,12 @@ assert.paramsEqual = function(query, expected) {
   }
 }
 
+var test = function(query, expected) {
+  var pgQuery = new Postgres().getQuery(query);
+  var expectedPgText = expected.pg;
+  assert.equal(pgQuery.text, expected.pg, 'Postgres text not equal\n actual:   "' + pgQuery.text + '"\n expected: "' + expected.pg + '"');
+}
+
 assert.textEqual(
   user.select(user.id).from(user), 
   'SELECT "user".id FROM "user"');
