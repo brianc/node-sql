@@ -2,31 +2,11 @@ var assert = require('assert');
 var Postgres = require(__dirname + '/../lib/dialect/postgres');
 var Table = require(__dirname + '/../lib/table');
 
-var user = Table.define({
-  name: 'user',
-  quote: true,
-  columns: ['id','name']
-})
-
-assert.textEqual = function(query, expected) {
-  var q = new Postgres().getQuery(query).text;
-  assert.equal(q, expected, 'Query text not equal\n actual:   "' + q + '"\n expected: "' + expected + '"');
-}
-
-assert.paramsEqual = function(query, expected) {
-  var q = new Postgres().getQuery(query);
-  assert.equal(q.values.length, expected.length);
-  for(var i = 0; i < q.values.length; i++) {
-    assert.equal(q.values[i], expected[i]);
-  }
-}
-
 var test = function(expected) {
   var query = expected.query;
   var pgQuery = new Postgres().getQuery(query);
   var expectedPgText = expected.pg;
   assert.equal(pgQuery.text, expected.pg, 'Postgres text not equal\n actual:   "' + pgQuery.text + '"\n expected: "' + expected.pg + '"');
-  console.log(expectedPgText);
   if(expected.params) {
     assert.equal(expected.params.length, pgQuery.values.length);
     for(var i = 0; i < expected.params.length; i++) {
@@ -34,6 +14,12 @@ var test = function(expected) {
     }
   }
 }
+
+var user = Table.define({
+  name: 'user',
+  quote: true,
+  columns: ['id','name']
+})
 
 test({
   query : user.select(user.id).from(user),
