@@ -26,6 +26,7 @@ var test = function(expected) {
   var pgQuery = new Postgres().getQuery(query);
   var expectedPgText = expected.pg;
   assert.equal(pgQuery.text, expected.pg, 'Postgres text not equal\n actual:   "' + pgQuery.text + '"\n expected: "' + expected.pg + '"');
+  console.log(expectedPgText);
   if(expected.params) {
     assert.equal(expected.params.length, pgQuery.values.length);
     for(var i = 0; i < expected.params.length; i++) {
@@ -55,77 +56,103 @@ test({
   params: ['foo']
 });
 
-var q = user.select(user.id).from(user).where(user.name.equals('foo').or(user.name.equals('bar')));
-assert.textEqual(q, 'SELECT "user".id FROM "user" WHERE (("user".name = $1) OR ("user".name = $2))');
-assert.paramsEqual(q, ['foo', 'bar']);
+test({
+  query : user.select(user.id).from(user).where(user.name.equals('foo').or(user.name.equals('bar'))),
+  pg    : 'SELECT "user".id FROM "user" WHERE (("user".name = $1) OR ("user".name = $2))',
+  params: ['foo', 'bar']
+});
 
-var q = user.select(user.id).from(user)
-  .where(user.name.equals('foo')
-         .and(user.name.equals('bar')));
-assert.textEqual(q, 'SELECT "user".id FROM "user" WHERE (("user".name = $1) AND ("user".name = $2))');
-assert.paramsEqual(q, ['foo', 'bar']);
+test({
+  query : user.select(user.id).from(user).where(user.name.equals('foo').and(user.name.equals('bar'))),
+  pg    : 'SELECT "user".id FROM "user" WHERE (("user".name = $1) AND ("user".name = $2))',
+  params: ['foo', 'bar']
+});
 
-var q = user.select(user.id).from(user)
-  .where(user.name.equals('foo'))
-  .or(user.name.equals('bar'));
-assert.textEqual(q, 'SELECT "user".id FROM "user" WHERE (("user".name = $1) OR ("user".name = $2))');
+test({
+  query : user.select(user.id).from(user).where(user.name.equals('foo')).or(user.name.equals('bar')),
+  pg    : 'SELECT "user".id FROM "user" WHERE (("user".name = $1) OR ("user".name = $2))'
+});
 
-var q = user.select(user.id).from(user)
-  .where(user.name.equals('foo'))
-  .or(user.name.equals('baz'))
-  .and(user.name.equals('bar'));
-assert.textEqual(q, 'SELECT "user".id FROM "user" WHERE ((("user".name = $1) OR ("user".name = $2)) AND ("user".name = $3))');
+test({
+  query : user.select(user.id).from(user).where(user.name.equals('foo')).or(user.name.equals('baz')).and(user.name.equals('bar')),
+  pg    : 'SELECT "user".id FROM "user" WHERE ((("user".name = $1) OR ("user".name = $2)) AND ("user".name = $3))'
+});
 
-var q = user.select(user.id).from(user)
-  .where(user.name.equals('boom').and(user.id.equals(1)))
-  .or(user.name.equals('bang').and(user.id.equals(2)));
-assert.textEqual(q, 'SELECT "user".id FROM "user" WHERE ((("user".name = $1) AND ("user".id = $2)) OR (("user".name = $3) AND ("user".id = $4)))');
+test({
+  query : user.select(user.id).from(user)
+            .where(user.name.equals('boom')
+                  .and(user.id.equals(1))).or(user.name.equals('bang').and(user.id.equals(2))),
+  pg    : 'SELECT "user".id FROM "user" WHERE ((("user".name = $1) AND ("user".id = $2)) OR (("user".name = $3) AND ("user".id = $4)))'
+});
 
 var post = Table.define({
   name: 'post',
   columns: ['id', 'userId', 'content']
 });
 
-var q = user.select(user.name, post.content).from(user.join(post).on(user.id.equals(post.userId)));
-assert.textEqual(q, 'SELECT "user".name, post.content FROM "user" INNER JOIN post ON ("user".id = post."userId")');
+test({
+  query : user.select(user.name, post.content).from(user.join(post).on(user.id.equals(post.userId))),
+  pg    : 'SELECT "user".name, post.content FROM "user" INNER JOIN post ON ("user".id = post."userId")'
+});
 
 var u = user.as('u');
-var q = u.select(u.name).from(u);
-assert.textEqual(q, 'SELECT u.name FROM "user" AS u');
+test({
+  query : u.select(u.name).from(u),
+  pg    :'SELECT u.name FROM "user" AS u' 
+});
 
 var p = post.as('p');
-var q = u.select(u.name).from(u.join(p).on(u.id.equals(p.userId).and(p.id.equals(3))));
+test({
+  query : u.select(u.name).from(u.join(p).on(u.id.equals(p.userId).and(p.id.equals(3)))),
+  pg    : 'SELECT u.name FROM "user" AS u INNER JOIN post AS p ON ((u.id = p."userId") AND (p.id = $1))'
+});
 
-assert.textEqual(q, 'SELECT u.name FROM "user" AS u INNER JOIN post AS p ON ((u.id = p."userId") AND (p.id = $1))');
-
-var q = u.select(p.content, u.name).from(u.join(p).on(u.id.equals(p.userId).and(p.content.isNotNull())));
-assert.textEqual(q, 'SELECT p.content, u.name FROM "user" AS u INNER JOIN post AS p ON ((u.id = p."userId") AND (p.content IS NOT NULL))');
+test({
+  query : u.select(p.content, u.name).from(u.join(p).on(u.id.equals(p.userId).and(p.content.isNotNull()))),
+  pg    : 'SELECT p.content, u.name FROM "user" AS u INNER JOIN post AS p ON ((u.id = p."userId") AND (p.content IS NOT NULL))'
+});
 
 console.log('inserting plain SQL');
-var q = user.select('name').from('user').where('name <> NULL');
-assert.textEqual(q, 'SELECT name FROM user WHERE name <> NULL');
+test({
+  query : user.select('name').from('user').where('name <> NULL'),
+  pg    : 'SELECT name FROM user WHERE name <> NULL'
+});
 
 console.log('automatic FROM on "easy" queries');
-var q = post.select(post.content);
-assert.textEqual(q, 'SELECT post.content FROM post');
-var q = post.select(post.content).where(post.userId.equals(1));
-assert.textEqual(q, 'SELECT post.content FROM post WHERE (post."userId" = $1)');
+test({
+  query : post.select(post.content),
+  pg    : 'SELECT post.content FROM post'
+});
+
+test({
+  query : post.select(post.content).where(post.userId.equals(1)),
+  pg    : 'SELECT post.content FROM post WHERE (post."userId" = $1)'
+});
 
 console.log('order by');
-var q = post.select(post.content).order(post.content);
-assert.textEqual(q, 'SELECT post.content FROM post ORDER BY post.content');
-var q = post.select(post.content).order(post.content, post.userId.descending);
-assert.textEqual(q, 'SELECT post.content FROM post ORDER BY post.content, (post."userId"  DESC)');
-var q = post.select(post.content).order(post.content.asc, post.userId.desc);
-assert.textEqual(q, 'SELECT post.content FROM post ORDER BY post.content, (post."userId"  DESC)');
+
+test({
+  query : post.select(post.content).order(post.content),
+  pg    : 'SELECT post.content FROM post ORDER BY post.content',
+});
+
+test({
+  query : post.select(post.content).order(post.content, post.userId.descending),
+  pg    : 'SELECT post.content FROM post ORDER BY post.content, (post."userId"  DESC)'
+});
+
+test({
+  query : post.select(post.content).order(post.content.asc, post.userId.desc),
+  pg    : 'SELECT post.content FROM post ORDER BY post.content, (post."userId"  DESC)'
+});
 
 console.log('parent queries');
 var ignore = function() { 
-var parent = post.select(post.content);
-assert.textEqual(parent, 'SELECT post.content FROM post');
-var child = parent.select(post.userId).where(post.userId.equals(1));
-assert.textEqual(parent, 'SELECT post.content FROM post');
-assert.textEqual(child, 'SELECT post.content, post."userId" FROM post WHERE (post."userId" = $1)');
+  var parent = post.select(post.content);
+  assert.textEqual(parent, 'SELECT post.content FROM post');
+  var child = parent.select(post.userId).where(post.userId.equals(1));
+  assert.textEqual(parent, 'SELECT post.content FROM post');
+  assert.textEqual(child, 'SELECT post.content, post."userId" FROM post WHERE (post."userId" = $1)');
 }
 
 console.log('quoting column names');
@@ -140,5 +167,7 @@ var comment = Table.define({
   }]
 });
 
-var q = comment.select(comment.text, comment.userId);
-assert.textEqual(q, 'SELECT comment."text", comment.userId FROM comment');
+test({
+  query : comment.select(comment.text, comment.userId),
+  pg    : 'SELECT comment."text", comment.userId FROM comment',
+});
