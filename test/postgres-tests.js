@@ -15,33 +15,45 @@ assert.textEqual = function(query, expected) {
 
 assert.paramsEqual = function(query, expected) {
   var q = new Postgres().getQuery(query);
-  assert.equal(q.params.length, expected.length);
-  for(var i = 0; i < q.params.length; i++) {
-    assert.equal(q.params[i], expected[i]);
+  assert.equal(q.values.length, expected.length);
+  for(var i = 0; i < q.values.length; i++) {
+    assert.equal(q.values[i], expected[i]);
   }
 }
 
-var test = function(query, expected) {
+var test = function(expected) {
+  var query = expected.query;
   var pgQuery = new Postgres().getQuery(query);
   var expectedPgText = expected.pg;
   assert.equal(pgQuery.text, expected.pg, 'Postgres text not equal\n actual:   "' + pgQuery.text + '"\n expected: "' + expected.pg + '"');
+  if(expected.params) {
+    assert.equal(expected.params.length, pgQuery.values.length);
+    for(var i = 0; i < expected.params.length; i++) {
+      assert.equal(expected.params[i], pgQuery.values[i]);
+    }
+  }
 }
 
-assert.textEqual(
-  user.select(user.id).from(user), 
-  'SELECT "user".id FROM "user"');
+test({
+  query : user.select(user.id).from(user),
+  pg    : 'SELECT "user".id FROM "user"'
+});
 
-assert.textEqual(
-  user.select(user.id, user.name).from(user), 
-  'SELECT "user".id, "user".name FROM "user"');
+test({
+  query : user.select(user.id, user.name).from(user), 
+  pg    : 'SELECT "user".id, "user".name FROM "user"'
+});
 
-assert.textEqual(
-  user.select(user.star()).from(user),
-  'SELECT "user".* FROM "user"');
+test({
+  query : user.select(user.star()).from(user),
+  pg    : 'SELECT "user".* FROM "user"'
+});
 
-var q = user.select(user.id).from(user).where(user.name.equals('foo'));
-assert.textEqual(q, 'SELECT "user".id FROM "user" WHERE ("user".name = $1)');
-assert.paramsEqual(q, ['foo']);
+test({
+  query : user.select(user.id).from(user).where(user.name.equals('foo')),
+  pg    : 'SELECT "user".id FROM "user" WHERE ("user".name = $1)',
+  params: ['foo']
+});
 
 var q = user.select(user.id).from(user).where(user.name.equals('foo').or(user.name.equals('bar')));
 assert.textEqual(q, 'SELECT "user".id FROM "user" WHERE (("user".name = $1) OR ("user".name = $2))');
