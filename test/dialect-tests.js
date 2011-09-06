@@ -132,7 +132,14 @@ test({
   pg    : 'SELECT post.content FROM post ORDER BY post.content, (post."userId"  DESC)'
 });
 
-console.log('parent queries');
+console.log('insert');
+
+test({
+  query : post.insert(post.content, post.userId).values('test', 1),
+  pg    : 'INSERT INTO post(post.content, post."userId") VALUES($1, $2)'
+});
+
+console.log('IGNORE: parent queries');
 var ignore = function() { 
   var parent = post.select(post.content);
   assert.textEqual(parent, 'SELECT post.content FROM post');
