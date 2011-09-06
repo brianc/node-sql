@@ -135,8 +135,9 @@ test({
 console.log('insert');
 
 test({
-  query : post.insert(post.content, post.userId).values('test', 1),
-  pg    : 'INSERT INTO post(post.content, post."userId") VALUES($1, $2)'
+  query : post.insert(post.content.value('test'), post.userId.value(1)),
+  pg    : 'INSERT INTO post(post.content, post."userId") VALUES($1, $2)',
+  params: ['test', 1]
 });
 
 console.log('IGNORE: parent queries');
