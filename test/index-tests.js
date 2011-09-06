@@ -18,5 +18,5 @@ assert.throws(function() {
 
 sql.setDialect('postgres');
 var query = sql.select(user.id).from(user).where(user.email.equals('brian.m.carlson@gmail.com')).toQuery();
-assert.equal(query.text, 'SELECT user."id" FROM user WHERE (user."email" = $1)');
+assert.equal(query.text, 'SELECT user.id FROM user WHERE (user.email = $1)');
 assert.equal(query.params[0], 'brian.m.carlson@gmail.com')
