@@ -140,6 +140,12 @@ test({
   params: ['test', 1]
 });
 
+test({
+  query : post.insert({content: 'test', userId: 2}),
+  pg    : 'INSERT INTO post (post.content, post."userId") VALUES ($1, $2)',
+  params: ['test', 2]
+});
+
 console.log('IGNORE: parent queries');
 var ignore = function() { 
   var parent = post.select(post.content);
