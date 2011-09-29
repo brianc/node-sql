@@ -141,6 +141,12 @@ test({
 });
 
 test({
+  query : post.insert(post.content.value('whoah')),
+  pg    : 'INSERT INTO post (post.content) VALUES ($1)',
+  params: ['whoah']
+});
+
+test({
   query : post.insert({content: 'test', userId: 2}),
   pg    : 'INSERT INTO post (post.content, post."userId") VALUES ($1, $2)',
   params: ['test', 2]
