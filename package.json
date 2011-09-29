@@ -16,5 +16,7 @@
     "node": "*"
   },
   "dependencies": {},
-  "devDependencies": {}
+  "devDependencies": {
+    "test-dir" : "*"
+  }
 }
