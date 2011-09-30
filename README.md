@@ -1,8 +1,6 @@
 # node-sql
 _sql string builder for node_
 
-m4j0r work in progress...view tests for more examples
-
 ## examples
 
 ```js
@@ -20,3 +18,6 @@ var usersWhoLoggedInBeforeToday = user.select(user.id, user.email).from(user).wh
 console.log(usersWhoLoggedInBeforeToday); 
 // { text: 'SELECT user.'id', user.'email' FROM user WHERE user.'lastLogin' > $1', values: ['2011-01-1'] }
 ```
+## help!
+
+I need help with a mysql and sqlite syntax.  Even if you don't want to contribute code, I could still use some failing tests I can work towards.  You see, I don't really know mysql or sqlite syntax very well, and don't use either database much.  If you'd like to contribute, please message me on github.  I'll give you commit access, and we'll be off to the races.
