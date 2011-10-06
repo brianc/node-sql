@@ -160,6 +160,18 @@ test({
   params: ['test']
 });
 
+test({
+  query : post.update({content: 'test', userId: 3}),
+  pg    : 'UPDATE post SET post.content = $1, post."userId" = $2',
+  params: ['test', 3]
+});
+
+test({
+  query : post.update({content: 'test', userId: 3}).where(post.content.equals('no')),
+  pg    : 'UPDATE post SET post.content = $1, post."userId" = $2 WHERE (post.content = $3)',
+  params: ['test', 3, 'no']
+});
+
 console.log('IGNORE: parent queries');
 var ignore = function() { 
   var parent = post.select(post.content);
