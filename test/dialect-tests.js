@@ -152,6 +152,14 @@ test({
   params: ['test', 2]
 });
 
+console.log('update');
+
+test({
+  query : post.update({content: 'test'}),
+  pg    : 'UPDATE post SET post.content = $1',
+  params: ['test']
+});
+
 console.log('IGNORE: parent queries');
 var ignore = function() { 
   var parent = post.select(post.content);
