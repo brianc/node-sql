@@ -1,18 +1,21 @@
-var assert = require('assert');
+var tap = require('tap').test;
 var Postgres = require(__dirname + '/../lib/dialect/postgres');
 var Table = require(__dirname + '/../lib/table');
 
 var test = function(expected) {
-  var query = expected.query;
-  var pgQuery = new Postgres().getQuery(query);
-  var expectedPgText = expected.pg;
-  assert.equal(pgQuery.text, expected.pg, 'Postgres text not equal\n actual:   "' + pgQuery.text + '"\n expected: "' + expected.pg + '"');
-  if(expected.params) {
-    assert.equal(expected.params.length, pgQuery.values.length);
-    for(var i = 0; i < expected.params.length; i++) {
-      assert.equal(expected.params[i], pgQuery.values[i]);
+  tap(expected.pg, function(t) {
+    var query = expected.query;
+    var pgQuery = new Postgres().getQuery(query);
+    var expectedPgText = expected.pg;
+    t.equal(pgQuery.text, expected.pg, 'Postgres text not equal\n actual:   "' + pgQuery.text + '"\n expected: "' + expected.pg + '"');
+    if(expected.params) {
+      t.equal(expected.params.length, pgQuery.values.length);
+      for(var i = 0; i < expected.params.length; i++) {
+        t.equal(expected.params[i], pgQuery.values[i]);
+      }
     }
-  }
+    t.end();
+  })
 }
 
 var user = Table.define({
@@ -66,9 +69,9 @@ test({
 
 test({
   query : user.select(user.id).from(user)
-            .where(user.name.equals('boom')
-                  .and(user.id.equals(1))).or(user.name.equals('bang').and(user.id.equals(2))),
-  pg    : 'SELECT "user".id FROM "user" WHERE ((("user".name = $1) AND ("user".id = $2)) OR (("user".name = $3) AND ("user".id = $4)))'
+  .where(user.name.equals('boom')
+         .and(user.id.equals(1))).or(user.name.equals('bang').and(user.id.equals(2))),
+         pg    : 'SELECT "user".id FROM "user" WHERE ((("user".name = $1) AND ("user".id = $2)) OR (("user".name = $3) AND ("user".id = $4)))'
 });
 
 var post = Table.define({
@@ -98,13 +101,11 @@ test({
   pg    : 'SELECT p.content, u.name FROM "user" AS u INNER JOIN post AS p ON ((u.id = p."userId") AND (p.content IS NOT NULL))'
 });
 
-console.log('inserting plain SQL');
 test({
   query : user.select('name').from('user').where('name <> NULL'),
   pg    : 'SELECT name FROM user WHERE name <> NULL'
 });
 
-console.log('automatic FROM on "easy" queries');
 test({
   query : post.select(post.content),
   pg    : 'SELECT post.content FROM post'
@@ -115,7 +116,6 @@ test({
   pg    : 'SELECT post.content FROM post WHERE (post."userId" = $1)'
 });
 
-console.log('order by');
 
 test({
   query : post.select(post.content).order(post.content),
@@ -132,7 +132,6 @@ test({
   pg    : 'SELECT post.content FROM post ORDER BY post.content, (post."userId"  DESC)'
 });
 
-console.log('insert');
 
 test({
   query : post.insert(post.content.value('test'), post.userId.value(1)),
@@ -152,7 +151,6 @@ test({
   params: ['test', 2]
 });
 
-console.log('update');
 
 test({
   query : post.update({content: 'test'}),
@@ -172,7 +170,6 @@ test({
   params: ['test', 3, 'no']
 });
 
-console.log('IGNORE: parent queries');
 var ignore = function() { 
   var parent = post.select(post.content);
   assert.textEqual(parent, 'SELECT post.content FROM post');
@@ -181,7 +178,6 @@ var ignore = function() {
   assert.textEqual(child, 'SELECT post.content, post."userId" FROM post WHERE (post."userId" = $1)');
 }
 
-console.log('quoting column names');
 var comment = Table.define({
   name: 'comment',
   columns: [{

@@ -17,6 +17,7 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "test-dir" : "*"
+    "test-dir" : "*",
+    "tap" : "*"
   }
 }

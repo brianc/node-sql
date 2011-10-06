@@ -1,4 +1,4 @@
-var assert = require('assert');
+var test = require('tap').test;
 var sql = require(__dirname + '/../lib');
 
 var user = sql.define({
@@ -6,17 +6,26 @@ var user = sql.define({
   columns: ['id', 'email']
 });
 
-console.log('unknown dialog throws exception');
-assert.throws(function() {
-  sql.setDialect('asdf');
-})
+test('unknown dialect', function(t) {
+  console.log('unknown dialog throws exception');
+  t.throws(function() {
+    sql.setDialect('asdf');
+  })
+  t.end();
+});
 
-//throws before dialog is set
-assert.throws(function() {
-  var query = sql.select(user.id).where(user.email.equals('brian.m.carlson@gmail.com')).toQuery();
-})
 
-sql.setDialect('postgres');
-var query = sql.select(user.id).from(user).where(user.email.equals('brian.m.carlson@gmail.com')).toQuery();
-assert.equal(query.text, 'SELECT user.id FROM user WHERE (user.email = $1)');
-assert.equal(query.values[0], 'brian.m.carlson@gmail.com')
+test('throws before dialect is set', function(t) {
+  t.throws(function() {
+    var query = sql.select(user.id).where(user.email.equals('brian.m.carlson@gmail.com')).toQuery();
+  });
+  t.end();
+});
+
+test('setting dialect to postgres works', function(t) {
+  sql.setDialect('postgres');
+  var query = sql.select(user.id).from(user).where(user.email.equals('brian.m.carlson@gmail.com')).toQuery();
+  t.equal(query.text, 'SELECT user.id FROM user WHERE (user.email = $1)');
+  t.equal(query.values[0], 'brian.m.carlson@gmail.com')
+  t.end();
+});
