@@ -23,4 +23,4 @@ I know this is a cop-out for now, but for more in-depth examples view `test/dial
 
 ## help!
 
-I need help with a mysql and sqlite syntax.  Even if you don't want to contribute code, I could still use some failing tests I can work towards.  You see, I don't really know mysql or sqlite syntax very well, and don't use either database much.  If you'd like to contribute, please message me on github.  I'll give you commit access, and we'll be off to the races.
+I need help with a mysql and sqlite syntax.  Even if you don't want to contribute code, I could still use some failing tests I can work towards.  You see, I don't really know mysql or sqlite syntax very well and don't use either database much.  If you'd like to contribute, please message me on github.  I'll give you commit access, and we'll be off to the races.
