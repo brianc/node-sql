@@ -136,19 +136,19 @@ console.log('insert');
 
 test({
   query : post.insert(post.content.value('test'), post.userId.value(1)),
-  pg    : 'INSERT INTO post (post.content, post."userId") VALUES ($1, $2)',
+  pg    : 'INSERT INTO post (content, "userId") VALUES ($1, $2)',
   params: ['test', 1]
 });
 
 test({
   query : post.insert(post.content.value('whoah')),
-  pg    : 'INSERT INTO post (post.content) VALUES ($1)',
+  pg    : 'INSERT INTO post (content) VALUES ($1)',
   params: ['whoah']
 });
 
 test({
   query : post.insert({content: 'test', userId: 2}),
-  pg    : 'INSERT INTO post (post.content, post."userId") VALUES ($1, $2)',
+  pg    : 'INSERT INTO post (content, "userId") VALUES ($1, $2)',
   params: ['test', 2]
 });
 
