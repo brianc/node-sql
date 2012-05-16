@@ -1,6 +1,8 @@
 # node-sql
 _sql string builder for node_
 
+[![Build Status](https://secure.travis-ci.org/brianc/node-sql.png?branch=master)](http://travis-ci.org/brianc/node-sql)
+
 ## examples
 
 ```js
