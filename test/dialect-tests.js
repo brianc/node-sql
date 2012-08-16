@@ -30,7 +30,7 @@ test({
 });
 
 test({
-  query : user.select(user.id, user.name).from(user), 
+  query : user.select(user.id, user.name).from(user),
   pg    : 'SELECT "user".id, "user".name FROM "user"'
 });
 
@@ -87,7 +87,7 @@ test({
 var u = user.as('u');
 test({
   query : u.select(u.name).from(u),
-  pg    :'SELECT u.name FROM "user" AS u' 
+  pg    :'SELECT u.name FROM "user" AS u'
 });
 
 var p = post.as('p');
@@ -170,7 +170,13 @@ test({
   params: ['test', 3, 'no']
 });
 
-var ignore = function() { 
+test({
+  query : post.delete().where(post.content.equals('')),
+  pg    : 'DELETE FROM post WHERE (post.content = $1)',
+  params: ['']
+});
+
+var ignore = function() {
   var parent = post.select(post.content);
   assert.textEqual(parent, 'SELECT post.content FROM post');
   var child = parent.select(post.userId).where(post.userId.equals(1));
