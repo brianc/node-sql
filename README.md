@@ -17,7 +17,7 @@ var user = sql.define({
 
 //now we make a query
 var usersWhoLoggedInBeforeToday = user.select(user.id, user.email).from(user).where(user.lastLogin.lt(new Date()));
-console.log(usersWhoLoggedInBeforeToday); 
+console.log(usersWhoLoggedInBeforeToday.toQuery());
 // { text: 'SELECT user.'id', user.'email' FROM user WHERE user.'lastLogin' > $1', values: ['2011-01-1'] }
 ```
 
