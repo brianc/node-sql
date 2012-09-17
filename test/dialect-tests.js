@@ -199,3 +199,42 @@ test({
   query : comment.select(comment.text, comment.userId),
   pg    : 'SELECT "comment"."text", "comment"."userId" FROM "comment"',
 });
+
+var userWithSchema = Table.define({
+  schema: 'staging',
+  name: 'user',
+  quote: true,
+  columns: ['id','name']
+})
+
+test({
+  query : userWithSchema.select(userWithSchema.id).from(userWithSchema),
+  pg    : 'SELECT "staging"."user"."id" FROM "staging"."user"'
+});
+
+test({
+  query : userWithSchema.select(userWithSchema.id, userWithSchema.name).from(userWithSchema),
+  pg    : 'SELECT "staging"."user"."id", "staging"."user"."name" FROM "staging"."user"'
+});
+
+var uws = userWithSchema.as('uws');
+test({
+  query : uws.select(uws.name).from(uws),
+  pg    :'SELECT uws."name" FROM "staging"."user" AS uws'
+});
+
+var postWithSchema = Table.define({
+  schema: 'dev',
+  name: 'post',
+  columns: ['id', 'userId', 'content']
+});
+
+test({
+  query : userWithSchema.select(userWithSchema.name, postWithSchema.content).from(userWithSchema.join(postWithSchema).on(userWithSchema.id.equals(postWithSchema.userId))),
+  pg    : 'SELECT "staging"."user"."name", "dev"."post"."content" FROM "staging"."user" INNER JOIN "dev"."post" ON ("staging"."user"."id" = "dev"."post"."userId")'
+});
+
+test({
+  query : uws.select(uws.name, postWithSchema.content).from(uws.join(postWithSchema).on(uws.id.equals(postWithSchema.userId))),
+  pg    : 'SELECT uws."name", "dev"."post"."content" FROM "staging"."user" AS uws INNER JOIN "dev"."post" ON (uws."id" = "dev"."post"."userId")'
+});
