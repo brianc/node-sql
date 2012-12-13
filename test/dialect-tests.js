@@ -68,10 +68,18 @@ test({
 });
 
 test({
-  query : user.select(user.id).from(user)
-  .where(user.name.equals('boom')
-         .and(user.id.equals(1))).or(user.name.equals('bang').and(user.id.equals(2))),
-         pg    : 'SELECT "user"."id" FROM "user" WHERE ((("user"."name" = $1) AND ("user"."id" = $2)) OR (("user"."name" = $3) AND ("user"."id" = $4)))'
+  query : user
+    .select(user.id)
+    .from(user)
+    .where(
+      user.name.equals('boom')
+     .and(user.id.equals(1))
+    ).or(
+      user.name.equals('bang').and(user.id.equals(2))
+    ),
+   pg    : 'SELECT "user"."id" FROM "user" WHERE ((("user"."name" = $1) AND ("user"."id" = $2)) OR (("user"."name" = $3) AND ("user"."id" = $4)))',
+   params: ['boom', 1, 'bang', 2]
+
 });
 
 var post = Table.define({
