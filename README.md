@@ -1,6 +1,12 @@
 # node-sql
 _sql string builder for node_
 
+Let's be honest - hand generating SQL is no fun, especially in a language which has clumsy support for multi-line strings.
+
+But SQL is so good.  We need SQL.  So let's save the day and generate it with a jQuery-esque fluent interface.
+
+Maybe it's still not fun, but at least it's _less not fun_.  That's at least worth a participation award.
+
 [![Build Status](https://secure.travis-ci.org/brianc/node-sql.png?branch=master)](http://travis-ci.org/brianc/node-sql)
 
 ## examples
@@ -51,7 +57,11 @@ There are a __lot__ more examples under `test/dialect-tests.js`
 
 ## contributing
 
-I __love__ contributions.  If you want to contribute here's what you do:
+I __love__ contributions.  If I could, I would write __love__ 500 times, but that would be readme bloat.
+
+Still, that's how much I love them.  Let's work _together_ on this.
+
+If you want to contribute here's what you do:
 
 1. fork the repo
 2. `git pull https://github.com/(your_username)/node-sql`
@@ -69,7 +79,7 @@ If you think your changes are too off-the-wall, open an issue or a pull-request 
 
 __Seriously:__
 
-    your contributions and ideas >= my contributions and ideas.
+    your contributions >= my contributions
 
 I definitely need help with mysql and sqlite syntax.  I'm not very familiar...so that's always a good place to start.
 
