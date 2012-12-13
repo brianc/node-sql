@@ -84,6 +84,16 @@ test({
   pg    : 'SELECT "user"."name", "post"."content" FROM "user" INNER JOIN "post" ON ("user"."id" = "post"."userId")'
 });
 
+test({
+  query : user.select(user.name.as('user name'), user.id.as('user id')).from(user),
+  pg    : 'SELECT "user"."name" as "user name", "user"."id" as "user id" FROM "user"'
+});
+
+test({
+  query : user.select(user.name.as('user name')).from(user).where(user.name.equals('brian')),
+  pg    : 'SELECT "user"."name" as "user name" FROM "user" WHERE ("user"."name" = $1)'
+});
+
 var u = user.as('u');
 test({
   query : u.select(u.name).from(u),
@@ -115,7 +125,6 @@ test({
   query : post.select(post.content).where(post.userId.equals(1)),
   pg    : 'SELECT "post"."content" FROM "post" WHERE ("post"."userId" = $1)'
 });
-
 
 test({
   query : post.select(post.content).order(post.content),
@@ -175,6 +184,7 @@ test({
   pg    : 'DELETE FROM "post" WHERE ("post"."content" = $1)',
   params: ['']
 });
+
 
 var ignore = function() {
   var parent = post.select(post.content);
