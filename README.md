@@ -38,6 +38,10 @@ var query = user
 console.log(query.text); //SELECT "user"."id" FROM "user" WHERE ((("user"."name" = $1) AND ("user"."id" = $2)) OR (("user"."name" = $3) AND ("user"."id" = $4)))
 console.log(query.values); //['boom', 1, 'bang', 2]
 
+
+//how about a join?
+var query = user.select(user.name, post.content).from(user.join(post).on(user.id.equals(post.userId))).toQuery();
+console.log(query.text); //'SELECT "user"."name", "post"."content" FROM "user" INNER JOIN "post" ON ("user"."id" = "post"."userId")'
 ```
 
 There are a __lot__ more examples under `test/dialect-tests.js`
