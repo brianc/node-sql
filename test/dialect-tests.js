@@ -256,3 +256,19 @@ test({
   query : uws.select(uws.name, postWithSchema.content).from(uws.join(postWithSchema).on(uws.id.equals(postWithSchema.userId))),
   pg    : 'SELECT uws."name", "dev"."post"."content" FROM "staging"."user" AS uws INNER JOIN "dev"."post" ON (uws."id" = "dev"."post"."userId")'
 });
+
+//limit and offset
+test({
+  query : user.select(user.star()).from(user).order(user.name.asc).limit(1),
+  pg    : 'SELECT "user".* FROM "user" ORDER BY "user"."name" LIMIT 1'
+});
+
+test({
+  query : user.select(user.star()).from(user).order(user.name.asc).limit(3).offset(6),
+  pg    : 'SELECT "user".* FROM "user" ORDER BY "user"."name" LIMIT 3 OFFSET 6'
+});
+
+test({
+  query : user.select(user.star()).from(user).order(user.name.asc).offset(10),
+  pg    : 'SELECT "user".* FROM "user" ORDER BY "user"."name" OFFSET 10'
+});
