@@ -93,8 +93,8 @@ test({
 });
 
 test({
-  query : user.select(user.name.as('user name'), user.id.as('user id')).from(user),
-  pg    : 'SELECT "user"."name" as "user name", "user"."id" as "user id" FROM "user"'
+  query : user.select(user.name, post.content).from(user.join(post).on(user.id.equals(post.userId))),
+  pg    : 'SELECT "user"."name", "post"."content" FROM "user" INNER JOIN "post" ON ("user"."id" = "post"."userId")'
 });
 
 test({
@@ -142,7 +142,7 @@ test({
 
 test({
   query : post.select(post.content).order(post.content),
-  pg    : 'SELECT "post"."content" FROM "post" ORDER BY "post"."content"',
+  pg    : 'SELECT "post"."content" FROM "post" ORDER BY "post"."content"'
 });
 
 test({
@@ -154,6 +154,23 @@ test({
   query : post.select(post.content).order(post.content.asc, post.userId.desc),
   pg    : 'SELECT "post"."content" FROM "post" ORDER BY "post"."content", ("post"."userId"  DESC)'
 });
+
+//GROUP BY & AGGREGATES
+test({
+  query : post.select(post.content).group(post.userId),
+  pg    : 'SELECT "post"."content" FROM "post" GROUP BY "post"."userId"'
+});
+
+test({
+  query : post.select(post.content.arrayAgg()).group(post.userId),
+  pg    : 'SELECT array_agg("post"."content") as "contents" FROM "post" GROUP BY "post"."userId"'
+});
+
+test({
+  query : post.select(post.content.arrayAgg('post contents')).group(post.userId),
+  pg    : 'SELECT array_agg("post"."content") as "post contents" FROM "post" GROUP BY "post"."userId"'
+});
+
 
 
 test({
