@@ -162,6 +162,11 @@ test({
 });
 
 test({
+  query : post.select(post.content).group(post.userId, post.id),
+  pg    : 'SELECT "post"."content" FROM "post" GROUP BY "post"."userId", "post"."id"'
+});
+
+test({
   query : post.select(post.content.arrayAgg()).group(post.userId),
   pg    : 'SELECT array_agg("post"."content") as "contents" FROM "post" GROUP BY "post"."userId"'
 });
