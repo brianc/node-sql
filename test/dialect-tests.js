@@ -102,6 +102,12 @@ test({
   pg    : 'SELECT "user"."name" as "user name" FROM "user" WHERE ("user"."name" = $1)'
 });
 
+//Fix #10: prevent column state mutation
+test({
+  query : user.select(user.name).from(user).where(user.name.equals('brian')),
+  pg    : 'SELECT "user"."name" FROM "user" WHERE ("user"."name" = $1)'
+});
+
 var u = user.as('u');
 test({
   query : u.select(u.name).from(u),
