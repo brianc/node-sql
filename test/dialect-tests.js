@@ -300,3 +300,14 @@ test({
   query : user.select(user.star()).from(user).order(user.name.asc).offset(10),
   pg    : 'SELECT "user".* FROM "user" ORDER BY "user"."name" OFFSET 10'
 });
+
+//shortcuts
+test({
+  query : user,
+  pg    : 'SELECT "user".* FROM "user"'
+});
+
+test({
+  query : user.where(user.name.equals(3)),
+  pg    : 'SELECT "user".* FROM "user" WHERE ("user"."name" = $1)'
+});
