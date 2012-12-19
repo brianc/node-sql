@@ -93,8 +93,13 @@ test({
 });
 
 test({
-  query : user.select(user.name, post.content).from(user.join(post).on(user.id.equals(post.userId))),
-  pg    : 'SELECT "user"."name", "post"."content" FROM "user" INNER JOIN "post" ON ("user"."id" = "post"."userId")'
+  query : user.select(user.name, post.content).from(user.leftJoin(post).on(user.id.equals(post.userId))),
+  pg    : 'SELECT "user"."name", "post"."content" FROM "user" LEFT JOIN "post" ON ("user"."id" = "post"."userId")'
+});
+
+test({
+  query : user.select(user.name.as('user name'), user.id.as('user id')).from(user),
+  pg    : 'SELECT "user"."name" as "user name", "user"."id" as "user id" FROM "user"'
 });
 
 test({
