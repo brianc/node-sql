@@ -311,3 +311,11 @@ test({
   query : user.where(user.name.equals(3)),
   pg    : 'SELECT "user".* FROM "user" WHERE ("user"."name" = $1)'
 });
+
+var q = user.where(user.name.equals(3))
+  console.log(q)
+  console.log(Object.keys(q))
+test({
+  query : user.where(user.name.equals(3)).where(user.id.equals(1)),
+  pg    : 'SELECT "user".* FROM "user" WHERE (("user"."name" = $1) AND ("user"."id" = $2))'
+});
