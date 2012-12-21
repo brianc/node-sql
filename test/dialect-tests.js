@@ -92,6 +92,23 @@ test({
   pg    : 'SELECT "user"."name", "post"."content" FROM "user" INNER JOIN "post" ON ("user"."id" = "post"."userId")'
 });
 
+var comment = Table.define({
+  name: 'comment',
+  columns: ['postId', 'text']
+});
+
+test({
+  query : user
+            .select(user.name, post.content, comment.text)
+            .from(
+              user
+                .join(post).on(user.id.equals(post.userId))
+                .join(comment).on(post.id.equals(comment.postId))
+            ),
+  pg    : 'SELECT "user"."name", "post"."content", "comment"."text" FROM "user" INNER JOIN "post" ON ("user"."id" = "post"."userId")' +
+          ' INNER JOIN "comment" ON ("post"."id" = "comment"."postId")'
+});
+
 test({
   query : user.select(user.name, post.content).from(user.join(post).on(user.id.equals(post.userId))),
   pg    : 'SELECT "user"."name", "post"."content" FROM "user" INNER JOIN "post" ON ("user"."id" = "post"."userId")'
