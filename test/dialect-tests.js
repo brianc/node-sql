@@ -120,6 +120,23 @@ test({
 });
 
 test({
+  query : user
+    .select(user.name, post.content)
+    .from(user.join(
+      post
+        .subQuery('subposts')
+        .select(post.content, post.userId)
+        .from(post))
+    .on(user.id.equals(post.userId))),
+  pg    : 'SELECT "user"."name", "post"."content" FROM "user" INNER JOIN (SELECT "post"."content", "post"."userId" FROM "post") subposts ON ("user"."id" = "post"."userId")'
+});
+
+test({
+  query : user.select(user.name.as('user name'), user.id.as('user id')).from(user),
+  pg    : 'SELECT "user"."name" as "user name", "user"."id" as "user id" FROM "user"'
+});
+
+test({
   query : user.select(user.name.as('user name')).from(user).where(user.name.equals('brian')),
   pg    : 'SELECT "user"."name" as "user name" FROM "user" WHERE ("user"."name" = $1)'
 });
