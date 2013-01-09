@@ -7,7 +7,7 @@ But SQL is so good.  We need SQL.  So let's save the day and generate it with a 
 
 Maybe it's still not fun, but at least it's _less not fun_.  That's at least worth a participation award.
 
-[![Build Status](https://secure.travis-ci.org/brianc/node-sql.png?branch=master)](http://travis-ci.org/brianc/node-sql)
+[![Build Status](https://secure.travis-ci.org/brianc/node-sql.png)](http://travis-ci.org/brianc/node-sql)
 
 ## examples
 
