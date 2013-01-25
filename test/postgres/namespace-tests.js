@@ -1,0 +1,40 @@
+var Harness = require('./support');
+var Table = require(__dirname + '/../../lib/table');
+var user = Harness.defineUserTable();
+var post = Harness.definePostTable();
+
+var u = user.as('u');
+Harness.test({
+  query : u.select(u.name).from(u),
+  pg    :'SELECT u."name" FROM "user" AS u'
+});
+
+var p = post.as('p');
+Harness.test({
+  query : u.select(u.name).from(u.join(p).on(u.id.equals(p.userId).and(p.id.equals(3)))),
+  pg    : 'SELECT u."name" FROM "user" AS u INNER JOIN "post" AS p ON ((u."id" = p."userId") AND (p."id" = $1))'
+});
+
+Harness.test({
+  query : u.select(p.content, u.name).from(u.join(p).on(u.id.equals(p.userId).and(p.content.isNotNull()))),
+  pg    : 'SELECT p."content", u."name" FROM "user" AS u INNER JOIN "post" AS p ON ((u."id" = p."userId") AND (p."content" IS NOT NULL))'
+});
+
+var comment = Table.define({
+  name: 'comment',
+  columns: [{
+    name: 'text',
+    quote: true
+  }, {
+    name: 'userId',
+    quote: false
+  }]
+});
+
+Harness.test({
+  query : comment.select(comment.text, comment.userId),
+  pg    : 'SELECT "comment"."text", "comment"."userId" FROM "comment"',
+});
+
+
+
