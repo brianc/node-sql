@@ -9,6 +9,11 @@ Harness.test({
   pg    :'SELECT u."name" FROM "user" AS u'
 });
 
+Harness.test({
+  query : u.select(u.star()).from(u),
+  pg    : 'SELECT "u".* FROM "user" AS u'
+});
+
 var p = post.as('p');
 Harness.test({
   query : u.select(u.name).from(u.join(p).on(u.id.equals(p.userId).and(p.id.equals(3)))),
