@@ -45,6 +45,19 @@ Harness.test({
 });
 
 Harness.test({
+  query : user.select(user.id).from(user).where(user.name.in(['foo', 'bar'])),
+  pg    : 'SELECT "user"."id" FROM "user" WHERE ("user"."name" IN ($1, $2))',
+  params: ['foo', 'bar']
+});
+
+Harness.test({
+  query : user.select(user.id).from(user).where(user.name.in(['foo', 'bar']).and(user.id.equals(1))),
+  pg    : 'SELECT "user"."id" FROM "user" WHERE (("user"."name" IN ($1, $2)) AND ("user"."id" = $3))',
+  params: ['foo', 'bar', 1]
+});
+
+
+Harness.test({
   query : user
     .select(user.id)
     .from(user)
