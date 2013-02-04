@@ -260,6 +260,23 @@ test({
   params: ['']
 });
 
+var group = Table.define({
+  name: 'group',
+  columns: [{
+    name: 'id',
+    dataType: 'varchar(100)'
+  }, {
+    name: 'user_id',
+    dataType: 'varchar(100)'
+  }]
+});
+
+test({
+  query : group.create(),
+  pg    : 'CREATE TABLE "group" ("id" varchar(100), "user_id" varchar(100))',
+  params: []
+});
+
 
 var ignore = function() {
   var parent = post.select(post.content);
