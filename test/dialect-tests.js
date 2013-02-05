@@ -260,6 +260,11 @@ test({
   params: ['']
 });
 
+test({
+  query : post.update({content: user.name}).from(user).where(post.userId.equals(user.id)),
+  pg    : 'UPDATE "post" SET "content" = "name" FROM "user" WHERE ("post"."userId" = "user"."id")',
+  params: []
+});
 
 var ignore = function() {
   var parent = post.select(post.content);
