@@ -15,6 +15,12 @@ Harness.test({
 });
 
 Harness.test({
+  query : post.update({content: null, userId: 3}),
+  pg    : 'UPDATE "post" SET "content" = $1, "userId" = $2',
+  params: [null, 3]
+});
+
+Harness.test({
   query : post.update({content: 'test', userId: 3}).where(post.content.equals('no')),
   pg    : 'UPDATE "post" SET "content" = $1, "userId" = $2 WHERE ("post"."content" = $3)',
   params: ['test', 3, 'no']
