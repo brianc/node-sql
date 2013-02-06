@@ -91,3 +91,8 @@ Harness.test({
   query : user.select('name').from('user').where('name <> NULL'),
   pg    : 'SELECT name FROM user WHERE name <> NULL'
 });
+
+Harness.test({
+  query : user.select('name').from('user').where({name: 'brian'}),
+  pg    : 'SELECT name FROM user WHERE ("user"."name" = $1)'
+});
