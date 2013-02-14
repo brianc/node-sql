@@ -28,7 +28,13 @@ Harness.test({
 
 Harness.test({
   query : post.update({content: user.name}).from(user).where(post.userId.equals(user.id)),
-  pg    : 'UPDATE "post" SET "content" = "name" FROM "user" WHERE ("post"."userId" = "user"."id")',
+  pg    : 'UPDATE "post" SET "content" = "user"."name" FROM "user" WHERE ("post"."userId" = "user"."id")',
   params: []
 });
 
+// update() needs to prefix ambiguous source columns; prefixing target columns is not allowed
+Harness.test({
+  query : post.update({userId: user.id}).from(user).where(post.userId.equals(user.id)),
+  pg    : 'UPDATE "post" SET "userId" = "user"."id" FROM "user" WHERE ("post"."userId" = "user"."id")',
+  params: []
+});
