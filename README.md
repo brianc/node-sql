@@ -39,7 +39,7 @@ var query = user
     ).or(
       user.name.equals('bang').and(user.id.equals(2))
     ).toQuery();
-    
+
 //query is parameterized by default
 console.log(query.text); //SELECT "user"."id" FROM "user" WHERE ((("user"."name" = $1) AND ("user"."id" = $2)) OR (("user"."name" = $3) AND ("user"."id" = $4)))
 
@@ -49,11 +49,11 @@ console.log(query.values); //['boom', 1, 'bang', 2]
 //how about a join?
 var query = user.select(user.name, post.content)
   .from(user.join(post).on(user.id.equals(post.userId))).toQuery();
-  
+
 console.log(query.text); //'SELECT "user"."name", "post"."content" FROM "user" INNER JOIN "post" ON ("user"."id" = "post"."userId")'
 ```
 
-There are a __lot__ more examples under `test/dialect-tests.js`
+There are a __lot__ more examples included in the `test` folder.
 
 ## contributing
 
@@ -75,7 +75,7 @@ Once the tests are passing, modify as you see fit.  _Please_ make sure you write
 
 __As long as your pull request doesn't have completely off-the-wall changes and it does have tests I will almost always merge it right away and push it to npm__
 
-If you think your changes are too off-the-wall, open an issue or a pull-request without code so we can discuss them.  
+If you think your changes are too off-the-wall, open an issue or a pull-request without code so we can discuss them.
 
 __Seriously:__
 
