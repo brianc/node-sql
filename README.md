@@ -1,11 +1,11 @@
 # node-sql
 _sql string builder for node_
 
-Let's be honest - hand generating SQL is no fun, especially in a language which has clumsy support for multi-line strings.
+Building SQL statements by hand is no fun, especially in a language which has clumsy support for multi-line strings.
 
-But SQL is so good.  We need SQL.  So let's save the day and generate it with a jQuery-esque fluent interface.
+So let's build it with JavaScript.
 
-Maybe it's still not fun, but at least it's _less not fun_.  That's at least worth a participation award.
+Maybe it's still not fun, but at least it's _less not fun_.
 
 [![Build Status](https://secure.travis-ci.org/brianc/node-sql.png)](http://travis-ci.org/brianc/node-sql)
 
