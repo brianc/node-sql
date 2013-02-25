@@ -27,6 +27,18 @@ Harness.test({
 
 Harness.test({
   query : user
+            .select(user.name, post.content)
+            .from(
+              user
+                .leftJoin(post).on(user.id.equals(post.userId))
+                .leftJoin(comment).on(post.id.equals(comment.postId))
+            ),
+  pg    : 'SELECT "user"."name", "post"."content" FROM "user" LEFT JOIN "post" ON ("user"."id" = "post"."userId")' +
+          ' LEFT JOIN "comment" ON ("post"."id" = "comment"."postId")'
+});
+
+Harness.test({
+  query : user
     .select(user.name, post.content)
     .from(user.join(
       post
