@@ -1,3 +1,5 @@
+'use strict';
+
 var assert = require('assert');
 var Select = require(__dirname + '/../lib/node/select');
 

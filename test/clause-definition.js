@@ -1,10 +1,12 @@
+'use strict';
+
 var test = require('tap').test;
 var Node = require(__dirname + '/../lib/node/');
 
 console.log('node definition');
 var Bang = Node.define({
   type: 'SELECT'
-})
+});
 
 var Boom = Node.define({
   constructor: function(n) {
@@ -26,4 +28,4 @@ test('clause definition', function(t) {
   t.equal(q2.nodes.length, 0);
   t.equal(q2.name, 'bai');
   t.end();
-})
+});
