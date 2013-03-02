@@ -1,3 +1,5 @@
+'use strict';
+
 var test = require('tap').test;
 var Column = require(__dirname + '/../lib/column');
 var Table = require(__dirname + '/../lib/table');
@@ -5,7 +7,7 @@ var Table = require(__dirname + '/../lib/table');
 var Foo = Table.define({
   name: 'foo',
   columns: ['baz','bar']
-})
+});
 
 test('operators', function(t) {
   t.equal(Foo.baz.equals(1).operator, '=');
@@ -20,4 +22,4 @@ test('operators', function(t) {
   t.equal(Foo.baz.lt(1).operator, '<');
   t.equal(Foo.baz.lte(1).operator, '<=');
   t.end();
-})
+});

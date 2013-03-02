@@ -1,3 +1,5 @@
+'use strict';
+
 var Harness = require('./support');
 var Table = require(__dirname + '/../../lib/table');
 var user = Harness.defineUserTable();
@@ -38,7 +40,7 @@ var comment = Table.define({
 
 Harness.test({
   query : comment.select(comment.text, comment.userId),
-  pg    : 'SELECT "comment"."text", "comment"."userId" FROM "comment"',
+  pg    : 'SELECT "comment"."text", "comment"."userId" FROM "comment"'
 });
 
 
