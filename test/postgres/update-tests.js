@@ -1,3 +1,5 @@
+'use strict';
+
 var Harness = require('./support');
 var post = Harness.definePostTable();
 var user = Harness.defineUserTable();

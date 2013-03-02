@@ -1,3 +1,5 @@
+'use strict';
+
 var Harness = require('./support');
 var user = Harness.defineUserTable();
 
@@ -45,13 +47,13 @@ Harness.test({
 });
 
 Harness.test({
-  query : user.select(user.id).from(user).where(user.name.in(['foo', 'bar'])),
+  query : user.select(user.id).from(user).where(user.name['in'](['foo', 'bar'])),
   pg    : 'SELECT "user"."id" FROM "user" WHERE ("user"."name" IN ($1, $2))',
   params: ['foo', 'bar']
 });
 
 Harness.test({
-  query : user.select(user.id).from(user).where(user.name.in(['foo', 'bar']).and(user.id.equals(1))),
+  query : user.select(user.id).from(user).where(user.name['in'](['foo', 'bar']).and(user.id.equals(1))),
   pg    : 'SELECT "user"."id" FROM "user" WHERE (("user"."name" IN ($1, $2)) AND ("user"."id" = $3))',
   params: ['foo', 'bar', 1]
 });
