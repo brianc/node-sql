@@ -11,10 +11,10 @@ Harness.test({
 
 Harness.test({
   query : post.select(post.content).order(post.content, post.userId.descending),
-  pg    : 'SELECT "post"."content" FROM "post" ORDER BY "post"."content", ("post"."userId"  DESC)'
+  pg    : 'SELECT "post"."content" FROM "post" ORDER BY "post"."content", ("post"."userId" DESC)'
 });
 
 Harness.test({
   query : post.select(post.content).order(post.content.asc, post.userId.desc),
-  pg    : 'SELECT "post"."content" FROM "post" ORDER BY "post"."content", ("post"."userId"  DESC)'
+  pg    : 'SELECT "post"."content" FROM "post" ORDER BY "post"."content", ("post"."userId" DESC)'
 });
