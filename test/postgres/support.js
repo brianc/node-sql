@@ -18,7 +18,7 @@ module.exports = {
 
         var DialectClass = dialects[dialect];
 
-        var title = DialectClass.name+': '+(expected.title || expected[dialect].text || expected[dialect]);
+        var title = dialect+': '+(expected.title || expected[dialect].text || expected[dialect]);
         tap(title, function(t) {
 
           // check if this query is expected to throw
