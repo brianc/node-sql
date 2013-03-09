@@ -11,12 +11,11 @@ var directories = [
 ];
 
 directories.forEach(function (d) {
-  fs.readdir(d, function(err, files) {
-    if(err) throw err;
-    /*jshint boss: true */
-    for(var i = 0, file; file = files[i]; i++) {
-      var filePath = path.join(d, file);
-      require(filePath);
-    }
-  });
+  var files = fs.readdirSync(d);
+  /*jshint boss: true */
+  for(var i = 0, file; file = files[i]; i++) {
+    var filePath = path.join(d, file);
+    console.log(filePath);
+    require(filePath);
+  }
 });
