@@ -17,11 +17,13 @@ var group = Table.define({
 Harness.test({
   query : group.create(),
   pg    : 'CREATE TABLE "group" ("id" varchar(100), "user_id" varchar(100))',
+  mysql : 'CREATE TABLE `group` (`id` varchar(100), `user_id` varchar(100))',
   params: []
 });
 
 Harness.test({
   query : group.create().ifNotExists(),
   pg    : 'CREATE TABLE IF NOT EXISTS "group" ("id" varchar(100), "user_id" varchar(100))',
+  mysql : 'CREATE TABLE IF NOT EXISTS `group` (`id` varchar(100), `user_id` varchar(100))',
   params: []
 });
