@@ -5,56 +5,66 @@ var user = Harness.defineUserTable();
 
 Harness.test({
   query : user.select(user.id).from(user),
-  pg    : 'SELECT "user"."id" FROM "user"'
+  pg    : 'SELECT "user"."id" FROM "user"',
+  mysql : 'SELECT `user`.`id` FROM `user`'
 });
 
 Harness.test({
   query : user.select(user.id, user.name).from(user),
-  pg    : 'SELECT "user"."id", "user"."name" FROM "user"'
+  pg    : 'SELECT "user"."id", "user"."name" FROM "user"',
+  mysql : 'SELECT `user`.`id`, `user`.`name` FROM `user`'
 });
 
 Harness.test({
   query : user.select(user.star()).from(user),
-  pg    : 'SELECT "user".* FROM "user"'
+  pg    : 'SELECT "user".* FROM "user"',
+  mysql : 'SELECT `user`.* FROM `user`'
 });
 
 Harness.test({
   query : user.select(user.id).from(user).where(user.name.equals('foo')),
   pg    : 'SELECT "user"."id" FROM "user" WHERE ("user"."name" = $1)',
+  mysql : 'SELECT `user`.`id` FROM `user` WHERE (`user`.`name` = ?)',
   params: ['foo']
 });
 
 Harness.test({
   query : user.select(user.id).from(user).where(user.name.equals('foo').or(user.name.equals('bar'))),
   pg    : 'SELECT "user"."id" FROM "user" WHERE (("user"."name" = $1) OR ("user"."name" = $2))',
+  mysql : 'SELECT `user`.`id` FROM `user` WHERE ((`user`.`name` = ?) OR (`user`.`name` = ?))',
   params: ['foo', 'bar']
 });
 
 Harness.test({
   query : user.select(user.id).from(user).where(user.name.equals('foo').and(user.name.equals('bar'))),
   pg    : 'SELECT "user"."id" FROM "user" WHERE (("user"."name" = $1) AND ("user"."name" = $2))',
+  mysql : 'SELECT `user`.`id` FROM `user` WHERE ((`user`.`name` = ?) AND (`user`.`name` = ?))',
   params: ['foo', 'bar']
 });
 
 Harness.test({
   query : user.select(user.id).from(user).where(user.name.equals('foo')).or(user.name.equals('bar')),
-  pg    : 'SELECT "user"."id" FROM "user" WHERE (("user"."name" = $1) OR ("user"."name" = $2))'
+  pg    : 'SELECT "user"."id" FROM "user" WHERE (("user"."name" = $1) OR ("user"."name" = $2))',
+  mysql : 'SELECT `user`.`id` FROM `user` WHERE ((`user`.`name` = ?) OR (`user`.`name` = ?))'
 });
 
 Harness.test({
   query : user.select(user.id).from(user).where(user.name.equals('foo')).or(user.name.equals('baz')).and(user.name.equals('bar')),
-  pg    : 'SELECT "user"."id" FROM "user" WHERE ((("user"."name" = $1) OR ("user"."name" = $2)) AND ("user"."name" = $3))'
+  pg    : 'SELECT "user"."id" FROM "user" WHERE ((("user"."name" = $1) OR ("user"."name" = $2)) AND ("user"."name" = $3))',
+  mysql : 'SELECT `user`.`id` FROM `user` WHERE (((`user`.`name` = ?) OR (`user`.`name` = ?)) AND (`user`.`name` = ?))'
 });
 
 Harness.test({
   query : user.select(user.id).from(user).where(user.name['in'](['foo', 'bar'])),
   pg    : 'SELECT "user"."id" FROM "user" WHERE ("user"."name" IN ($1, $2))',
+  mysql : 'SELECT `user`.`id` FROM `user` WHERE (`user`.`name` IN (?, ?))',
   params: ['foo', 'bar']
 });
 
 Harness.test({
   query : user.select(user.id).from(user).where(user.name['in'](['foo', 'bar']).and(user.id.equals(1))),
   pg    : 'SELECT "user"."id" FROM "user" WHERE (("user"."name" IN ($1, $2)) AND ("user"."id" = $3))',
+  mysql : 'SELECT `user`.`id` FROM `user` WHERE ((`user`.`name` IN (?, ?)) AND (`user`.`id` = ?))',
   params: ['foo', 'bar', 1]
 });
 
@@ -70,31 +80,54 @@ Harness.test({
       user.name.equals('bang').and(user.id.equals(2))
     ),
    pg    : 'SELECT "user"."id" FROM "user" WHERE ((("user"."name" = $1) AND ("user"."id" = $2)) OR (("user"."name" = $3) AND ("user"."id" = $4)))',
+   mysql : 'SELECT `user`.`id` FROM `user` WHERE (((`user`.`name` = ?) AND (`user`.`id` = ?)) OR ((`user`.`name` = ?) AND (`user`.`id` = ?)))',
    params: ['boom', 1, 'bang', 2]
 });
 
 Harness.test({
   query : user.select(user.name.as('user name'), user.id.as('user id')).from(user),
-  pg    : 'SELECT "user"."name" as "user name", "user"."id" as "user id" FROM "user"'
+  pg    : 'SELECT "user"."name" AS "user name", "user"."id" AS "user id" FROM "user"',
+  mysql : 'SELECT `user`.`name` AS `user name`, `user`.`id` AS `user id` FROM `user`'
 });
 
 Harness.test({
   query : user.select(user.name.as('user name')).from(user).where(user.name.equals('brian')),
-  pg    : 'SELECT "user"."name" as "user name" FROM "user" WHERE ("user"."name" = $1)'
+  pg    : 'SELECT "user"."name" AS "user name" FROM "user" WHERE ("user"."name" = $1)',
+  mysql : 'SELECT `user`.`name` AS `user name` FROM `user` WHERE (`user`.`name` = ?)',
+  params: ['brian']
 });
 
 //Fix #10: prevent column state mutation
 Harness.test({
   query : user.select(user.name).from(user).where(user.name.equals('brian')),
-  pg    : 'SELECT "user"."name" FROM "user" WHERE ("user"."name" = $1)'
+  pg    : 'SELECT "user"."name" FROM "user" WHERE ("user"."name" = $1)',
+  mysql : 'SELECT `user`.`name` FROM `user` WHERE (`user`.`name` = ?)'
 });
 
 Harness.test({
   query : user.select('name').from('user').where('name <> NULL'),
-  pg    : 'SELECT name FROM user WHERE name <> NULL'
+  pg    : 'SELECT name FROM user WHERE name <> NULL',
+  mysql : 'SELECT name FROM user WHERE name <> NULL',
+  params: []
+});
+
+Harness.test({
+  query : user.select('name,id').from('user').where('name <> NULL'),
+  pg    : 'SELECT name,id FROM user WHERE name <> NULL',
+  mysql : 'SELECT name,id FROM user WHERE name <> NULL',
+  params: []
+});
+
+Harness.test({
+  query : user.select('name','id').from('user').where('name <> NULL'),
+  pg    : 'SELECT name, id FROM user WHERE name <> NULL',
+  mysql : 'SELECT name, id FROM user WHERE name <> NULL',
+  params: []
 });
 
 Harness.test({
   query : user.select('name').from('user').where({name: 'brian'}),
-  pg    : 'SELECT name FROM user WHERE ("user"."name" = $1)'
+  pg    : 'SELECT name FROM user WHERE ("user"."name" = $1)',
+  mysql : 'SELECT name FROM user WHERE (`user`.`name` = ?)',
+  params: ['brian']
 });

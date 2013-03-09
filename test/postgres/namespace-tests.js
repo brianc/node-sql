@@ -8,23 +8,28 @@ var post = Harness.definePostTable();
 var u = user.as('u');
 Harness.test({
   query : u.select(u.name).from(u),
-  pg    :'SELECT u."name" FROM "user" AS u'
+  pg    :'SELECT "u"."name" FROM "user" AS "u"',
+  mysql :'SELECT `u`.`name` FROM `user` AS `u`'
 });
 
 Harness.test({
   query : u.select(u.star()).from(u),
-  pg    : 'SELECT "u".* FROM "user" AS u'
+  pg    : 'SELECT "u".* FROM "user" AS "u"',
+  mysql : 'SELECT `u`.* FROM `user` AS `u`'
 });
 
 var p = post.as('p');
 Harness.test({
   query : u.select(u.name).from(u.join(p).on(u.id.equals(p.userId).and(p.id.equals(3)))),
-  pg    : 'SELECT u."name" FROM "user" AS u INNER JOIN "post" AS p ON ((u."id" = p."userId") AND (p."id" = $1))'
+  pg    : 'SELECT "u"."name" FROM "user" AS "u" INNER JOIN "post" AS "p" ON (("u"."id" = "p"."userId") AND ("p"."id" = $1))',
+  mysql : 'SELECT `u`.`name` FROM `user` AS `u` INNER JOIN `post` AS `p` ON ((`u`.`id` = `p`.`userId`) AND (`p`.`id` = ?))',
+  params : [3]
 });
 
 Harness.test({
   query : u.select(p.content, u.name).from(u.join(p).on(u.id.equals(p.userId).and(p.content.isNotNull()))),
-  pg    : 'SELECT p."content", u."name" FROM "user" AS u INNER JOIN "post" AS p ON ((u."id" = p."userId") AND (p."content" IS NOT NULL))'
+  pg    : 'SELECT "p"."content", "u"."name" FROM "user" AS "u" INNER JOIN "post" AS "p" ON (("u"."id" = "p"."userId") AND ("p"."content" IS NOT NULL))',
+  mysql : 'SELECT `p`.`content`, `u`.`name` FROM `user` AS `u` INNER JOIN `post` AS `p` ON ((`u`.`id` = `p`.`userId`) AND (`p`.`content` IS NOT NULL))'
 });
 
 var comment = Table.define({
@@ -40,7 +45,8 @@ var comment = Table.define({
 
 Harness.test({
   query : comment.select(comment.text, comment.userId),
-  pg    : 'SELECT "comment"."text", "comment"."userId" FROM "comment"'
+  pg    : 'SELECT "comment"."text", "comment"."userId" FROM "comment"',
+  mysql : 'SELECT `comment`.`text`, `comment`.`userId` FROM `comment`'
 });
 
 
