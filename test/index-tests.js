@@ -9,7 +9,7 @@ var user = sql.define({
 });
 
 test('unknown dialect', function(t) {
-  console.log('unknown dialog throws exception');
+  console.log('unknown dialect throws exception');
   t.throws(function() {
     sql.setDialect('asdf');
   });
