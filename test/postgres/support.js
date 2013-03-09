@@ -1,8 +1,6 @@
 'use strict';
 
 var tap = require('tap').test;
-var Postgres = require('../../lib/dialect/postgres');
-var Mysql = require('../../lib/dialect/mysql');
 var Table = require(__dirname + '/../../lib/table');
 
 // specify dialect classes
