@@ -7,7 +7,7 @@ var testDir = path.dirname(require.main.filename);
 
 var directories = [
   testDir,
-  testDir + '/postgres'
+  testDir + '/dialects'
 ];
 
 directories.forEach(function (d) {
