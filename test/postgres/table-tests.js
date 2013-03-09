@@ -131,3 +131,10 @@ Harness.test({
   mysql : 'SELECT name FROM user WHERE (`user`.`name` = ?)',
   params: ['brian']
 });
+
+Harness.test({
+  query : user.select(user.name.as('quote"quote"tick`tick`')),
+  pg    : 'SELECT "user"."name" AS "quote""quote""tick`tick`" FROM "user"',
+  mysql : 'SELECT `user`.`name` AS `quote"quote"tick``tick``` FROM `user`',
+  params: []
+});
