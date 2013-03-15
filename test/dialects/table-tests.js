@@ -120,24 +120,33 @@ Harness.test({
 
 Harness.test({
   query : user.select('name').from('user').where('name <> NULL'),
-  pg    : 'SELECT name FROM user WHERE name <> NULL',
-  sqlite: 'SELECT name FROM user WHERE name <> NULL',
-  mysql : 'SELECT name FROM user WHERE name <> NULL',
+  pg    : 'SELECT name FROM user WHERE (name <> NULL)',
+  sqlite: 'SELECT name FROM user WHERE (name <> NULL)',
+  mysql : 'SELECT name FROM user WHERE (name <> NULL)',
   params: []
 });
 
 Harness.test({
   query : user.select('name,id').from('user').where('name <> NULL'),
-  pg    : 'SELECT name,id FROM user WHERE name <> NULL',
-  sqlite: 'SELECT name,id FROM user WHERE name <> NULL',
-  mysql : 'SELECT name,id FROM user WHERE name <> NULL',
+  pg    : 'SELECT name,id FROM user WHERE (name <> NULL)',
+  sqlite: 'SELECT name,id FROM user WHERE (name <> NULL)',
+  mysql : 'SELECT name,id FROM user WHERE (name <> NULL)',
   params: []
 });
 
 Harness.test({
   query : user.select('name','id').from('user').where('name <> NULL'),
-  pg    : 'SELECT name, id FROM user WHERE name <> NULL',
-  mysql : 'SELECT name, id FROM user WHERE name <> NULL',
+  pg    : 'SELECT name, id FROM user WHERE (name <> NULL)',
+  sqlite: 'SELECT name, id FROM user WHERE (name <> NULL)',
+  mysql : 'SELECT name, id FROM user WHERE (name <> NULL)',
+  params: []
+});
+
+Harness.test({
+  query : user.select('name','id').from('user').where('name <> NULL').and('id <> NULL'),
+  pg    : 'SELECT name, id FROM user WHERE ((name <> NULL) AND (id <> NULL))',
+  sqlite: 'SELECT name, id FROM user WHERE ((name <> NULL) AND (id <> NULL))',
+  mysql : 'SELECT name, id FROM user WHERE ((name <> NULL) AND (id <> NULL))',
   params: []
 });
 
