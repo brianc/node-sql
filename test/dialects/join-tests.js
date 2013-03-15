@@ -51,36 +51,20 @@ Harness.test({
           ' LEFT JOIN `comment` ON (`post`.`id` = `comment`.`postId`)'
 });
 
-// this query won't create valid SQL because post is joined as subposts
-Harness.test({
-  query : user
-    .select(user.name, post.content)
-    .from(user.join(
-      post
-        .subQuery('subposts')
-        .select(post.content, post.userId)
-        .from(post))
-    .on(user.id.equals(post.userId))),
-  pg    : 'SELECT "user"."name", "post"."content" FROM "user" INNER JOIN (SELECT "post"."content", "post"."userId" FROM "post") subposts ON ("user"."id" = "post"."userId")',
-  sqlite: 'SELECT "user"."name", "post"."content" FROM "user" INNER JOIN (SELECT "post"."content", "post"."userId" FROM "post") subposts ON ("user"."id" = "post"."userId")',
-  mysql : 'SELECT `user`.`name`, `post`.`content` FROM `user` INNER JOIN (SELECT `post`.`content`, `post`.`userId` FROM `post`) subposts ON (`user`.`id` = `post`.`userId`)'
-});
-
-// this would be the correct way to use a subquery
 var subposts = post
   .subQuery('subposts')
   .select(
-    post.content.as('subpostContent'),
+    post.content,
     post.userId.as('subpostUserId'))
   .from(post);
 
 Harness.test({
   query : user
-    .select(user.name, subposts.subpostContent)
+    .select(user.name, subposts.content)
     .from(user.join(subposts)
     .on(user.id.equals(subposts.subpostUserId))),
-  pg    : 'SELECT "user"."name", "subposts"."subpostContent" FROM "user" INNER JOIN (SELECT "post"."content" AS "subpostContent", "post"."userId" AS "subpostUserId" FROM "post") subposts ON ("user"."id" = "subposts"."subpostUserId")',
-  sqlite: 'SELECT "user"."name", "subposts"."subpostContent" FROM "user" INNER JOIN (SELECT "post"."content" AS "subpostContent", "post"."userId" AS "subpostUserId" FROM "post") subposts ON ("user"."id" = "subposts"."subpostUserId")',
-  mysql : 'SELECT `user`.`name`, `subposts`.`subpostContent` FROM `user` INNER JOIN (SELECT `post`.`content` AS `subpostContent`, `post`.`userId` AS `subpostUserId` FROM `post`) subposts ON (`user`.`id` = `subposts`.`subpostUserId`)'
+  pg    : 'SELECT "user"."name", "subposts"."content" FROM "user" INNER JOIN (SELECT "post"."content", "post"."userId" AS "subpostUserId" FROM "post") subposts ON ("user"."id" = "subposts"."subpostUserId")',
+  sqlite: 'SELECT "user"."name", "subposts"."content" FROM "user" INNER JOIN (SELECT "post"."content", "post"."userId" AS "subpostUserId" FROM "post") subposts ON ("user"."id" = "subposts"."subpostUserId")',
+  mysql : 'SELECT `user`.`name`, `subposts`.`content` FROM `user` INNER JOIN (SELECT `post`.`content`, `post`.`userId` AS `subpostUserId` FROM `post`) subposts ON (`user`.`id` = `subposts`.`subpostUserId`)'
 });
 
