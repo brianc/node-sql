@@ -6,6 +6,7 @@ var post = Harness.definePostTable();
 Harness.test({
   query : post.insert(post.content.value('test'), post.userId.value(1)),
   pg    : 'INSERT INTO "post" ("content", "userId") VALUES ($1, $2)',
+  sqlite: 'INSERT INTO "post" ("content", "userId") VALUES ($1, $2)',
   mysql : 'INSERT INTO `post` (`content`, `userId`) VALUES (?, ?)',
   params: ['test', 1]
 });
@@ -14,6 +15,7 @@ Harness.test({
 Harness.test({
   query : post.insert(post.content.value('whoah')),
   pg    : 'INSERT INTO "post" ("content") VALUES ($1)',
+  sqlite: 'INSERT INTO "post" ("content") VALUES ($1)',
   mysql : 'INSERT INTO `post` (`content`) VALUES (?)',
   params: ['whoah']
 });
@@ -21,6 +23,7 @@ Harness.test({
 Harness.test({
   query : post.insert({content: 'test', userId: 2}),
   pg    : 'INSERT INTO "post" ("content", "userId") VALUES ($1, $2)',
+  sqlite: 'INSERT INTO "post" ("content", "userId") VALUES ($1, $2)',
   mysql : 'INSERT INTO `post` (`content`, `userId`) VALUES (?, ?)',
   params: ['test', 2]
 });
@@ -29,6 +32,7 @@ Harness.test({
 Harness.test({
   query : post.insert([{content: 'whoah'}, {content: 'hey'}]),
   pg    : 'INSERT INTO "post" ("content") VALUES ($1), ($2)',
+  sqlite: 'INSERT INTO "post" ("content") VALUES ($1), ($2)',
   mysql : 'INSERT INTO `post` (`content`) VALUES (?), (?)',
   params: ['whoah', 'hey']
 });
@@ -36,6 +40,7 @@ Harness.test({
 Harness.test({
   query : post.insert([{content: 'whoah', userId: 1}, {content: 'hey', userId: 2}]),
   pg    : 'INSERT INTO "post" ("content", "userId") VALUES ($1, $2), ($3, $4)',
+  sqlite: 'INSERT INTO "post" ("content", "userId") VALUES ($1, $2), ($3, $4)',
   mysql : 'INSERT INTO `post` (`content`, `userId`) VALUES (?, ?), (?, ?)',
   params: ['whoah', 1, 'hey', 2]
 });
@@ -45,6 +50,7 @@ Harness.test({
 Harness.test({
   query : post.insert([{content: 'whoah', userId: 1}, {userId: 2, content: 'hey' }]),
   pg    : 'INSERT INTO "post" ("content", "userId") VALUES ($1, $2), ($3, $4)',
+  sqlite: 'INSERT INTO "post" ("content", "userId") VALUES ($1, $2), ($3, $4)',
   mysql : 'INSERT INTO `post` (`content`, `userId`) VALUES (?, ?), (?, ?)',
   params: ['whoah', 1, 'hey', 2]
 });
@@ -56,6 +62,10 @@ Harness.test({
   pg    : {
     text: 'INSERT INTO "post" ("content", "userId") VALUES ($1, $2), ($3, $4)',
     params: ['whoah', 1, 'hey', 'DEFAULT']
+  },
+  sqlite: {
+    text: 'Sqlite requires the same number of columns in each insert row',
+    throws: true
   },
   mysql : {
     text: 'INSERT INTO `post` (`content`, `userId`) VALUES (?, ?), (?, DEFAULT)',
@@ -69,6 +79,10 @@ Harness.test({
     text: 'INSERT INTO "post" ("userId", "content") VALUES ($1, $2), ($3, $4)',
     params: [1, 'DEFAULT', 2, 'hey']
   },
+  sqlite: {
+    text: 'Sqlite requires the same number of columns in each insert row',
+    throws: true
+  },
   mysql : {
     text: 'INSERT INTO `post` (`userId`, `content`) VALUES (?, DEFAULT), (?, ?)',
     params: [1, 2, 'hey']
@@ -77,14 +91,10 @@ Harness.test({
 
 Harness.test({
   query : post.insert({}),
-  pg    : {
-    text: 'INSERT INTO "post" DEFAULT VALUES',
-    params: []
-  },
-  mysql : {
-    text: 'INSERT INTO `post` () VALUES ()',
-    params: []
-  }
+  pg    : 'INSERT INTO "post" DEFAULT VALUES',
+  sqlite: 'INSERT INTO "post" DEFAULT VALUES',
+  mysql : 'INSERT INTO `post` () VALUES ()',
+  params: []
 });
 
 
