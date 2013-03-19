@@ -89,4 +89,12 @@ Harness.test({
   }
 });
 
+Harness.test({
+  query : post.insert({}),
+  pg    : 'INSERT INTO "post" DEFAULT VALUES',
+  sqlite: 'INSERT INTO "post" DEFAULT VALUES',
+  mysql : 'INSERT INTO `post` () VALUES ()',
+  params: []
+});
+
 
