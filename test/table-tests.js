@@ -43,3 +43,35 @@ test('table', function(t) {
   t.equal(user.name.table, user);
   t.end();
 });
+
+test('table with fancier column definitions', function(t) {
+  var table = Table.define({
+    name: 'blah',
+    columns: [{
+      name: 'id',
+      type: 'serial',
+      notNull: true,
+      primaryKey: true
+    }, {
+      name: 'email',
+      type: 'text',
+      notNull: true,
+      unique: true,
+      anythingYouWant: 'awesome'
+    }]
+  });
+  var cols = table.columns;
+  t.equals(cols.length, 2);
+  var id = cols[0];
+  t.equals(id.name, 'id');
+  t.equals(id.type, 'serial');
+  t.equals(id.notNull, true);
+  t.equals(id.primaryKey, true);
+  var email = cols[1];
+  t.equals(email.name, 'email');
+  t.equals(email.type, 'text');
+  t.equals(email.notNull, true);
+  t.equals(email.unique, true);
+  t.equals(email.anythingYouWant, 'awesome');
+  t.end();
+});
