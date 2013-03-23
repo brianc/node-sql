@@ -103,4 +103,36 @@ Harness.test({
   sqlite: 'INSERT INTO "post" DEFAULT VALUES RETURNING *',
   mysql : 'INSERT INTO `post` () VALUES () RETURNING *',
   params: []
-})
+});
+
+Harness.test({
+  query : post.insert({}).returning(post.star()),
+  pg    : 'INSERT INTO "post" DEFAULT VALUES RETURNING *',
+  sqlite: 'INSERT INTO "post" DEFAULT VALUES RETURNING *',
+  mysql : 'INSERT INTO `post` () VALUES () RETURNING *',
+  params: []
+});
+
+Harness.test({
+  query : post.insert({}).returning(post.id),
+  pg    : 'INSERT INTO "post" DEFAULT VALUES RETURNING "id"',
+  sqlite: 'INSERT INTO "post" DEFAULT VALUES RETURNING "id"',
+  mysql : 'INSERT INTO `post` () VALUES () RETURNING `id`',
+  params: []
+});
+
+Harness.test({
+  query : post.insert({}).returning(post.id, post.content),
+  pg    : 'INSERT INTO "post" DEFAULT VALUES RETURNING "id", "content"',
+  sqlite: 'INSERT INTO "post" DEFAULT VALUES RETURNING "id", "content"',
+  mysql : 'INSERT INTO `post` () VALUES () RETURNING `id`, `content`',
+  params: []
+});
+
+Harness.test({
+  query : post.insert({}).returning([post.id, post.content]),
+  pg    : 'INSERT INTO "post" DEFAULT VALUES RETURNING "id", "content"',
+  sqlite: 'INSERT INTO "post" DEFAULT VALUES RETURNING "id", "content"',
+  mysql : 'INSERT INTO `post` () VALUES () RETURNING `id`, `content`',
+  params: []
+});
