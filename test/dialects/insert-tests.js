@@ -97,4 +97,10 @@ Harness.test({
   params: []
 });
 
-
+Harness.test({
+  query : post.insert({}).returning('*'),
+  pg    : 'INSERT INTO "post" DEFAULT VALUES RETURNING *',
+  sqlite: 'INSERT INTO "post" DEFAULT VALUES RETURNING *',
+  mysql : 'INSERT INTO `post` () VALUES () RETURNING *',
+  params: []
+})
