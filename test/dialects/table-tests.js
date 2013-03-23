@@ -78,6 +78,14 @@ Harness.test({
   params: ['foo', 'bar', 1]
 });
 
+Harness.test({
+  query : user.select(user.columns),
+  pg    : 'SELECT "user"."id", "user"."name" FROM "user"',
+  sqlite: 'SELECT "user"."id", "user"."name" FROM "user"',
+  mysql : 'SELECT `user`.`id`, `user`.`name` FROM `user`',
+  params: []
+});
+
 
 Harness.test({
   query : user
