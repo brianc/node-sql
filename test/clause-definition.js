@@ -10,6 +10,7 @@ var Bang = Node.define({
 
 var Boom = Node.define({
   constructor: function(n) {
+    Node.call(this);
     this.name = n;
   }
 });
