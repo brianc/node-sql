@@ -67,4 +67,3 @@ Harness.test({
   sqlite: 'SELECT "user"."name", "subposts"."content" FROM "user" INNER JOIN (SELECT "post"."content", "post"."userId" AS "subpostUserId" FROM "post") subposts ON ("user"."id" = "subposts"."subpostUserId")',
   mysql : 'SELECT `user`.`name`, `subposts`.`content` FROM `user` INNER JOIN (SELECT `post`.`content`, `post`.`userId` AS `subpostUserId` FROM `post`) subposts ON (`user`.`id` = `subposts`.`subpostUserId`)'
 });
-

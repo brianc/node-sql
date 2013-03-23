@@ -15,7 +15,9 @@
   "engines": {
     "node": "*"
   },
-  "dependencies": {},
+  "dependencies": {
+    "sliced": "0.0.5"
+  },
   "devDependencies": {
     "test-dir" : "*",
     "tap" : "*"

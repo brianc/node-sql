@@ -35,3 +35,12 @@ Harness.test({
   mysql : 'SELECT GROUP_CONCAT(`post`.`content`) AS `post contents` FROM `post` GROUP BY `post`.`userId`',
   params: []
 });
+
+Harness.test({
+  query : post.select(post.content).group([post.userId, post.id]),
+  pg    : 'SELECT "post"."content" FROM "post" GROUP BY "post"."userId", "post"."id"',
+  sqlite: 'SELECT "post"."content" FROM "post" GROUP BY "post"."userId", "post"."id"',
+  mysql : 'SELECT `post`.`content` FROM `post` GROUP BY `post`.`userId`, `post`.`id`',
+  params: []
+});
+

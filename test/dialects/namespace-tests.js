@@ -55,6 +55,3 @@ Harness.test({
   sqlite: 'SELECT "comment"."text", "comment"."userId" FROM "comment"',
   mysql : 'SELECT `comment`.`text`, `comment`.`userId` FROM `comment`'
 });
-
-
-
