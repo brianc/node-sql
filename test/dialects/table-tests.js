@@ -165,3 +165,11 @@ Harness.test({
   mysql : 'SELECT `user`.`name` AS `quote"quote"tick``tick``` FROM `user`',
   params: []
 });
+
+Harness.test({
+  query : user.select(user.star()).where(user.id['in'](user.subQuery().select(user.id))),
+  pg    : 'SELECT "user".* FROM "user" WHERE ("user"."id" IN (SELECT "user"."id" FROM "user"))',
+  sqlite: 'SELECT "user".* FROM "user" WHERE ("user"."id" IN (SELECT "user"."id" FROM "user"))',
+  mysql : 'SELECT `user`.* FROM `user` WHERE (`user`.`id` IN (SELECT `user`.`id` FROM `user`))',
+  params: []
+});
