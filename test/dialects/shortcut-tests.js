@@ -44,5 +44,10 @@ Harness.test({
   params: [1]
 });
 
-
-
+Harness.test({
+  query : post.where(post.content.isNull()).or({content: ''}).and({userId: 1}),
+  pg    : 'SELECT "post".* FROM "post" WHERE ((("post"."content" IS NULL) OR ("post"."content" = $1)) AND ("post"."userId" = $2))',
+  sqlite: 'SELECT "post".* FROM "post" WHERE ((("post"."content" IS NULL) OR ("post"."content" = $1)) AND ("post"."userId" = $2))',
+  mysql : 'SELECT `post`.* FROM `post` WHERE (((`post`.`content` IS NULL) OR (`post`.`content` = ?)) AND (`post`.`userId` = ?))',
+  params: ['', 1]
+});
