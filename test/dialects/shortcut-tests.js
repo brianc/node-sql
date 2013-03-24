@@ -14,17 +14,17 @@ Harness.test({
 
 Harness.test({
   query : user.where(user.name.equals(3)),
-  pg    : 'SELECT "user".* FROM "user" WHERE ("user"."name" = $1)',
-  sqlite: 'SELECT "user".* FROM "user" WHERE ("user"."name" = $1)',
-  mysql : 'SELECT `user`.* FROM `user` WHERE (`user`.`name` = ?)',
+  pg    : 'SELECT * FROM "user" WHERE ("user"."name" = $1)',
+  sqlite: 'SELECT * FROM "user" WHERE ("user"."name" = $1)',
+  mysql : 'SELECT * FROM `user` WHERE (`user`.`name` = ?)',
   params : [3]
 });
 
 Harness.test({
   query : user.where(user.name.equals(3)).where(user.id.equals(1)),
-  pg    : 'SELECT "user".* FROM "user" WHERE (("user"."name" = $1) AND ("user"."id" = $2))',
-  sqlite: 'SELECT "user".* FROM "user" WHERE (("user"."name" = $1) AND ("user"."id" = $2))',
-  mysql : 'SELECT `user`.* FROM `user` WHERE ((`user`.`name` = ?) AND (`user`.`id` = ?))',
+  pg    : 'SELECT * FROM "user" WHERE (("user"."name" = $1) AND ("user"."id" = $2))',
+  sqlite: 'SELECT * FROM "user" WHERE (("user"."name" = $1) AND ("user"."id" = $2))',
+  mysql : 'SELECT * FROM `user` WHERE ((`user`.`name` = ?) AND (`user`.`id` = ?))',
   params: [3,1]
 });
 
@@ -46,8 +46,8 @@ Harness.test({
 
 Harness.test({
   query : post.where(post.content.isNull()).or({content: ''}).and({userId: 1}),
-  pg    : 'SELECT "post".* FROM "post" WHERE ((("post"."content" IS NULL) OR ("post"."content" = $1)) AND ("post"."userId" = $2))',
-  sqlite: 'SELECT "post".* FROM "post" WHERE ((("post"."content" IS NULL) OR ("post"."content" = $1)) AND ("post"."userId" = $2))',
-  mysql : 'SELECT `post`.* FROM `post` WHERE (((`post`.`content` IS NULL) OR (`post`.`content` = ?)) AND (`post`.`userId` = ?))',
+  pg    : 'SELECT * FROM "post" WHERE ((("post"."content" IS NULL) OR ("post"."content" = $1)) AND ("post"."userId" = $2))',
+  sqlite: 'SELECT * FROM "post" WHERE ((("post"."content" IS NULL) OR ("post"."content" = $1)) AND ("post"."userId" = $2))',
+  mysql : 'SELECT * FROM `post` WHERE (((`post`.`content` IS NULL) OR (`post`.`content` = ?)) AND (`post`.`userId` = ?))',
   params: ['', 1]
 });
