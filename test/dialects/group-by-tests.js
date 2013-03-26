@@ -1,7 +1,6 @@
 'use strict';
 
 var Harness = require('./support');
-var user = Harness.defineUserTable();
 var post = Harness.definePostTable();
 
 Harness.test({
@@ -43,4 +42,3 @@ Harness.test({
   mysql : 'SELECT `post`.`content` FROM `post` GROUP BY `post`.`userId`, `post`.`id`',
   params: []
 });
-

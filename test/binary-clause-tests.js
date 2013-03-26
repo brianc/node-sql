@@ -1,7 +1,6 @@
 'use strict';
 
 var test = require('tap').test;
-var Column = require(__dirname + '/../lib/column');
 var Table = require(__dirname + '/../lib/table');
 
 var Foo = Table.define({
