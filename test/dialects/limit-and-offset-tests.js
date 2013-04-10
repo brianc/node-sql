@@ -26,3 +26,11 @@ Harness.test({
   sqlite: 'SELECT "user".* FROM "user" ORDER BY "user"."name" OFFSET 10',
   mysql : 'SELECT `user`.* FROM `user` ORDER BY `user`.`name` OFFSET 10'
 });
+
+Harness.test({
+  query : user.select(user.star()).where({name: 'John'}).offset(user.subQuery().select('FLOOR(RANDOM() * COUNT(*))').where({name: 'John'})).limit(1),
+  pg    : 'SELECT "user".* FROM "user" WHERE ("user"."name" = $1) OFFSET (SELECT FLOOR(RANDOM() * COUNT(*)) FROM "user" WHERE ("user"."name" = $2)) LIMIT 1',
+  sqlite: 'SELECT "user".* FROM "user" WHERE ("user"."name" = $1) OFFSET (SELECT FLOOR(RANDOM() * COUNT(*)) FROM "user" WHERE ("user"."name" = $2)) LIMIT 1',
+  mysql : 'SELECT `user`.* FROM `user` WHERE (`user`.`name` = ?) OFFSET (SELECT FLOOR(RANDOM() * COUNT(*)) FROM `user` WHERE (`user`.`name` = ?)) LIMIT 1',
+  values: ['John', 'John']
+});
