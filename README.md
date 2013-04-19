@@ -1,5 +1,5 @@
 # node-sql
-_sql string builder for node_
+_sql string builder for node_ - supports PostgreSQL, mysql, and sqlite dialects.
 
 Building SQL statements by hand is no fun, especially in a language which has clumsy support for multi-line strings.
 
@@ -24,7 +24,7 @@ var user = sql.define({
 var post = sql.define({
   name: 'post',
   columns: ['id', 'userId', 'date', 'title', 'body']
-})
+});
 
 //now let's make a simple query
 var query = user.select(user.star()).from(user).toQuery();
@@ -49,11 +49,37 @@ console.log(query.values); //['boom', 1, 'bang', 2]
 //how about a join?
 var query = user.select(user.name, post.content)
   .from(user.join(post).on(user.id.equals(post.userId))).toQuery();
-
+  
 console.log(query.text); //'SELECT "user"."name", "post"."content" FROM "user" INNER JOIN "post" ON ("user"."id" = "post"."userId")'
+
+//this also makes parts of your queries composable, which is handy
+
+var friendship = sql.define({
+  name: 'friendship',
+  columns: ['userId', 'friendId']
+});
+
+var friends = user.as('friends');
+var userToFriends = user
+  .leftJoin(friendship.on(user.id.equals(friendship.userId)))
+  .leftJoin(friends.on(friendship.friendId.equals(friends.id)));
+  
+//and now...compose...
+var friendsWhoHaveLoggedInQuery = userToFriends.where(friends.lastLogin.notNull());
+//SELECT * FROM "user" 
+//LEFT JOIN "friendship" ON ("user"."id" = "friendship"."userId") 
+//LEFT JOIN "user" AS "friends" ON ("friendship"."friendId" = "friends"."id")
+//WHERE "friends"."lastLogin" IS NOT NULL
+
+var friendsWhoUseGmailQuery = userToFriends.where(friends.email.like('%@gmail.com'));
+//SELECT * FROM "user" 
+//LEFT JOIN "friendship" ON ("user"."id" = "friendship"."userId") 
+//LEFT JOIN "user" AS "friends" ON ("friendship"."friendId" = "friends"."id")
+//WHERE "friends"."lastLogin" LIKE %1
+
 ```
 
-There are a __lot__ more examples included in the `test` folder.
+There are a __lot__ more examples included in the `test/dialects` folder.
 
 ## contributing
 
