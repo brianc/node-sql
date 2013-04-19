@@ -75,7 +75,7 @@ var friendsWhoUseGmailQuery = userToFriends.where(friends.email.like('%@gmail.co
 //SELECT * FROM "user" 
 //LEFT JOIN "friendship" ON ("user"."id" = "friendship"."userId") 
 //LEFT JOIN "user" AS "friends" ON ("friendship"."friendId" = "friends"."id")
-//WHERE "friends"."lastLogin" LIKE %1
+//WHERE "friends"."email" LIKE %1
 
 ```
 
