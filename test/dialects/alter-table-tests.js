@@ -37,6 +37,14 @@ Harness.test({
   params: []
 });
 
+Harness.test({
+  query : post.alter().rename('posts'),
+  pg    : 'ALTER TABLE "post" RENAME TO "posts"',
+  sqlite: 'ALTER TABLE "post" RENAME TO "posts"',
+  mysql : 'ALTER TABLE `post` RENAME TO `posts`',
+  params: []
+});
+
 var group = Table.define({
   name: 'group',
   columns: [{
