@@ -13,6 +13,13 @@ Harness.test({
 });
 
 Harness.test({
+  query : user.join(post).on(user.id.equals(post.userId)),
+  pg    : '"user" INNER JOIN "post" ON ("user"."id" = "post"."userId")',
+  sqlite: '"user" INNER JOIN "post" ON ("user"."id" = "post"."userId")',
+  mysql : '`user` INNER JOIN `post` ON (`user`.`id` = `post`.`userId`)'
+});
+
+Harness.test({
   query : user
             .select(user.name, post.content, comment.text)
             .from(
