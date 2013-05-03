@@ -1,6 +1,6 @@
 'use strict';
+var assert = require('assert');
 
-var tap = require('tap').test;
 var Table = require(__dirname + '/../../lib/table');
 
 // specify dialect classes
@@ -20,12 +20,12 @@ module.exports = {
         var DialectClass = dialects[dialect];
 
         var title = dialect+': '+(expected.title || expected[dialect].text || expected[dialect]);
-        tap(title, function(t) {
+        test(title, function() {
 
           // check if this query is expected to throw
           if(expected[dialect].throws) {
 
-            t.throws(function() {
+            assert.throws(function() {
               new DialectClass().getQuery(expected.query);
             });
 
@@ -36,19 +36,18 @@ module.exports = {
 
             // test result is correct
             var expectedText = expected[dialect].text || expected[dialect];
-            t.equal(compiledQuery.text, expectedText,'query result');
+            assert.equal(compiledQuery.text, expectedText,'query result');
 
             // if params are specified then test these are correct
             var expectedParams = expected[dialect].params || expected.params;
             if(expectedParams) {
-              t.equal(expectedParams.length, compiledQuery.values.length, 'params length');
+              assert.equal(expectedParams.length, compiledQuery.values.length, 'params length');
               for(var i = 0; i < expectedParams.length; i++) {
-                t.equal(expectedParams[i], compiledQuery.values[i], 'param '+(i+1));
+                assert.equal(expectedParams[i], compiledQuery.values[i], 'param '+(i+1));
               }
             }
 
           }
-          t.end();
         });
 
 

@@ -1,50 +1,58 @@
 'use strict';
+var assert = require('assert');
 
-var test = require('tap').test;
 var Table = require(__dirname + '/../lib/table');
 var Column = require(__dirname + '/../lib/column');
 
-test('table', function(t) {
+suite('table', function() {
   var table = new Table({
     name: 'bang'
   });
 
-  t.equal(table.getName(), 'bang');
-  t.equal(table.columns.length, 0);
-
-  var col = new Column({
-    table: table,
-    name: 'boom'
+  test('has name', function() {
+    assert.equal(table.getName(), 'bang');
   });
 
-  t.equal(col.name, 'boom');
-  t.equal(col.table.getName(), 'bang');
-
-  table.addColumn(col);
-  t.equal(table.columns.length, 1);
-  t.equal(table.boom, col);
-
-  console.log('table creates query node');
-  var sel = table.select(table.boom);
-  t.equal(sel.type, 'QUERY');
-
-  console.log('table can be defined');
-  var user = Table.define({
-    name: 'user',
-    columns: ['id', 'name']
+  test('has no columns', function() {
+    assert.equal(table.columns.length, 0);
   });
 
-  t.equal(user.getName(), 'user');
-  t.equal(user.columns.length, 2);
-  t.equal(user.columns[0].name, 'id');
-  t.equal(user.columns[1].name, 'name');
-  t.equal(user.columns[0].name, user.id.name);
-  t.equal(user.id.table, user);
-  t.equal(user.name.table, user);
-  t.end();
+  test('can add column', function() {
+    
+    var col = new Column({
+      table: table,
+      name: 'boom'
+    });
+
+    assert.equal(col.name, 'boom');
+    assert.equal(col.table.getName(), 'bang');
+
+    table.addColumn(col);
+    assert.equal(table.columns.length, 1);
+    assert.equal(table.boom, col);
+  })
+
+  test('creates query node', function() {
+    var sel = table.select(table.boom);
+    assert.equal(sel.type, 'QUERY');
+  });
+
+  test('can be defined', function() {
+    var user = Table.define({
+      name: 'user',
+      columns: ['id', 'name']
+    });
+    assert.equal(user.getName(), 'user');
+    assert.equal(user.columns.length, 2);
+    assert.equal(user.columns[0].name, 'id');
+    assert.equal(user.columns[1].name, 'name');
+    assert.equal(user.columns[0].name, user.id.name);
+    assert.equal(user.id.table, user);
+    assert.equal(user.name.table, user);
+  });
 });
 
-test('table with fancier column definitions', function(t) {
+test('table with fancier column definitions', function() {
   var table = Table.define({
     name: 'blah',
     columns: [{
@@ -61,17 +69,16 @@ test('table with fancier column definitions', function(t) {
     }]
   });
   var cols = table.columns;
-  t.equals(cols.length, 2);
+  assert.equal(cols.length, 2);
   var id = cols[0];
-  t.equals(id.name, 'id');
-  t.equals(id.type, 'serial');
-  t.equals(id.notNull, true);
-  t.equals(id.primaryKey, true);
+  assert.equal(id.name, 'id');
+  assert.equal(id.type, 'serial');
+  assert.equal(id.notNull, true);
+  assert.equal(id.primaryKey, true);
   var email = cols[1];
-  t.equals(email.name, 'email');
-  t.equals(email.type, 'text');
-  t.equals(email.notNull, true);
-  t.equals(email.unique, true);
-  t.equals(email.anythingYouWant, 'awesome');
-  t.end();
+  assert.equal(email.name, 'email');
+  assert.equal(email.type, 'text');
+  assert.equal(email.notNull, true);
+  assert.equal(email.unique, true);
+  assert.equal(email.anythingYouWant, 'awesome');
 });

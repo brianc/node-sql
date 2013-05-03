@@ -3,10 +3,9 @@
 var fs = require('fs');
 var path = require('path');
 
-var testDir = path.dirname(require.main.filename);
+var testDir = __dirname;
 
 var directories = [
-  testDir,
   testDir + '/dialects'
 ];
 
@@ -15,7 +14,6 @@ directories.forEach(function (d) {
   /*jshint boss: true */
   for(var i = 0, file; file = files[i]; i++) {
     var filePath = path.join(d, file);
-    console.log(filePath);
     require(filePath);
   }
 });
