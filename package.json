@@ -10,7 +10,7 @@
   },
   "main": "lib/",
   "scripts": {
-    "test": "node test/"
+    "test": "./node_modules/.bin/mocha"
   },
   "engines": {
     "node": "*"
@@ -19,7 +19,6 @@
     "sliced": "0.0.5"
   },
   "devDependencies": {
-    "test-dir": "*",
-    "tap": "*"
+    "mocha": "*"
   }
 }
