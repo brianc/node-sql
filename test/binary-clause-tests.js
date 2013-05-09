@@ -13,6 +13,7 @@ test('operators', function() {
   assert.equal(Foo.baz.notEqual(1).operator, '<>');
   assert.equal(Foo.baz.notEquals(1).operator, '<>');
   assert.equal(Foo.baz.like('asdf').operator, 'LIKE');
+  assert.equal(Foo.baz.notLike('asdf').operator, 'NOT LIKE');
   assert.equal(Foo.baz.isNull().operator, 'IS NULL');
   assert.equal(Foo.baz.isNotNull().operator, 'IS NOT NULL');
   assert.equal(Foo.baz.gt(1).operator, '>');
