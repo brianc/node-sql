@@ -18,7 +18,6 @@ suite('table', function() {
   });
 
   test('can add column', function() {
-
     var col = new Column({
       table: table,
       name: 'boom'
