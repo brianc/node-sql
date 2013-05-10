@@ -18,7 +18,6 @@ suite('table', function() {
   });
 
   test('can add column', function() {
-    
     var col = new Column({
       table: table,
       name: 'boom'
@@ -81,4 +80,20 @@ test('table with fancier column definitions', function() {
   assert.equal(email.notNull, true);
   assert.equal(email.unique, true);
   assert.equal(email.anythingYouWant, 'awesome');
+});
+
+test('table with dynamic column definition', function() {
+  var table = Table.define({ name: 'foo', columns: [] });
+  assert.equal(table.columns.length, 0);
+
+  table.addColumn('foo');
+  assert.equal(table.columns.length, 1);
+
+  var error = null;
+
+  assert.throws(function() {
+    table.addColumn('foo');
+  });
+
+  assert.equal(table.columns.length, 1);
 });
