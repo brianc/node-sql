@@ -117,4 +117,5 @@ test('getColumn returns the from column', function() {
   var table = Table.define({ name: 'foo', columns: [] });
   table.addColumn('from');
   assert(table.getColumn('from') instanceof Column);
+  assert(table.get('from') instanceof Column);
 });
