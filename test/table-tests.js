@@ -97,3 +97,25 @@ test('table with dynamic column definition', function() {
 
   assert.equal(table.columns.length, 1);
 });
+
+
+test('hasColumn', function() {
+  var table = Table.define({ name: 'foo', columns: [] });
+
+  assert.equal(table.hasColumn('baz'), false);
+  table.addColumn('baz');
+  assert.equal(table.hasColumn('baz'), true);
+});
+
+test('the column "from" does not overwrite the from method', function() {
+  var table = Table.define({ name: 'foo', columns: [] });
+  table.addColumn('from');
+  assert.equal(typeof table.from, 'function');
+});
+
+test('getColumn returns the from column', function() {
+  var table = Table.define({ name: 'foo', columns: [] });
+  table.addColumn('from');
+  assert(table.getColumn('from') instanceof Column);
+  assert(table.get('from') instanceof Column);
+});
