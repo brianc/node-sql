@@ -167,6 +167,14 @@ Harness.test({
 });
 
 Harness.test({
+  query : user.select('name').from('user').where({name: 'brian', id: 1}),
+  pg    : 'SELECT name FROM user WHERE (("user"."name" = $1) AND ("user"."id" = $2))',
+  sqlite: 'SELECT name FROM user WHERE (("user"."name" = $1) AND ("user"."id" = $2))',
+  mysql : 'SELECT name FROM user WHERE ((`user`.`name` = ?) AND (`user`.`id` = ?))',
+  params: ['brian', 1]
+});
+
+Harness.test({
   query : user.select(user.name.as('quote"quote"tick`tick`')),
   pg    : 'SELECT "user"."name" AS "quote""quote""tick`tick`" FROM "user"',
   sqlite: 'SELECT "user"."name" AS "quote""quote""tick`tick`" FROM "user"',
