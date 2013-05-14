@@ -133,7 +133,7 @@ var UserWithSignature = Table.define({
 Harness.test({
   query:  UserWithSignature.alter().renameColumn(UserWithSignature.get('Signature'), 'sig'),
   pg:     'ALTER TABLE "UserWithSignature" RENAME COLUMN "Signature" TO "sig"',
-  mysql:  'ALTER TABLE `UserWithSignature` CHANGE COLUMN `Signature` `sig`VARCHAR(255) NOT NULL DEFAULT \'Signature\'',
+  mysql:  'ALTER TABLE `UserWithSignature` CHANGE COLUMN `Signature` `sig` VARCHAR(255) NOT NULL DEFAULT \'Signature\'',
   sqlite: {
     text  : 'Sqlite cannot rename columns',
     throws: true
