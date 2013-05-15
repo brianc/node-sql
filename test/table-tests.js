@@ -82,6 +82,37 @@ test('table with fancier column definitions', function() {
   assert.equal(email.anythingYouWant, 'awesome');
 });
 
+test('table with object structured column definitions', function() {
+  var table = Table.define({
+    name: 'blah',
+    columns: {
+      id: {
+        type: 'serial',
+        notNull: true,
+        primaryKey: true
+      }, 
+      email: {
+        type: 'text',
+        notNull: true,
+        unique: true,
+        anythingYouWant: 'awesome'
+      }
+    }
+  });
+  var cols = table.columns;
+  assert.equal(cols.length, 2);
+  var id = cols[0];
+  assert.equal(id.name, 'id');
+  assert.equal(id.type, 'serial');
+  assert.equal(id.notNull, true);
+  assert.equal(id.primaryKey, true);
+  var email = cols[1];
+  assert.equal(email.name, 'email');
+  assert.equal(email.type, 'text');
+  assert.equal(email.notNull, true);
+  assert.equal(email.unique, true);
+  assert.equal(email.anythingYouWant, 'awesome');
+});
 test('table with dynamic column definition', function() {
   var table = Table.define({ name: 'foo', columns: [] });
   assert.equal(table.columns.length, 0);
