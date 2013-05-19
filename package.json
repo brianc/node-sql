@@ -10,7 +10,7 @@
   },
   "main": "lib/",
   "bin": {
-      "node-sql-generate": "./bin/generate-sql.js"
+    "node-sql-generate": "./bin/generate-sql.js"
   },
   "scripts": {
     "test": "NODE_ENV=test ./node_modules/.bin/mocha"
