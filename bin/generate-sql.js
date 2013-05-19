@@ -244,7 +244,7 @@ function finish(err) {
     write(program.append);
   }
 
-  if (fd !== 1) {
+  if (fd && fd !== 1) {
     fs.closeSync(fd);
   }
 
