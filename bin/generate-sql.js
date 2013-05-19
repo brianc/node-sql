@@ -24,6 +24,7 @@ program
   .option('-o, --output-file <file>', 'Output to this file; defaults to stdout')
   .option('-i, --indent <token>', 'Indentation token; defaults to a TAB character', '\t')
   .option('-s, --schema <name>', 'Name of schema to extract')
+  .option('--camelize', 'Convert underscored names to camel case ("foo_bar" -> "fooBar")', false)
   .option('--eol <token>', 'Line terminator token; defaults to "\\n"', '\n')
   .option('--mode <mode>', 'The permission mode of the generated file; defaults to 0644', 0644)
   .option('--encoding <encoding>', 'The encoding to use for writing; defaults to "utf8"', 'utf8')
@@ -84,6 +85,12 @@ try {
   createClientAndConnect(ready);
 } catch (e) {
   finish('Error creating database client (check your DSN): ' + e);
+}
+
+function camelize(name) {
+  return !program.camelize ? name : name.replace(/_(.)/g, function(all, c) {
+    return c.toUpperCase();
+  });
 }
 
 function runQuery(query, params, callback) {
@@ -247,12 +254,12 @@ function ready(err) {
           lines.push(' */');
         }
 
-        lines.push('exports.' + tableName + ' = sql.define({');
+        lines.push('exports.' + camelize(tableName) + ' = sql.define({');
         lines.push(program.indent + 'name: \'' + tableName + '\',');
         lines.push(program.indent + 'columns: [');
 
         lines.push(columnNames.map(function(columnName) {
-          return program.indent + program.indent + '\'' + columnName + '\'';
+          return program.indent + program.indent + '\'' + camelize(columnName) + '\'';
         }).join(',' + program.eol));
 
         lines.push(program.indent + ']');
