@@ -9,6 +9,9 @@
     "url": "git://github.com/brianc/node-sql.git"
   },
   "main": "lib/",
+  "bin": {
+    "node-sql-generate": "./bin/generate-sql.js"
+  },
   "scripts": {
     "test": "NODE_ENV=test ./node_modules/.bin/mocha"
   },
@@ -16,7 +19,10 @@
     "node": "*"
   },
   "dependencies": {
-    "sliced": "0.0.5"
+    "sliced": "0.0.5",
+    "commander": "1.1.1",
+    "async": "0.2.8",
+    "colors": "0.6.0-1"
   },
   "devDependencies": {
     "mocha": "*"
