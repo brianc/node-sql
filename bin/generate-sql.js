@@ -9,6 +9,14 @@ var fs = require('fs'),
 
 require('colors');
 
+function loadModule(name, errorMessage) {
+  try {
+    return require(name);
+  } catch (e) {
+    finish(errorMessage || 'Could not require module "' + name + '"');
+  }
+}
+
 program
   .version(version)
   .option('-d, --dialect <dialect>', 'Specify the SQL dialect; only supports MySQL currently', 'mysql')
@@ -50,7 +58,7 @@ var fd = program.outputFile ? fs.openSync(program.outputFile, 'w', program.mode)
 var conn = null, db;
 switch (dialect) {
   case 'mysql':
-    db = require('mysql');
+    db = loadModule('mysql', 'Please run "npm install mysql" wherever node-sql is installed');
     try {
       debug('Attempting connection with DSN "' + program.dsn + '"', 'debug');
       conn = db.createConnection(program.dsn);

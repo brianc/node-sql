@@ -22,7 +22,6 @@
     "sliced": "0.0.5",
     "commander": "1.1.1",
     "async": "0.2.8",
-    "mysql": "2.0.0-alpha8",
     "colors": "0.6.0-1"
   },
   "devDependencies": {
