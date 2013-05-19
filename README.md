@@ -90,7 +90,7 @@ Currently it supports MySQL and PostgreSQL.
 
 Example usage:
 
-   node-sql-generate --dialect pg --dsn "tcp://tmont:password@localhost/mydb" --schema mydb
+    node-sql-generate --dialect pg --dsn "tcp://tmont:password@localhost/mydb" --schema mydb
 
 With would output to stdout:
 ```javascript
