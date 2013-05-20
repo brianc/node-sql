@@ -11,7 +11,8 @@ Harness.test({
 });
 
 Harness.test({
-  query:    post.indexes().create('index_name').unique().using('btree').onColumns(post.id, post.userId).withParser('foo'),
-  pg:       "CREATE UNIQUE INDEX \"index_name\" USING BTREE ON \"post\" (\"post\".\"id\",\"post\".\"userId\") WITH PARSER foo",
-  my2sql:    "CREATE UNIQUE INDEX `index_name` USING BTREE ON `post` (`post`.`id`,`post`.`userId`) WITH PARSER foo"
+  query:  post.indexes().create('index_name').unique().using('btree').onColumns(post.id, post.userId).withParser('foo'),
+  pg:     "CREATE UNIQUE INDEX \"index_name\" USING BTREE ON \"post\" (\"post\".\"id\",\"post\".\"userId\") WITH PARSER foo",
+  mysql:  "CREATE UNIQUE INDEX `index_name` USING BTREE ON `post` (`post`.`id`,`post`.`userId`) WITH PARSER foo",
+  sqlite: "CREATE UNIQUE INDEX \"index_name\" USING BTREE ON \"post\" (\"post\".\"id\",\"post\".\"userId\") WITH PARSER foo"
 });
