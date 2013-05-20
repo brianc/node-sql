@@ -21,5 +21,12 @@ Harness.test({
   query:  post.indexes().create().on(post.userId),
   pg:     "CREATE INDEX \"post_userId\" ON \"post\" (\"post\".\"userId\")",
   mysql:  "CREATE INDEX `post_userId` ON `post` (`post`.`userId`)",
-  sqlite: "CREATE INDEX \"post_userId\" ON \"post\" (\"post\".\"userId\")",
+  sqlite: "CREATE INDEX \"post_userId\" ON \"post\" (\"post\".\"userId\")"
+});
+
+Harness.test({
+  query:  post.indexes().create(),
+  pg:     { text: 'No columns defined!', throws: true },
+  mysql:  { text: 'No columns defined!', throws: true },
+  sqlite: { text: 'No columns defined!', throws: true }
 });
