@@ -18,10 +18,10 @@ Harness.test({
 });
 
 Harness.test({
-  query:  post.indexes().create().on(post.userId),
-  pg:     "CREATE INDEX \"post_userId\" ON \"post\" (\"post\".\"userId\")",
-  mysql:  "CREATE INDEX `post_userId` ON `post` (`post`.`userId`)",
-  sqlite: "CREATE INDEX \"post_userId\" ON \"post\" (\"post\".\"userId\")"
+  query:  post.indexes().create().on(post.userId, post.id),
+  pg:     "CREATE INDEX \"post_id_userId\" ON \"post\" (\"post\".\"userId\",\"post\".\"id\")",
+  mysql:  "CREATE INDEX `post_id_userId` ON `post` (`post`.`userId`,`post`.`id`)",
+  sqlite: "CREATE INDEX \"post_id_userId\" ON \"post\" (\"post\".\"userId\",\"post\".\"id\")"
 });
 
 Harness.test({
