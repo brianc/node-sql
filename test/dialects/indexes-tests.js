@@ -9,3 +9,14 @@ Harness.test({
   mysql:  "SHOW INDEX FROM `post`",
   sqlite: "PRAGMA INDEX_LIST(\"post\")"
 });
+
+Harness.test({
+  query: post.indexes().create({
+    type:      'unique',
+    algorithm: 'btree',
+    parser:    'foo',
+    name:      'bar',
+    columns:   [post.id, post.userId]
+  }),
+  mysql: "CREATE UNIQUE INDEX `bar` USING BTREE ON `post` (`post`.`id`, `post`.`userId`) WITH PARSER foo"
+})
