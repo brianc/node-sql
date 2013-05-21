@@ -32,13 +32,6 @@ Harness.test({
 });
 
 Harness.test({
-  query:  post.indexes().create().ifNotExists().on(post.id),
-  pg:     "CREATE INDEX IF NOT EXISTS \"post_id\" ON \"post\" (\"id\")",
-  mysql:  "CREATE INDEX IF NOT EXISTS `post_id` ON `post` (`id`)",
-  sqlite: "CREATE INDEX IF NOT EXISTS \"post_id\" ON \"post\" (\"id\")"
-});
-
-Harness.test({
   query:  post.indexes().create().on(post.userId, post.id),
   pg:     "CREATE INDEX \"post_id_userId\" ON \"post\" (\"userId\",\"id\")",
   mysql:  "CREATE INDEX `post_id_userId` ON `post` (`userId`,`id`)",
@@ -64,13 +57,6 @@ Harness.test({
   pg:     "DROP INDEX \"index_name\" ON \"post\"",
   mysql:  "DROP INDEX `index_name` ON `post`",
   sqlite: "DROP INDEX \"index_name\" ON \"post\""
-});
-
-Harness.test({
-  query:  post.indexes().drop('index_name').ifExists(),
-  pg:     "DROP INDEX IF EXISTS \"index_name\" ON \"post\"",
-  mysql:  "DROP INDEX IF EXISTS `index_name` ON `post`",
-  sqlite: "DROP INDEX IF EXISTS \"index_name\" ON \"post\""
 });
 
 Harness.test({
