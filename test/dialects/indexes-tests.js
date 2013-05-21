@@ -12,37 +12,37 @@ Harness.test({
 
 Harness.test({
   query:  post.indexes().create('index_name').unique().using('btree').on(post.id, post.userId).withParser('foo'),
-  pg:     "CREATE UNIQUE INDEX \"index_name\" USING BTREE ON \"post\" (\"post\".\"id\",\"post\".\"userId\") WITH PARSER foo",
-  mysql:  "CREATE UNIQUE INDEX `index_name` USING BTREE ON `post` (`post`.`id`,`post`.`userId`) WITH PARSER foo",
-  sqlite: "CREATE UNIQUE INDEX \"index_name\" USING BTREE ON \"post\" (\"post\".\"id\",\"post\".\"userId\") WITH PARSER foo"
+  pg:     "CREATE UNIQUE INDEX \"index_name\" USING BTREE ON \"post\" (\"id\",\"userId\") WITH PARSER foo",
+  mysql:  "CREATE UNIQUE INDEX `index_name` USING BTREE ON `post` (`id`,`userId`) WITH PARSER foo",
+  sqlite: "CREATE UNIQUE INDEX \"index_name\" USING BTREE ON \"post\" (\"id\",\"userId\") WITH PARSER foo"
 });
 
 Harness.test({
   query:  post.indexes().create().fulltext().on(post.id),
-  pg:     "CREATE FULLTEXT INDEX \"post_id\" ON \"post\" (\"post\".\"id\")",
-  mysql:  "CREATE FULLTEXT INDEX `post_id` ON `post` (`post`.`id`)",
-  sqlite: "CREATE FULLTEXT INDEX \"post_id\" ON \"post\" (\"post\".\"id\")"
+  pg:     "CREATE FULLTEXT INDEX \"post_id\" ON \"post\" (\"id\")",
+  mysql:  "CREATE FULLTEXT INDEX `post_id` ON `post` (`id`)",
+  sqlite: "CREATE FULLTEXT INDEX \"post_id\" ON \"post\" (\"id\")"
 });
 
 Harness.test({
   query:  post.indexes().create().spatial().on(post.id),
-  pg:     "CREATE SPATIAL INDEX \"post_id\" ON \"post\" (\"post\".\"id\")",
-  mysql:  "CREATE SPATIAL INDEX `post_id` ON `post` (`post`.`id`)",
-  sqlite: "CREATE SPATIAL INDEX \"post_id\" ON \"post\" (\"post\".\"id\")"
+  pg:     "CREATE SPATIAL INDEX \"post_id\" ON \"post\" (\"id\")",
+  mysql:  "CREATE SPATIAL INDEX `post_id` ON `post` (`id`)",
+  sqlite: "CREATE SPATIAL INDEX \"post_id\" ON \"post\" (\"id\")"
 });
 
 Harness.test({
   query:  post.indexes().create().on(post.userId, post.id),
-  pg:     "CREATE INDEX \"post_id_userId\" ON \"post\" (\"post\".\"userId\",\"post\".\"id\")",
-  mysql:  "CREATE INDEX `post_id_userId` ON `post` (`post`.`userId`,`post`.`id`)",
-  sqlite: "CREATE INDEX \"post_id_userId\" ON \"post\" (\"post\".\"userId\",\"post\".\"id\")"
+  pg:     "CREATE INDEX \"post_id_userId\" ON \"post\" (\"userId\",\"id\")",
+  mysql:  "CREATE INDEX `post_id_userId` ON `post` (`userId`,`id`)",
+  sqlite: "CREATE INDEX \"post_id_userId\" ON \"post\" (\"userId\",\"id\")"
 });
 
 Harness.test({
   query:  post.indexes().create().on(post.userId).on(post.id),
-  pg:     "CREATE INDEX \"post_id_userId\" ON \"post\" (\"post\".\"userId\",\"post\".\"id\")",
-  mysql:  "CREATE INDEX `post_id_userId` ON `post` (`post`.`userId`,`post`.`id`)",
-  sqlite: "CREATE INDEX \"post_id_userId\" ON \"post\" (\"post\".\"userId\",\"post\".\"id\")"
+  pg:     "CREATE INDEX \"post_id_userId\" ON \"post\" (\"userId\",\"id\")",
+  mysql:  "CREATE INDEX `post_id_userId` ON `post` (`userId`,`id`)",
+  sqlite: "CREATE INDEX \"post_id_userId\" ON \"post\" (\"userId\",\"id\")"
 });
 
 Harness.test({
