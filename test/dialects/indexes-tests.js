@@ -45,23 +45,16 @@ Harness.test({
   sqlite: { text: 'No columns defined!', throws: true }
 });
 
-// Harness.test({
-//   query:  post.indexes().drop(),
-//   pg:     { text: 'No index defined!', throws: true },
-//   mysql:  { text: 'No index defined!', throws: true },
-//   sqlite: { text: 'No index defined!', throws: true }
-// });
+Harness.test({
+  query:  post.indexes().drop('index_name'),
+  pg:     "DROP INDEX \"index_name\" ON \"post\"",
+  mysql:  "DROP INDEX `index_name` ON `post`",
+  sqlite: "DROP INDEX \"index_name\" ON \"post\""
+});
 
-// Harness.test({
-//   query:  post.indexes().drop('index_name'),
-//   pg:     "DROP INDEX \"index_name\"",
-//   mysql:  "DROP INDEX `index_name`",
-//   sqlite: "DROP INDEX \"index_name\""
-// });
-
-// Harness.test({
-//   query:  post.indexes().drop(post.userId, post.id),
-//   pg:     "DROP INDEX \"post_id_userId\"",
-//   mysql:  "DROP INDEX `post_id_userId`",
-//   sqlite: "DROP INDEX \"post_id_userId\""
-// });
+Harness.test({
+  query:  post.indexes().drop(post.userId, post.id),
+  pg:     "DROP INDEX \"post_id_userId\" ON \"post\"",
+  mysql:  "DROP INDEX `post_id_userId` ON `post`",
+  sqlite: "DROP INDEX \"post_id_userId\" ON \"post\""
+});
