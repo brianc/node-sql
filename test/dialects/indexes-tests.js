@@ -18,6 +18,20 @@ Harness.test({
 });
 
 Harness.test({
+  query:  post.indexes().create().fulltext().on(post.id),
+  pg:     "CREATE FULLTEXT INDEX \"post_id\" ON \"post\" (\"post\".\"id\")",
+  mysql:  "CREATE FULLTEXT INDEX `post_id` ON `post` (`post`.`id`)",
+  sqlite: "CREATE FULLTEXT INDEX \"post_id\" ON \"post\" (\"post\".\"id\")"
+});
+
+Harness.test({
+  query:  post.indexes().create().spatial().on(post.id),
+  pg:     "CREATE SPATIAL INDEX \"post_id\" ON \"post\" (\"post\".\"id\")",
+  mysql:  "CREATE SPATIAL INDEX `post_id` ON `post` (`post`.`id`)",
+  sqlite: "CREATE SPATIAL INDEX \"post_id\" ON \"post\" (\"post\".\"id\")"
+});
+
+Harness.test({
   query:  post.indexes().create().on(post.userId, post.id),
   pg:     "CREATE INDEX \"post_id_userId\" ON \"post\" (\"post\".\"userId\",\"post\".\"id\")",
   mysql:  "CREATE INDEX `post_id_userId` ON `post` (`post`.`userId`,`post`.`id`)",
@@ -30,3 +44,24 @@ Harness.test({
   mysql:  { text: 'No columns defined!', throws: true },
   sqlite: { text: 'No columns defined!', throws: true }
 });
+
+// Harness.test({
+//   query:  post.indexes().drop(),
+//   pg:     { text: 'No index defined!', throws: true },
+//   mysql:  { text: 'No index defined!', throws: true },
+//   sqlite: { text: 'No index defined!', throws: true }
+// });
+
+// Harness.test({
+//   query:  post.indexes().drop('index_name'),
+//   pg:     "DROP INDEX \"index_name\"",
+//   mysql:  "DROP INDEX `index_name`",
+//   sqlite: "DROP INDEX \"index_name\""
+// });
+
+// Harness.test({
+//   query:  post.indexes().drop(post.userId, post.id),
+//   pg:     "DROP INDEX \"post_id_userId\"",
+//   mysql:  "DROP INDEX `post_id_userId`",
+//   sqlite: "DROP INDEX \"post_id_userId\""
+// });
