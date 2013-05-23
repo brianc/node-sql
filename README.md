@@ -61,17 +61,17 @@ var friendship = sql.define({
 
 var friends = user.as('friends');
 var userToFriends = user
-  .leftJoin(friendship.on(user.id.equals(friendship.userId)))
-  .leftJoin(friends.on(friendship.friendId.equals(friends.id)));
+  .leftJoin(friendship).on(user.id.equals(friendship.userId))
+  .leftJoin(friends).on(friendship.friendId.equals(friends.id));
   
 //and now...compose...
-var friendsWhoHaveLoggedInQuery = userToFriends.where(friends.lastLogin.notNull());
+var friendsWhoHaveLoggedInQuery = user.from(userToFriends).where(friends.lastLogin.notNull());
 //SELECT * FROM "user" 
 //LEFT JOIN "friendship" ON ("user"."id" = "friendship"."userId") 
 //LEFT JOIN "user" AS "friends" ON ("friendship"."friendId" = "friends"."id")
 //WHERE "friends"."lastLogin" IS NOT NULL
 
-var friendsWhoUseGmailQuery = userToFriends.where(friends.email.like('%@gmail.com'));
+var friendsWhoUseGmailQuery = user.from(userToFriends).where(friends.email.like('%@gmail.com'));
 //SELECT * FROM "user" 
 //LEFT JOIN "friendship" ON ("user"."id" = "friendship"."userId") 
 //LEFT JOIN "user" AS "friends" ON ("friendship"."friendId" = "friends"."id")
