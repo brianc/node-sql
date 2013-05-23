@@ -36,6 +36,11 @@ suite('table', function() {
     assert.equal(sel.type, 'QUERY');
   });
 
+  test('creates *-query if no args is provided to select()', function() {
+    var sel = table.select();
+    assert.ok(sel.nodes[0].nodes[0].star);
+  });
+
   test('can be defined', function() {
     var user = Table.define({
       name: 'user',
