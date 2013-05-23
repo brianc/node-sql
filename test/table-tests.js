@@ -56,6 +56,27 @@ suite('table', function() {
   });
 });
 
+test('table with user-defined column property names', function () {
+  var table = Table.define({
+    name: 'blah',
+    columns: [{
+        name: 'id',
+        property: 'theId'
+      }, {
+        name: 'email',
+        property: 'uniqueEmail'
+      }]
+  });
+  var cols = table.columns;
+  assert.equal(cols.length, 2);
+  assert.equal(cols[0].name, 'id');
+  assert(cols[0] === table.theId, 'Expected table.theId to be the first column');
+  assert(table.id === undefined, 'Expected table.id to not exist');
+  assert.equal(cols[1].name, 'email');
+  assert(cols[1] === table.uniqueEmail, 'Expected table.uniqueEmail to be the second column');
+  assert(table.email === undefined, 'Expected table.email to not exist');
+});
+
 test('table with fancier column definitions', function() {
   var table = Table.define({
     name: 'blah',
