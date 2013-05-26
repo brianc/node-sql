@@ -116,7 +116,7 @@ test('table with object structured column definitions', function() {
         type: 'serial',
         notNull: true,
         primaryKey: true
-      }, 
+      },
       email: {
         type: 'text',
         notNull: true,
@@ -139,6 +139,7 @@ test('table with object structured column definitions', function() {
   assert.equal(email.unique, true);
   assert.equal(email.anythingYouWant, 'awesome');
 });
+
 test('table with dynamic column definition', function() {
   var table = Table.define({ name: 'foo', columns: [] });
   assert.equal(table.columns.length, 0);
@@ -152,9 +153,12 @@ test('table with dynamic column definition', function() {
     table.addColumn('foo');
   });
 
+  assert.doesNotThrow(function() {
+    table.addColumn('foo', { noisy: false });
+  });
+
   assert.equal(table.columns.length, 1);
 });
-
 
 test('hasColumn', function() {
   var table = Table.define({ name: 'foo', columns: [] });
