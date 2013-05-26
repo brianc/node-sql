@@ -50,3 +50,51 @@ Harness.test({
   mysql : 'SELECT COUNT(`post`.`content`) AS `content_count` FROM `post`',
   params: []
 });
+
+Harness.test({
+  query : post.select(post.id.min()),
+  pg    : 'SELECT MIN("post"."id") AS "id_min" FROM "post"',
+  sqlite: 'SELECT MIN("post"."id") AS "id_min" FROM "post"',
+  mysql : 'SELECT MIN(`post`.`id`) AS `id_min` FROM `post`',
+  params: []
+});
+
+Harness.test({
+  query : post.select(post.id.min().as('min_id')),
+  pg    : 'SELECT MIN("post"."id") AS "min_id" FROM "post"',
+  sqlite: 'SELECT MIN("post"."id") AS "min_id" FROM "post"',
+  mysql : 'SELECT MIN(`post`.`id`) AS `min_id` FROM `post`',
+  params: []
+});
+
+Harness.test({
+  query : post.select(post.id.min('min_id')),
+  pg    : 'SELECT MIN("post"."id") AS "min_id" FROM "post"',
+  sqlite: 'SELECT MIN("post"."id") AS "min_id" FROM "post"',
+  mysql : 'SELECT MIN(`post`.`id`) AS `min_id` FROM `post`',
+  params: []
+});
+
+Harness.test({
+  query : post.select(post.id.max()),
+  pg    : 'SELECT MAX("post"."id") AS "id_max" FROM "post"',
+  sqlite: 'SELECT MAX("post"."id") AS "id_max" FROM "post"',
+  mysql : 'SELECT MAX(`post`.`id`) AS `id_max` FROM `post`',
+  params: []
+});
+
+Harness.test({
+  query : post.select(post.id.max().as('max_id')),
+  pg    : 'SELECT MAX("post"."id") AS "max_id" FROM "post"',
+  sqlite: 'SELECT MAX("post"."id") AS "max_id" FROM "post"',
+  mysql : 'SELECT MAX(`post`.`id`) AS `max_id` FROM `post`',
+  params: []
+});
+
+Harness.test({
+  query : post.select(post.id.max('max_id')),
+  pg    : 'SELECT MAX("post"."id") AS "max_id" FROM "post"',
+  sqlite: 'SELECT MAX("post"."id") AS "max_id" FROM "post"',
+  mysql : 'SELECT MAX(`post`.`id`) AS `max_id` FROM `post`',
+  params: []
+});

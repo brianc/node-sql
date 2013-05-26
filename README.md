@@ -18,7 +18,7 @@ var sql = require('sql');
 //first we define our tables
 var user = sql.define({
   name: 'user',
-  columns: ['id', 'email', 'lastLogin']
+  columns: ['id', 'name', 'email', 'lastLogin']
 });
 
 var post = sql.define({
@@ -47,10 +47,10 @@ console.log(query.values); //['boom', 1, 'bang', 2]
 
 
 //how about a join?
-var query = user.select(user.name, post.content)
+var query = user.select(user.name, post.body)
   .from(user.join(post).on(user.id.equals(post.userId))).toQuery();
   
-console.log(query.text); //'SELECT "user"."name", "post"."content" FROM "user" INNER JOIN "post" ON ("user"."id" = "post"."userId")'
+console.log(query.text); //'SELECT "user"."name", "post"."body" FROM "user" INNER JOIN "post" ON ("user"."id" = "post"."userId")'
 
 //this also makes parts of your queries composable, which is handy
 
@@ -65,7 +65,7 @@ var userToFriends = user
   .leftJoin(friends).on(friendship.friendId.equals(friends.id));
   
 //and now...compose...
-var friendsWhoHaveLoggedInQuery = user.from(userToFriends).where(friends.lastLogin.notNull());
+var friendsWhoHaveLoggedInQuery = user.from(userToFriends).where(friends.lastLogin.isNotNull());
 //SELECT * FROM "user" 
 //LEFT JOIN "friendship" ON ("user"."id" = "friendship"."userId") 
 //LEFT JOIN "user" AS "friends" ON ("friendship"."friendId" = "friends"."id")
@@ -77,6 +77,22 @@ var friendsWhoUseGmailQuery = user.from(userToFriends).where(friends.email.like(
 //LEFT JOIN "user" AS "friends" ON ("friendship"."friendId" = "friends"."id")
 //WHERE "friends"."email" LIKE %1
 
+//Using different property names for columns
+//helpful if your column name is long or not camelCase
+var user = sql.define({
+  name: 'user',
+  columns: [{
+      name: 'id'
+    }, {
+      name: 'state_or_province',
+      property: 'state'
+    }
+  ]
+});
+
+//now, instead of user.state_or_province, you can just use user.state
+console.log(user.select().where(user.state.equals('WA')).toQuery().text);
+// "SELECT "user".* FROM "user" WHERE ("user"."state_or_province" = $1)"
 ```
 
 There are a __lot__ more examples included in the `test/dialects` folder.
