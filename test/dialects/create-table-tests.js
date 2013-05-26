@@ -29,3 +29,10 @@ Harness.test({
   mysql : 'CREATE TABLE IF NOT EXISTS `group` (`id` varchar(100), `user_id` varchar(100))',
   params: []
 });
+
+Harness.test({
+  query : Table.define({ name: 'user', columns: [{ name: 'id', dataType: 'varchar(100)' }], engine: 'InnoDB' }).create(),
+  pg    : 'CREATE TABLE "user" ("id" varchar(100))',
+  sqlite: 'CREATE TABLE "user" ("id" varchar(100))',
+  mysql : 'CREATE TABLE `user` (`id` varchar(100)) ENGINE=InnoDB'
+});
