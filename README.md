@@ -76,10 +76,9 @@ var friendsWhoUseGmailQuery = user.from(userToFriends).where(friends.email.like(
 //LEFT JOIN "friendship" ON ("user"."id" = "friendship"."userId") 
 //LEFT JOIN "user" AS "friends" ON ("friendship"."friendId" = "friends"."id")
 //WHERE "friends"."email" LIKE %1
-```
 
-## Using different property names for columns
-```javascript
+//Using different property names for columns
+//helpful if your column name is long or not camelCase
 var user = sql.define({
   name: 'user',
   columns: [{
