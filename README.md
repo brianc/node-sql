@@ -49,7 +49,7 @@ console.log(query.values); //['boom', 1, 'bang', 2]
 //how about a join?
 var query = user.select(user.name, post.body)
   .from(user.join(post).on(user.id.equals(post.userId))).toQuery();
-  
+
 console.log(query.text); //'SELECT "user"."name", "post"."body" FROM "user" INNER JOIN "post" ON ("user"."id" = "post"."userId")'
 
 //this also makes parts of your queries composable, which is handy
@@ -63,17 +63,17 @@ var friends = user.as('friends');
 var userToFriends = user
   .leftJoin(friendship).on(user.id.equals(friendship.userId))
   .leftJoin(friends).on(friendship.friendId.equals(friends.id));
-  
+
 //and now...compose...
 var friendsWhoHaveLoggedInQuery = user.from(userToFriends).where(friends.lastLogin.isNotNull());
-//SELECT * FROM "user" 
-//LEFT JOIN "friendship" ON ("user"."id" = "friendship"."userId") 
+//SELECT * FROM "user"
+//LEFT JOIN "friendship" ON ("user"."id" = "friendship"."userId")
 //LEFT JOIN "user" AS "friends" ON ("friendship"."friendId" = "friends"."id")
 //WHERE "friends"."lastLogin" IS NOT NULL
 
 var friendsWhoUseGmailQuery = user.from(userToFriends).where(friends.email.like('%@gmail.com'));
-//SELECT * FROM "user" 
-//LEFT JOIN "friendship" ON ("user"."id" = "friendship"."userId") 
+//SELECT * FROM "user"
+//LEFT JOIN "friendship" ON ("user"."id" = "friendship"."userId")
 //LEFT JOIN "user" AS "friends" ON ("friendship"."friendId" = "friends"."id")
 //WHERE "friends"."email" LIKE %1
 
@@ -129,6 +129,16 @@ exports.foo = sql.define({
         'foo_bar_baz'
     ]
 });
+
+/**
+ * Adding a column to an existing table:
+ */
+var model = sql.define({ name: 'foo', columns: [] });
+model.addColumn('id');
+
+// If you try to add another column "id", node-sql will throw an error.
+// You can suppress that error via:
+model.addColumn('id', { noisy: false });
 ```
 
 Read the module's documentation for more details.
