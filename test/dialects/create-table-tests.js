@@ -36,3 +36,10 @@ Harness.test({
   sqlite: 'CREATE TABLE "user" ("id" varchar(100))',
   mysql : 'CREATE TABLE `user` (`id` varchar(100)) ENGINE=InnoDB'
 });
+
+Harness.test({
+  query : Table.define({ name: 'user', columns: [{ name: 'id', dataType: 'varchar(100)' }], charset: 'latin1' }).create(),
+  pg    : 'CREATE TABLE "user" ("id" varchar(100))',
+  sqlite: 'CREATE TABLE "user" ("id" varchar(100))',
+  mysql : 'CREATE TABLE `user` (`id` varchar(100)) DEFAULT CHARSET=latin1'
+});
