@@ -76,7 +76,24 @@ var friendsWhoUseGmailQuery = user.from(userToFriends).where(friends.email.like(
 //LEFT JOIN "friendship" ON ("user"."id" = "friendship"."userId") 
 //LEFT JOIN "user" AS "friends" ON ("friendship"."friendId" = "friends"."id")
 //WHERE "friends"."email" LIKE %1
+```
 
+## Using different property names for columns
+```javascript
+var user = sql.define({
+  name: 'user',
+  columns: [{
+      name: 'id'
+    }, {
+      name: 'state_or_province',
+      property: 'state'
+    }
+  ]
+});
+
+//now, instead of user.state_or_province, you can just use user.state
+console.log(user.select().where(user.state.equals('WA')).toQuery().text);
+// "SELECT "user".* FROM "user" WHERE ("user"."state_or_province" = $1)"
 ```
 
 There are a __lot__ more examples included in the `test/dialects` folder.
