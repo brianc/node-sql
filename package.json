@@ -16,7 +16,8 @@
     "node": "*"
   },
   "dependencies": {
-    "sliced": "0.0.5"
+    "sliced": "0.0.5",
+    "lodash": "~1.2.1"
   },
   "devDependencies": {
     "mocha": "*"
