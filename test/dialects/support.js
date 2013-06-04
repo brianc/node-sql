@@ -77,5 +77,12 @@ module.exports = {
       name: 'comment',
       columns: ['postId', 'text']
     });
+  },
+
+  defineCustomerTable: function () {
+    return Table.define({
+      name: 'customer',
+      columns: ['id', 'name', 'age', 'income']
+    });
   }
 };
