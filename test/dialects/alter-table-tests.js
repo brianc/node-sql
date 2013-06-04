@@ -128,7 +128,7 @@ var UserWithSignature = Table.define({
     name:     'Signature',
     dataType: "VARCHAR(255) NOT NULL DEFAULT 'Signature'"
   }]
-})
+});
 
 Harness.test({
   query:  UserWithSignature.alter().renameColumn(UserWithSignature.get('Signature'), 'sig'),
@@ -138,4 +138,4 @@ Harness.test({
     text  : 'Sqlite cannot rename columns',
     throws: true
   }
-})
+});

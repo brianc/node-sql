@@ -1,4 +1,6 @@
+/* global test */
 'use strict';
+
 var assert = require('assert');
 var Table = require(__dirname + '/../lib/table');
 
