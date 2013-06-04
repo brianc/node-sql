@@ -23,5 +23,12 @@ describe('column', function() {
     it('respects count and distinct', function() {
       assert.equal(table.id.count().distinct().as("userIdCount").toQuery().text, 'COUNT(DISTINCT("user"."id")) AS "userIdCount"');
     });
+
+    describe('in subquery with min', function() {
+      var subquery = table.subQuery('subTable').select(table.id.min().as('subId'));
+      var col = subquery.subId.toQuery().text
+      console.log(col)
+      assert.equal(col, '"subTable"."subId"');
+    });
   });
 });
