@@ -4,7 +4,7 @@ var Harness = require('./support');
 var user = Harness.defineUserTable();
 var post = Harness.definePostTable();
 
-//shortcut: 'select * from <table>'
+// shortcut: 'select * from <table>'
 Harness.test({
   query : user,
   pg    : 'SELECT "user".* FROM "user"',
@@ -28,7 +28,7 @@ Harness.test({
   params: [3,1]
 });
 
-//shortcut: no 'from'
+// shortcut: no 'from'
 Harness.test({
   query : post.select(post.content),
   pg    : 'SELECT "post"."content" FROM "post"',
