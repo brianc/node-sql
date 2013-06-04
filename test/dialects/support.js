@@ -36,6 +36,12 @@ module.exports = {
 
             // test result is correct
             var expectedText = expected[dialect].text || expected[dialect];
+            if(compiledQuery.text != expectedText) {
+              console.log();
+              console.log('actual  ', compiledQuery.text);
+              console.log('expected', expectedText);
+              console.log();
+            }
             assert.equal(compiledQuery.text, expectedText,'query result');
 
             // if params are specified then test these are correct
