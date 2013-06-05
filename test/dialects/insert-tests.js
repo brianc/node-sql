@@ -28,7 +28,7 @@ Harness.test({
   params: ['test', 2]
 });
 
-//allow bulk insert
+// allow bulk insert
 Harness.test({
   query : post.insert([{content: 'whoah'}, {content: 'hey'}]),
   pg    : 'INSERT INTO "post" ("content") VALUES ($1), ($2)',
@@ -45,8 +45,7 @@ Harness.test({
   params: ['whoah', 1, 'hey', 2]
 });
 
-
-//consistent order
+// consistent order
 Harness.test({
   query : post.insert([{content: 'whoah', userId: 1}, {userId: 2, content: 'hey' }]),
   pg    : 'INSERT INTO "post" ("content", "userId") VALUES ($1, $2), ($3, $4)',
@@ -55,8 +54,7 @@ Harness.test({
   params: ['whoah', 1, 'hey', 2]
 });
 
-
-//handle missing columns
+// handle missing columns
 Harness.test({
   query : post.insert([{content: 'whoah', userId: 1}, {content: 'hey'}]),
   pg    : {
