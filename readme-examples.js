@@ -1,4 +1,4 @@
-var sql = require('../lib');
+var sql = require('./lib');
 var user = sql.define({
   name: 'user',
   columns: ['id', 'lastLogin', 'email']
