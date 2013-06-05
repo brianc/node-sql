@@ -3,7 +3,6 @@
 var Harness = require('./support');
 var user = Harness.defineUserTable();
 var post = Harness.definePostTable();
-var customer = Harness.defineCustomerTable();
 
 // shortcut: 'select * from <table>'
 Harness.test({
@@ -51,12 +50,4 @@ Harness.test({
   sqlite: 'SELECT * FROM "post" WHERE ((("post"."content" IS NULL) OR ("post"."content" = $1)) AND ("post"."userId" = $2))',
   mysql : 'SELECT * FROM `post` WHERE (((`post`.`content` IS NULL) OR (`post`.`content` = ?)) AND (`post`.`userId` = ?))',
   params: ['', 1]
-});
-
-Harness.test({
-  query : customer.select(customer.name, customer.income.modulo(100)).where(customer.age.add(5).multiply(customer.age.subtract(2)).equals(10)),
-  pg    : 'SELECT "customer"."name", ("customer"."income" % $1) FROM "customer" WHERE ((("customer"."age" + $2) * ("customer"."age" - $3)) = $4)',
-  sqlite: 'SELECT "customer"."name", ("customer"."income" % $1) FROM "customer" WHERE ((("customer"."age" + $2) * ("customer"."age" - $3)) = $4)',
-  mysql : 'SELECT `customer`.`name`, (`customer`.`income` % ?) FROM `customer` WHERE (((`customer`.`age` + ?) * (`customer`.`age` - ?)) = ?)',
-  params: [100, 5, 2, 10]
 });
