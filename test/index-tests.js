@@ -61,23 +61,4 @@ suite('index', function() {
     assert.equal(postgres.dialect, require(__dirname + '/../lib/dialect/postgres'));
     assert.equal(sqlite.dialect, require(__dirname + '/../lib/dialect/sqlite'));
   });
-
-  test('creating function call works', function() {
-    var functionCall = sql.functionCall('CONCAT', 'hello', 'world').toQuery();
-    assert.equal(functionCall.text, 'CONCAT($1, $2)');
-    assert.equal(functionCall.values[0], 'hello');
-    assert.equal(functionCall.values[1], 'world');
-  });
-
-  test('creating function call on columns works', function() {
-    var functionCall = sql.functionCall('CONCAT', user.id, user.email).toQuery();
-    assert.equal(functionCall.text, 'CONCAT("user"."id", "user"."email")');
-    assert.equal(functionCall.values.length, 0);
-  });
-
-  test('function call inside select works', function() {
-    var functionCall = sql.select(sql.functionCall('CONCAT', user.id, user.email)).from(user).where(user.email.equals('brian.m.carlson@gmail.com')).toQuery();
-    assert.equal(functionCall.text, 'SELECT CONCAT("user"."id", "user"."email") FROM "user" WHERE ("user"."email" = $1)');
-    assert.equal(functionCall.values[0], 'brian.m.carlson@gmail.com');
-  });
 });
