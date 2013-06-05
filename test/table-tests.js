@@ -1,3 +1,4 @@
+/* global suite, test */
 'use strict';
 var assert = require('assert');
 
@@ -29,7 +30,7 @@ suite('table', function() {
     table.addColumn(col);
     assert.equal(table.columns.length, 1);
     assert.equal(table.boom, col);
-  })
+  });
 
   test('creates query node', function() {
     var sel = table.select(table.boom);
