@@ -20,3 +20,11 @@ Harness.test({
   mysql : 'SELECT (`post`.`content` + ?) FROM `post` WHERE (`post`.`userId` IN (SELECT `customer`.`id` FROM `customer`))',
   params: ['!']
 });
+
+Harness.test({
+  query  : post.select(post.id.add(': ').add(post.content)).where(post.userId.notIn(customer.subQuery().select(customer.id))),
+  pg     : 'SELECT (("post"."id" + $1) + "post"."content") FROM "post" WHERE ("post"."userId" NOT IN (SELECT "customer"."id" FROM "customer"))',
+  sqlite : 'SELECT (("post"."id" + $1) + "post"."content") FROM "post" WHERE ("post"."userId" NOT IN (SELECT "customer"."id" FROM "customer"))',
+  mysql  : 'SELECT ((`post`.`id` + ?) + `post`.`content`) FROM `post` WHERE (`post`.`userId` NOT IN (SELECT `customer`.`id` FROM `customer`))',
+  params : [': ']
+});
