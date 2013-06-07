@@ -22,4 +22,9 @@ test('operators', function() {
   assert.equal(Foo.baz.gte(1).operator, '>=');
   assert.equal(Foo.baz.lt(1).operator, '<');
   assert.equal(Foo.baz.lte(1).operator, '<=');
+  assert.equal(Foo.baz.add(1).operator, '+');
+  assert.equal(Foo.baz.subtract(1).operator, '-');
+  assert.equal(Foo.baz.multiply(1).operator, '*');
+  assert.equal(Foo.baz.divide(1).operator, '/');
+  assert.equal(Foo.baz.modulo(1).operator, '%');
 });

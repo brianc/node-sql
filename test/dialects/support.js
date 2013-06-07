@@ -77,5 +77,20 @@ module.exports = {
       name: 'comment',
       columns: ['postId', 'text']
     });
+  },
+
+  defineCustomerTable: function () {
+    return Table.define({
+      name: 'customer',
+      columns: ['id', 'name', 'age', 'income']
+    });
+  },
+
+  // This table contains column names that correspond to popularly used variables in formulas.
+  defineVariableTable: function() {
+    return Table.define({
+     name: 'variable',
+     columns: ['a', 'b', 'c', 'd', 't', 'u', 'v', 'x', 'y', 'z']
+    });
   }
 };
