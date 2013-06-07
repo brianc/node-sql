@@ -29,4 +29,14 @@ suite('index', function() {
     assert.equal(query.text, 'SELECT "user"."id" FROM "user" WHERE ("user"."email" = $1)');
     assert.equal(query.values[0], 'brian.m.carlson@gmail.com');
   });
+
+
+  test('sql.create creates an instance with a new dialect', function() {
+      var mysql = sql.create('mysql');
+      var query = mysql.select(user.id).from(user).where(user.email.equals('brian.m.carlson@gmail.com')).toQuery();      
+      assert.equal(query.text, 'SELECT `user`.`id` FROM `user` WHERE (`user`.`email` = ?)');
+      assert.equal(query.values[0], 'brian.m.carlson@gmail.com');
+
+  });
+
 });
