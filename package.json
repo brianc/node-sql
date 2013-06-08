@@ -2,7 +2,7 @@
   "author": "brianc <brian.m.carlson@gmail.com>",
   "name": "sql",
   "description": "sql builder",
-  "version": "0.20.0",
+  "version": "0.21.0",
   "homepage": "https://github.com/brianc/node-sql",
   "repository": {
     "type": "git",
@@ -16,11 +16,11 @@
     "node": "*"
   },
   "dependencies": {
-    "sliced" : "0.0.5",
-    "lodash" : "~1.2.1"
+    "sliced": "0.0.5",
+    "lodash": "~1.2.1"
   },
   "devDependencies": {
-    "jshint" : "*",
-    "mocha"  : "*"
+    "jshint": "*",
+    "mocha": "*"
   }
 }
