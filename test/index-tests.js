@@ -39,4 +39,17 @@ suite('index', function() {
 
   });
 
+  test('sql.define for parallel dialects work independently', function() {
+    var mysql = sql.create('mysql');
+    var postgres = sql.create('postgres');
+
+    var mysqlTable = mysql.define({name: 'table', columns: ['column']});
+    var postgresTable = postgres.define({name: 'table', columns: ['column']});
+
+    assert.equal(mysqlTable.sql, mysql);
+    assert.equal(postgresTable.sql, postgres);
+  });
+
+
+
 });
