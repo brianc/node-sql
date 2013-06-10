@@ -118,7 +118,6 @@ Harness.test({
   params: ['brian']
 });
 
-//Fix #10: prevent column state mutation
 Harness.test({
   query : user.select(user.name).from(user).where(user.name.equals('brian')),
   pg    : 'SELECT "user"."name" FROM "user" WHERE ("user"."name" = $1)',

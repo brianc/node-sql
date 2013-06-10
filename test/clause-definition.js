@@ -1,4 +1,6 @@
+/* global test */
 'use strict';
+
 var assert = require('assert');
 
 var Node = require(__dirname + '/../lib/node/');

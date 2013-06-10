@@ -36,7 +36,6 @@ Harness.test({
   mysql : 'SELECT `p`.`content`, `u`.`name` FROM `user` AS `u` INNER JOIN `post` AS `p` ON ((`u`.`id` = `p`.`userId`) AND (`p`.`content` IS NOT NULL))'
 });
 
-
 // the quote property isn't implemented for columns, so all columns are quoted in generated queries
 var comment = Table.define({
   name: 'comment',
