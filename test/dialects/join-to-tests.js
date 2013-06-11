@@ -5,6 +5,7 @@ var Harness = require('./support');
 
 var user = sql.define({
   name: 'user',
+  quote: false,
   columns: {
     id: { primaryKey: true }
   }
@@ -32,6 +33,19 @@ var post = sql.define({
   }
 });
 
+var comment = sql.define({
+  name: 'comment',
+  columns: {
+    id: { primaryKey: true },
+    postId: {
+      references: {
+        table: 'post',
+        column: 'id'
+      }
+    }
+  }
+});
+
 Harness.test({
   query : user.joinTo(post),
   pg    : '"user" INNER JOIN "post" ON ("user"."id" = "post"."ownerId")',
@@ -51,4 +65,30 @@ Harness.test({
   pg    : '"user" INNER JOIN "photo" ON ("user"."id" = "photo"."ownerId")',
   sqlite: '"user" INNER JOIN "photo" ON ("user"."id" = "photo"."ownerId")',
   mysql : '`user` INNER JOIN `photo` ON (`user`.`id` = `photo`.`ownerId`)'
+});
+
+Harness.test({
+  query : user.joinTo(post).joinTo(comment),
+  pg    : '"user" INNER JOIN "post" ON ("user"."id" = "post"."ownerId") INNER JOIN "comment" ON ("post"."id" = "comment"."postId")'
+});
+
+Harness.test({
+  query : user.joinTo(post).joinTo(photo),
+  pg    : '"user" INNER JOIN "post" ON ("user"."id" = "post"."ownerId") INNER JOIN "photo" ON ("user"."id" = "photo"."ownerId")'
+});
+
+Harness.test({
+  query : user.joinTo(post).joinTo(photo).joinTo(comment),
+  pg    : '"user" INNER JOIN "post" ON ("user"."id" = "post"."ownerId") INNER JOIN "photo" ON ("user"."id" = "photo"."ownerId") INNER JOIN "comment" ON ("post"."id" = "comment"."postId")'
+});
+
+Harness.test({
+  query : user.joinTo(photo).joinTo(post).joinTo(comment),
+  pg    : '"user" INNER JOIN "photo" ON ("user"."id" = "photo"."ownerId") INNER JOIN "post" ON ("user"."id" = "post"."ownerId") INNER JOIN "comment" ON ("post"."id" = "comment"."postId")'
+});
+
+return console.log('TODO!');
+Harness.test({
+  query : user.joinTo(photo, post),
+  pg    : '"user" INNER JOIN "photo" ON ("user"."id" = "photo"."ownerId") INNER JOIN "post" ON ("user"."id" = "post"."ownerId")'
 });
