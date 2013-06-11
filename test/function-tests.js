@@ -10,6 +10,13 @@ var user = sql.define({
 });
 
 suite('function', function() {
+  test('alias function call', function() {
+    var upper = sql.functions.UPPER;
+    var aliasedUpper = upper(user.email).as('upperAlias').toQuery();
+
+    assert.equal(aliasedUpper.text, 'UPPER("user"."email") AS "upperAlias"');
+  });
+
   test('creating function call works', function() {
     var upper = sql.functionCallCreator('UPPER');
     var functionCall = upper('hello', 'world').toQuery();
