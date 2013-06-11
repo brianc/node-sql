@@ -61,5 +61,4 @@ suite('index', function() {
     assert.equal(postgres.dialect, require(__dirname + '/../lib/dialect/postgres'));
     assert.equal(sqlite.dialect, require(__dirname + '/../lib/dialect/sqlite'));
   });
-
 });
