@@ -30,4 +30,36 @@ describe('column', function() {
       assert.equal(col, '"subTable"."subId"');
     });
   });
+
+  describe('extra text to column', function() {
+    it('can be used to cast', function() {
+      assert.equal(table.id.appendText('::text').toQuery().text, '"user"."id"::text');
+    });
+
+    it('can be used to access hstore data', function() {
+      assert.equal(table.id.appendText("::hstore->'data'").toQuery().text, '"user"."id"::hstore->\'data\'')
+    });
+
+    it('can be chained', function() {
+      assert.equal(table.id.count().appendText('::text').as('count').toQuery().text, 'COUNT("user"."id"::text) AS "count"');
+      assert.equal(table.id.appendText('::text').as('count').count().toQuery().text, 'COUNT("user"."id"::text) AS "count"');
+    });
+  });
+
+  describe('aggregate', function() {
+    it('works with supplied alias', function() {
+      assert.equal(table.id.count('idCount').toQuery().text, 'COUNT("user"."id") AS "idCount"');
+      assert.equal(table.id.toNode().count('idCount').toQuery().text, 'COUNT("user"."id") AS "idCount"');
+    });
+
+    it('works with named column', function() {
+      assert.equal(table.id.count().toQuery().text, 'COUNT("user"."id") AS "id_count"');
+      assert.equal(table.id.toNode().count().toQuery().text, 'COUNT("user"."id") AS "id_count"');
+    });
+
+    it('works with previously aliased column', function() {
+      assert.equal(table.id.as('boom').count().toQuery().text, 'COUNT("user"."id") AS "boom"');
+      assert.equal(table.id.toNode().as('boom').count().toQuery().text, 'COUNT("user"."id") AS "boom"');
+    });
+  });
 });
