@@ -25,6 +25,8 @@ test('operators', function() {
   assert.equal(Foo.baz.plus(1).operator, '+');
   assert.equal(Foo.baz.minus(1).operator, '-');
   assert.equal(Foo.baz.multiply(1).operator, '*');
+  assert.equal(Foo.baz.leftShift(1).operator, '<<');
+  assert.equal(Foo.baz.rightShift(1).operator, '>>');
   assert.equal(Foo.baz.divide(1).operator, '/');
   assert.equal(Foo.baz.modulo(1).operator, '%');
 });
