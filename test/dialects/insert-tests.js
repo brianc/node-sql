@@ -58,8 +58,8 @@ Harness.test({
 Harness.test({
   query : post.insert([{content: 'whoah', userId: 1}, {content: 'hey'}]),
   pg    : {
-    text: 'INSERT INTO "post" ("content", "userId") VALUES ($1, $2), ($3, $4)',
-    params: ['whoah', 1, 'hey', 'DEFAULT']
+    text: 'INSERT INTO "post" ("content", "userId") VALUES ($1, $2), ($3, DEFAULT)',
+    params: ['whoah', 1, 'hey']
   },
   sqlite: {
     text: 'Sqlite requires the same number of columns in each insert row',
@@ -74,8 +74,8 @@ Harness.test({
 Harness.test({
   query : post.insert([{userId: 1}, {content: 'hey', userId: 2}]),
   pg    : {
-    text: 'INSERT INTO "post" ("userId", "content") VALUES ($1, $2), ($3, $4)',
-    params: [1, 'DEFAULT', 2, 'hey']
+    text: 'INSERT INTO "post" ("userId", "content") VALUES ($1, DEFAULT), ($2, $3)',
+    params: [1, 2, 'hey']
   },
   sqlite: {
     text: 'Sqlite requires the same number of columns in each insert row',

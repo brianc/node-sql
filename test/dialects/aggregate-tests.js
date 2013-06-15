@@ -1,5 +1,7 @@
+/* global test */
 'use strict';
 
+var assert = require('assert');
 var Harness = require('./support');
 var post = Harness.definePostTable();
 
@@ -99,42 +101,42 @@ Harness.test({
   params: []
 });
 
-Harness.test({ 
+Harness.test({
   query   : post.select(post.id.sum()),
   pg      : 'SELECT SUM("post"."id") AS "id_sum" FROM "post"',
   sqllite : 'SELECT SUM("post"."id") AS "id_sum" FROM "post"',
   mysql   : 'SELECT SUM(`post`.`id`) AS `id_sum` FROM `post`',
 });
 
-Harness.test({ 
+Harness.test({
   query   : post.select(post.id.sum().as('sum_id')),
   pg      : 'SELECT SUM("post"."id") AS "sum_id" FROM "post"',
   sqllite : 'SELECT SUM("post"."id") AS "sum_id" FROM "post"',
   mysql   : 'SELECT SUM(`post`.`id`) AS `sum_id` FROM `post`',
 });
 
-Harness.test({ 
+Harness.test({
   query   : post.select(post.id.sum('sum_id')),
   pg      : 'SELECT SUM("post"."id") AS "sum_id" FROM "post"',
   sqllite : 'SELECT SUM("post"."id") AS "sum_id" FROM "post"',
   mysql   : 'SELECT SUM(`post`.`id`) AS `sum_id` FROM `post`',
 });
 
-Harness.test({ 
+Harness.test({
   query   : post.select(post.id.avg()),
   pg      : 'SELECT AVG("post"."id") AS "id_avg" FROM "post"',
   sqllite : 'SELECT AVG("post"."id") AS "id_avg" FROM "post"',
   mysql   : 'SELECT AVG(`post`.`id`) AS `id_avg` FROM `post`',
 });
 
-Harness.test({ 
+Harness.test({
   query   : post.select(post.id.avg().as('avg_id')),
   pg      : 'SELECT AVG("post"."id") AS "avg_id" FROM "post"',
   sqllite : 'SELECT AVG("post"."id") AS "avg_id" FROM "post"',
   mysql   : 'SELECT AVG(`post`.`id`) AS `avg_id` FROM `post`',
 });
 
-Harness.test({ 
+Harness.test({
   query   : post.select(post.id.avg('avg_id')),
   pg      : 'SELECT AVG("post"."id") AS "avg_id" FROM "post"',
   sqllite : 'SELECT AVG("post"."id") AS "avg_id" FROM "post"',
