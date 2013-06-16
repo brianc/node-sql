@@ -16,15 +16,16 @@ module.exports = {
 
     // for each dialect
     Object.keys(dialects).forEach(function(dialect) {
-      if (undefined !== expected[dialect]) {
+      var expectedObject = expected[dialect];
+      if (undefined !== expectedObject) {
 
         var DialectClass = dialects[dialect];
 
-        var title = dialect + ': ' + (expected.title || expected[dialect].text || expected[dialect]);
+        var title = dialect + ': ' + (expected.title || expectedObject.text || expectedObject);
         test(title, function() {
 
           // check if this query is expected to throw
-          if (expected[dialect].throws) {
+          if (expectedObject.throws) {
 
             assert.throws(function() {
               new DialectClass().getQuery(expected.query);
@@ -36,11 +37,11 @@ module.exports = {
             var compiledQuery = new DialectClass().getQuery(expected.query);
 
             // test result is correct
-            var expectedText = expected[dialect].text || expected[dialect];
+            var expectedText = expectedObject.text || expectedObject;
             assert.equal(compiledQuery.text, expectedText, 'query result');
 
             // if params are specified then test these are correct
-            var expectedParams = expected[dialect].params || expected.params;
+            var expectedParams = expectedObject.params || expected.params;
             if (expectedParams) {
               assert.equal(expectedParams.length, compiledQuery.values.length, 'params length');
               for (var i = 0; i < expectedParams.length; i++) {
@@ -49,8 +50,22 @@ module.exports = {
             }
 
           }
-        });
 
+          if (undefined !== expectedObject.string) {
+            // test the toString
+            if (expectedObject.throws) {
+              assert.throws(function() {
+                new DialectClass().getString(expected.query);
+              });
+            } else {
+              var compiledString = new DialectClass().getString(expected.query);
+
+              // test result is correct
+              assert.equal(compiledString, expectedObject.string);
+            }
+          }
+
+        });
 
       } // if
     }); // forEach

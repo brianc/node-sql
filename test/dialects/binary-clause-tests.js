@@ -6,25 +6,52 @@ var post = Harness.definePostTable();
 var Table = require(__dirname + '/../../lib/table');
 
 Harness.test({
-  query : customer.select(customer.name.plus(customer.age)),
-  pg    : 'SELECT ("customer"."name" + "customer"."age") FROM "customer"',
-  sqlite: 'SELECT ("customer"."name" + "customer"."age") FROM "customer"',
-  mysql : 'SELECT (`customer`.`name` + `customer`.`age`) FROM `customer`',
+  query: customer.select(customer.name.plus(customer.age)),
+  pg: {
+    text: 'SELECT ("customer"."name" + "customer"."age") FROM "customer"',
+    string: 'SELECT ("customer"."name" + "customer"."age") FROM "customer"'
+  },
+  sqlite: {
+    text: 'SELECT ("customer"."name" + "customer"."age") FROM "customer"',
+    string: 'SELECT ("customer"."name" + "customer"."age") FROM "customer"'
+  },
+  mysql: {
+    text: 'SELECT (`customer`.`name` + `customer`.`age`) FROM `customer`',
+    string: 'SELECT (`customer`.`name` + `customer`.`age`) FROM `customer`'
+  },
   params: []
 });
 
 Harness.test({
-  query : post.select(post.content.plus('!')).where(post.userId.in(customer.subQuery().select(customer.id))),
-  pg    : 'SELECT ("post"."content" + $1) FROM "post" WHERE ("post"."userId" IN (SELECT "customer"."id" FROM "customer"))',
-  sqlite: 'SELECT ("post"."content" + $1) FROM "post" WHERE ("post"."userId" IN (SELECT "customer"."id" FROM "customer"))',
-  mysql : 'SELECT (`post`.`content` + ?) FROM `post` WHERE (`post`.`userId` IN (SELECT `customer`.`id` FROM `customer`))',
+  query: post.select(post.content.plus('!')).where(post.userId. in (customer.subQuery().select(customer.id))),
+  pg: {
+    text: 'SELECT ("post"."content" + $1) FROM "post" WHERE ("post"."userId" IN (SELECT "customer"."id" FROM "customer"))',
+    string: 'SELECT ("post"."content" + \'!\') FROM "post" WHERE ("post"."userId" IN (SELECT "customer"."id" FROM "customer"))'
+  },
+  sqlite: {
+    text: 'SELECT ("post"."content" + $1) FROM "post" WHERE ("post"."userId" IN (SELECT "customer"."id" FROM "customer"))',
+    string: 'SELECT ("post"."content" + \'!\') FROM "post" WHERE ("post"."userId" IN (SELECT "customer"."id" FROM "customer"))'
+  },
+  mysql: {
+    text: 'SELECT (`post`.`content` + ?) FROM `post` WHERE (`post`.`userId` IN (SELECT `customer`.`id` FROM `customer`))',
+    string: 'SELECT (`post`.`content` + \'!\') FROM `post` WHERE (`post`.`userId` IN (SELECT `customer`.`id` FROM `customer`))'
+  },
   params: ['!']
 });
 
 Harness.test({
-  query  : post.select(post.id.plus(': ').plus(post.content)).where(post.userId.notIn(customer.subQuery().select(customer.id))),
-  pg     : 'SELECT (("post"."id" + $1) + "post"."content") FROM "post" WHERE ("post"."userId" NOT IN (SELECT "customer"."id" FROM "customer"))',
-  sqlite : 'SELECT (("post"."id" + $1) + "post"."content") FROM "post" WHERE ("post"."userId" NOT IN (SELECT "customer"."id" FROM "customer"))',
-  mysql  : 'SELECT ((`post`.`id` + ?) + `post`.`content`) FROM `post` WHERE (`post`.`userId` NOT IN (SELECT `customer`.`id` FROM `customer`))',
-  params : [': ']
+  query: post.select(post.id.plus(': ').plus(post.content)).where(post.userId.notIn(customer.subQuery().select(customer.id))),
+  pg: {
+    text: 'SELECT (("post"."id" + $1) + "post"."content") FROM "post" WHERE ("post"."userId" NOT IN (SELECT "customer"."id" FROM "customer"))',
+    string: 'SELECT (("post"."id" + \': \') + "post"."content") FROM "post" WHERE ("post"."userId" NOT IN (SELECT "customer"."id" FROM "customer"))'
+  },
+  sqlite: {
+    text: 'SELECT (("post"."id" + $1) + "post"."content") FROM "post" WHERE ("post"."userId" NOT IN (SELECT "customer"."id" FROM "customer"))',
+    string: 'SELECT (("post"."id" + \': \') + "post"."content") FROM "post" WHERE ("post"."userId" NOT IN (SELECT "customer"."id" FROM "customer"))'
+  },
+  mysql: {
+    text: 'SELECT ((`post`.`id` + ?) + `post`.`content`) FROM `post` WHERE (`post`.`userId` NOT IN (SELECT `customer`.`id` FROM `customer`))',
+    string: 'SELECT ((`post`.`id` + \': \') + `post`.`content`) FROM `post` WHERE (`post`.`userId` NOT IN (SELECT `customer`.`id` FROM `customer`))'
+  },
+  params: [': ']
 });
