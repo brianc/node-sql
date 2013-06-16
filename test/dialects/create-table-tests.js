@@ -18,15 +18,15 @@ var group = Table.define({
 Harness.test({
   query: group.create(),
   pg: {
-    text: 'CREATE TABLE "group" ("id" varchar(100), "user_id" varchar(100))',
+    text  : 'CREATE TABLE "group" ("id" varchar(100), "user_id" varchar(100))',
     string: 'CREATE TABLE "group" ("id" varchar(100), "user_id" varchar(100))'
   },
   sqlite: {
-    text: 'CREATE TABLE "group" ("id" varchar(100), "user_id" varchar(100))',
+    text  : 'CREATE TABLE "group" ("id" varchar(100), "user_id" varchar(100))',
     string: 'CREATE TABLE "group" ("id" varchar(100), "user_id" varchar(100))'
   },
   mysql: {
-    text: 'CREATE TABLE `group` (`id` varchar(100), `user_id` varchar(100))',
+    text  : 'CREATE TABLE `group` (`id` varchar(100), `user_id` varchar(100))',
     string: 'CREATE TABLE `group` (`id` varchar(100), `user_id` varchar(100))'
   },
   params: []
@@ -35,15 +35,15 @@ Harness.test({
 Harness.test({
   query: group.create().ifNotExists(),
   pg: {
-    text: 'CREATE TABLE IF NOT EXISTS "group" ("id" varchar(100), "user_id" varchar(100))',
+    text  : 'CREATE TABLE IF NOT EXISTS "group" ("id" varchar(100), "user_id" varchar(100))',
     string: 'CREATE TABLE IF NOT EXISTS "group" ("id" varchar(100), "user_id" varchar(100))'
   },
   sqlite: {
-    text: 'CREATE TABLE IF NOT EXISTS "group" ("id" varchar(100), "user_id" varchar(100))',
+    text  : 'CREATE TABLE IF NOT EXISTS "group" ("id" varchar(100), "user_id" varchar(100))',
     string: 'CREATE TABLE IF NOT EXISTS "group" ("id" varchar(100), "user_id" varchar(100))'
   },
   mysql: {
-    text: 'CREATE TABLE IF NOT EXISTS `group` (`id` varchar(100), `user_id` varchar(100))',
+    text  : 'CREATE TABLE IF NOT EXISTS `group` (`id` varchar(100), `user_id` varchar(100))',
     string: 'CREATE TABLE IF NOT EXISTS `group` (`id` varchar(100), `user_id` varchar(100))'
   },
   params: []
@@ -60,15 +60,15 @@ Harness.test({
     engine: 'InnoDB'
   }).create(),
   pg: {
-    text: 'CREATE TABLE "user" ("id" varchar(100))',
+    text  : 'CREATE TABLE "user" ("id" varchar(100))',
     string: 'CREATE TABLE "user" ("id" varchar(100))'
   },
   sqlite: {
-    text: 'CREATE TABLE "user" ("id" varchar(100))',
+    text  : 'CREATE TABLE "user" ("id" varchar(100))',
     string: 'CREATE TABLE "user" ("id" varchar(100))'
   },
   mysql: {
-    text: 'CREATE TABLE `user` (`id` varchar(100)) ENGINE=InnoDB',
+    text  : 'CREATE TABLE `user` (`id` varchar(100)) ENGINE=InnoDB',
     string: 'CREATE TABLE `user` (`id` varchar(100)) ENGINE=InnoDB'
   }
 });
@@ -84,15 +84,15 @@ Harness.test({
     charset: 'latin1'
   }).create(),
   pg: {
-    text: 'CREATE TABLE "user" ("id" varchar(100))',
+    text  : 'CREATE TABLE "user" ("id" varchar(100))',
     string: 'CREATE TABLE "user" ("id" varchar(100))'
   },
   sqlite: {
-    text: 'CREATE TABLE "user" ("id" varchar(100))',
+    text  : 'CREATE TABLE "user" ("id" varchar(100))',
     string: 'CREATE TABLE "user" ("id" varchar(100))'
   },
   mysql: {
-    text: 'CREATE TABLE `user` (`id` varchar(100)) DEFAULT CHARSET=latin1',
+    text  : 'CREATE TABLE `user` (`id` varchar(100)) DEFAULT CHARSET=latin1',
     string: 'CREATE TABLE `user` (`id` varchar(100)) DEFAULT CHARSET=latin1'
   }
 });
@@ -109,15 +109,15 @@ Harness.test({
     charset: 'latin1'
   }).create(),
   pg: {
-    text: 'CREATE TABLE "user" ("id" varchar(100))',
+    text  : 'CREATE TABLE "user" ("id" varchar(100))',
     string: 'CREATE TABLE "user" ("id" varchar(100))'
   },
   sqlite: {
-    text: 'CREATE TABLE "user" ("id" varchar(100))',
+    text  : 'CREATE TABLE "user" ("id" varchar(100))',
     string: 'CREATE TABLE "user" ("id" varchar(100))'
   },
   mysql: {
-    text: 'CREATE TABLE `user` (`id` varchar(100)) ENGINE=MyISAM DEFAULT CHARSET=latin1',
+    text  : 'CREATE TABLE `user` (`id` varchar(100)) ENGINE=MyISAM DEFAULT CHARSET=latin1',
     string: 'CREATE TABLE `user` (`id` varchar(100)) ENGINE=MyISAM DEFAULT CHARSET=latin1'
   }
 });

@@ -6,15 +6,15 @@ var post = Harness.definePostTable();
 Harness.test({
   query: post.select(post.content).order(post.content),
   pg: {
-    text: 'SELECT "post"."content" FROM "post" ORDER BY "post"."content"',
+    text  : 'SELECT "post"."content" FROM "post" ORDER BY "post"."content"',
     string: 'SELECT "post"."content" FROM "post" ORDER BY "post"."content"'
   },
   sqlite: {
-    text: 'SELECT "post"."content" FROM "post" ORDER BY "post"."content"',
+    text  : 'SELECT "post"."content" FROM "post" ORDER BY "post"."content"',
     string: 'SELECT "post"."content" FROM "post" ORDER BY "post"."content"'
   },
   mysql: {
-    text: 'SELECT `post`.`content` FROM `post` ORDER BY `post`.`content`',
+    text  : 'SELECT `post`.`content` FROM `post` ORDER BY `post`.`content`',
     string: 'SELECT `post`.`content` FROM `post` ORDER BY `post`.`content`'
   },
   params: []
@@ -23,15 +23,15 @@ Harness.test({
 Harness.test({
   query: post.select(post.content).order(post.content, post.userId.descending),
   pg: {
-    text: 'SELECT "post"."content" FROM "post" ORDER BY "post"."content", "post"."userId" DESC',
+    text  : 'SELECT "post"."content" FROM "post" ORDER BY "post"."content", "post"."userId" DESC',
     string: 'SELECT "post"."content" FROM "post" ORDER BY "post"."content", "post"."userId" DESC'
   },
   sqlite: {
-    text: 'SELECT "post"."content" FROM "post" ORDER BY "post"."content", "post"."userId" DESC',
+    text  : 'SELECT "post"."content" FROM "post" ORDER BY "post"."content", "post"."userId" DESC',
     string: 'SELECT "post"."content" FROM "post" ORDER BY "post"."content", "post"."userId" DESC'
   },
   mysql: {
-    text: 'SELECT `post`.`content` FROM `post` ORDER BY `post`.`content`, `post`.`userId` DESC',
+    text  : 'SELECT `post`.`content` FROM `post` ORDER BY `post`.`content`, `post`.`userId` DESC',
     string: 'SELECT `post`.`content` FROM `post` ORDER BY `post`.`content`, `post`.`userId` DESC'
   },
   params: []
@@ -40,15 +40,15 @@ Harness.test({
 Harness.test({
   query: post.select(post.content).order(post.content.asc, post.userId.desc),
   pg: {
-    text: 'SELECT "post"."content" FROM "post" ORDER BY "post"."content", "post"."userId" DESC',
+    text  : 'SELECT "post"."content" FROM "post" ORDER BY "post"."content", "post"."userId" DESC',
     string: 'SELECT "post"."content" FROM "post" ORDER BY "post"."content", "post"."userId" DESC'
   },
   sqlite: {
-    text: 'SELECT "post"."content" FROM "post" ORDER BY "post"."content", "post"."userId" DESC',
+    text  : 'SELECT "post"."content" FROM "post" ORDER BY "post"."content", "post"."userId" DESC',
     string: 'SELECT "post"."content" FROM "post" ORDER BY "post"."content", "post"."userId" DESC'
   },
   mysql: {
-    text: 'SELECT `post`.`content` FROM `post` ORDER BY `post`.`content`, `post`.`userId` DESC',
+    text  : 'SELECT `post`.`content` FROM `post` ORDER BY `post`.`content`, `post`.`userId` DESC',
     string: 'SELECT `post`.`content` FROM `post` ORDER BY `post`.`content`, `post`.`userId` DESC'
   },
   params: []
@@ -57,15 +57,15 @@ Harness.test({
 Harness.test({
   query: post.select(post.content).order([post.content, post.userId.descending]),
   pg: {
-    text: 'SELECT "post"."content" FROM "post" ORDER BY "post"."content", "post"."userId" DESC',
+    text  : 'SELECT "post"."content" FROM "post" ORDER BY "post"."content", "post"."userId" DESC',
     string: 'SELECT "post"."content" FROM "post" ORDER BY "post"."content", "post"."userId" DESC'
   },
   sqlite: {
-    text: 'SELECT "post"."content" FROM "post" ORDER BY "post"."content", "post"."userId" DESC',
+    text  : 'SELECT "post"."content" FROM "post" ORDER BY "post"."content", "post"."userId" DESC',
     string: 'SELECT "post"."content" FROM "post" ORDER BY "post"."content", "post"."userId" DESC'
   },
   mysql: {
-    text: 'SELECT `post`.`content` FROM `post` ORDER BY `post`.`content`, `post`.`userId` DESC',
+    text  : 'SELECT `post`.`content` FROM `post` ORDER BY `post`.`content`, `post`.`userId` DESC',
     string: 'SELECT `post`.`content` FROM `post` ORDER BY `post`.`content`, `post`.`userId` DESC'
   },
   params: []

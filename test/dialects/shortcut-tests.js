@@ -8,15 +8,15 @@ var post = Harness.definePostTable();
 Harness.test({
   query: user,
   pg: {
-    text: 'SELECT "user".* FROM "user"',
+    text  : 'SELECT "user".* FROM "user"',
     string: 'SELECT "user".* FROM "user"'
   },
   sqlite: {
-    text: 'SELECT "user".* FROM "user"',
+    text  : 'SELECT "user".* FROM "user"',
     string: 'SELECT "user".* FROM "user"'
   },
   mysql: {
-    text: 'SELECT `user`.* FROM `user`',
+    text  : 'SELECT `user`.* FROM `user`',
     string: 'SELECT `user`.* FROM `user`'
   },
   params: []
@@ -25,15 +25,15 @@ Harness.test({
 Harness.test({
   query: user.where(user.name.equals(3)),
   pg: {
-    text: 'SELECT * FROM "user" WHERE ("user"."name" = $1)',
+    text  : 'SELECT * FROM "user" WHERE ("user"."name" = $1)',
     string: 'SELECT * FROM "user" WHERE ("user"."name" = 3)'
   },
   sqlite: {
-    text: 'SELECT * FROM "user" WHERE ("user"."name" = $1)',
+    text  : 'SELECT * FROM "user" WHERE ("user"."name" = $1)',
     string: 'SELECT * FROM "user" WHERE ("user"."name" = 3)'
   },
   mysql: {
-    text: 'SELECT * FROM `user` WHERE (`user`.`name` = ?)',
+    text  : 'SELECT * FROM `user` WHERE (`user`.`name` = ?)',
     string: 'SELECT * FROM `user` WHERE (`user`.`name` = 3)'
   },
   params: [3]
@@ -42,15 +42,15 @@ Harness.test({
 Harness.test({
   query: user.where(user.name.equals(3)).where(user.id.equals(1)),
   pg: {
-    text: 'SELECT * FROM "user" WHERE (("user"."name" = $1) AND ("user"."id" = $2))',
+    text  : 'SELECT * FROM "user" WHERE (("user"."name" = $1) AND ("user"."id" = $2))',
     string: 'SELECT * FROM "user" WHERE (("user"."name" = 3) AND ("user"."id" = 1))'
   },
   sqlite: {
-    text: 'SELECT * FROM "user" WHERE (("user"."name" = $1) AND ("user"."id" = $2))',
+    text  : 'SELECT * FROM "user" WHERE (("user"."name" = $1) AND ("user"."id" = $2))',
     string: 'SELECT * FROM "user" WHERE (("user"."name" = 3) AND ("user"."id" = 1))'
   },
   mysql: {
-    text: 'SELECT * FROM `user` WHERE ((`user`.`name` = ?) AND (`user`.`id` = ?))',
+    text  : 'SELECT * FROM `user` WHERE ((`user`.`name` = ?) AND (`user`.`id` = ?))',
     string: 'SELECT * FROM `user` WHERE ((`user`.`name` = 3) AND (`user`.`id` = 1))'
   },
   params: [3, 1]
@@ -60,15 +60,15 @@ Harness.test({
 Harness.test({
   query: post.select(post.content),
   pg: {
-    text: 'SELECT "post"."content" FROM "post"',
+    text  : 'SELECT "post"."content" FROM "post"',
     string: 'SELECT "post"."content" FROM "post"'
   },
   sqlite: {
-    text: 'SELECT "post"."content" FROM "post"',
+    text  : 'SELECT "post"."content" FROM "post"',
     string: 'SELECT "post"."content" FROM "post"'
   },
   mysql: {
-    text: 'SELECT `post`.`content` FROM `post`',
+    text  : 'SELECT `post`.`content` FROM `post`',
     string: 'SELECT `post`.`content` FROM `post`'
   },
   params: []
@@ -77,15 +77,15 @@ Harness.test({
 Harness.test({
   query: post.select(post.content).where(post.userId.equals(1)),
   pg: {
-    text: 'SELECT "post"."content" FROM "post" WHERE ("post"."userId" = $1)',
+    text  : 'SELECT "post"."content" FROM "post" WHERE ("post"."userId" = $1)',
     string: 'SELECT "post"."content" FROM "post" WHERE ("post"."userId" = 1)'
   },
   sqlite: {
-    text: 'SELECT "post"."content" FROM "post" WHERE ("post"."userId" = $1)',
+    text  : 'SELECT "post"."content" FROM "post" WHERE ("post"."userId" = $1)',
     string: 'SELECT "post"."content" FROM "post" WHERE ("post"."userId" = 1)'
   },
   mysql: {
-    text: 'SELECT `post`.`content` FROM `post` WHERE (`post`.`userId` = ?)',
+    text  : 'SELECT `post`.`content` FROM `post` WHERE (`post`.`userId` = ?)',
     string: 'SELECT `post`.`content` FROM `post` WHERE (`post`.`userId` = 1)'
   },
   params: [1]
@@ -98,15 +98,15 @@ Harness.test({
     userId: 1
   }),
   pg: {
-    text: 'SELECT * FROM "post" WHERE ((("post"."content" IS NULL) OR ("post"."content" = $1)) AND ("post"."userId" = $2))',
+    text  : 'SELECT * FROM "post" WHERE ((("post"."content" IS NULL) OR ("post"."content" = $1)) AND ("post"."userId" = $2))',
     string: 'SELECT * FROM "post" WHERE ((("post"."content" IS NULL) OR ("post"."content" = \'\')) AND ("post"."userId" = 1))'
   },
   sqlite: {
-    text: 'SELECT * FROM "post" WHERE ((("post"."content" IS NULL) OR ("post"."content" = $1)) AND ("post"."userId" = $2))',
+    text  : 'SELECT * FROM "post" WHERE ((("post"."content" IS NULL) OR ("post"."content" = $1)) AND ("post"."userId" = $2))',
     string: 'SELECT * FROM "post" WHERE ((("post"."content" IS NULL) OR ("post"."content" = \'\')) AND ("post"."userId" = 1))'
   },
   mysql: {
-    text: 'SELECT * FROM `post` WHERE (((`post`.`content` IS NULL) OR (`post`.`content` = ?)) AND (`post`.`userId` = ?))',
+    text  : 'SELECT * FROM `post` WHERE (((`post`.`content` IS NULL) OR (`post`.`content` = ?)) AND (`post`.`userId` = ?))',
     string: 'SELECT * FROM `post` WHERE (((`post`.`content` IS NULL) OR (`post`.`content` = \'\')) AND (`post`.`userId` = 1))'
   },
   params: ['', 1]

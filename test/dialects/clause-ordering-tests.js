@@ -8,15 +8,15 @@ var post = Harness.definePostTable();
 Harness.test({
   query: user.from(user.join(post).on(user.id.equals(post.userId))).select(user.name, post.content),
   pg: {
-    text: 'SELECT "user"."name", "post"."content" FROM "user" INNER JOIN "post" ON ("user"."id" = "post"."userId")',
+    text  : 'SELECT "user"."name", "post"."content" FROM "user" INNER JOIN "post" ON ("user"."id" = "post"."userId")',
     string: 'SELECT "user"."name", "post"."content" FROM "user" INNER JOIN "post" ON ("user"."id" = "post"."userId")',
   },
   sqlite: {
-    text: 'SELECT "user"."name", "post"."content" FROM "user" INNER JOIN "post" ON ("user"."id" = "post"."userId")',
+    text  : 'SELECT "user"."name", "post"."content" FROM "user" INNER JOIN "post" ON ("user"."id" = "post"."userId")',
     string: 'SELECT "user"."name", "post"."content" FROM "user" INNER JOIN "post" ON ("user"."id" = "post"."userId")'
   },
   mysql: {
-    text: 'SELECT `user`.`name`, `post`.`content` FROM `user` INNER JOIN `post` ON (`user`.`id` = `post`.`userId`)',
+    text  : 'SELECT `user`.`name`, `post`.`content` FROM `user` INNER JOIN `post` ON (`user`.`id` = `post`.`userId`)',
     string: 'SELECT `user`.`name`, `post`.`content` FROM `user` INNER JOIN `post` ON (`user`.`id` = `post`.`userId`)'
   },
 });
@@ -27,15 +27,15 @@ Harness.test({
     name: ''
   }).from(user).select(user.id),
   pg: {
-    text: 'SELECT "user"."id" FROM "user" WHERE ("user"."name" = $1)',
+    text  : 'SELECT "user"."id" FROM "user" WHERE ("user"."name" = $1)',
     string: 'SELECT "user"."id" FROM "user" WHERE ("user"."name" = \'\')'
   },
   sqlite: {
-    text: 'SELECT "user"."id" FROM "user" WHERE ("user"."name" = $1)',
+    text  : 'SELECT "user"."id" FROM "user" WHERE ("user"."name" = $1)',
     string: 'SELECT "user"."id" FROM "user" WHERE ("user"."name" = \'\')'
   },
   mysql: {
-    text: 'SELECT `user`.`id` FROM `user` WHERE (`user`.`name` = ?)',
+    text  : 'SELECT `user`.`id` FROM `user` WHERE (`user`.`name` = ?)',
     string: 'SELECT `user`.`id` FROM `user` WHERE (`user`.`name` = \'\')'
   },
   params: ['']
@@ -50,15 +50,15 @@ Harness.test({
     name: ''
   }),
   pg: {
-    text: 'SELECT "user"."name", "post"."content" FROM "user" INNER JOIN "post" ON ("user"."id" = "post"."userId") WHERE ("user"."name" = $1)',
+    text  : 'SELECT "user"."name", "post"."content" FROM "user" INNER JOIN "post" ON ("user"."id" = "post"."userId") WHERE ("user"."name" = $1)',
     string: 'SELECT "user"."name", "post"."content" FROM "user" INNER JOIN "post" ON ("user"."id" = "post"."userId") WHERE ("user"."name" = \'\')'
   },
   sqlite: {
-    text: 'SELECT "user"."name", "post"."content" FROM "user" INNER JOIN "post" ON ("user"."id" = "post"."userId") WHERE ("user"."name" = $1)',
+    text  : 'SELECT "user"."name", "post"."content" FROM "user" INNER JOIN "post" ON ("user"."id" = "post"."userId") WHERE ("user"."name" = $1)',
     string: 'SELECT "user"."name", "post"."content" FROM "user" INNER JOIN "post" ON ("user"."id" = "post"."userId") WHERE ("user"."name" = \'\')'
   },
   mysql: {
-    text: 'SELECT `user`.`name`, `post`.`content` FROM `user` INNER JOIN `post` ON (`user`.`id` = `post`.`userId`) WHERE (`user`.`name` = ?)',
+    text  : 'SELECT `user`.`name`, `post`.`content` FROM `user` INNER JOIN `post` ON (`user`.`id` = `post`.`userId`) WHERE (`user`.`name` = ?)',
     string: 'SELECT `user`.`name`, `post`.`content` FROM `user` INNER JOIN `post` ON (`user`.`id` = `post`.`userId`) WHERE (`user`.`name` = \'\')'
   },
   params: ['']
@@ -70,15 +70,15 @@ Harness.test({
     name: ''
   }),
   pg: {
-    text: 'SELECT "user"."id" FROM "user" WHERE ("user"."name" = $1)',
+    text  : 'SELECT "user"."id" FROM "user" WHERE ("user"."name" = $1)',
     string: 'SELECT "user"."id" FROM "user" WHERE ("user"."name" = \'\')'
   },
   sqlite: {
-    text: 'SELECT "user"."id" FROM "user" WHERE ("user"."name" = $1)',
+    text  : 'SELECT "user"."id" FROM "user" WHERE ("user"."name" = $1)',
     string: 'SELECT "user"."id" FROM "user" WHERE ("user"."name" = \'\')'
   },
   mysql: {
-    text: 'SELECT `user`.`id` FROM `user` WHERE (`user`.`name` = ?)',
+    text  : 'SELECT `user`.`id` FROM `user` WHERE (`user`.`name` = ?)',
     string: 'SELECT `user`.`id` FROM `user` WHERE (`user`.`name` = \'\')'
   },
   params: ['']
