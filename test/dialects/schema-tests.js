@@ -7,29 +7,59 @@ var userWithSchema = Table.define({
   schema: 'staging',
   name: 'user',
   quote: true,
-  columns: ['id','name']
+  columns: ['id', 'name']
 });
 
 Harness.test({
-  query : userWithSchema.select(userWithSchema.id).from(userWithSchema),
-  pg    : 'SELECT "staging"."user"."id" FROM "staging"."user"',
-  sqlite: 'SELECT "staging"."user"."id" FROM "staging"."user"',
-  mysql : 'SELECT `staging`.`user`.`id` FROM `staging`.`user`'
+  query: userWithSchema.select(userWithSchema.id).from(userWithSchema),
+  pg: {
+    text: 'SELECT "staging"."user"."id" FROM "staging"."user"',
+    string: 'SELECT "staging"."user"."id" FROM "staging"."user"'
+  },
+  sqlite: {
+    text: 'SELECT "staging"."user"."id" FROM "staging"."user"',
+    string: 'SELECT "staging"."user"."id" FROM "staging"."user"'
+  },
+  mysql: {
+    text: 'SELECT `staging`.`user`.`id` FROM `staging`.`user`',
+    string: 'SELECT `staging`.`user`.`id` FROM `staging`.`user`'
+  },
+  params: []
 });
 
 Harness.test({
-  query : userWithSchema.select(userWithSchema.id, userWithSchema.name).from(userWithSchema),
-  pg    : 'SELECT "staging"."user"."id", "staging"."user"."name" FROM "staging"."user"',
-  sqlite: 'SELECT "staging"."user"."id", "staging"."user"."name" FROM "staging"."user"',
-  mysql : 'SELECT `staging`.`user`.`id`, `staging`.`user`.`name` FROM `staging`.`user`'
+  query: userWithSchema.select(userWithSchema.id, userWithSchema.name).from(userWithSchema),
+  pg: {
+    text: 'SELECT "staging"."user"."id", "staging"."user"."name" FROM "staging"."user"',
+    string: 'SELECT "staging"."user"."id", "staging"."user"."name" FROM "staging"."user"'
+  },
+  sqlite: {
+    text: 'SELECT "staging"."user"."id", "staging"."user"."name" FROM "staging"."user"',
+    string: 'SELECT "staging"."user"."id", "staging"."user"."name" FROM "staging"."user"'
+  },
+  mysql: {
+    text: 'SELECT `staging`.`user`.`id`, `staging`.`user`.`name` FROM `staging`.`user`',
+    string: 'SELECT `staging`.`user`.`id`, `staging`.`user`.`name` FROM `staging`.`user`'
+  },
+  params: []
 });
 
 var uws = userWithSchema.as('uws');
 Harness.test({
-  query : uws.select(uws.name).from(uws),
-  pg    :'SELECT "uws"."name" FROM "staging"."user" AS "uws"',
-  sqlite:'SELECT "uws"."name" FROM "staging"."user" AS "uws"',
-  mysql :'SELECT `uws`.`name` FROM `staging`.`user` AS `uws`'
+  query: uws.select(uws.name).from(uws),
+  pg: {
+    text: 'SELECT "uws"."name" FROM "staging"."user" AS "uws"',
+    string: 'SELECT "uws"."name" FROM "staging"."user" AS "uws"'
+  },
+  sqlite: {
+    text: 'SELECT "uws"."name" FROM "staging"."user" AS "uws"',
+    string: 'SELECT "uws"."name" FROM "staging"."user" AS "uws"'
+  },
+  mysql: {
+    text: 'SELECT `uws`.`name` FROM `staging`.`user` AS `uws`',
+    string: 'SELECT `uws`.`name` FROM `staging`.`user` AS `uws`'
+  },
+  params: []
 });
 
 var postWithSchema = Table.define({
@@ -39,15 +69,35 @@ var postWithSchema = Table.define({
 });
 
 Harness.test({
-  query : userWithSchema.select(userWithSchema.name, postWithSchema.content).from(userWithSchema.join(postWithSchema).on(userWithSchema.id.equals(postWithSchema.userId))),
-  pg    : 'SELECT "staging"."user"."name", "dev"."post"."content" FROM "staging"."user" INNER JOIN "dev"."post" ON ("staging"."user"."id" = "dev"."post"."userId")',
-  sqlite: 'SELECT "staging"."user"."name", "dev"."post"."content" FROM "staging"."user" INNER JOIN "dev"."post" ON ("staging"."user"."id" = "dev"."post"."userId")',
-  mysql : 'SELECT `staging`.`user`.`name`, `dev`.`post`.`content` FROM `staging`.`user` INNER JOIN `dev`.`post` ON (`staging`.`user`.`id` = `dev`.`post`.`userId`)'
+  query: userWithSchema.select(userWithSchema.name, postWithSchema.content).from(userWithSchema.join(postWithSchema).on(userWithSchema.id.equals(postWithSchema.userId))),
+  pg: {
+    text: 'SELECT "staging"."user"."name", "dev"."post"."content" FROM "staging"."user" INNER JOIN "dev"."post" ON ("staging"."user"."id" = "dev"."post"."userId")',
+    string: 'SELECT "staging"."user"."name", "dev"."post"."content" FROM "staging"."user" INNER JOIN "dev"."post" ON ("staging"."user"."id" = "dev"."post"."userId")'
+  },
+  sqlite: {
+    text: 'SELECT "staging"."user"."name", "dev"."post"."content" FROM "staging"."user" INNER JOIN "dev"."post" ON ("staging"."user"."id" = "dev"."post"."userId")',
+    string: 'SELECT "staging"."user"."name", "dev"."post"."content" FROM "staging"."user" INNER JOIN "dev"."post" ON ("staging"."user"."id" = "dev"."post"."userId")'
+  },
+  mysql: {
+    text: 'SELECT `staging`.`user`.`name`, `dev`.`post`.`content` FROM `staging`.`user` INNER JOIN `dev`.`post` ON (`staging`.`user`.`id` = `dev`.`post`.`userId`)',
+    string: 'SELECT `staging`.`user`.`name`, `dev`.`post`.`content` FROM `staging`.`user` INNER JOIN `dev`.`post` ON (`staging`.`user`.`id` = `dev`.`post`.`userId`)'
+  },
+  params: []
 });
 
 Harness.test({
-  query : uws.select(uws.name, postWithSchema.content).from(uws.join(postWithSchema).on(uws.id.equals(postWithSchema.userId))),
-  pg    : 'SELECT "uws"."name", "dev"."post"."content" FROM "staging"."user" AS "uws" INNER JOIN "dev"."post" ON ("uws"."id" = "dev"."post"."userId")',
-  sqlite: 'SELECT "uws"."name", "dev"."post"."content" FROM "staging"."user" AS "uws" INNER JOIN "dev"."post" ON ("uws"."id" = "dev"."post"."userId")',
-  mysql : 'SELECT `uws`.`name`, `dev`.`post`.`content` FROM `staging`.`user` AS `uws` INNER JOIN `dev`.`post` ON (`uws`.`id` = `dev`.`post`.`userId`)'
+  query: uws.select(uws.name, postWithSchema.content).from(uws.join(postWithSchema).on(uws.id.equals(postWithSchema.userId))),
+  pg: {
+    text: 'SELECT "uws"."name", "dev"."post"."content" FROM "staging"."user" AS "uws" INNER JOIN "dev"."post" ON ("uws"."id" = "dev"."post"."userId")',
+    string: 'SELECT "uws"."name", "dev"."post"."content" FROM "staging"."user" AS "uws" INNER JOIN "dev"."post" ON ("uws"."id" = "dev"."post"."userId")'
+  },
+  sqlite: {
+    text: 'SELECT "uws"."name", "dev"."post"."content" FROM "staging"."user" AS "uws" INNER JOIN "dev"."post" ON ("uws"."id" = "dev"."post"."userId")',
+    string: 'SELECT "uws"."name", "dev"."post"."content" FROM "staging"."user" AS "uws" INNER JOIN "dev"."post" ON ("uws"."id" = "dev"."post"."userId")'
+  },
+  mysql: {
+    text: 'SELECT `uws`.`name`, `dev`.`post`.`content` FROM `staging`.`user` AS `uws` INNER JOIN `dev`.`post` ON (`uws`.`id` = `dev`.`post`.`userId`)',
+    string: 'SELECT `uws`.`name`, `dev`.`post`.`content` FROM `staging`.`user` AS `uws` INNER JOIN `dev`.`post` ON (`uws`.`id` = `dev`.`post`.`userId`)'
+  },
+  params: []
 });

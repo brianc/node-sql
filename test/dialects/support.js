@@ -13,7 +13,6 @@ var dialects = {
 
 module.exports = {
   test: function(expected) {
-
     // for each dialect
     Object.keys(dialects).forEach(function(dialect) {
       var expectedObject = expected[dialect];
@@ -26,13 +25,10 @@ module.exports = {
 
           // check if this query is expected to throw
           if (expectedObject.throws) {
-
             assert.throws(function() {
               new DialectClass().getQuery(expected.query);
             });
-
           } else {
-
             // build query for dialect
             var compiledQuery = new DialectClass().getQuery(expected.query);
 
@@ -42,13 +38,12 @@ module.exports = {
 
             // if params are specified then test these are correct
             var expectedParams = expectedObject.params || expected.params;
-            if (expectedParams) {
+            if (undefined !== expectedParams) {
               assert.equal(expectedParams.length, compiledQuery.values.length, 'params length');
               for (var i = 0; i < expectedParams.length; i++) {
                 assert.equal(expectedParams[i], compiledQuery.values[i], 'param ' + (i + 1));
               }
             }
-
           }
 
           if (undefined !== expectedObject.string) {
@@ -64,12 +59,9 @@ module.exports = {
               assert.equal(compiledString, expectedObject.string);
             }
           }
-
         });
-
       } // if
     }); // forEach
-
   },
 
   defineUserTable: function() {

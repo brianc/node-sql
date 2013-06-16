@@ -6,7 +6,9 @@ var Harness = require('./support');
 var user = sql.define({
   name: 'user',
   columns: {
-    id: { primaryKey: true }
+    id: {
+      primaryKey: true
+    }
   }
 });
 
@@ -22,7 +24,9 @@ var photo = sql.define({
 var post = sql.define({
   name: 'post',
   columns: {
-    id: { primaryKey: true },
+    id: {
+      primaryKey: true
+    },
     ownerId: {
       references: {
         table: 'user',
@@ -33,22 +37,52 @@ var post = sql.define({
 });
 
 Harness.test({
-  query : user.joinTo(post),
-  pg    : '"user" INNER JOIN "post" ON ("user"."id" = "post"."ownerId")',
-  sqlite: '"user" INNER JOIN "post" ON ("user"."id" = "post"."ownerId")',
-  mysql : '`user` INNER JOIN `post` ON (`user`.`id` = `post`.`ownerId`)'
+  query: user.joinTo(post),
+  pg: {
+    text: '"user" INNER JOIN "post" ON ("user"."id" = "post"."ownerId")',
+    string: '"user" INNER JOIN "post" ON ("user"."id" = "post"."ownerId")'
+  },
+  sqlite: {
+    text: '"user" INNER JOIN "post" ON ("user"."id" = "post"."ownerId")',
+    string: '"user" INNER JOIN "post" ON ("user"."id" = "post"."ownerId")'
+  },
+  mysql: {
+    text: '`user` INNER JOIN `post` ON (`user`.`id` = `post`.`ownerId`)',
+    string: '`user` INNER JOIN `post` ON (`user`.`id` = `post`.`ownerId`)'
+  },
+  params: []
 });
 
 Harness.test({
-  query : post.joinTo(user),
-  pg    : '"post" INNER JOIN "user" ON ("user"."id" = "post"."ownerId")',
-  sqlite: '"post" INNER JOIN "user" ON ("user"."id" = "post"."ownerId")',
-  mysql : '`post` INNER JOIN `user` ON (`user`.`id` = `post`.`ownerId`)'
+  query: post.joinTo(user),
+  pg: {
+    text: '"post" INNER JOIN "user" ON ("user"."id" = "post"."ownerId")',
+    string: '"post" INNER JOIN "user" ON ("user"."id" = "post"."ownerId")'
+  },
+  sqlite: {
+    text: '"post" INNER JOIN "user" ON ("user"."id" = "post"."ownerId")',
+    string: '"post" INNER JOIN "user" ON ("user"."id" = "post"."ownerId")'
+  },
+  mysql: {
+    text: '`post` INNER JOIN `user` ON (`user`.`id` = `post`.`ownerId`)',
+    string: '`post` INNER JOIN `user` ON (`user`.`id` = `post`.`ownerId`)'
+  },
+  params: []
 });
 
 Harness.test({
-  query : user.joinTo(photo),
-  pg    : '"user" INNER JOIN "photo" ON ("user"."id" = "photo"."ownerId")',
-  sqlite: '"user" INNER JOIN "photo" ON ("user"."id" = "photo"."ownerId")',
-  mysql : '`user` INNER JOIN `photo` ON (`user`.`id` = `photo`.`ownerId`)'
+  query: user.joinTo(photo),
+  pg: {
+    text: '"user" INNER JOIN "photo" ON ("user"."id" = "photo"."ownerId")',
+    string: '"user" INNER JOIN "photo" ON ("user"."id" = "photo"."ownerId")'
+  },
+  sqlite: {
+    text: '"user" INNER JOIN "photo" ON ("user"."id" = "photo"."ownerId")',
+    string: '"user" INNER JOIN "photo" ON ("user"."id" = "photo"."ownerId")'
+  },
+  mysql: {
+    text: '`user` INNER JOIN `photo` ON (`user`.`id` = `photo`.`ownerId`)',
+    string: '`user` INNER JOIN `photo` ON (`user`.`id` = `photo`.`ownerId`)'
+  },
+  params: []
 });
