@@ -145,11 +145,10 @@ Read the module's documentation for more details.
 
 ## contributing
 
-I __love__ contributions.  If I could, I would write __love__ 500 times, but that would be readme bloat.
+We __love__ contributions.
 
-Still, that's how much I love them.  Let's work _together_ on this.
-
-If you want to contribute here's what you do:
+node-sql wouldn't be anything without all the contributors and collaborators who've worked on it.  
+If you'd like to become a collaborator here's how it's done:
 
 1. fork the repo
 2. `git pull https://github.com/(your_username)/node-sql`
@@ -157,19 +156,19 @@ If you want to contribute here's what you do:
 4. `npm install`
 5. `npm test`
 
-At this point the tests should pass for you.  If they don't pass please open an issue with the output or you can even send me an email directly.  My email address is on my github profile and also on every commit I contributed in the repo.
+At this point the tests should pass for you.  If they don't pass please open an issue with the output or you can even send me an email directly.  
+My email address is on my github profile and also on every commit I contributed in the repo.
 
 Once the tests are passing, modify as you see fit.  _Please_ make sure you write tests to cover your modifications.  Once you're ready, commit your changes and submit a pull request.
 
-__As long as your pull request doesn't have completely off-the-wall changes and it does have tests I will almost always merge it right away and push it to npm__
+__As long as your pull request doesn't have completely off-the-wall changes and it does have tests we will almost always merge it and push it to npm__
 
-If you think your changes are too off-the-wall, open an issue or a pull-request without code so we can discuss them.
+If you think your changes are too off-the-wall, open an issue or a pull-request without code so we can discuss them before you begin.
 
-__Seriously:__
+Usually after a few high-quality pull requests and friendly interactions we will gladly share collaboration rights with you.  
 
-    your contributions >= my contributions
+After all, open source belongs to everyone.
 
-I definitely need help with mysql and sqlite syntax.  I'm not very familiar...so that's always a good place to start.
 
 ##license
 MIT
