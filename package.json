@@ -16,8 +16,8 @@
     "node": "*"
   },
   "dependencies": {
-    "sliced": "0.0.5",
-    "lodash": "~1.2.1"
+    "sliced": "0.0.x",
+    "lodash": "1.3.x"
   },
   "devDependencies": {
     "jshint": "*",
