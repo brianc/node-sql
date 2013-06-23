@@ -41,7 +41,7 @@ module.exports = {
             if (undefined !== expectedParams) {
               assert.equal(expectedParams.length, compiledQuery.values.length, 'params length');
               for (var i = 0; i < expectedParams.length; i++) {
-                assert.equal(expectedParams[i], compiledQuery.values[i], 'param ' + (i + 1));
+                assert.deepEqual(expectedParams[i], compiledQuery.values[i], 'param ' + (i + 1));
               }
             }
           }
