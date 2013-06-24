@@ -14,6 +14,8 @@ directories.forEach(function (d) {
   /*jshint boss: true */
   for(var i = 0, file; file = files[i]; i++) {
     var filePath = path.join(d, file);
-    require(filePath);
+    if (path.extname(file) === '.js') {
+      require(filePath);
+    }
   }
 });
