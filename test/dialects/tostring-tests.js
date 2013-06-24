@@ -82,15 +82,15 @@ Harness.test({
   query: post.content.equals(new Date('Sat, 01 Jan 2000 00:00:00 GMT')),
   pg: {
     text  : '("post"."content" = $1)',
-    string: '("post"."content" = \'Sat, 01 Jan 2000 00:00:00 GMT\')'
+    string: '("post"."content" = \'2000-01-01T00:00:00.000Z\')'
   },
   sqlite: {
     text  : '("post"."content" = $1)',
-    string: '("post"."content" = \'Sat, 01 Jan 2000 00:00:00 GMT\')'
+    string: '("post"."content" = \'2000-01-01T00:00:00.000Z\')'
   },
   mysql: {
     text  : '(`post`.`content` = ?)',
-    string: '(`post`.`content` = \'Sat, 01 Jan 2000 00:00:00 GMT\')'
+    string: '(`post`.`content` = \'2000-01-01T00:00:00.000Z\')'
   },
   params: [new Date('Sat, 01 Jan 2000 00:00:00 GMT')]
 });
