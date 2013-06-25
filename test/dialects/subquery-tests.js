@@ -80,3 +80,20 @@ Harness.test({
   },
   params: []
 });
+
+Harness.test({
+  query: user.subQuery().where(user.name.equals(customer.name)).exists(),
+  pg: {
+    text  : '(EXISTS (SELECT * FROM "user" WHERE ("user"."name" = "customer"."name")))',
+    string: '(EXISTS (SELECT * FROM "user" WHERE ("user"."name" = "customer"."name")))'
+  },
+  sqlite: {
+    text  : '(EXISTS (SELECT * FROM "user" WHERE ("user"."name" = "customer"."name")))',
+    string: '(EXISTS (SELECT * FROM "user" WHERE ("user"."name" = "customer"."name")))'
+  },
+  mysql: {
+    text  : '(EXISTS (SELECT * FROM `user` WHERE (`user`.`name` = `customer`.`name`)))',
+    string: '(EXISTS (SELECT * FROM `user` WHERE (`user`.`name` = `customer`.`name`)))'
+  },
+  params: []
+});
