@@ -10,7 +10,6 @@ test('has SELECT type', function() {
   assert.equal(select.type, 'SELECT');
 });
 
-
 test('can go toQuery', function() {
   assert.equal(select.toQuery().text, 'SELECT ');
 });
