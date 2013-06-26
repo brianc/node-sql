@@ -1,9 +1,10 @@
 'use strict';
 
 var Harness = require('./support');
+var Table   = require('../../lib/table');
+
 var customer = Harness.defineCustomerTable();
-var post = Harness.definePostTable();
-var Table = require(__dirname + '/../../lib/table');
+var post     = Harness.definePostTable();
 
 Harness.test({
   query: customer.select().where(customer.age.isNotNull()),
@@ -23,7 +24,7 @@ Harness.test({
 });
 
 Harness.test({
-  query: post.select().where(post.userId. in (customer.subQuery().select(customer.id).where(customer.age.isNull()))),
+  query: post.select().where(post.userId.in(customer.subQuery().select(customer.id).where(customer.age.isNull()))),
   pg: {
     text  : 'SELECT "post".* FROM "post" WHERE ("post"."userId" IN (SELECT "customer"."id" FROM "customer" WHERE ("customer"."age" IS NULL)))',
     string: 'SELECT "post".* FROM "post" WHERE ("post"."userId" IN (SELECT "customer"."id" FROM "customer" WHERE ("customer"."age" IS NULL)))'
