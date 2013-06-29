@@ -70,3 +70,20 @@ Harness.test({
   },
   params: []
 });
+
+Harness.test({
+  query: post.select(post.content).order(post.content).order(post.userId.descending),
+  pg: {
+    text  : 'SELECT "post"."content" FROM "post" ORDER BY "post"."content", "post"."userId" DESC',
+    string: 'SELECT "post"."content" FROM "post" ORDER BY "post"."content", "post"."userId" DESC'
+  },
+  sqlite: {
+    text  : 'SELECT "post"."content" FROM "post" ORDER BY "post"."content", "post"."userId" DESC',
+    string: 'SELECT "post"."content" FROM "post" ORDER BY "post"."content", "post"."userId" DESC'
+  },
+  mysql: {
+    text  : 'SELECT `post`.`content` FROM `post` ORDER BY `post`.`content`, `post`.`userId` DESC',
+    string: 'SELECT `post`.`content` FROM `post` ORDER BY `post`.`content`, `post`.`userId` DESC'
+  },
+  params: []
+});
