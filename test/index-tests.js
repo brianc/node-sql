@@ -16,6 +16,18 @@ suite('index', function() {
     });
   });
 
+  test('stores the default dialect\'s name if none has been passed', function() {
+    assert.equal(sql.create().dialectName, 'postgres');
+  });
+
+  test('stores the sqlite dialect', function() {
+    assert.equal(sql.create('sqlite').dialectName, 'sqlite');
+  });
+
+  test('stores the mysql dialect', function() {
+    assert.equal(sql.create('mysql').dialectName, 'mysql');
+  });
+
   test('can create a query using the default dialect', function() {
     var query = sql.select(user.id).from(user).where(user.email.equals('brian.m.carlson@gmail.com')).toQuery();
     assert.equal(query.text, 'SELECT "user"."id" FROM "user" WHERE ("user"."email" = $1)');
