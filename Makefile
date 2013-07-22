@@ -1,7 +1,7 @@
 .PHONY: jshint test
 
 jshint:
-	jshint lib test
+	./node_modules/.bin/jshint lib test
 
 test:
 	npm test

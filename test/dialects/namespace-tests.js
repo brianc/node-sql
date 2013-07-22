@@ -1,57 +1,106 @@
 'use strict';
 
 var Harness = require('./support');
-var Table = require(__dirname + '/../../lib/table');
+var Table = require('../../lib/table');
 var user = Harness.defineUserTable();
 var post = Harness.definePostTable();
 
 var u = user.as('u');
 Harness.test({
-  query : u.select(u.name).from(u),
-  pg    :'SELECT "u"."name" FROM "user" AS "u"',
-  sqlite:'SELECT "u"."name" FROM "user" AS "u"',
-  mysql :'SELECT `u`.`name` FROM `user` AS `u`'
+  query: u.select(u.name).from(u),
+  pg: {
+    text  : 'SELECT "u"."name" FROM "user" AS "u"',
+    string: 'SELECT "u"."name" FROM "user" AS "u"'
+  },
+  sqlite: {
+    text  : 'SELECT "u"."name" FROM "user" AS "u"',
+    string: 'SELECT "u"."name" FROM "user" AS "u"'
+  },
+  mysql: {
+    text  : 'SELECT `u`.`name` FROM `user` AS `u`',
+    string: 'SELECT `u`.`name` FROM `user` AS `u`'
+  },
+  params: []
 });
 
 Harness.test({
-  query : u.select(u.star()).from(u),
-  pg    : 'SELECT "u".* FROM "user" AS "u"',
-  sqlite: 'SELECT "u".* FROM "user" AS "u"',
-  mysql : 'SELECT `u`.* FROM `user` AS `u`'
+  query: u.select(u.star()).from(u),
+  pg: {
+    text  : 'SELECT "u".* FROM "user" AS "u"',
+    string: 'SELECT "u".* FROM "user" AS "u"'
+  },
+  sqlite: {
+    text  : 'SELECT "u".* FROM "user" AS "u"',
+    string: 'SELECT "u".* FROM "user" AS "u"'
+  },
+  mysql: {
+    text  : 'SELECT `u`.* FROM `user` AS `u`',
+    string: 'SELECT `u`.* FROM `user` AS `u`'
+  },
+  params: []
 });
 
 var p = post.as('p');
 Harness.test({
-  query : u.select(u.name).from(u.join(p).on(u.id.equals(p.userId).and(p.id.equals(3)))),
-  pg    : 'SELECT "u"."name" FROM "user" AS "u" INNER JOIN "post" AS "p" ON (("u"."id" = "p"."userId") AND ("p"."id" = $1))',
-  sqlite: 'SELECT "u"."name" FROM "user" AS "u" INNER JOIN "post" AS "p" ON (("u"."id" = "p"."userId") AND ("p"."id" = $1))',
-  mysql : 'SELECT `u`.`name` FROM `user` AS `u` INNER JOIN `post` AS `p` ON ((`u`.`id` = `p`.`userId`) AND (`p`.`id` = ?))',
-  params : [3]
+  query: u.select(u.name).from(u.join(p).on(u.id.equals(p.userId).and(p.id.equals(3)))),
+  pg: {
+    text  : 'SELECT "u"."name" FROM "user" AS "u" INNER JOIN "post" AS "p" ON (("u"."id" = "p"."userId") AND ("p"."id" = $1))',
+    string: 'SELECT "u"."name" FROM "user" AS "u" INNER JOIN "post" AS "p" ON (("u"."id" = "p"."userId") AND ("p"."id" = 3))'
+  },
+  sqlite: {
+    text  : 'SELECT "u"."name" FROM "user" AS "u" INNER JOIN "post" AS "p" ON (("u"."id" = "p"."userId") AND ("p"."id" = $1))',
+    string: 'SELECT "u"."name" FROM "user" AS "u" INNER JOIN "post" AS "p" ON (("u"."id" = "p"."userId") AND ("p"."id" = 3))'
+  },
+  mysql: {
+    text  : 'SELECT `u`.`name` FROM `user` AS `u` INNER JOIN `post` AS `p` ON ((`u`.`id` = `p`.`userId`) AND (`p`.`id` = ?))',
+    string: 'SELECT `u`.`name` FROM `user` AS `u` INNER JOIN `post` AS `p` ON ((`u`.`id` = `p`.`userId`) AND (`p`.`id` = 3))'
+  },
+  params: [3]
 });
 
 Harness.test({
-  query : u.select(p.content, u.name).from(u.join(p).on(u.id.equals(p.userId).and(p.content.isNotNull()))),
-  pg    : 'SELECT "p"."content", "u"."name" FROM "user" AS "u" INNER JOIN "post" AS "p" ON (("u"."id" = "p"."userId") AND ("p"."content" IS NOT NULL))',
-  sqlite: 'SELECT "p"."content", "u"."name" FROM "user" AS "u" INNER JOIN "post" AS "p" ON (("u"."id" = "p"."userId") AND ("p"."content" IS NOT NULL))',
-  mysql : 'SELECT `p`.`content`, `u`.`name` FROM `user` AS `u` INNER JOIN `post` AS `p` ON ((`u`.`id` = `p`.`userId`) AND (`p`.`content` IS NOT NULL))'
+  query: u.select(p.content, u.name).from(u.join(p).on(u.id.equals(p.userId).and(p.content.isNotNull()))),
+  pg: {
+    text  : 'SELECT "p"."content", "u"."name" FROM "user" AS "u" INNER JOIN "post" AS "p" ON (("u"."id" = "p"."userId") AND ("p"."content" IS NOT NULL))',
+    string: 'SELECT "p"."content", "u"."name" FROM "user" AS "u" INNER JOIN "post" AS "p" ON (("u"."id" = "p"."userId") AND ("p"."content" IS NOT NULL))'
+  },
+  sqlite: {
+    text  : 'SELECT "p"."content", "u"."name" FROM "user" AS "u" INNER JOIN "post" AS "p" ON (("u"."id" = "p"."userId") AND ("p"."content" IS NOT NULL))',
+    string: 'SELECT "p"."content", "u"."name" FROM "user" AS "u" INNER JOIN "post" AS "p" ON (("u"."id" = "p"."userId") AND ("p"."content" IS NOT NULL))'
+  },
+  mysql: {
+    text  : 'SELECT `p`.`content`, `u`.`name` FROM `user` AS `u` INNER JOIN `post` AS `p` ON ((`u`.`id` = `p`.`userId`) AND (`p`.`content` IS NOT NULL))',
+    string: 'SELECT `p`.`content`, `u`.`name` FROM `user` AS `u` INNER JOIN `post` AS `p` ON ((`u`.`id` = `p`.`userId`) AND (`p`.`content` IS NOT NULL))'
+  },
+  params: []
 });
-
 
 // the quote property isn't implemented for columns, so all columns are quoted in generated queries
 var comment = Table.define({
   name: 'comment',
   columns: [{
-    name: 'text',
-    quote: true
-  }, {
-    name: 'userId',
-    quote: false
-  }]
+      name: 'text',
+      quote: true
+    }, {
+      name: 'userId',
+      quote: false
+    }
+  ]
 });
 
 Harness.test({
-  query : comment.select(comment.text, comment.userId),
-  pg    : 'SELECT "comment"."text", "comment"."userId" FROM "comment"',
-  sqlite: 'SELECT "comment"."text", "comment"."userId" FROM "comment"',
-  mysql : 'SELECT `comment`.`text`, `comment`.`userId` FROM `comment`'
+  query: comment.select(comment.text, comment.userId),
+  pg: {
+    text  : 'SELECT "comment"."text", "comment"."userId" FROM "comment"',
+    string: 'SELECT "comment"."text", "comment"."userId" FROM "comment"'
+  },
+  sqlite: {
+    text  : 'SELECT "comment"."text", "comment"."userId" FROM "comment"',
+    string: 'SELECT "comment"."text", "comment"."userId" FROM "comment"'
+  },
+  mysql: {
+    text  : 'SELECT `comment`.`text`, `comment`.`userId` FROM `comment`',
+    string: 'SELECT `comment`.`text`, `comment`.`userId` FROM `comment`'
+  },
+  params: []
 });
