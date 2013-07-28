@@ -1,7 +1,5 @@
-/* global test */
 'use strict';
 
-var assert = require('assert');
 var Harness = require('./support');
 var post = Harness.definePostTable();
 

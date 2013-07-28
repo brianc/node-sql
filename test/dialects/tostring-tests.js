@@ -1,9 +1,8 @@
 'use strict';
 
-var assert        = require('assert');
-var Harness       = require('./support');
-var ParameterNode = require('../../lib/node/parameter');
-var post          = Harness.definePostTable();
+var assert  = require('assert');
+var Harness = require('./support');
+var post    = Harness.definePostTable();
 
 // Null
 Harness.test({
