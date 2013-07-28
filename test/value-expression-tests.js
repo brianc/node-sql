@@ -1,4 +1,3 @@
-/* global suite, test */
 'use strict';
 
 var assert = require('assert');
@@ -11,7 +10,9 @@ suite('value-expression', function() {
 
     // make sure that the node class doesn't have any conflicting properties
     for (var key in mixin) {
-      assert.equal(Node.prototype[key], undefined);
+      if (mixin.hasOwnProperty(key)) {
+        assert.equal(Node.prototype[key], undefined);
+      }
     }
   });
 });

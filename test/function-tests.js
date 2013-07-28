@@ -1,4 +1,3 @@
-/* global suite, test */
 'use strict';
 var assert = require('assert');
 

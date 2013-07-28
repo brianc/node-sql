@@ -3,7 +3,6 @@
 var Harness = require('./support');
 var customer = Harness.defineCustomerTable();
 var user = Harness.defineUserTable();
-var Table = require('../../lib/table');
 var Sql = require('../../lib');
 
 Harness.test({
