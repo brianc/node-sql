@@ -2,8 +2,6 @@
 
 var Harness = require('./support');
 var customer = Harness.defineCustomerTable();
-var post = Harness.definePostTable();
-var Table = require(__dirname + '/../../lib/table');
 
 Harness.test({
   query: customer.select(customer.name.isNull().as('nameIsNull')),
