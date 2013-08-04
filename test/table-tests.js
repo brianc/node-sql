@@ -1,4 +1,3 @@
-/* global suite, test */
 'use strict';
 var assert = require('assert');
 
@@ -147,8 +146,6 @@ test('table with dynamic column definition', function() {
 
   table.addColumn('foo');
   assert.equal(table.columns.length, 1);
-
-  var error = null;
 
   assert.throws(function() {
     table.addColumn('foo');

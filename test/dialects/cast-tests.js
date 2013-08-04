@@ -2,8 +2,6 @@
 
 var Harness = require('./support');
 var customer = Harness.defineCustomerTable();
-var post = Harness.definePostTable();
-var Table = require(__dirname + '/../../lib/table');
 
 // Cast columns.
 Harness.test({
