@@ -178,3 +178,10 @@ test('getColumn returns the from column', function() {
   assert(table.getColumn('from') instanceof Column);
   assert(table.get('from') instanceof Column);
 });
+
+test('set and get schema', function () {
+  var table = Table.define({ name: 'foo', schema: 'bar', columns: [] });
+  assert.equal(table.getSchema(), 'bar');
+  table.setSchema('barbarz');
+  assert.equal(table.getSchema(), 'barbarz');
+});
