@@ -28,6 +28,23 @@ Harness.test({
 });
 
 Harness.test({
+  query: userWithSchema.select(userWithSchema.id.count()).from(userWithSchema),
+  pg: {
+    text  : 'SELECT COUNT("staging"."user"."id") AS "id_count" FROM "staging"."user"',
+    string: 'SELECT COUNT("staging"."user"."id") AS "id_count" FROM "staging"."user"'
+  },
+  sqlite: {
+    text  : 'SELECT COUNT("staging"."user"."id") AS "id_count" FROM "staging"."user"',
+    string: 'SELECT COUNT("staging"."user"."id") AS "id_count" FROM "staging"."user"'
+  },
+  mysql: {
+    text  : 'SELECT COUNT(`staging`.`user`.`id`) AS `id_count` FROM `staging`.`user`',
+    string: 'SELECT COUNT(`staging`.`user`.`id`) AS `id_count` FROM `staging`.`user`'
+  },
+  params: []
+});
+
+Harness.test({
   query: userWithSchema.select(userWithSchema.id, userWithSchema.name).from(userWithSchema),
   pg: {
     text  : 'SELECT "staging"."user"."id", "staging"."user"."name" FROM "staging"."user"',
