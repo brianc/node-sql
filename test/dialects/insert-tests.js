@@ -2,6 +2,7 @@
 
 var Harness = require('./support');
 var post = Harness.definePostTable();
+var user = Harness.defineUserTable();
 
 Harness.test({
   query: post.insert(post.content.value('test'), post.userId.value(1)),
@@ -279,4 +280,58 @@ Harness.test({
     string: 'INSERT INTO `post` (`userId`, `content`) VALUES (1, DEFAULT), (2, \'hey\')',
     params: [1, 2, 'hey']
   }
+});
+
+Harness.test({
+  query: post.insert(post.content, post.userId)
+      .select('\'test\'', user.id).from(user).where(user.name.like('A%')),
+  pg: {
+    text  : 'INSERT INTO "post" ("content", "userId") SELECT \'test\', "id" FROM "user" WHERE ("name" LIKE $1)',
+    string: 'INSERT INTO "post" ("content", "userId") SELECT \'test\', "id" FROM "user" WHERE ("name" LIKE \'A%\')'
+  },
+  sqlite: {
+    text  : 'INSERT INTO "post" ("content", "userId") SELECT \'test\', "id" FROM "user" WHERE ("name" LIKE $1)',
+    string: 'INSERT INTO "post" ("content", "userId") SELECT \'test\', "id" FROM "user" WHERE ("name" LIKE \'A%\')'
+  },
+  mysql: {
+    text  : 'INSERT INTO `post` (`content`, `userId`) SELECT \'test\', `id` FROM `user` WHERE (`name` LIKE ?)',
+    string: 'INSERT INTO `post` (`content`, `userId`) SELECT \'test\', `id` FROM `user` WHERE (`name` LIKE \'A%\')'
+  },
+  params: ['A%']
+});
+
+Harness.test({
+  query: post.insert([post.content, post.userId])
+      .select('\'test\'', user.id).from(user).where(user.name.like('A%')),
+  pg: {
+    text  : 'INSERT INTO "post" ("content", "userId") SELECT \'test\', "id" FROM "user" WHERE ("name" LIKE $1)',
+    string: 'INSERT INTO "post" ("content", "userId") SELECT \'test\', "id" FROM "user" WHERE ("name" LIKE \'A%\')'
+  },
+  sqlite: {
+    text  : 'INSERT INTO "post" ("content", "userId") SELECT \'test\', "id" FROM "user" WHERE ("name" LIKE $1)',
+    string: 'INSERT INTO "post" ("content", "userId") SELECT \'test\', "id" FROM "user" WHERE ("name" LIKE \'A%\')'
+  },
+  mysql: {
+    text  : 'INSERT INTO `post` (`content`, `userId`) SELECT \'test\', `id` FROM `user` WHERE (`name` LIKE ?)',
+    string: 'INSERT INTO `post` (`content`, `userId`) SELECT \'test\', `id` FROM `user` WHERE (`name` LIKE \'A%\')'
+  },
+  params: ['A%']
+});
+
+Harness.test({
+  query: post.insert(post.userId)
+      .select(user.id).from(user).where(user.name.like('A%')),
+  pg: {
+    text  : 'INSERT INTO "post" ("userId") SELECT "id" FROM "user" WHERE ("name" LIKE $1)',
+    string: 'INSERT INTO "post" ("userId") SELECT "id" FROM "user" WHERE ("name" LIKE \'A%\')'
+  },
+  sqlite: {
+    text  : 'INSERT INTO "post" ("userId") SELECT "id" FROM "user" WHERE ("name" LIKE $1)',
+    string: 'INSERT INTO "post" ("userId") SELECT "id" FROM "user" WHERE ("name" LIKE \'A%\')'
+  },
+  mysql: {
+    text  : 'INSERT INTO `post` (`userId`) SELECT `id` FROM `user` WHERE (`name` LIKE ?)',
+    string: 'INSERT INTO `post` (`userId`) SELECT `id` FROM `user` WHERE (`name` LIKE \'A%\')'
+  },
+  params: ['A%']
 });
