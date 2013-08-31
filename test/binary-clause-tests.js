@@ -1,4 +1,3 @@
-/* global test */
 'use strict';
 
 var assert = require('assert');
@@ -27,6 +26,10 @@ test('operators', function() {
   assert.equal(Foo.baz.multiply(1).operator, '*');
   assert.equal(Foo.baz.leftShift(1).operator, '<<');
   assert.equal(Foo.baz.rightShift(1).operator, '>>');
+  assert.equal(Foo.baz.bitwiseAnd(1).operator, '&');
+  assert.equal(Foo.baz.bitwiseNot(1).operator, '~');
+  assert.equal(Foo.baz.bitwiseOr(1).operator, '|');
+  assert.equal(Foo.baz.bitwiseXor(1).operator, '#');
   assert.equal(Foo.baz.divide(1).operator, '/');
   assert.equal(Foo.baz.modulo(1).operator, '%');
 });

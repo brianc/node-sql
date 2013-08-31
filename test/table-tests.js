@@ -1,4 +1,3 @@
-/* global suite, test */
 'use strict';
 var assert = require('assert');
 
@@ -148,8 +147,6 @@ test('table with dynamic column definition', function() {
   table.addColumn('foo');
   assert.equal(table.columns.length, 1);
 
-  var error = null;
-
   assert.throws(function() {
     table.addColumn('foo');
   });
@@ -180,4 +177,11 @@ test('getColumn returns the from column', function() {
   table.addColumn('from');
   assert(table.getColumn('from') instanceof Column);
   assert(table.get('from') instanceof Column);
+});
+
+test('set and get schema', function () {
+  var table = Table.define({ name: 'foo', schema: 'bar', columns: [] });
+  assert.equal(table.getSchema(), 'bar');
+  table.setSchema('barbarz');
+  assert.equal(table.getSchema(), 'barbarz');
 });

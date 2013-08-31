@@ -121,3 +121,26 @@ Harness.test({
     string: 'CREATE TABLE `user` (`id` varchar(100)) ENGINE=MyISAM DEFAULT CHARSET=latin1'
   }
 });
+
+Harness.test({
+  query: Table.define({
+    name: 'user',
+    columns: [{
+      name: 'id',
+      dataType: 'int',
+      primaryKey: true
+    }]
+  }).create(),
+  pg: {
+    text  : 'CREATE TABLE "user" ("id" int PRIMARY KEY)',
+    string: 'CREATE TABLE "user" ("id" int PRIMARY KEY)'
+  },
+  sqlite: {
+    text  : 'CREATE TABLE "user" ("id" int PRIMARY KEY)',
+    string: 'CREATE TABLE "user" ("id" int PRIMARY KEY)'
+  },
+  mysql: {
+    text  : 'CREATE TABLE `user` (`id` int PRIMARY KEY)',
+    string: 'CREATE TABLE `user` (`id` int PRIMARY KEY)'
+  }
+});

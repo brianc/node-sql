@@ -1,4 +1,3 @@
-/* global suite, test */
 'use strict';
 var assert = require('assert');
 
@@ -14,6 +13,18 @@ suite('index', function() {
     assert.throws(function() {
       sql.setDialect('asdf');
     });
+  });
+
+  test('stores the default dialect\'s name if none has been passed', function() {
+    assert.equal(sql.create().dialectName, 'postgres');
+  });
+
+  test('stores the sqlite dialect', function() {
+    assert.equal(sql.create('sqlite').dialectName, 'sqlite');
+  });
+
+  test('stores the mysql dialect', function() {
+    assert.equal(sql.create('mysql').dialectName, 'mysql');
   });
 
   test('can create a query using the default dialect', function() {
