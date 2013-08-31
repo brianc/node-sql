@@ -27,6 +27,10 @@ suite('index', function() {
     assert.equal(sql.create('mysql').dialectName, 'mysql');
   });
 
+  test('stores the sqlserver dialect', function() {
+    assert.equal(sql.create('sqlserver').dialectName, 'sqlserver');
+  });
+
   test('can create a query using the default dialect', function() {
     var query = sql.select(user.id).from(user).where(user.email.equals('brian.m.carlson@gmail.com')).toQuery();
     assert.equal(query.text, 'SELECT "user"."id" FROM "user" WHERE ("user"."email" = $1)');
@@ -52,14 +56,17 @@ suite('index', function() {
     var mysql = sql.create('mysql');
     var postgres = sql.create('postgres');
     var sqlite = sql.create('sqlite');
+    var sqlserver = sql.create('sqlserver');
 
     var mysqlTable = mysql.define({name: 'table', columns: ['column']});
     var postgresTable = postgres.define({name: 'table', columns: ['column']});
     var sqliteTable = sqlite.define({name: 'table', columns: ['column']});
+    var sqlserverTable = sqlserver.define({name: 'table', columns: ['column']});
 
     assert.equal(mysqlTable.sql, mysql);
     assert.equal(postgresTable.sql, postgres);
     assert.equal(sqliteTable.sql, sqlite);
+    assert.equal(sqlserverTable.sql, sqlserver);
   });
 
   test('using Sql as a class', function() {
@@ -67,10 +74,12 @@ suite('index', function() {
     var mysql = new Sql('mysql');
     var postgres = new Sql('postgres');
     var sqlite = new Sql('sqlite');
+    var sqlserver = new Sql('sqlserver');
 
     assert.equal(mysql.dialect, require(__dirname + '/../lib/dialect/mysql'));
     assert.equal(postgres.dialect, require(__dirname + '/../lib/dialect/postgres'));
     assert.equal(sqlite.dialect, require(__dirname + '/../lib/dialect/sqlite'));
+    assert.equal(sqlserver.dialect, require(__dirname + '/../lib/dialect/sqlserver'));
   });
 
   test('override dialect for toQuery using dialect name', function() {
@@ -78,10 +87,12 @@ suite('index', function() {
     var mysql = new Sql('mysql');
     var postgres = new Sql('postgres');
     var sqlite = new Sql('sqlite');
+    var sqlserver = new Sql('sqlserver');
 
     var sqliteQuery = mysql.select(user.id).from(user).where(user.email.equals('brian.m.carlson@gmail.com')).toQuery('sqlite');
     var postgresQuery = sqlite.select(user.id).from(user).where(user.email.equals('brian.m.carlson@gmail.com')).toQuery('postgres');
     var mysqlQuery = postgres.select(user.id).from(user).where(user.email.equals('brian.m.carlson@gmail.com')).toQuery('mysql');
+//    var sqlserverQuery = mysqlQuery.select(user.id).from(user).where(user.email.equals('brian.m.carlson@gmail.com')).toQuery('sqlserver');
 
     var values = ['brian.m.carlson@gmail.com'];
     assert.equal(sqliteQuery.text, 'SELECT "user"."id" FROM "user" WHERE ("user"."email" = $1)');
@@ -92,6 +103,9 @@ suite('index', function() {
 
     assert.equal(mysqlQuery.text, 'SELECT `user`.`id` FROM `user` WHERE (`user`.`email` = ?)');
     assert.deepEqual(mysqlQuery.values, values);
+
+//    assert.equal(sqlserverQuery.text, 'SELECT [user].[id] FROM [user] WHERE ([user].[email] = ?)');
+//    assert.deepEqual(sqlserverQuery.values, values);
   });
 
   test('override dialect for toQuery using invalid dialect name', function() {
