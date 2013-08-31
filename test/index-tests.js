@@ -92,7 +92,7 @@ suite('index', function() {
     var sqliteQuery = mysql.select(user.id).from(user).where(user.email.equals('brian.m.carlson@gmail.com')).toQuery('sqlite');
     var postgresQuery = sqlite.select(user.id).from(user).where(user.email.equals('brian.m.carlson@gmail.com')).toQuery('postgres');
     var mysqlQuery = postgres.select(user.id).from(user).where(user.email.equals('brian.m.carlson@gmail.com')).toQuery('mysql');
-//    var sqlserverQuery = mysqlQuery.select(user.id).from(user).where(user.email.equals('brian.m.carlson@gmail.com')).toQuery('sqlserver');
+    var sqlserverQuery = mysql.select(user.id).from(user).where(user.email.equals('brian.m.carlson@gmail.com')).toQuery('sqlserver');
 
     var values = ['brian.m.carlson@gmail.com'];
     assert.equal(sqliteQuery.text, 'SELECT "user"."id" FROM "user" WHERE ("user"."email" = $1)');

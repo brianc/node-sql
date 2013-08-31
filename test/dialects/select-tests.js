@@ -18,8 +18,8 @@ Harness.test({
     string: 'SELECT `post`.`id`, `post`.`content` FROM `post`'
   },
   sqlserver: {
-    text  : 'SELECT [post].[id]. [post].[content] FROM [post]',
-    string: 'SELECT [post].[id]. [post].[content] FROM [post]'
+    text  : 'SELECT [post].[id], [post].[content] FROM [post]',
+    string: 'SELECT [post].[id], [post].[content] FROM [post]'
   },
   params: []
 });
