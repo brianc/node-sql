@@ -273,6 +273,7 @@ Harness.test({
     text  : 'SELECT SUM([post].[id]) AS [id_sum] FROM [post]',
     string: 'SELECT SUM([post].[id]) AS [id_sum] FROM [post]'
   },
+  params: []
 });
 
 Harness.test({
