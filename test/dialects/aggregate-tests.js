@@ -38,6 +38,10 @@ Harness.test({
     text  : 'SELECT COUNT(`post`.*) AS `post_count` FROM `post`',
     string: 'SELECT COUNT(`post`.*) AS `post_count` FROM `post`'
   },
+  sqlserver: {
+    text  : 'SELECT COUNT(*) AS [post_count] FROM [post]',
+    string: 'SELECT COUNT(*) AS [post_count] FROM [post]'
+  },
   params: []
 });
 
@@ -54,6 +58,10 @@ Harness.test({
   mysql: {
     text  : 'SELECT COUNT(`post`.*) AS `post_amount` FROM `post`',
     string: 'SELECT COUNT(`post`.*) AS `post_amount` FROM `post`'
+  },
+  sqlserver: {
+    text  : 'SELECT COUNT(*) AS [post_amount] FROM [post]',
+    string: 'SELECT COUNT(*) AS [post_amount] FROM [post]'
   },
   params: []
 });
@@ -72,6 +80,10 @@ Harness.test({
     text  : 'SELECT COUNT(`post`.`content`) AS `content_count` FROM `post`',
     string: 'SELECT COUNT(`post`.`content`) AS `content_count` FROM `post`'
   },
+  sqlserver: {
+    text  : 'SELECT COUNT([post].[content]) AS [content_count] FROM [post]',
+    string: 'SELECT COUNT([post].[content]) AS [content_count] FROM [post]'
+  },
   params: []
 });
 
@@ -88,6 +100,10 @@ Harness.test({
   mysql: {
     text  : 'SELECT COUNT(`post`.`content`) AS `content_count` FROM `post`',
     string: 'SELECT COUNT(`post`.`content`) AS `content_count` FROM `post`'
+  },
+  sqlserver: {
+    text  : 'SELECT COUNT([post].[content]) AS [content_count] FROM [post]',
+    string: 'SELECT COUNT([post].[content]) AS [content_count] FROM [post]'
   },
   params: []
 });
@@ -106,6 +122,10 @@ Harness.test({
     text  : 'SELECT COUNT(`post`.`content`) AS `content_count` FROM `post`',
     string: 'SELECT COUNT(`post`.`content`) AS `content_count` FROM `post`'
   },
+  sqlserver: {
+    text  : 'SELECT COUNT([post].[content]) AS [content_count] FROM [post]',
+    string: 'SELECT COUNT([post].[content]) AS [content_count] FROM [post]'
+  },
   params: []
 });
 
@@ -122,6 +142,10 @@ Harness.test({
   mysql: {
     text  : 'SELECT MIN(`post`.`id`) AS `id_min` FROM `post`',
     string: 'SELECT MIN(`post`.`id`) AS `id_min` FROM `post`'
+  },
+  sqlserver: {
+    text  : 'SELECT MIN([post].[id]) AS [id_min] FROM [post]',
+    string: 'SELECT MIN([post].[id]) AS [id_min] FROM [post]'
   },
   params: []
 });
@@ -140,6 +164,10 @@ Harness.test({
     text  : 'SELECT MIN(`post`.`id`) AS `min_id` FROM `post`',
     string: 'SELECT MIN(`post`.`id`) AS `min_id` FROM `post`'
   },
+  sqlserver: {
+    text  : 'SELECT MIN([post].[id]) AS [min_id] FROM [post]',
+    string: 'SELECT MIN([post].[id]) AS [min_id] FROM [post]'
+  },
   params: []
 });
 
@@ -156,6 +184,10 @@ Harness.test({
   mysql: {
     text  : 'SELECT MIN(`post`.`id`) AS `min_id` FROM `post`',
     string: 'SELECT MIN(`post`.`id`) AS `min_id` FROM `post`'
+  },
+  sqlserver: {
+    text  : 'SELECT MIN([post].[id]) AS [min_id] FROM [post]',
+    string: 'SELECT MIN([post].[id]) AS [min_id] FROM [post]'
   },
   params: []
 });
@@ -174,6 +206,10 @@ Harness.test({
     text  : 'SELECT MAX(`post`.`id`) AS `id_max` FROM `post`',
     string: 'SELECT MAX(`post`.`id`) AS `id_max` FROM `post`'
   },
+  sqlserver: {
+    text  : 'SELECT MAX([post].[id]) AS [id_max] FROM [post]',
+    string: 'SELECT MAX([post].[id]) AS [id_max] FROM [post]'
+  },
   params: []
 });
 
@@ -190,6 +226,10 @@ Harness.test({
   mysql: {
     text  : 'SELECT MAX(`post`.`id`) AS `max_id` FROM `post`',
     string: 'SELECT MAX(`post`.`id`) AS `max_id` FROM `post`'
+  },
+  sqlserver: {
+    text  : 'SELECT MAX([post].[id]) AS [max_id] FROM [post]',
+    string: 'SELECT MAX([post].[id]) AS [max_id] FROM [post]'
   },
   params: []
 });
@@ -208,6 +248,10 @@ Harness.test({
     text  : 'SELECT MAX(`post`.`id`) AS `max_id` FROM `post`',
     string: 'SELECT MAX(`post`.`id`) AS `max_id` FROM `post`'
   },
+  sqlserver: {
+    text  : 'SELECT MAX([post].[id]) AS [max_id] FROM [post]',
+    string: 'SELECT MAX([post].[id]) AS [max_id] FROM [post]'
+  },
   params: []
 });
 
@@ -225,6 +269,10 @@ Harness.test({
     text  : 'SELECT SUM(`post`.`id`) AS `id_sum` FROM `post`',
     string: 'SELECT SUM(`post`.`id`) AS `id_sum` FROM `post`'
   },
+  sqlserver: {
+    text  : 'SELECT SUM([post].[id]) AS [id_sum] FROM [post]',
+    string: 'SELECT SUM([post].[id]) AS [id_sum] FROM [post]'
+  },
 });
 
 Harness.test({
@@ -241,6 +289,11 @@ Harness.test({
     text  : 'SELECT SUM(`post`.`id`) AS `sum_id` FROM `post`',
     string: 'SELECT SUM(`post`.`id`) AS `sum_id` FROM `post`'
   },
+  sqlserver: {
+    text  : 'SELECT SUM([post].[id]) AS [sum_id] FROM [post]',
+    string: 'SELECT SUM([post].[id]) AS [sum_id] FROM [post]'
+  },
+  params: []
 });
 
 Harness.test({
@@ -257,6 +310,11 @@ Harness.test({
     text  : 'SELECT SUM(`post`.`id`) AS `sum_id` FROM `post`',
     string: 'SELECT SUM(`post`.`id`) AS `sum_id` FROM `post`'
   },
+  sqlserver: {
+    text  : 'SELECT SUM([post].[id]) AS [sum_id] FROM [post]',
+    string: 'SELECT SUM([post].[id]) AS [sum_id] FROM [post]'
+  },
+  params: []
 });
 
 Harness.test({
@@ -273,6 +331,11 @@ Harness.test({
     text  : 'SELECT AVG(`post`.`id`) AS `id_avg` FROM `post`',
     string: 'SELECT AVG(`post`.`id`) AS `id_avg` FROM `post`'
   },
+  sqlserver: {
+    text  : 'SELECT AVG([post].[id]) AS [id_avg] FROM [post]',
+    string: 'SELECT AVG([post].[id]) AS [id_avg] FROM [post]'
+  },
+  params: []
 });
 
 Harness.test({
@@ -289,6 +352,11 @@ Harness.test({
     text  : 'SELECT AVG(`post`.`id`) AS `avg_id` FROM `post`',
     string: 'SELECT AVG(`post`.`id`) AS `avg_id` FROM `post`'
   },
+  sqlserver: {
+    text  : 'SELECT AVG([post].[id]) AS [avg_id] FROM [post]',
+    string: 'SELECT AVG([post].[id]) AS [avg_id] FROM [post]'
+  },
+  params: []
 });
 
 Harness.test({
@@ -305,4 +373,9 @@ Harness.test({
     text  : 'SELECT AVG(`post`.`id`) AS `avg_id` FROM `post`',
     string: 'SELECT AVG(`post`.`id`) AS `avg_id` FROM `post`'
   },
+  sqlserver: {
+    text  : 'SELECT AVG([post].[id]) AS [avg_id] FROM [post]',
+    string: 'SELECT AVG([post].[id]) AS [avg_id] FROM [post]'
+  },
+  params: []
 });
