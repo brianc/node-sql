@@ -17,6 +17,10 @@ Harness.test({
     text  : 'SELECT COUNT(`post`.*) AS `post_count` FROM `post`',
     string: 'SELECT COUNT(`post`.*) AS `post_count` FROM `post`'
   },
+  sqlserver: {
+    text  : 'SELECT COUNT(*) AS [post_count] FROM [post]',
+    string: 'SELECT COUNT(*) AS [post_count] FROM [post]'
+  },
   params: []
 });
 
