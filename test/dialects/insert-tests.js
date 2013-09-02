@@ -155,12 +155,10 @@ Harness.test({
     string: 'INSERT INTO "post" DEFAULT VALUES RETURNING *'
   },
   sqlite: {
-    text  : 'INSERT INTO "post" DEFAULT VALUES RETURNING *',
-    string: 'INSERT INTO "post" DEFAULT VALUES RETURNING *'
+    throws: true
   },
   mysql: {
-    text  : 'INSERT INTO `post` () VALUES () RETURNING *',
-    string: 'INSERT INTO `post` () VALUES () RETURNING *'
+    throws: true
   },
   params: []
 });
@@ -172,12 +170,10 @@ Harness.test({
     string: 'INSERT INTO "post" DEFAULT VALUES RETURNING *'
   },
   sqlite: {
-    text  : 'INSERT INTO "post" DEFAULT VALUES RETURNING *',
-    string: 'INSERT INTO "post" DEFAULT VALUES RETURNING *'
+    throws: true
   },
   mysql: {
-    text  : 'INSERT INTO `post` () VALUES () RETURNING *',
-    string: 'INSERT INTO `post` () VALUES () RETURNING *'
+    throws: true
   },
   params: []
 });
@@ -189,12 +185,10 @@ Harness.test({
     string: 'INSERT INTO "post" DEFAULT VALUES RETURNING "id"'
   },
   sqlite: {
-    text  : 'INSERT INTO "post" DEFAULT VALUES RETURNING "id"',
-    string: 'INSERT INTO "post" DEFAULT VALUES RETURNING "id"'
+    throws: true
   },
   mysql: {
-    text  : 'INSERT INTO `post` () VALUES () RETURNING `id`',
-    string: 'INSERT INTO `post` () VALUES () RETURNING `id`'
+    throws: true
   },
   params: []
 });
@@ -206,12 +200,10 @@ Harness.test({
     string: 'INSERT INTO "post" DEFAULT VALUES RETURNING "id", "content"'
   },
   sqlite: {
-    text  : 'INSERT INTO "post" DEFAULT VALUES RETURNING "id", "content"',
-    string: 'INSERT INTO "post" DEFAULT VALUES RETURNING "id", "content"'
+    throws: true
   },
   mysql: {
-    text  : 'INSERT INTO `post` () VALUES () RETURNING `id`, `content`',
-    string: 'INSERT INTO `post` () VALUES () RETURNING `id`, `content`'
+    throws: true
   },
   params: []
 });
@@ -223,12 +215,10 @@ Harness.test({
     string: 'INSERT INTO "post" DEFAULT VALUES RETURNING "id", "content"'
   },
   sqlite: {
-    text  : 'INSERT INTO "post" DEFAULT VALUES RETURNING "id", "content"',
-    string: 'INSERT INTO "post" DEFAULT VALUES RETURNING "id", "content"'
+    throws: true
   },
   mysql: {
-    text  : 'INSERT INTO `post` () VALUES () RETURNING `id`, `content`',
-    string: 'INSERT INTO `post` () VALUES () RETURNING `id`, `content`'
+    throws: true
   },
   params: []
 });
