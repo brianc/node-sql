@@ -18,6 +18,10 @@ Harness.test({
     text  : 'SELECT (`customer`.`name` + `customer`.`age`) FROM `customer`',
     string: 'SELECT (`customer`.`name` + `customer`.`age`) FROM `customer`'
   },
+  sqlserver: {
+    text  : 'SELECT ([customer].[name] + [customer].[age]) FROM [customer]',
+    string: 'SELECT ([customer].[name] + [customer].[age]) FROM [customer]'
+  },
   params: []
 });
 
@@ -35,6 +39,10 @@ Harness.test({
     text  : 'SELECT (`post`.`content` + ?) FROM `post` WHERE (`post`.`userId` IN (SELECT `customer`.`id` FROM `customer`))',
     string: 'SELECT (`post`.`content` + \'!\') FROM `post` WHERE (`post`.`userId` IN (SELECT `customer`.`id` FROM `customer`))'
   },
+  sqlserver: {
+    text  : 'SELECT ([post].[content] + ?) FROM [post] WHERE ([post].[userId] IN (SELECT [customer].[id] FROM [customer]))',
+    string: 'SELECT ([post].[content] + \'!\') FROM [post] WHERE ([post].[userId] IN (SELECT [customer].[id] FROM [customer]))'
+  },
   params: ['!']
 });
 
@@ -51,6 +59,10 @@ Harness.test({
   mysql: {
     text  : 'SELECT ((`post`.`id` + ?) + `post`.`content`) FROM `post` WHERE (`post`.`userId` NOT IN (SELECT `customer`.`id` FROM `customer`))',
     string: 'SELECT ((`post`.`id` + \': \') + `post`.`content`) FROM `post` WHERE (`post`.`userId` NOT IN (SELECT `customer`.`id` FROM `customer`))'
+  },
+  sqlserver: {
+    text  : 'SELECT (([post].[id] + ?) + [post].[content]) FROM [post] WHERE ([post].[userId] NOT IN (SELECT [customer].[id] FROM [customer]))',
+    string: 'SELECT (([post].[id] + \': \') + [post].[content]) FROM [post] WHERE ([post].[userId] NOT IN (SELECT [customer].[id] FROM [customer]))'
   },
   params: [': ']
 });
