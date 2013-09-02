@@ -18,6 +18,10 @@ Harness.test({
     text  : 'ALTER TABLE `post` DROP COLUMN `content`',
     string: 'ALTER TABLE `post` DROP COLUMN `content`'
   },
+  sqlserver: {
+    text  : 'ALTER TABLE [post] DROP COLUMN [content]',
+    string: 'ALTER TABLE [post] DROP COLUMN [content]'
+  },
   params: []
 });
 
@@ -34,6 +38,10 @@ Harness.test({
   mysql: {
     text  : 'ALTER TABLE `post` DROP COLUMN `content`, DROP COLUMN `userId`',
     string: 'ALTER TABLE `post` DROP COLUMN `content`, DROP COLUMN `userId`'
+  },
+  sqlserver: {
+    text  : 'ALTER TABLE [post] DROP COLUMN [content], [userId]',
+    string: 'ALTER TABLE [post] DROP COLUMN [content], [userId]'
   },
   params: []
 });
@@ -52,6 +60,10 @@ Harness.test({
     text  : 'ALTER TABLE `post` DROP COLUMN `content`, DROP COLUMN `userId`',
     string: 'ALTER TABLE `post` DROP COLUMN `content`, DROP COLUMN `userId`'
   },
+  sqlserver: {
+    text  : 'ALTER TABLE [post] DROP COLUMN [content], [userId]',
+    string: 'ALTER TABLE [post] DROP COLUMN [content], [userId]'
+  },
   params: []
 });
 
@@ -68,6 +80,10 @@ Harness.test({
   mysql: {
     text  : 'ALTER TABLE `post` RENAME TO `posts`',
     string: 'ALTER TABLE `post` RENAME TO `posts`'
+  },
+  sqlserver: {
+    text  : 'EXEC sp_rename [post], [posts]',
+    string: 'EXEC sp_rename [post], [posts]'
   },
   params: []
 });
@@ -98,6 +114,10 @@ Harness.test({
     text  : 'ALTER TABLE `group` ADD COLUMN `id` varchar(100)',
     string: 'ALTER TABLE `group` ADD COLUMN `id` varchar(100)'
   },
+  sqlserver: {
+    text  : 'ALTER TABLE [group] ADD [id] varchar(100)',
+    string: 'ALTER TABLE [group] ADD [id] varchar(100)'
+  },
   params: []
 });
 
@@ -114,6 +134,10 @@ Harness.test({
   mysql: {
     text  : 'ALTER TABLE `group` ADD COLUMN `id` varchar(100), ADD COLUMN `userId` varchar(100)',
     string: 'ALTER TABLE `group` ADD COLUMN `id` varchar(100), ADD COLUMN `userId` varchar(100)'
+  },
+  sqlserver: {
+    text  : 'ALTER TABLE [group] ADD [id] varchar(100), [userId] varchar(100)',
+    string: 'ALTER TABLE [group] ADD [id] varchar(100), [userId] varchar(100)'
   },
   params: []
 });
@@ -132,6 +156,10 @@ Harness.test({
     text  : 'ALTER TABLE `group` ADD COLUMN `id` varchar(100), ADD COLUMN `userId` varchar(100)',
     string: 'ALTER TABLE `group` ADD COLUMN `id` varchar(100), ADD COLUMN `userId` varchar(100)'
   },
+  sqlserver: {
+    text  : 'ALTER TABLE [group] ADD [id] varchar(100), [userId] varchar(100)',
+    string: 'ALTER TABLE [group] ADD [id] varchar(100), [userId] varchar(100)'
+  },
   params: []
 });
 
@@ -148,6 +176,12 @@ Harness.test({
   sqlite: {
     text  : 'Sqlite cannot rename columns',
     throws: true
+  },
+  sqlserver: {
+    text  : 'SqlServer renaming columns not yet implemented',
+    throws: true
+//    text  : 'EXEC sp_rename [group.userId], [newUserId], \'COLUMN\'',
+//    string: 'EXEC sp_rename [group.userId], [newUserId], \'COLUMN\''
   },
   params: []
 });
@@ -166,6 +200,12 @@ Harness.test({
     text  : 'ALTER TABLE `group` CHANGE COLUMN `userId` `newUserId` varchar(100)',
     string: 'ALTER TABLE `group` CHANGE COLUMN `userId` `newUserId` varchar(100)'
   },
+  sqlserver: {
+    text  : 'SqlServer renaming columns not yet implemented',
+    throws: true
+//    text  : 'EXEC sp_rename [group.userId], [newUserId], \'COLUMN\'',
+//    string: 'EXEC sp_rename [group.userId], [newUserId], \'COLUMN\''
+  },
   params: []
 });
 
@@ -182,6 +222,12 @@ Harness.test({
   mysql: {
     text  : 'ALTER TABLE `group` CHANGE COLUMN `userId` `id` varchar(100)',
     string: 'ALTER TABLE `group` CHANGE COLUMN `userId` `id` varchar(100)'
+  },
+  sqlserver: {
+    text  : 'SqlServer renaming columns not yet implemented',
+    throws: true
+//    text  : 'EXEC sp_rename [group.userId], [id], \'COLUMN\'',
+//    string: 'EXEC sp_rename [group.userId], [id], \'COLUMN\''
   },
   params: []
 });
@@ -208,5 +254,11 @@ Harness.test({
   sqlite: {
     text  : 'Sqlite cannot rename columns',
     throws: true
+  },
+  sqlserver: {
+    text  : 'SqlServer renaming columns not yet implemented',
+    throws: true
+//    text  : 'EXEC sp_rename [UserWithSignature.Signature], [sig], \'COLUMN\'',
+//    string: 'EXEC sp_rename [UserWithSignature.Signature], [sig], \'COLUMN\''
   }
 });
