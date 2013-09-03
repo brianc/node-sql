@@ -18,6 +18,10 @@ Harness.test({
     text  : 'SELECT `customer`.* FROM `customer` WHERE (`customer`.`age` BETWEEN ? AND ?)',
     string: 'SELECT `customer`.* FROM `customer` WHERE (`customer`.`age` BETWEEN 18 AND 25)'
   },
+  sqlserver: {
+    text  : 'SELECT [customer].* FROM [customer] WHERE ([customer].[age] BETWEEN ? AND ?)',
+    string: 'SELECT [customer].* FROM [customer] WHERE ([customer].[age] BETWEEN 18 AND 25)'
+  },
   params: [18, 25]
 });
 
@@ -34,6 +38,10 @@ Harness.test({
   mysql: {
     text  : 'SELECT `post`.* FROM `post` WHERE (`post`.`userId` BETWEEN (SELECT MIN(`customer`.`id`) AS `id_min` FROM `customer`) AND (SELECT MAX(`customer`.`id`) AS `id_max` FROM `customer`))',
     string: 'SELECT `post`.* FROM `post` WHERE (`post`.`userId` BETWEEN (SELECT MIN(`customer`.`id`) AS `id_min` FROM `customer`) AND (SELECT MAX(`customer`.`id`) AS `id_max` FROM `customer`))'
+  },
+  sqlserver: {
+    text  : 'SELECT [post].* FROM [post] WHERE ([post].[userId] BETWEEN (SELECT MIN([customer].[id]) AS [id_min] FROM [customer]) AND (SELECT MAX([customer].[id]) AS [id_max] FROM [customer]))',
+    string: 'SELECT [post].* FROM [post] WHERE ([post].[userId] BETWEEN (SELECT MIN([customer].[id]) AS [id_min] FROM [customer]) AND (SELECT MAX([customer].[id]) AS [id_max] FROM [customer]))'
   },
   params: []
 });
