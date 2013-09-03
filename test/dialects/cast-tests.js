@@ -18,6 +18,10 @@ Harness.test({
     text  : 'SELECT CAST(`customer`.`age` AS int) FROM `customer`',
     string: 'SELECT CAST(`customer`.`age` AS int) FROM `customer`'
   },
+  sqlserver: {
+    text  : 'SELECT CAST([customer].[age] AS int) FROM [customer]',
+    string: 'SELECT CAST([customer].[age] AS int) FROM [customer]'
+  },
   params: []
 });
 
@@ -35,6 +39,10 @@ Harness.test({
     text  : 'SELECT CAST(`customer`.`name` AS varchar(10)) FROM `customer`',
     string: 'SELECT CAST(`customer`.`name` AS varchar(10)) FROM `customer`'
   },
+  sqlserver: {
+    text  : 'SELECT CAST([customer].[name] AS varchar(10)) FROM [customer]',
+    string: 'SELECT CAST([customer].[name] AS varchar(10)) FROM [customer]'
+  },
   params: []
 });
 
@@ -43,15 +51,19 @@ Harness.test({
   query: customer.select(customer.name.plus(customer.age).cast('varchar(15)')),
   pg: {
     text  : 'SELECT CAST(("customer"."name" + "customer"."age") AS varchar(15)) FROM "customer"',
-    string: 'SELECT CAST(("customer"."name" + "customer"."age") AS varchar(15)) FROM "customer"',
+    string: 'SELECT CAST(("customer"."name" + "customer"."age") AS varchar(15)) FROM "customer"'
   },
   sqlite: {
     text  : 'SELECT CAST(("customer"."name" + "customer"."age") AS varchar(15)) FROM "customer"',
-    string: 'SELECT CAST(("customer"."name" + "customer"."age") AS varchar(15)) FROM "customer"',
+    string: 'SELECT CAST(("customer"."name" + "customer"."age") AS varchar(15)) FROM "customer"'
   },
   mysql: {
     text  : 'SELECT CAST((`customer`.`name` + `customer`.`age`) AS varchar(15)) FROM `customer`',
-    string: 'SELECT CAST((`customer`.`name` + `customer`.`age`) AS varchar(15)) FROM `customer`',
+    string: 'SELECT CAST((`customer`.`name` + `customer`.`age`) AS varchar(15)) FROM `customer`'
+  },
+  sqlserver: {
+    text  : 'SELECT CAST(([customer].[name] + [customer].[age]) AS varchar(15)) FROM [customer]',
+    string: 'SELECT CAST(([customer].[name] + [customer].[age]) AS varchar(15)) FROM [customer]'
   },
   params: []
 });
@@ -71,6 +83,10 @@ Harness.test({
     text  : 'SELECT CAST(CAST(`customer`.`name` AS varchar(15)) AS varchar(10)) FROM `customer`',
     string: 'SELECT CAST(CAST(`customer`.`name` AS varchar(15)) AS varchar(10)) FROM `customer`'
   },
+  sqlserver: {
+    text  : 'SELECT CAST(CAST([customer].[name] AS varchar(15)) AS varchar(10)) FROM [customer]',
+    string: 'SELECT CAST(CAST([customer].[name] AS varchar(15)) AS varchar(10)) FROM [customer]'
+  },
   params: []
 });
 
@@ -89,6 +105,10 @@ Harness.test({
     text  : 'SELECT `customer`.`name` FROM `customer` WHERE ((CAST(`customer`.`age` AS int) + ?) = ?)',
     string: 'SELECT `customer`.`name` FROM `customer` WHERE ((CAST(`customer`.`age` AS int) + 100) = 150)'
   },
+  sqlserver: {
+    text  : 'SELECT [customer].[name] FROM [customer] WHERE ((CAST([customer].[age] AS int) + ?) = ?)',
+    string: 'SELECT [customer].[name] FROM [customer] WHERE ((CAST([customer].[age] AS int) + 100) = 150)'
+  },
   params: [100, 150]
 });
 
@@ -106,6 +126,10 @@ Harness.test({
   mysql: {
     text  : 'SELECT CAST(`customer`.`age` AS int) AS `age_int` FROM `customer`',
     string: 'SELECT CAST(`customer`.`age` AS int) AS `age_int` FROM `customer`'
+  },
+  sqlserver: {
+    text  : 'SELECT CAST([customer].[age] AS int) AS [age_int] FROM [customer]',
+    string: 'SELECT CAST([customer].[age] AS int) AS [age_int] FROM [customer]'
   },
   params: []
 });
