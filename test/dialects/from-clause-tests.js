@@ -17,6 +17,10 @@ Harness.test({
   mysql: {
     text  : 'SELECT `user`.* FROM `user` , `post`',
     string: 'SELECT `user`.* FROM `user` , `post`'
+  },
+  sqlserver: {
+    text  : 'SELECT [user].* FROM [user] , [post]',
+    string: 'SELECT [user].* FROM [user] , [post]'
   }
 });
 
@@ -33,5 +37,9 @@ Harness.test({
   mysql: {
     text  : 'SELECT `user`.*, `post`.* FROM `user` , `post`',
     string: 'SELECT `user`.*, `post`.* FROM `user` , `post`'
+  },
+  sqlserver: {
+    text  : 'SELECT [user].*, [post].* FROM [user] , [post]',
+    string: 'SELECT [user].*, [post].* FROM [user] , [post]'
   }
 });
