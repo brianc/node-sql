@@ -17,6 +17,10 @@ Harness.test({
     text  : 'SELECT DISTINCT(`user`.`id`) FROM `user`',
     string: 'SELECT DISTINCT(`user`.`id`) FROM `user`'
   },
+  sqlserver: {
+    text  : 'SELECT DISTINCT([user].[id]) FROM [user]',
+    string: 'SELECT DISTINCT([user].[id]) FROM [user]'
+  },
   params: []
 });
 
@@ -33,6 +37,10 @@ Harness.test({
   mysql: {
     text  : 'SELECT COUNT(DISTINCT(`user`.`id`)) AS `count` FROM `user`',
     string: 'SELECT COUNT(DISTINCT(`user`.`id`)) AS `count` FROM `user`'
+  },
+  sqlserver: {
+    text  : 'SELECT COUNT(DISTINCT([user].[id])) AS [count] FROM [user]',
+    string: 'SELECT COUNT(DISTINCT([user].[id])) AS [count] FROM [user]'
   },
   params: []
 });
