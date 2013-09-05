@@ -19,6 +19,10 @@ Harness.test({
     text  : '(`post`.`content` = ?)',
     string: '(`post`.`content` = NULL)'
   },
+  sqlserver: {
+    text  : '([post].[content] = ?)',
+    string: '([post].[content] = NULL)'
+  },
   params: [null]
 });
 
@@ -36,6 +40,10 @@ Harness.test({
   mysql: {
     text  : '(`post`.`content` = ?)',
     string: '(`post`.`content` = 3.14)'
+  },
+  sqlserver: {
+    text  : '([post].[content] = ?)',
+    string: '([post].[content] = 3.14)'
   },
   params: [3.14]
 });
@@ -55,6 +63,10 @@ Harness.test({
     text  : '(`post`.`content` = ?)',
     string: '(`post`.`content` = \'hello\'\'\')'
   },
+  sqlserver: {
+    text  : '([post].[content] = ?)',
+    string: '([post].[content] = \'hello\'\'\')'
+  },
   params: ['hello\'']
 });
 
@@ -73,6 +85,10 @@ Harness.test({
     text  : '(`post`.`content` = (?, ?, ?))',
     string: '(`post`.`content` = (1, \'2\', NULL))'
   },
+  sqlserver: {
+    text  : 'SQL Server does not support arrays.',
+    throws: true
+  },
   params: [1, '2', null]
 });
 
@@ -90,6 +106,10 @@ Harness.test({
   mysql: {
     text  : '(`post`.`content` = ?)',
     string: '(`post`.`content` = \'2000-01-01T00:00:00.000Z\')'
+  },
+  sqlserver: {
+    text  : '([post].[content] = ?)',
+    string: '([post].[content] = \'2000-01-01T00:00:00.000Z\')'
   },
   params: [new Date('Sat, 01 Jan 2000 00:00:00 GMT')]
 });
@@ -114,6 +134,10 @@ Harness.test({
   mysql: {
     text  : '(`post`.`content` = ?)',
     string: '(`post`.`content` = \'secretMessage\')'
+  },
+  sqlserver: {
+    text  : '([post].[content] = ?)',
+    string: '([post].[content] = \'secretMessage\')'
   },
   params: [customObject]
 });
