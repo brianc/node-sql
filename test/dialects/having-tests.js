@@ -17,6 +17,10 @@ Harness.test({
     text  : 'SELECT `post`.`userId`, COUNT(`post`.`content`) AS `content_count` FROM `post` GROUP BY `post`.`userId` HAVING (`post`.`userId` > ?)',
     string: 'SELECT `post`.`userId`, COUNT(`post`.`content`) AS `content_count` FROM `post` GROUP BY `post`.`userId` HAVING (`post`.`userId` > 10)'
   },
+  sqlserver : {
+    text  : 'SELECT [post].[userId], COUNT([post].[content]) AS [content_count] FROM [post] GROUP BY [post].[userId] HAVING ([post].[userId] > ?)',
+    string: 'SELECT [post].[userId], COUNT([post].[content]) AS [content_count] FROM [post] GROUP BY [post].[userId] HAVING ([post].[userId] > 10)'
+  },
   params: [10]
 });
 
@@ -34,6 +38,10 @@ Harness.test({
     text  : 'SELECT `post`.`userId`, COUNT(`post`.`content`) AS `content_count` FROM `post` GROUP BY `post`.`userId` HAVING (`post`.`userId` > ?) AND (`post`.`userId` < ?)',
     string: 'SELECT `post`.`userId`, COUNT(`post`.`content`) AS `content_count` FROM `post` GROUP BY `post`.`userId` HAVING (`post`.`userId` > 10) AND (`post`.`userId` < 100)'
   },
+  sqlserver : {
+    text  : 'SELECT [post].[userId], COUNT([post].[content]) AS [content_count] FROM [post] GROUP BY [post].[userId] HAVING ([post].[userId] > ?) AND ([post].[userId] < ?)',
+    string: 'SELECT [post].[userId], COUNT([post].[content]) AS [content_count] FROM [post] GROUP BY [post].[userId] HAVING ([post].[userId] > 10) AND ([post].[userId] < 100)'
+  },
   params: [10, 100]
 });
 
@@ -50,6 +58,10 @@ Harness.test({
   mysql : {
     text  : 'SELECT `post`.`userId`, COUNT(`post`.`content`) AS `content_count` FROM `post` GROUP BY `post`.`userId` HAVING (`post`.`userId` > ?) AND (`post`.`userId` < ?)',
     string: 'SELECT `post`.`userId`, COUNT(`post`.`content`) AS `content_count` FROM `post` GROUP BY `post`.`userId` HAVING (`post`.`userId` > 10) AND (`post`.`userId` < 100)'
+  },
+  sqlserver : {
+    text  : 'SELECT [post].[userId], COUNT([post].[content]) AS [content_count] FROM [post] GROUP BY [post].[userId] HAVING ([post].[userId] > ?) AND ([post].[userId] < ?)',
+    string: 'SELECT [post].[userId], COUNT([post].[content]) AS [content_count] FROM [post] GROUP BY [post].[userId] HAVING ([post].[userId] > 10) AND ([post].[userId] < 100)'
   },
   params: [10, 100]
 });
