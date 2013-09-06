@@ -18,6 +18,10 @@ Harness.test({
     text  : 'SELECT `post`.`content` FROM `post` ORDER BY `post`.`content`',
     string: 'SELECT `post`.`content` FROM `post` ORDER BY `post`.`content`'
   },
+  sqlserver: {
+    text  : 'SELECT [post].[content] FROM [post] ORDER BY [post].[content]',
+    string: 'SELECT [post].[content] FROM [post] ORDER BY [post].[content]'
+  },
   params: []
 });
 
@@ -34,6 +38,10 @@ Harness.test({
   mysql: {
     text  : 'SELECT `post`.`content` FROM `post` ORDER BY `post`.`content`, `post`.`userId` DESC',
     string: 'SELECT `post`.`content` FROM `post` ORDER BY `post`.`content`, `post`.`userId` DESC'
+  },
+  sqlserver: {
+    text  : 'SELECT [post].[content] FROM [post] ORDER BY [post].[content], [post].[userId] DESC',
+    string: 'SELECT [post].[content] FROM [post] ORDER BY [post].[content], [post].[userId] DESC'
   },
   params: []
 });
@@ -52,6 +60,10 @@ Harness.test({
     text  : 'SELECT `post`.`content` FROM `post` ORDER BY `post`.`content`, `post`.`userId` DESC',
     string: 'SELECT `post`.`content` FROM `post` ORDER BY `post`.`content`, `post`.`userId` DESC'
   },
+  sqlserver: {
+    text  : 'SELECT [post].[content] FROM [post] ORDER BY [post].[content], [post].[userId] DESC',
+    string: 'SELECT [post].[content] FROM [post] ORDER BY [post].[content], [post].[userId] DESC'
+  },
   params: []
 });
 
@@ -68,6 +80,10 @@ Harness.test({
   mysql: {
     text  : 'SELECT `post`.`content` FROM `post` ORDER BY `post`.`content`, `post`.`userId` DESC',
     string: 'SELECT `post`.`content` FROM `post` ORDER BY `post`.`content`, `post`.`userId` DESC'
+  },
+  sqlserver: {
+    text  : 'SELECT [post].[content] FROM [post] ORDER BY [post].[content], [post].[userId] DESC',
+    string: 'SELECT [post].[content] FROM [post] ORDER BY [post].[content], [post].[userId] DESC'
   },
   params: []
 });
@@ -86,6 +102,10 @@ Harness.test({
     text  : 'SELECT `post`.`content` FROM `post` ORDER BY `post`.`content`, `post`.`userId` DESC',
     string: 'SELECT `post`.`content` FROM `post` ORDER BY `post`.`content`, `post`.`userId` DESC'
   },
+  sqlserver: {
+    text  : 'SELECT [post].[content] FROM [post] ORDER BY [post].[content], [post].[userId] DESC',
+    string: 'SELECT [post].[content] FROM [post] ORDER BY [post].[content], [post].[userId] DESC'
+  },
   params: []
 });
 
@@ -102,6 +122,10 @@ Harness.test({
   mysql: {
     text  : 'SELECT (`post`.`content` IS NULL) FROM `post` ORDER BY (`post`.`content` IS NULL)',
     string: 'SELECT (`post`.`content` IS NULL) FROM `post` ORDER BY (`post`.`content` IS NULL)'
+  },
+  sqlserver: {
+    text  : 'SELECT ([post].[content] IS NULL) FROM [post] ORDER BY ([post].[content] IS NULL)',
+    string: 'SELECT ([post].[content] IS NULL) FROM [post] ORDER BY ([post].[content] IS NULL)'
   },
   params: []
 });
@@ -120,6 +144,10 @@ Harness.test({
     text  : 'SELECT (`post`.`content` IS NULL) FROM `post` ORDER BY (`post`.`content` IS NULL) DESC',
     string: 'SELECT (`post`.`content` IS NULL) FROM `post` ORDER BY (`post`.`content` IS NULL) DESC'
   },
+  sqlserver: {
+    text  : 'SELECT ([post].[content] IS NULL) FROM [post] ORDER BY ([post].[content] IS NULL) DESC',
+    string: 'SELECT ([post].[content] IS NULL) FROM [post] ORDER BY ([post].[content] IS NULL) DESC'
+  },
   params: []
 });
 
@@ -136,6 +164,10 @@ Harness.test({
   mysql: {
     text  : 'SELECT (`post`.`content` IS NULL) FROM `post` ORDER BY (`post`.`content` IS NULL)',
     string: 'SELECT (`post`.`content` IS NULL) FROM `post` ORDER BY (`post`.`content` IS NULL)'
+  },
+  sqlserver: {
+    text  : 'SELECT ([post].[content] IS NULL) FROM [post] ORDER BY ([post].[content] IS NULL)',
+    string: 'SELECT ([post].[content] IS NULL) FROM [post] ORDER BY ([post].[content] IS NULL)'
   },
   params: []
 });
@@ -154,6 +186,10 @@ Harness.test({
     text  : 'SELECT RTRIM(`post`.`content`) FROM `post` ORDER BY RTRIM(`post`.`content`)',
     string: 'SELECT RTRIM(`post`.`content`) FROM `post` ORDER BY RTRIM(`post`.`content`)'
   },
+  sqlserver: {
+    text  : 'SELECT RTRIM([post].[content]) FROM [post] ORDER BY RTRIM([post].[content])',
+    string: 'SELECT RTRIM([post].[content]) FROM [post] ORDER BY RTRIM([post].[content])'
+  },
   params: []
 });
 
@@ -170,6 +206,10 @@ Harness.test({
   mysql: {
     text  : 'SELECT RTRIM(`post`.`content`) FROM `post` ORDER BY RTRIM(`post`.`content`) DESC',
     string: 'SELECT RTRIM(`post`.`content`) FROM `post` ORDER BY RTRIM(`post`.`content`) DESC'
+  },
+  sqlserver: {
+    text  : 'SELECT RTRIM([post].[content]) FROM [post] ORDER BY RTRIM([post].[content]) DESC',
+    string: 'SELECT RTRIM([post].[content]) FROM [post] ORDER BY RTRIM([post].[content]) DESC'
   },
   params: []
 });
