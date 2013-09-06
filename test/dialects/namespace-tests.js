@@ -20,6 +20,10 @@ Harness.test({
     text  : 'SELECT `u`.`name` FROM `user` AS `u`',
     string: 'SELECT `u`.`name` FROM `user` AS `u`'
   },
+  sqlserver: {
+    text  : 'SELECT [u].[name] FROM [user] AS [u]',
+    string: 'SELECT [u].[name] FROM [user] AS [u]'
+  },
   params: []
 });
 
@@ -36,6 +40,10 @@ Harness.test({
   mysql: {
     text  : 'SELECT `u`.* FROM `user` AS `u`',
     string: 'SELECT `u`.* FROM `user` AS `u`'
+  },
+  sqlserver: {
+    text  : 'SELECT [u].* FROM [user] AS [u]',
+    string: 'SELECT [u].* FROM [user] AS [u]'
   },
   params: []
 });
@@ -55,6 +63,10 @@ Harness.test({
     text  : 'SELECT `u`.`name` FROM `user` AS `u` INNER JOIN `post` AS `p` ON ((`u`.`id` = `p`.`userId`) AND (`p`.`id` = ?))',
     string: 'SELECT `u`.`name` FROM `user` AS `u` INNER JOIN `post` AS `p` ON ((`u`.`id` = `p`.`userId`) AND (`p`.`id` = 3))'
   },
+  sqlserver: {
+    text  : 'SELECT [u].[name] FROM [user] AS [u] INNER JOIN [post] AS [p] ON (([u].[id] = [p].[userId]) AND ([p].[id] = ?))',
+    string: 'SELECT [u].[name] FROM [user] AS [u] INNER JOIN [post] AS [p] ON (([u].[id] = [p].[userId]) AND ([p].[id] = 3))'
+  },
   params: [3]
 });
 
@@ -71,6 +83,10 @@ Harness.test({
   mysql: {
     text  : 'SELECT `p`.`content`, `u`.`name` FROM `user` AS `u` INNER JOIN `post` AS `p` ON ((`u`.`id` = `p`.`userId`) AND (`p`.`content` IS NOT NULL))',
     string: 'SELECT `p`.`content`, `u`.`name` FROM `user` AS `u` INNER JOIN `post` AS `p` ON ((`u`.`id` = `p`.`userId`) AND (`p`.`content` IS NOT NULL))'
+  },
+  sqlserver: {
+    text  : 'SELECT [p].[content], [u].[name] FROM [user] AS [u] INNER JOIN [post] AS [p] ON (([u].[id] = [p].[userId]) AND ([p].[content] IS NOT NULL))',
+    string: 'SELECT [p].[content], [u].[name] FROM [user] AS [u] INNER JOIN [post] AS [p] ON (([u].[id] = [p].[userId]) AND ([p].[content] IS NOT NULL))'
   },
   params: []
 });
@@ -101,6 +117,10 @@ Harness.test({
   mysql: {
     text  : 'SELECT `comment`.`text`, `comment`.`userId` FROM `comment`',
     string: 'SELECT `comment`.`text`, `comment`.`userId` FROM `comment`'
+  },
+  sqlserver: {
+    text  : 'SELECT [comment].[text], [comment].[userId] FROM [comment]',
+    string: 'SELECT [comment].[text], [comment].[userId] FROM [comment]'
   },
   params: []
 });
