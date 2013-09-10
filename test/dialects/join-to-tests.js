@@ -50,6 +50,10 @@ Harness.test({
     text  : '`user` INNER JOIN `post` ON (`user`.`id` = `post`.`ownerId`)',
     string: '`user` INNER JOIN `post` ON (`user`.`id` = `post`.`ownerId`)'
   },
+  sqlserver: {
+    text  : '[user] INNER JOIN [post] ON ([user].[id] = [post].[ownerId])',
+    string: '[user] INNER JOIN [post] ON ([user].[id] = [post].[ownerId])'
+  },
   params: []
 });
 
@@ -67,6 +71,10 @@ Harness.test({
     text  : '`post` INNER JOIN `user` ON (`user`.`id` = `post`.`ownerId`)',
     string: '`post` INNER JOIN `user` ON (`user`.`id` = `post`.`ownerId`)'
   },
+  sqlserver: {
+    text  : '[post] INNER JOIN [user] ON ([user].[id] = [post].[ownerId])',
+    string: '[post] INNER JOIN [user] ON ([user].[id] = [post].[ownerId])'
+  },
   params: []
 });
 
@@ -83,6 +91,10 @@ Harness.test({
   mysql: {
     text  : '`user` INNER JOIN `photo` ON (`user`.`id` = `photo`.`ownerId`)',
     string: '`user` INNER JOIN `photo` ON (`user`.`id` = `photo`.`ownerId`)'
+  },
+  sqlserver: {
+    text  : '[user] INNER JOIN [photo] ON ([user].[id] = [photo].[ownerId])',
+    string: '[user] INNER JOIN [photo] ON ([user].[id] = [photo].[ownerId])'
   },
   params: []
 });
