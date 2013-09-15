@@ -40,6 +40,10 @@ Harness.test({
     text  : 'SELECT * FROM (SELECT * FROM `user`)',
     string: 'SELECT * FROM (SELECT * FROM `user`)'
   },
+  sqlserver: {
+    text  : 'SELECT * FROM (SELECT * FROM [user])',
+    string: 'SELECT * FROM (SELECT * FROM [user])'
+  },
   params: []
 });
 
@@ -56,6 +60,10 @@ Harness.test({
   mysql: {
     text  : 'SELECT * FROM (SELECT * FROM `customer`) T1 , (SELECT * FROM `user`) T2',
     string: 'SELECT * FROM (SELECT * FROM `customer`) T1 , (SELECT * FROM `user`) T2'
+  },
+  sqlserver: {
+    text  : 'SELECT * FROM (SELECT * FROM [customer]) T1 , (SELECT * FROM [user]) T2',
+    string: 'SELECT * FROM (SELECT * FROM [customer]) T1 , (SELECT * FROM [user]) T2'
   },
   params: []
 });
@@ -77,6 +85,10 @@ Harness.test({
     text  : '(`customer`.`name` BETWEEN (SELECT MIN(`customer`.`name`) FROM `customer`) AND (SELECT MAX(`customer`.`name`) FROM `customer`))',
     string: '(`customer`.`name` BETWEEN (SELECT MIN(`customer`.`name`) FROM `customer`) AND (SELECT MAX(`customer`.`name`) FROM `customer`))'
   },
+  sqlserver: {
+    text  : '([customer].[name] BETWEEN (SELECT MIN([customer].[name]) FROM [customer]) AND (SELECT MAX([customer].[name]) FROM [customer]))',
+    string: '([customer].[name] BETWEEN (SELECT MIN([customer].[name]) FROM [customer]) AND (SELECT MAX([customer].[name]) FROM [customer]))'
+  },
   params: []
 });
 
@@ -93,6 +105,10 @@ Harness.test({
   mysql: {
     text  : '(EXISTS (SELECT * FROM `user` WHERE (`user`.`name` = `customer`.`name`)))',
     string: '(EXISTS (SELECT * FROM `user` WHERE (`user`.`name` = `customer`.`name`)))'
+  },
+  sqlserver: {
+    text  : '(EXISTS (SELECT * FROM [user] WHERE ([user].[name] = [customer].[name])))',
+    string: '(EXISTS (SELECT * FROM [user] WHERE ([user].[name] = [customer].[name])))'
   },
   params: []
 });
