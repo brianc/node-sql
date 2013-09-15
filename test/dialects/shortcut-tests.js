@@ -19,6 +19,10 @@ Harness.test({
     text  : 'SELECT `user`.* FROM `user`',
     string: 'SELECT `user`.* FROM `user`'
   },
+  sqlserver: {
+    text  : 'SELECT [user].* FROM [user]',
+    string: 'SELECT [user].* FROM [user]'
+  },
   params: []
 });
 
@@ -36,6 +40,10 @@ Harness.test({
     text  : 'SELECT * FROM `user` WHERE (`user`.`name` = ?)',
     string: 'SELECT * FROM `user` WHERE (`user`.`name` = 3)'
   },
+  sqlserver: {
+    text  : 'SELECT * FROM [user] WHERE ([user].[name] = ?)',
+    string: 'SELECT * FROM [user] WHERE ([user].[name] = 3)'
+  },
   params: [3]
 });
 
@@ -52,6 +60,10 @@ Harness.test({
   mysql: {
     text  : 'SELECT * FROM `user` WHERE ((`user`.`name` = ?) AND (`user`.`id` = ?))',
     string: 'SELECT * FROM `user` WHERE ((`user`.`name` = 3) AND (`user`.`id` = 1))'
+  },
+  sqlserver: {
+    text  : 'SELECT * FROM [user] WHERE (([user].[name] = ?) AND ([user].[id] = ?))',
+    string: 'SELECT * FROM [user] WHERE (([user].[name] = 3) AND ([user].[id] = 1))'
   },
   params: [3, 1]
 });
@@ -71,6 +83,10 @@ Harness.test({
     text  : 'SELECT `post`.`content` FROM `post`',
     string: 'SELECT `post`.`content` FROM `post`'
   },
+  sqlserver: {
+    text  : 'SELECT [post].[content] FROM [post]',
+    string: 'SELECT [post].[content] FROM [post]'
+  },
   params: []
 });
 
@@ -87,6 +103,10 @@ Harness.test({
   mysql: {
     text  : 'SELECT `post`.`content` FROM `post` WHERE (`post`.`userId` = ?)',
     string: 'SELECT `post`.`content` FROM `post` WHERE (`post`.`userId` = 1)'
+  },
+  sqlserver: {
+    text  : 'SELECT [post].[content] FROM [post] WHERE ([post].[userId] = ?)',
+    string: 'SELECT [post].[content] FROM [post] WHERE ([post].[userId] = 1)'
   },
   params: [1]
 });
@@ -108,6 +128,10 @@ Harness.test({
   mysql: {
     text  : 'SELECT * FROM `post` WHERE (((`post`.`content` IS NULL) OR (`post`.`content` = ?)) AND (`post`.`userId` = ?))',
     string: 'SELECT * FROM `post` WHERE (((`post`.`content` IS NULL) OR (`post`.`content` = \'\')) AND (`post`.`userId` = 1))'
+  },
+  sqlserver: {
+    text  : 'SELECT * FROM [post] WHERE ((([post].[content] IS NULL) OR ([post].[content] = ?)) AND ([post].[userId] = ?))',
+    string: 'SELECT * FROM [post] WHERE ((([post].[content] IS NULL) OR ([post].[content] = \'\')) AND ([post].[userId] = 1))'
   },
   params: ['', 1]
 });
