@@ -21,7 +21,6 @@ Harness.test({
   params: ['test', 1]
 });
 
-
 Harness.test({
   query: post.insert(post.content.value('whoah')),
   pg: {
@@ -324,4 +323,65 @@ Harness.test({
     string: 'INSERT INTO `post` (`userId`) SELECT `id` FROM `user` WHERE (`name` LIKE \'A%\')'
   },
   params: ['A%']
+});
+
+// Binary inserts
+Harness.test({
+  query: post.insert(post.content.value(new Buffer('test')), post.userId.value(2)),
+  pg: {
+    text  : 'INSERT INTO "post" ("content", "userId") VALUES ($1, $2)',
+    string: 'INSERT INTO "post" ("content", "userId") VALUES (DECODE(\'74657374\', \'hex\'), 2)'
+  },
+  sqlite: {
+    text  : 'INSERT INTO "post" ("content", "userId") VALUES ($1, $2)',
+    string: 'INSERT INTO "post" ("content", "userId") VALUES (x\'74657374\', 2)'
+  },
+  mysql: {
+    text  : 'INSERT INTO `post` (`content`, `userId`) VALUES (?, ?)',
+    string: 'INSERT INTO `post` (`content`, `userId`) VALUES (x\'74657374\', 2)'
+  },
+  params: [new Buffer('test'), 2]
+});
+
+Harness.test({
+  query: post.insert({
+    content: new Buffer('test'),
+    userId: 2
+  }),
+  pg: {
+    text  : 'INSERT INTO "post" ("content", "userId") VALUES ($1, $2)',
+    string: 'INSERT INTO "post" ("content", "userId") VALUES (DECODE(\'74657374\', \'hex\'), 2)'
+  },
+  sqlite: {
+    text  : 'INSERT INTO "post" ("content", "userId") VALUES ($1, $2)',
+    string: 'INSERT INTO "post" ("content", "userId") VALUES (x\'74657374\', 2)'
+  },
+  mysql: {
+    text  : 'INSERT INTO `post` (`content`, `userId`) VALUES (?, ?)',
+    string: 'INSERT INTO `post` (`content`, `userId`) VALUES (x\'74657374\', 2)'
+  },
+  params: [new Buffer('test'), 2]
+});
+
+Harness.test({
+  query: post.insert([{
+      content: new Buffer('whoah')
+    }, {
+      content: new Buffer('hey')
+    }
+  ]),
+  pg: {
+    text  : 'INSERT INTO "post" ("content") VALUES ($1), ($2)',
+    string: 'INSERT INTO "post" ("content") ' + 
+            'VALUES (DECODE(\'77686f6168\', \'hex\')), (DECODE(\'686579\', \'hex\'))'
+  },
+  sqlite: {
+    text  : 'INSERT INTO "post" ("content") VALUES ($1), ($2)',
+    string: 'INSERT INTO "post" ("content") VALUES (x\'77686f6168\'), (x\'686579\')'
+  },
+  mysql: {
+    text  : 'INSERT INTO `post` (`content`) VALUES (?), (?)',
+    string: 'INSERT INTO `post` (`content`) VALUES (x\'77686f6168\'), (x\'686579\')'
+  },
+  params: [new Buffer('whoah'), new Buffer('hey')]
 });
