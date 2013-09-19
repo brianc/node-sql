@@ -82,7 +82,7 @@ Harness.test({
   query: post.select(post.id).where(post.content.equals(new Buffer('test'))),
   pg: {
     text  : 'SELECT "post"."id" FROM "post" WHERE ("post"."content" = $1)',
-    string: 'SELECT "post"."id" FROM "post" WHERE ("post"."content" = DECODE(\'74657374\', \'hex\'))',
+    string: 'SELECT "post"."id" FROM "post" WHERE ("post"."content" = \'\\x74657374\')',
   },
   sqlite: {
     text  : 'SELECT "post"."id" FROM "post" WHERE ("post"."content" = $1)',

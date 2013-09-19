@@ -330,7 +330,7 @@ Harness.test({
   query: post.insert(post.content.value(new Buffer('test')), post.userId.value(2)),
   pg: {
     text  : 'INSERT INTO "post" ("content", "userId") VALUES ($1, $2)',
-    string: 'INSERT INTO "post" ("content", "userId") VALUES (DECODE(\'74657374\', \'hex\'), 2)'
+    string: 'INSERT INTO "post" ("content", "userId") VALUES (\'\\x74657374\', 2)'
   },
   sqlite: {
     text  : 'INSERT INTO "post" ("content", "userId") VALUES ($1, $2)',
@@ -350,7 +350,7 @@ Harness.test({
   }),
   pg: {
     text  : 'INSERT INTO "post" ("content", "userId") VALUES ($1, $2)',
-    string: 'INSERT INTO "post" ("content", "userId") VALUES (DECODE(\'74657374\', \'hex\'), 2)'
+    string: 'INSERT INTO "post" ("content", "userId") VALUES (\'\\x74657374\', 2)'
   },
   sqlite: {
     text  : 'INSERT INTO "post" ("content", "userId") VALUES ($1, $2)',
@@ -373,7 +373,7 @@ Harness.test({
   pg: {
     text  : 'INSERT INTO "post" ("content") VALUES ($1), ($2)',
     string: 'INSERT INTO "post" ("content") ' + 
-            'VALUES (DECODE(\'77686f6168\', \'hex\')), (DECODE(\'686579\', \'hex\'))'
+            'VALUES (\'\\x77686f6168\'), (\'\\x686579\')'
   },
   sqlite: {
     text  : 'INSERT INTO "post" ("content") VALUES ($1), ($2)',

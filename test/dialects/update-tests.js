@@ -129,7 +129,7 @@ Harness.test({
   }),
   pg: {
     text  : 'UPDATE "post" SET "content" = $1',
-    string: 'UPDATE "post" SET "content" = DECODE(\'74657374\', \'hex\')'
+    string: 'UPDATE "post" SET "content" = \'\\x74657374\''
   },
   sqlite: {
     text  : 'UPDATE "post" SET "content" = $1',
