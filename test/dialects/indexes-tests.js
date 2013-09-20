@@ -6,8 +6,8 @@ var post = Harness.definePostTable();
 Harness.test({
   query: post.indexes(),
   pg: {
-    text  : 'SELECT relname FROM pg_class WHERE oid IN ( SELECT indexrelid FROM pg_index, pg_class WHERE pg_class.relname="post" AND pg_class.oid=pg_index.indrelid)',
-    string: 'SELECT relname FROM pg_class WHERE oid IN ( SELECT indexrelid FROM pg_index, pg_class WHERE pg_class.relname="post" AND pg_class.oid=pg_index.indrelid)'
+    text  : 'SELECT relname FROM pg_class WHERE oid IN ( SELECT indexrelid FROM pg_index, pg_class WHERE pg_class.relname=\'post\' AND pg_class.oid=pg_index.indrelid)',
+    string: 'SELECT relname FROM pg_class WHERE oid IN ( SELECT indexrelid FROM pg_index, pg_class WHERE pg_class.relname=\'post\' AND pg_class.oid=pg_index.indrelid)'
   },
   mysql: {
     text  : 'SHOW INDEX FROM `post`',
