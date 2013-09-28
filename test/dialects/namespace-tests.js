@@ -64,7 +64,7 @@ Harness.test({
     string: 'SELECT `u`.`name` FROM `user` AS `u` INNER JOIN `post` AS `p` ON ((`u`.`id` = `p`.`userId`) AND (`p`.`id` = 3))'
   },
   sqlserver: {
-    text  : 'SELECT [u].[name] FROM [user] AS [u] INNER JOIN [post] AS [p] ON (([u].[id] = [p].[userId]) AND ([p].[id] = ?))',
+    text  : 'SELECT [u].[name] FROM [user] AS [u] INNER JOIN [post] AS [p] ON (([u].[id] = [p].[userId]) AND ([p].[id] = @1))',
     string: 'SELECT [u].[name] FROM [user] AS [u] INNER JOIN [post] AS [p] ON (([u].[id] = [p].[userId]) AND ([p].[id] = 3))'
   },
   params: [3]

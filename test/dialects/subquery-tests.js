@@ -23,6 +23,10 @@ Harness.test({
     text  : '(`user`.`name` IN (SELECT `customer`.`name` FROM `customer` WHERE (`user`.`name` IN (SELECT `customer`.`name` FROM `customer` WHERE (`user`.`name` LIKE ?)))))',
     string: '(`user`.`name` IN (SELECT `customer`.`name` FROM `customer` WHERE (`user`.`name` IN (SELECT `customer`.`name` FROM `customer` WHERE (`user`.`name` LIKE \'%HELLO%\')))))'
   },
+  sqlserver: {
+    text  : '([user].[name] IN (SELECT [customer].[name] FROM [customer] WHERE ([user].[name] IN (SELECT [customer].[name] FROM [customer] WHERE ([user].[name] LIKE @1)))))',
+    string: '([user].[name] IN (SELECT [customer].[name] FROM [customer] WHERE ([user].[name] IN (SELECT [customer].[name] FROM [customer] WHERE ([user].[name] LIKE \'%HELLO%\')))))'
+  },
   params: ['%HELLO%']
 });
 

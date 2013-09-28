@@ -20,7 +20,7 @@ Harness.test({
     string: 'SELECT `customer`.`name`, (`customer`.`income` % 100) FROM `customer` WHERE (((`customer`.`age` + 5) * (`customer`.`age` - 2)) = 10)'
   },
   sqlserver: {
-    text  : 'SELECT [customer].[name], ([customer].[income] % ?) FROM [customer] WHERE ((([customer].[age] + ?) * ([customer].[age] - ?)) = ?)',
+    text  : 'SELECT [customer].[name], ([customer].[income] % @1) FROM [customer] WHERE ((([customer].[age] + @2) * ([customer].[age] - @3)) = @4)',
     string: 'SELECT [customer].[name], ([customer].[income] % 100) FROM [customer] WHERE ((([customer].[age] + 5) * ([customer].[age] - 2)) = 10)'
   },
   params: [100, 5, 2, 10]
@@ -42,7 +42,7 @@ Harness.test({
     string: 'SELECT `customer`.`name` FROM `customer` WHERE (`customer`.`name` LIKE (`customer`.`id` + \'hello\'))'
   },
   sqlserver: {
-    text  : 'SELECT [customer].[name] FROM [customer] WHERE ([customer].[name] LIKE ([customer].[id] + ?))',
+    text  : 'SELECT [customer].[name] FROM [customer] WHERE ([customer].[name] LIKE ([customer].[id] + @1))',
     string: 'SELECT [customer].[name] FROM [customer] WHERE ([customer].[name] LIKE ([customer].[id] + \'hello\'))'
   },
   params: ['hello']
@@ -65,7 +65,7 @@ Harness.test({
     string: 'SELECT ((((`variable`.`a` * `variable`.`a`) / 2) + (`variable`.`v` * `variable`.`t`)) = `variable`.`d`) FROM `variable`'
   },
   sqlserver: {
-    text  : 'SELECT (((([variable].[a] * [variable].[a]) / ?) + ([variable].[v] * [variable].[t])) = [variable].[d]) FROM [variable]',
+    text  : 'SELECT (((([variable].[a] * [variable].[a]) / @1) + ([variable].[v] * [variable].[t])) = [variable].[d]) FROM [variable]',
     string: 'SELECT (((([variable].[a] * [variable].[a]) / 2) + ([variable].[v] * [variable].[t])) = [variable].[d]) FROM [variable]'
   },
   params: [2]

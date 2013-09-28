@@ -106,7 +106,7 @@ Harness.test({
     string: 'SELECT `customer`.`name` FROM `customer` WHERE ((CAST(`customer`.`age` AS int) + 100) = 150)'
   },
   sqlserver: {
-    text  : 'SELECT [customer].[name] FROM [customer] WHERE ((CAST([customer].[age] AS int) + ?) = ?)',
+    text  : 'SELECT [customer].[name] FROM [customer] WHERE ((CAST([customer].[age] AS int) + @1) = @2)',
     string: 'SELECT [customer].[name] FROM [customer] WHERE ((CAST([customer].[age] AS int) + 100) = 150)'
   },
   params: [100, 150]

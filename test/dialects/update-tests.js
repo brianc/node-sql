@@ -21,7 +21,7 @@ Harness.test({
     string: 'UPDATE `post` SET `content` = \'test\''
   },
   sqlserver: {
-    text  : 'UPDATE [post] SET [content] = ?',
+    text  : 'UPDATE [post] SET [content] = @1',
     string: 'UPDATE [post] SET [content] = \'test\''
   },
   params: ['test']
@@ -45,7 +45,7 @@ Harness.test({
     string: 'UPDATE `post` SET `content` = \'test\', `userId` = 3'
   },
   sqlserver: {
-    text  : 'UPDATE [post] SET [content] = ?, [userId] = ?',
+    text  : 'UPDATE [post] SET [content] = @1, [userId] = @2',
     string: 'UPDATE [post] SET [content] = \'test\', [userId] = 3'
   },
   params: ['test', 3]
@@ -69,7 +69,7 @@ Harness.test({
     string: 'UPDATE `post` SET `content` = NULL, `userId` = 3'
   },
   sqlserver: {
-    text  : 'UPDATE [post] SET [content] = ?, [userId] = ?',
+    text  : 'UPDATE [post] SET [content] = @1, [userId] = @2',
     string: 'UPDATE [post] SET [content] = NULL, [userId] = 3'
   },
   params: [null, 3]
@@ -93,7 +93,7 @@ Harness.test({
     string: 'UPDATE `post` SET `content` = \'test\', `userId` = 3 WHERE (`post`.`content` = \'no\')'
   },
   sqlserver: {
-    text  : 'UPDATE [post] SET [content] = ?, [userId] = ? WHERE ([post].[content] = ?)',
+    text  : 'UPDATE [post] SET [content] = @1, [userId] = @2 WHERE ([post].[content] = @3)',
     string: 'UPDATE [post] SET [content] = \'test\', [userId] = 3 WHERE ([post].[content] = \'no\')'
   },
   params: ['test', 3, 'no']

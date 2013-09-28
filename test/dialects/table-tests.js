@@ -81,7 +81,7 @@ Harness.test({
     string: 'SELECT `user`.`id` FROM `user` WHERE (`user`.`name` = \'foo\')'
   },
   sqlserver: {
-    text  : 'SELECT [user].[id] FROM [user] WHERE ([user].[name] = ?)',
+    text  : 'SELECT [user].[id] FROM [user] WHERE ([user].[name] = @1)',
     string: 'SELECT [user].[id] FROM [user] WHERE ([user].[name] = \'foo\')'
   },
   params: ['foo']
@@ -102,7 +102,7 @@ Harness.test({
     string: 'SELECT `user`.`id` FROM `user` WHERE ((`user`.`name` = \'foo\') OR (`user`.`name` = \'bar\'))'
   },
   sqlserver: {
-    text  : 'SELECT [user].[id] FROM [user] WHERE (([user].[name] = ?) OR ([user].[name] = ?))',
+    text  : 'SELECT [user].[id] FROM [user] WHERE (([user].[name] = @1) OR ([user].[name] = @2))',
     string: 'SELECT [user].[id] FROM [user] WHERE (([user].[name] = \'foo\') OR ([user].[name] = \'bar\'))'
   },
   params: ['foo', 'bar']
@@ -123,7 +123,7 @@ Harness.test({
     string: 'SELECT `user`.`id` FROM `user` WHERE ((`user`.`name` = \'foo\') AND (`user`.`name` = \'bar\'))'
   },
   sqlserver: {
-    text  : 'SELECT [user].[id] FROM [user] WHERE (([user].[name] = ?) AND ([user].[name] = ?))',
+    text  : 'SELECT [user].[id] FROM [user] WHERE (([user].[name] = @1) AND ([user].[name] = @2))',
     string: 'SELECT [user].[id] FROM [user] WHERE (([user].[name] = \'foo\') AND ([user].[name] = \'bar\'))'
   },
   params: ['foo', 'bar']
@@ -144,7 +144,7 @@ Harness.test({
     string: 'SELECT `user`.`id` FROM `user` WHERE ((`user`.`name` = \'foo\') OR (`user`.`name` = \'bar\'))'
   },
   sqlserver: {
-    text  : 'SELECT [user].[id] FROM [user] WHERE (([user].[name] = ?) OR ([user].[name] = ?))',
+    text  : 'SELECT [user].[id] FROM [user] WHERE (([user].[name] = @1) OR ([user].[name] = @2))',
     string: 'SELECT [user].[id] FROM [user] WHERE (([user].[name] = \'foo\') OR ([user].[name] = \'bar\'))'
   },
   params: ['foo', 'bar']
@@ -165,7 +165,7 @@ Harness.test({
     string: 'SELECT `user`.`id` FROM `user` WHERE (((`user`.`name` = \'foo\') OR (`user`.`name` = \'baz\')) AND (`user`.`name` = \'bar\'))'
   },
   sqlserver: {
-    text  : 'SELECT [user].[id] FROM [user] WHERE ((([user].[name] = ?) OR ([user].[name] = ?)) AND ([user].[name] = ?))',
+    text  : 'SELECT [user].[id] FROM [user] WHERE ((([user].[name] = @1) OR ([user].[name] = @2)) AND ([user].[name] = @3))',
     string: 'SELECT [user].[id] FROM [user] WHERE ((([user].[name] = \'foo\') OR ([user].[name] = \'baz\')) AND ([user].[name] = \'bar\'))'
   },
   params: ['foo', 'baz', 'bar']
@@ -186,7 +186,7 @@ Harness.test({
     string: 'SELECT `user`.`id` FROM `user` WHERE (`user`.`name` IN (\'foo\', \'bar\'))'
   },
   sqlserver: {
-    text  : 'SELECT [user].[id] FROM [user] WHERE ([user].[name] IN (?, ?))',
+    text  : 'SELECT [user].[id] FROM [user] WHERE ([user].[name] IN (@1, @2))',
     string: 'SELECT [user].[id] FROM [user] WHERE ([user].[name] IN (\'foo\', \'bar\'))'
   },
   params: ['foo', 'bar']
@@ -207,7 +207,7 @@ Harness.test({
     string: 'SELECT `user`.`id` FROM `user` WHERE ((`user`.`name` IN (\'foo\', \'bar\')) AND (`user`.`id` = 1))'
   },
   sqlserver: {
-    text  : 'SELECT [user].[id] FROM [user] WHERE (([user].[name] IN (?, ?)) AND ([user].[id] = ?))',
+    text  : 'SELECT [user].[id] FROM [user] WHERE (([user].[name] IN (@1, @2)) AND ([user].[id] = @3))',
     string: 'SELECT [user].[id] FROM [user] WHERE (([user].[name] IN (\'foo\', \'bar\')) AND ([user].[id] = 1))'
   },
   params: ['foo', 'bar', 1]
@@ -256,7 +256,7 @@ Harness.test({
     string: 'SELECT `user`.`id` FROM `user` WHERE (((`user`.`name` = \'boom\') AND (`user`.`id` = 1)) OR ((`user`.`name` = \'bang\') AND (`user`.`id` = 2)))'
   },
   sqlserver: {
-    text  : 'SELECT [user].[id] FROM [user] WHERE ((([user].[name] = ?) AND ([user].[id] = ?)) OR (([user].[name] = ?) AND ([user].[id] = ?)))',
+    text  : 'SELECT [user].[id] FROM [user] WHERE ((([user].[name] = @1) AND ([user].[id] = @2)) OR (([user].[name] = @3) AND ([user].[id] = @4)))',
     string: 'SELECT [user].[id] FROM [user] WHERE ((([user].[name] = \'boom\') AND ([user].[id] = 1)) OR (([user].[name] = \'bang\') AND ([user].[id] = 2)))'
   },
   params: ['boom', 1, 'bang', 2]
@@ -298,7 +298,7 @@ Harness.test({
     string: 'SELECT `user`.`name` AS `user name` FROM `user` WHERE (`user`.`name` = \'brian\')'
   },
   sqlsever: {
-    text  : 'SELECT [user].[name] AS [user name] FROM [user] WHERE ([user].[name] = ?)',
+    text  : 'SELECT [user].[name] AS [user name] FROM [user] WHERE ([user].[name] = @1)',
     string: 'SELECT [user].[name] AS [user name] FROM [user] WHERE ([user].[name] = \'brian\')'
   },
   params: ['brian']
@@ -319,7 +319,7 @@ Harness.test({
     string: 'SELECT `user`.`name` FROM `user` WHERE (`user`.`name` = \'brian\')'
   },
   sqlserver: {
-    text  : 'SELECT [user].[name] FROM [user] WHERE ([user].[name] = ?)',
+    text  : 'SELECT [user].[name] FROM [user] WHERE ([user].[name] = @1)',
     string: 'SELECT [user].[name] FROM [user] WHERE ([user].[name] = \'brian\')'
   },
   params: ['brian']
@@ -426,7 +426,7 @@ Harness.test({
     string: 'SELECT name FROM user WHERE (`user`.`name` = \'brian\')'
   },
   sqlserver: {
-    text  : 'SELECT name FROM user WHERE ([user].[name] = ?)',
+    text  : 'SELECT name FROM user WHERE ([user].[name] = @1)',
     string: 'SELECT name FROM user WHERE ([user].[name] = \'brian\')'
   },
   params: ['brian']
@@ -450,7 +450,7 @@ Harness.test({
     string: 'SELECT name FROM user WHERE ((`user`.`name` = \'brian\') AND (`user`.`id` = 1))'
   },
   sqlserver: {
-    text  : 'SELECT name FROM user WHERE (([user].[name] = ?) AND ([user].[id] = ?))',
+    text  : 'SELECT name FROM user WHERE (([user].[name] = @1) AND ([user].[id] = @2))',
     string: 'SELECT name FROM user WHERE (([user].[name] = \'brian\') AND ([user].[id] = 1))'
   },
   params: ['brian', 1]

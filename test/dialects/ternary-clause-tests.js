@@ -19,7 +19,7 @@ Harness.test({
     string: 'SELECT `customer`.* FROM `customer` WHERE (`customer`.`age` BETWEEN 18 AND 25)'
   },
   sqlserver: {
-    text  : 'SELECT [customer].* FROM [customer] WHERE ([customer].[age] BETWEEN ? AND ?)',
+    text  : 'SELECT [customer].* FROM [customer] WHERE ([customer].[age] BETWEEN @1 AND @2)',
     string: 'SELECT [customer].* FROM [customer] WHERE ([customer].[age] BETWEEN 18 AND 25)'
   },
   params: [18, 25]

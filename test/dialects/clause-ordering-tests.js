@@ -44,7 +44,7 @@ Harness.test({
     string: 'SELECT `user`.`id` FROM `user` WHERE (`user`.`name` = \'\')'
   },
   sqlserver: {
-    text  : 'SELECT [user].[id] FROM [user] WHERE ([user].[name] = ?)',
+    text  : 'SELECT [user].[id] FROM [user] WHERE ([user].[name] = @1)',
     string: 'SELECT [user].[id] FROM [user] WHERE ([user].[name] = \'\')'
   },
   params: ['']
@@ -71,7 +71,7 @@ Harness.test({
     string: 'SELECT `user`.`name`, `post`.`content` FROM `user` INNER JOIN `post` ON (`user`.`id` = `post`.`userId`) WHERE (`user`.`name` = \'\')'
   },
   sqlserver: {
-    text  : 'SELECT [user].[name], [post].[content] FROM [user] INNER JOIN [post] ON ([user].[id] = [post].[userId]) WHERE ([user].[name] = ?)',
+    text  : 'SELECT [user].[name], [post].[content] FROM [user] INNER JOIN [post] ON ([user].[id] = [post].[userId]) WHERE ([user].[name] = @1)',
     string: 'SELECT [user].[name], [post].[content] FROM [user] INNER JOIN [post] ON ([user].[id] = [post].[userId]) WHERE ([user].[name] = \'\')'
   },
   params: ['']
@@ -95,7 +95,7 @@ Harness.test({
     string: 'SELECT `user`.`id` FROM `user` WHERE (`user`.`name` = \'\')'
   },
   sqlserver: {
-    text  : 'SELECT [user].[id] FROM [user] WHERE ([user].[name] = ?)',
+    text  : 'SELECT [user].[id] FROM [user] WHERE ([user].[name] = @1)',
     string: 'SELECT [user].[id] FROM [user] WHERE ([user].[name] = \'\')'
   },
   params: ['']

@@ -41,7 +41,7 @@ Harness.test({
     string: 'SELECT * FROM `user` WHERE (`user`.`name` = 3)'
   },
   sqlserver: {
-    text  : 'SELECT * FROM [user] WHERE ([user].[name] = ?)',
+    text  : 'SELECT * FROM [user] WHERE ([user].[name] = @1)',
     string: 'SELECT * FROM [user] WHERE ([user].[name] = 3)'
   },
   params: [3]
@@ -62,7 +62,7 @@ Harness.test({
     string: 'SELECT * FROM `user` WHERE ((`user`.`name` = 3) AND (`user`.`id` = 1))'
   },
   sqlserver: {
-    text  : 'SELECT * FROM [user] WHERE (([user].[name] = ?) AND ([user].[id] = ?))',
+    text  : 'SELECT * FROM [user] WHERE (([user].[name] = @1) AND ([user].[id] = @2))',
     string: 'SELECT * FROM [user] WHERE (([user].[name] = 3) AND ([user].[id] = 1))'
   },
   params: [3, 1]
@@ -105,7 +105,7 @@ Harness.test({
     string: 'SELECT `post`.`content` FROM `post` WHERE (`post`.`userId` = 1)'
   },
   sqlserver: {
-    text  : 'SELECT [post].[content] FROM [post] WHERE ([post].[userId] = ?)',
+    text  : 'SELECT [post].[content] FROM [post] WHERE ([post].[userId] = @1)',
     string: 'SELECT [post].[content] FROM [post] WHERE ([post].[userId] = 1)'
   },
   params: [1]
@@ -130,7 +130,7 @@ Harness.test({
     string: 'SELECT * FROM `post` WHERE (((`post`.`content` IS NULL) OR (`post`.`content` = \'\')) AND (`post`.`userId` = 1))'
   },
   sqlserver: {
-    text  : 'SELECT * FROM [post] WHERE ((([post].[content] IS NULL) OR ([post].[content] = ?)) AND ([post].[userId] = ?))',
+    text  : 'SELECT * FROM [post] WHERE ((([post].[content] IS NULL) OR ([post].[content] = @1)) AND ([post].[userId] = @2))',
     string: 'SELECT * FROM [post] WHERE ((([post].[content] IS NULL) OR ([post].[content] = \'\')) AND ([post].[userId] = 1))'
   },
   params: ['', 1]

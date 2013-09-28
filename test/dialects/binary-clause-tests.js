@@ -40,7 +40,7 @@ Harness.test({
     string: 'SELECT (`post`.`content` + \'!\') FROM `post` WHERE (`post`.`userId` IN (SELECT `customer`.`id` FROM `customer`))'
   },
   sqlserver: {
-    text  : 'SELECT ([post].[content] + ?) FROM [post] WHERE ([post].[userId] IN (SELECT [customer].[id] FROM [customer]))',
+    text  : 'SELECT ([post].[content] + @1) FROM [post] WHERE ([post].[userId] IN (SELECT [customer].[id] FROM [customer]))',
     string: 'SELECT ([post].[content] + \'!\') FROM [post] WHERE ([post].[userId] IN (SELECT [customer].[id] FROM [customer]))'
   },
   params: ['!']
@@ -61,7 +61,7 @@ Harness.test({
     string: 'SELECT ((`post`.`id` + \': \') + `post`.`content`) FROM `post` WHERE (`post`.`userId` NOT IN (SELECT `customer`.`id` FROM `customer`))'
   },
   sqlserver: {
-    text  : 'SELECT (([post].[id] + ?) + [post].[content]) FROM [post] WHERE ([post].[userId] NOT IN (SELECT [customer].[id] FROM [customer]))',
+    text  : 'SELECT (([post].[id] + @1) + [post].[content]) FROM [post] WHERE ([post].[userId] NOT IN (SELECT [customer].[id] FROM [customer]))',
     string: 'SELECT (([post].[id] + \': \') + [post].[content]) FROM [post] WHERE ([post].[userId] NOT IN (SELECT [customer].[id] FROM [customer]))'
   },
   params: [': ']
