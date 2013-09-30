@@ -51,8 +51,8 @@ Harness.test({
     string: 'CREATE TABLE IF NOT EXISTS `group` (`id` varchar(100), `user_id` varchar(100))'
   },
   sqlserver: {
-    text  : 'IF NOT EXISTS(SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = [group]) BEGIN CREATE TABLE [group] ([id] varchar(100), [user_id] varchar(100)) END',
-    string: 'IF NOT EXISTS(SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = [group]) BEGIN CREATE TABLE [group] ([id] varchar(100), [user_id] varchar(100)) END'
+    text  : 'IF NOT EXISTS(SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = \'group\') BEGIN CREATE TABLE [group] ([id] varchar(100), [user_id] varchar(100)) END',
+    string: 'IF NOT EXISTS(SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = \'group\') BEGIN CREATE TABLE [group] ([id] varchar(100), [user_id] varchar(100)) END'
   },
   params: []
 });
