@@ -2,6 +2,7 @@
 
 var Harness = require('./support');
 var customer = Harness.defineCustomerTable();
+var post = Harness.definePostTable();
 var v = Harness.defineVariableTable();
 
 // Test composition of binary methods +, *, -, =.
@@ -76,3 +77,21 @@ Harness.test({
   },
   params: []
 });
+
+Harness.test({
+  query: post.select(post.id).where(post.content.equals(new Buffer('test'))),
+  pg: {
+    text  : 'SELECT "post"."id" FROM "post" WHERE ("post"."content" = $1)',
+    string: 'SELECT "post"."id" FROM "post" WHERE ("post"."content" = \'\\x74657374\')',
+  },
+  sqlite: {
+    text  : 'SELECT "post"."id" FROM "post" WHERE ("post"."content" = $1)',
+    string: 'SELECT "post"."id" FROM "post" WHERE ("post"."content" = x\'74657374\')',
+  },
+  mysql: {
+    text  : 'SELECT `post`.`id` FROM `post` WHERE (`post`.`content` = ?)',
+    string: 'SELECT `post`.`id` FROM `post` WHERE (`post`.`content` = x\'74657374\')',
+  },
+  params: [new Buffer('test')]
+});
+
