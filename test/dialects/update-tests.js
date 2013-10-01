@@ -121,3 +121,23 @@ Harness.test({
   },
   params: []
 });
+
+// Binary updates
+Harness.test({
+  query: post.update({
+    content: new Buffer('test')
+  }),
+  pg: {
+    text  : 'UPDATE "post" SET "content" = $1',
+    string: 'UPDATE "post" SET "content" = \'\\x74657374\''
+  },
+  sqlite: {
+    text  : 'UPDATE "post" SET "content" = $1',
+    string: 'UPDATE "post" SET "content" = x\'74657374\''
+  },
+  mysql: {
+    text  : 'UPDATE `post` SET `content` = ?',
+    string: 'UPDATE `post` SET `content` = x\'74657374\''
+  },
+  params: [new Buffer('test')]
+});
