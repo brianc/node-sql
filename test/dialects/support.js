@@ -88,7 +88,7 @@ module.exports = {
   defineCustomerTable: function() {
     return Table.define({
       name: 'customer',
-      columns: ['id', 'name', 'age', 'income']
+      columns: ['id', 'name', 'age', 'income', 'metadata']
     });
   },
 
