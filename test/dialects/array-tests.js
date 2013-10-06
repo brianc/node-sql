@@ -6,6 +6,17 @@ var Sql = require('../../lib');
 
 // Array columns
 Harness.test({
+  query: post.update({
+    tags: post.tags.concat(Sql.array('nodejs'))
+  }),
+  pg: {
+    text  : 'UPDATE "post" SET "tags" = ("post"."tags" || ARRAY[$1])',
+    string: 'UPDATE "post" SET "tags" = ("post"."tags" || ARRAY[\'nodejs\'])'
+  },
+  params: ['nodejs']
+});
+
+Harness.test({
   query: post.select(post.tags.slice(2,3)),
   pg: {
     text  : 'SELECT ("post"."tags")[$1:$2] FROM "post"',
