@@ -74,7 +74,7 @@ module.exports = {
   definePostTable: function() {
     return Table.define({
       name: 'post',
-      columns: ['id', 'userId', 'content']
+      columns: ['id', 'userId', 'content', 'tags']
     });
   },
 
@@ -88,7 +88,7 @@ module.exports = {
   defineCustomerTable: function() {
     return Table.define({
       name: 'customer',
-      columns: ['id', 'name', 'age', 'income']
+      columns: ['id', 'name', 'age', 'income', 'metadata']
     });
   },
 
