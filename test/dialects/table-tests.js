@@ -55,6 +55,23 @@ Harness.test({
 });
 
 Harness.test({
+  query: user.select(user.star({ prefix: 'foo_' })).from(user),
+  pg: {
+    text: 'SELECT "user"."id" AS "foo_id", "user"."name" AS "foo_name" FROM "user"',
+    string: 'SELECT "user"."id" AS "foo_id", "user"."name" AS "foo_name" FROM "user"'
+  },
+  sqlite: {
+    text: 'SELECT "user"."id" AS "foo_id", "user"."name" AS "foo_name" FROM "user"',
+    string: 'SELECT "user"."id" AS "foo_id", "user"."name" AS "foo_name" FROM "user"'
+  },
+  mysql: {
+    text: 'SELECT `user`.`id` AS `foo_id`, `user`.`name` AS `foo_name` FROM `user`',
+    string: 'SELECT `user`.`id` AS `foo_id`, `user`.`name` AS `foo_name` FROM `user`'
+  },
+  params: []
+});
+
+Harness.test({
   query: user.select(user.id).from(user).where(user.name.equals('foo')),
   pg: {
     text  : 'SELECT "user"."id" FROM "user" WHERE ("user"."name" = $1)',
