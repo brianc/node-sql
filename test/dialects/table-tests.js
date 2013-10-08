@@ -55,18 +55,69 @@ Harness.test({
 });
 
 Harness.test({
-  query: user.select(user.star({ prefix: 'foo_' })).from(user),
+  query: user.select(user.id, [ user.name ]).from(user),
   pg: {
-    text: 'SELECT "user"."id" AS "foo_id", "user"."name" AS "foo_name" FROM "user"',
-    string: 'SELECT "user"."id" AS "foo_id", "user"."name" AS "foo_name" FROM "user"'
+    text: 'SELECT "user"."id", "user"."name" FROM "user"',
+    string: 'SELECT "user"."id", "user"."name" FROM "user"'
   },
   sqlite: {
-    text: 'SELECT "user"."id" AS "foo_id", "user"."name" AS "foo_name" FROM "user"',
-    string: 'SELECT "user"."id" AS "foo_id", "user"."name" AS "foo_name" FROM "user"'
+    text: 'SELECT "user"."id", "user"."name" FROM "user"',
+    string: 'SELECT "user"."id", "user"."name" FROM "user"'
   },
   mysql: {
-    text: 'SELECT `user`.`id` AS `foo_id`, `user`.`name` AS `foo_name` FROM `user`',
-    string: 'SELECT `user`.`id` AS `foo_id`, `user`.`name` AS `foo_name` FROM `user`'
+    text: 'SELECT `user`.`id`, `user`.`name` FROM `user`',
+    string: 'SELECT `user`.`id`, `user`.`name` FROM `user`'
+  },
+  params: []
+});
+
+Harness.test({
+  query: user.select([ user.id ], user.name).from(user),
+  pg: {
+    text: 'SELECT "user"."id", "user"."name" FROM "user"',
+    string: 'SELECT "user"."id", "user"."name" FROM "user"'
+  },
+  sqlite: {
+    text: 'SELECT "user"."id", "user"."name" FROM "user"',
+    string: 'SELECT "user"."id", "user"."name" FROM "user"'
+  },
+  mysql: {
+    text: 'SELECT `user`.`id`, `user`.`name` FROM `user`',
+    string: 'SELECT `user`.`id`, `user`.`name` FROM `user`'
+  },
+  params: []
+});
+
+Harness.test({
+  query: user.select([ user.id , user.name ]).from(user),
+  pg: {
+    text: 'SELECT "user"."id", "user"."name" FROM "user"',
+    string: 'SELECT "user"."id", "user"."name" FROM "user"'
+  },
+  sqlite: {
+    text: 'SELECT "user"."id", "user"."name" FROM "user"',
+    string: 'SELECT "user"."id", "user"."name" FROM "user"'
+  },
+  mysql: {
+    text: 'SELECT `user`.`id`, `user`.`name` FROM `user`',
+    string: 'SELECT `user`.`id`, `user`.`name` FROM `user`'
+  },
+  params: []
+});
+
+Harness.test({
+  query: user.select(user.star(), user.star({ prefix: 'foo_' }), user.star({ prefix: 'bar_' })).from(user),
+  pg: {
+    text: 'SELECT "user".*, "user"."id" AS "foo_id", "user"."name" AS "foo_name", "user"."id" AS "bar_id", "user"."name" AS "bar_name" FROM "user"',
+    string: 'SELECT "user".*, "user"."id" AS "foo_id", "user"."name" AS "foo_name", "user"."id" AS "bar_id", "user"."name" AS "bar_name" FROM "user"'
+  },
+  sqlite: {
+    text: 'SELECT "user".*, "user"."id" AS "foo_id", "user"."name" AS "foo_name", "user"."id" AS "bar_id", "user"."name" AS "bar_name" FROM "user"',
+    string: 'SELECT "user".*, "user"."id" AS "foo_id", "user"."name" AS "foo_name", "user"."id" AS "bar_id", "user"."name" AS "bar_name" FROM "user"'
+  },
+  mysql: {
+    text: 'SELECT `user`.*, `user`.`id` AS `foo_id`, `user`.`name` AS `foo_name`, `user`.`id` AS `bar_id`, `user`.`name` AS `bar_name` FROM `user`',
+    string: 'SELECT `user`.*, `user`.`id` AS `foo_id`, `user`.`name` AS `foo_name`, `user`.`id` AS `bar_id`, `user`.`name` AS `bar_name` FROM `user`'
   },
   params: []
 });
