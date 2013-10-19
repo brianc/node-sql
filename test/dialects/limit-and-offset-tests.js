@@ -41,10 +41,10 @@ Harness.test({
     text  : 'SELECT `user`.* FROM `user` ORDER BY `user`.`name` LIMIT 3 OFFSET 6',
     string: 'SELECT `user`.* FROM `user` ORDER BY `user`.`name` LIMIT 3 OFFSET 6'
   },
-//  sqlserver: {
-//    text  : 'SELECT [user].* FROM [user] ORDER BY [user].[name] OFFSET 6 ROWS FETCH NEXT 3 ROWS ONLY',
-//    string: 'SELECT [user].* FROM [user] ORDER BY [user].[name] OFFSET 6 ROWS FETCH NEXT 3 ROWS ONLY'
-//  },
+  sqlserver: {
+    text  : 'SELECT [user].* FROM [user] ORDER BY [user].[name] OFFSET 6 ROWS FETCH NEXT 3 ROWS ONLY',
+    string: 'SELECT [user].* FROM [user] ORDER BY [user].[name] OFFSET 6 ROWS FETCH NEXT 3 ROWS ONLY'
+  },
   params: []
 });
 
@@ -62,10 +62,10 @@ Harness.test({
     text  : 'SELECT `user`.* FROM `user` ORDER BY `user`.`name` OFFSET 10',
     string: 'SELECT `user`.* FROM `user` ORDER BY `user`.`name` OFFSET 10'
   },
-//  sqlserver: {
-//    text  : 'SELECT [user].* FROM [user] ORDER BY [user].[name] OFFSET 10 ROWS',
-//    string: 'SELECT [user].* FROM [user] ORDER BY [user].[name] OFFSET 10 ROWS'
-//  },
+  sqlserver: {
+    text  : 'SELECT [user].* FROM [user] ORDER BY [user].[name] OFFSET 10 ROWS',
+    string: 'SELECT [user].* FROM [user] ORDER BY [user].[name] OFFSET 10 ROWS'
+  },
   params: []
 });
 
