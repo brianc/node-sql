@@ -20,10 +20,10 @@ Harness.test({
     text  : 'SELECT `user`.* FROM `user` ORDER BY `user`.`name` LIMIT 1',
     string: 'SELECT `user`.* FROM `user` ORDER BY `user`.`name` LIMIT 1'
   },
-//  sqlserver: {
-//    text  : 'SELECT TOP(1) [user].* FROM [user] ORDER BY [user].[name]',
-//    string: 'SELECT TOP(1) [user].* FROM [user] ORDER BY [user].[name]'
-//  },
+  sqlserver: {
+    text  : 'SELECT TOP(1) [user].* FROM [user] ORDER BY [user].[name]',
+    string: 'SELECT TOP(1) [user].* FROM [user] ORDER BY [user].[name]'
+  },
   params: []
 });
 
@@ -87,10 +87,10 @@ Harness.test({
     text  : 'SELECT `user`.* FROM `user` WHERE (`user`.`name` = ?) OFFSET (SELECT FLOOR(RANDOM() * COUNT(*)) FROM `user` WHERE (`user`.`name` = ?)) LIMIT 1',
     string: 'SELECT `user`.* FROM `user` WHERE (`user`.`name` = \'John\') OFFSET (SELECT FLOOR(RANDOM() * COUNT(*)) FROM `user` WHERE (`user`.`name` = \'John\')) LIMIT 1'
   },
-//  sqlserver: {
-//    text  : 'Microsoft SQL Server does not support OFFSET without and ORDER BY.',
-//    throws: true
-//  },
+  sqlserver: {
+    text  : 'Microsoft SQL Server does not support OFFSET without and ORDER BY.',
+    throws: true
+  },
   values: ['John', 'John']
 });
 
