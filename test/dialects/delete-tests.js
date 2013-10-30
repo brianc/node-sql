@@ -2,6 +2,7 @@
 
 var Harness = require('./support');
 var post = Harness.definePostTable();
+var user = Harness.defineUserTable();
 
 Harness.test({
   query: post.delete().where(post.content.equals("hello's world")),
@@ -18,6 +19,60 @@ Harness.test({
     string: 'DELETE FROM `post` WHERE (`post`.`content` = \'hello\'\'s world\')'
   },
   params: ["hello's world"]
+});
+
+Harness.test({
+  query: post.delete(post).from(post),
+  pg: {
+    text: 'DELETE "post" FROM "post"',
+    string: 'DELETE "post" FROM "post"'
+  },
+  sqlite: {
+    text: 'DELETE "post" FROM "post"',
+    string: 'DELETE "post" FROM "post"'
+  },
+  mysql: {
+    text: 'DELETE `post` FROM `post`',
+    string: 'DELETE `post` FROM `post`'
+  },
+  params: []
+});
+
+Harness.test({
+  query: post.delete([post, post]).from(post),
+  pg: {
+    text: 'DELETE "post", "post" FROM "post"',
+    string: 'DELETE "post", "post" FROM "post"'
+  },
+  sqlite: {
+    text: 'DELETE "post", "post" FROM "post"',
+    string: 'DELETE "post", "post" FROM "post"'
+  },
+  mysql: {
+    text: 'DELETE `post`, `post` FROM `post`',
+    string: 'DELETE `post`, `post` FROM `post`'
+  },
+  params: []
+});
+
+Harness.test({
+  query: user
+    .delete(user)
+    .from(user.join(post).on(post.userId.equals(user.id)))
+    .where(post.content.equals('foo')),
+  pg: {
+    text: 'DELETE "user" FROM "user" INNER JOIN "post" ON ("post"."userId" = "user"."id") WHERE ("post"."content" = $1)',
+    string: 'DELETE "user" FROM "user" INNER JOIN "post" ON ("post"."userId" = "user"."id") WHERE ("post"."content" = \'foo\')'
+  },
+  sqlite: {
+    text: 'DELETE "user" FROM "user" INNER JOIN "post" ON ("post"."userId" = "user"."id") WHERE ("post"."content" = $1)',
+    string: 'DELETE "user" FROM "user" INNER JOIN "post" ON ("post"."userId" = "user"."id") WHERE ("post"."content" = \'foo\')'
+  },
+  mysql: {
+    text: 'DELETE `user` FROM `user` INNER JOIN `post` ON (`post`.`userId` = `user`.`id`) WHERE (`post`.`content` = ?)',
+    string: 'DELETE `user` FROM `user` INNER JOIN `post` ON (`post`.`userId` = `user`.`id`) WHERE (`post`.`content` = \'foo\')'
+  },
+  params: [ 'foo' ]
 });
 
 Harness.test({
