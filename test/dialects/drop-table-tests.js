@@ -36,3 +36,37 @@ Harness.test({
   },
   params: []
 });
+
+Harness.test({
+  query: post.drop().cascade(),
+  pg: {
+    text  : 'DROP TABLE "post" CASCADE',
+    string: 'DROP TABLE "post" CASCADE'
+  },
+  sqlite: {
+    text  : 'Sqlite do not support CASCADE in DROP TABLE',
+    throws: true
+  },
+  mysql: {
+    text  : 'DROP TABLE `post` CASCADE',
+    string: 'DROP TABLE `post` CASCADE'
+  },
+  params: []
+});
+
+Harness.test({
+  query: post.drop().restrict(),
+  pg: {
+    text  : 'DROP TABLE "post" RESTRICT',
+    string: 'DROP TABLE "post" RESTRICT'
+  },
+  sqlite: {
+    text  : 'Sqlite do not support RESTRICT in DROP TABLE',
+    throws: true
+  },
+  mysql: {
+    text  : 'DROP TABLE `post` RESTRICT',
+    string: 'DROP TABLE `post` RESTRICT'
+  },
+  params: []
+});
