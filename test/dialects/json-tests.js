@@ -23,19 +23,19 @@ Harness.test({
 });
 
 Harness.test({
-  query: customer.select(customer.metadata.path('age')),
+  query: customer.select(customer.metadata.path('{address,city}')),
   pg: {
     text  : 'SELECT ("customer"."metadata" #> $1) FROM "customer"',
-    string: 'SELECT ("customer"."metadata" #> \'age\') FROM "customer"'
+    string: 'SELECT ("customer"."metadata" #> \'{address,city}\') FROM "customer"'
   },
-  params: ['age']
+  params: ['{address,city}']
 });
 
 Harness.test({
-  query: customer.select(customer.metadata.pathText('age')),
+  query: customer.select(customer.metadata.pathText('{address,city}')),
   pg: {
     text  : 'SELECT ("customer"."metadata" #>> $1) FROM "customer"',
-    string: 'SELECT ("customer"."metadata" #>> \'age\') FROM "customer"'
+    string: 'SELECT ("customer"."metadata" #>> \'{address,city}\') FROM "customer"'
   },
-  params: ['age']
+  params: ['{address,city}']
 });
