@@ -114,6 +114,14 @@ describe('column', function() {
       it('but not when with explicit property name', function() {
         assert.equal(table.not2Cam.toQuery().text, '"sc"."not_to_camel" AS "not2Cam"');
       });
-    })
+      it('does not use property alias within CASE ... END', function() {
+        assert.equal(table.makeMeCamel.case([table.makeMeCamel.equals(0)],[table.makeMeCamel]).as('rename').toQuery().text,
+          '(CASE WHEN ("sc"."make_me_camel" = $1) THEN "sc"."make_me_camel" END) AS "rename"');
+      });
+      it('respects AS rename in RETURNING clause', function() {
+        assert.equal(table.update({makeMeCamel:0}).returning(table.makeMeCamel.as('rename')).toQuery().text,
+          'UPDATE "sc" SET "make_me_camel" = $1 RETURNING "sc"."make_me_camel" AS "rename"');
+      });
+    });
   });
 });
