@@ -100,4 +100,58 @@ suite('index', function() {
       query.toQuery('invalid');
     });
   });
+
+  test('using named queries with toNamedQuery', function() {
+    var query = sql.select(user.id).from(user).where(user.email.equals('brian.m.carlson@gmail.com')).toNamedQuery('users');
+    assert.equal(query.text, 'SELECT "user"."id" FROM "user" WHERE ("user"."email" = $1)');
+    assert.equal(query.values[0], 'brian.m.carlson@gmail.com');
+    assert.equal(query.name, 'users');
+  });
+
+  test('provide an empty query name for toNamedQuery', function() {
+    var query = sql.select(user.id).from(user);
+    assert.throws(function() {
+      query.toNamedQuery('');
+    });
+  });
+
+  test('provide an undefined query name for toNamedQuery', function() {
+    var query = sql.select(user.id).from(user);
+    assert.throws(function() {
+      query.toNamedQuery();
+    });
+  });
+
+  test('override dialect for toNamedQuery using dialect name', function() {
+    var Sql = sql.Sql;
+    var mysql = new Sql('mysql');
+    var postgres = new Sql('postgres');
+    var sqlite = new Sql('sqlite');
+
+    var sqliteQuery = mysql.select(user.id).from(user).where(user.email.equals('brian.m.carlson@gmail.com')).toNamedQuery('user.select_brian','sqlite');
+    var postgresQuery = sqlite.select(user.id).from(user).where(user.email.equals('brian.m.carlson@gmail.com')).toNamedQuery('user.select_brian','postgres');
+    var mysqlQuery = postgres.select(user.id).from(user).where(user.email.equals('brian.m.carlson@gmail.com')).toNamedQuery('user.select_brian','mysql');
+
+    var values = ['brian.m.carlson@gmail.com'];
+    assert.equal(sqliteQuery.text, 'SELECT "user"."id" FROM "user" WHERE ("user"."email" = $1)');
+    assert.deepEqual(sqliteQuery.values, values);
+    assert.equal('user.select_brian', sqliteQuery.name);
+
+    assert.equal(postgresQuery.text, 'SELECT "user"."id" FROM "user" WHERE ("user"."email" = $1)');
+    assert.deepEqual(postgresQuery.values, values);
+    assert.equal('user.select_brian', postgresQuery.name);
+
+    assert.equal(mysqlQuery.text, 'SELECT `user`.`id` FROM `user` WHERE (`user`.`email` = ?)');
+    assert.deepEqual(mysqlQuery.values, values);
+    assert.equal('user.select_brian', mysqlQuery.name);
+
+  });
+
+  test('override dialect for toNamedQuery using invalid dialect name', function() {
+    var query = sql.select(user.id).from(user);
+    assert.throws(function() {
+      query.toNamedQuery('name', 'invalid');
+    });
+  });
+
 });
