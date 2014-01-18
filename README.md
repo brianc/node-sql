@@ -45,6 +45,9 @@ console.log(query.text); //SELECT "user"."id" FROM "user" WHERE ((("user"."name"
 
 console.log(query.values); //['boom', 1, 'bang', 2]
 
+//queries can be named
+var query = user.select(user.star()).from(user).toNamedQuery('user.all');
+console.log(query.name); //'user.all'
 
 //how about a join?
 var query = user.select(user.name, post.body)
@@ -147,7 +150,7 @@ Read the module's documentation for more details.
 
 We __love__ contributions.
 
-node-sql wouldn't be anything without all the contributors and collaborators who've worked on it.  
+node-sql wouldn't be anything without all the contributors and collaborators who've worked on it.
 If you'd like to become a collaborator here's how it's done:
 
 1. fork the repo
@@ -156,7 +159,7 @@ If you'd like to become a collaborator here's how it's done:
 4. `npm install`
 5. `npm test`
 
-At this point the tests should pass for you.  If they don't pass please open an issue with the output or you can even send me an email directly.  
+At this point the tests should pass for you.  If they don't pass please open an issue with the output or you can even send me an email directly.
 My email address is on my github profile and also on every commit I contributed in the repo.
 
 Once the tests are passing, modify as you see fit.  _Please_ make sure you write tests to cover your modifications.  Once you're ready, commit your changes and submit a pull request.
@@ -165,7 +168,7 @@ __As long as your pull request doesn't have completely off-the-wall changes and 
 
 If you think your changes are too off-the-wall, open an issue or a pull-request without code so we can discuss them before you begin.
 
-Usually after a few high-quality pull requests and friendly interactions we will gladly share collaboration rights with you.  
+Usually after a few high-quality pull requests and friendly interactions we will gladly share collaboration rights with you.
 
 After all, open source belongs to everyone.
 
