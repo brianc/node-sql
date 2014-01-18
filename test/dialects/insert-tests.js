@@ -58,6 +58,26 @@ Harness.test({
   params: ['test', 2]
 });
 
+Harness.test({
+  query: post.insert({
+    content: post.sql.functions.LOWER('TEST'),
+    userId: 2
+  }),
+  pg: {
+    text  : 'INSERT INTO "post" ("content", "userId") VALUES (LOWER($1), $2)',
+    string: 'INSERT INTO "post" ("content", "userId") VALUES (LOWER(\'TEST\'), 2)'
+  },
+  sqlite: {
+    text  : 'INSERT INTO "post" ("content", "userId") VALUES (LOWER($1), $2)',
+    string: 'INSERT INTO "post" ("content", "userId") VALUES (LOWER(\'TEST\'), 2)'
+  },
+  mysql: {
+    text  : 'INSERT INTO `post` (`content`, `userId`) VALUES (LOWER(?), ?)',
+    string: 'INSERT INTO `post` (`content`, `userId`) VALUES (LOWER(\'TEST\'), 2)'
+  },
+  params: ['TEST', 2]
+});
+
 // allow bulk insert
 Harness.test({
   query: post.insert([{
@@ -372,7 +392,7 @@ Harness.test({
   ]),
   pg: {
     text  : 'INSERT INTO "post" ("content") VALUES ($1), ($2)',
-    string: 'INSERT INTO "post" ("content") ' + 
+    string: 'INSERT INTO "post" ("content") ' +
             'VALUES (\'\\x77686f6168\'), (\'\\x686579\')'
   },
   sqlite: {
