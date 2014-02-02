@@ -32,4 +32,6 @@ test('operators', function() {
   assert.equal(Foo.baz.bitwiseXor(1).operator, '#');
   assert.equal(Foo.baz.divide(1).operator, '/');
   assert.equal(Foo.baz.modulo(1).operator, '%');
+  assert.equal(Foo.baz.regex(1).operator, '~');
+  assert.equal(Foo.baz.notRegex(1).operator, '!~');
 });
