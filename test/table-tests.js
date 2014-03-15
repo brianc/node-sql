@@ -3,6 +3,7 @@ var assert = require('assert');
 
 var Table = require(__dirname + '/../lib/table');
 var Column = require(__dirname + '/../lib/column');
+var Sql = require('../');
 
 suite('table', function() {
   var table = new Table({
@@ -184,4 +185,19 @@ test('set and get schema', function () {
   assert.equal(table.getSchema(), 'bar');
   table.setSchema('barbarz');
   assert.equal(table.getSchema(), 'barbarz');
+});
+
+test('dialects', function () {
+  var sql = new Sql.Sql('mysql');
+  var foo = sql.define({ name: 'foo', columns: [ 'id' ] }),
+    bar = sql.define({ name: 'bar', columns: [ 'id' ] });
+
+  var actual = foo.join(bar).on(bar.id.equals(1)).toString();
+  assert.equal(actual, '`foo` INNER JOIN `bar` ON (`bar`.`id` = 1)');
+
+  sql = new Sql.Sql('postgres');
+  foo = sql.define({ name: 'foo', columns: [ 'id' ] });
+  bar = sql.define({ name: 'bar', columns: [ 'id' ] });
+  actual = foo.join(bar).on(bar.id.equals(1)).toString();
+  assert.equal(actual, '"foo" INNER JOIN "bar" ON ("bar"."id" = 1)');
 });
