@@ -17,6 +17,39 @@ Harness.test({
 });
 
 Harness.test({
+  query: post.select(
+    post.tags.contains(Sql.array('nodejs', 'js'))
+  ),
+  pg: {
+    text  : 'SELECT ("post"."tags" @> ARRAY[$1, $2]) FROM "post"',
+    string: 'SELECT ("post"."tags" @> ARRAY[\'nodejs\', \'js\']) FROM "post"'
+  },
+  params: ['nodejs', 'js']
+});
+
+Harness.test({
+  query: post.select(
+    post.tags.containedBy(Sql.array('nodejs', 'js'))
+  ),
+  pg: {
+    text  : 'SELECT ("post"."tags" <@ ARRAY[$1, $2]) FROM "post"',
+    string: 'SELECT ("post"."tags" <@ ARRAY[\'nodejs\', \'js\']) FROM "post"'
+  },
+  params: ['nodejs', 'js']
+});
+
+Harness.test({
+  query: post.select(
+    post.tags.overlap(Sql.array('nodejs', 'js'))
+  ),
+  pg: {
+    text  : 'SELECT ("post"."tags" && ARRAY[$1, $2]) FROM "post"',
+    string: 'SELECT ("post"."tags" && ARRAY[\'nodejs\', \'js\']) FROM "post"'
+  },
+  params: ['nodejs', 'js']
+});
+
+Harness.test({
   query: post.select(post.tags.slice(2,3)),
   pg: {
     text  : 'SELECT ("post"."tags")[$1:$2] FROM "post"',
