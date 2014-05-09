@@ -144,3 +144,85 @@ Harness.test({
     string: 'CREATE TABLE `user` (`id` int PRIMARY KEY)'
   }
 });
+
+Harness.test({
+  query: Table.define({
+    name: 'post',
+    columns: [{
+      name: 'userId',
+      dataType: 'int',
+      references: {
+        table: 'user',
+        column: 'id'
+      }
+    }]
+  }).create(),
+  pg: {
+    text  : 'CREATE TABLE "post" ("userId" int REFERENCES user(id))',
+    string: 'CREATE TABLE "post" ("userId" int REFERENCES user(id))'
+  },
+  sqlite: {
+    text  : 'CREATE TABLE "post" ("userId" int REFERENCES user(id))',
+    string: 'CREATE TABLE "post" ("userId" int REFERENCES user(id))'
+  },
+  mysql: {
+    text  : 'CREATE TABLE `post` (`userId` int REFERENCES user(id))',
+    string: 'CREATE TABLE `post` (`userId` int REFERENCES user(id))'
+  },
+  params: []
+});
+
+Harness.test({
+  query: Table.define({
+  name: 'picture',
+  columns: [{
+    name: 'userId',
+    dataType: 'int',
+    references: {
+      table: 'user',
+      column: 'id'
+    }
+    }, {
+      name: 'caption',
+      dataType: 'varchar(100)',
+      references: {}
+    }]
+  }).create(),
+  pg: {
+    text  : 'CREATE TABLE "picture" ("userId" int REFERENCES user(id), "caption" varchar(100))',
+    string: 'CREATE TABLE "picture" ("userId" int REFERENCES user(id), "caption" varchar(100))'
+  },
+  sqlite: {
+    text  : 'CREATE TABLE "picture" ("userId" int REFERENCES user(id), "caption" varchar(100))',
+    string: 'CREATE TABLE "picture" ("userId" int REFERENCES user(id), "caption" varchar(100))'
+  },
+  mysql: {
+    text  : 'CREATE TABLE `picture` (`userId` int REFERENCES user(id), `caption` varchar(100))',
+    string: 'CREATE TABLE `picture` (`userId` int REFERENCES user(id), `caption` varchar(100))'
+  },
+  params: []
+});
+
+Harness.test({
+  query: Table.define({
+    name: 'post',
+    columns: [{
+      name: 'userId',
+      dataType: 'int',
+      references: 'user'
+    }]
+  }).create(),
+  pg: {
+    text  : 'references is not a object for column userId (REFERENCES statements within CREATE TABLE and ADD COLUMN statements require refrences to be expressed as an object)',
+    throws: true
+  },
+  sqlite: {
+    text  : 'references is not a object for column userId (REFERENCES statements within CREATE TABLE and ADD COLUMN statements require refrences to be expressed as an object)',
+    throws: true
+  },
+  mysql: {
+    text  : 'references is not a object for column userId (REFERENCES statements within CREATE TABLE and ADD COLUMN statements require refrences to be expressed as an object)',
+    throws: true
+  },
+  params: []
+});
