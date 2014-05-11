@@ -210,3 +210,53 @@ Harness.test({
     throws: true
   }
 });
+
+var post = Table.define({
+  name: 'post',
+  columns: [{
+    name: 'userId',
+    dataType: 'int',
+    references: {
+      table: 'user',
+      column: 'id'
+    }
+    }, {
+      name: 'picture',
+      dataType: 'varchar(100)',
+      references: {}
+    }]
+});
+
+Harness.test({
+  query: post.alter().addColumn(post.userId),
+  pg: {
+    text  : 'ALTER TABLE "post" ADD COLUMN "userId" int REFERENCES user(id)',
+    string: 'ALTER TABLE "post" ADD COLUMN "userId" int REFERENCES user(id)'
+  },
+  sqlite: {
+    text  : 'ALTER TABLE "post" ADD COLUMN "userId" int REFERENCES user(id)',
+    string: 'ALTER TABLE "post" ADD COLUMN "userId" int REFERENCES user(id)'
+  },
+  mysql: {
+    text  : 'ALTER TABLE `post` ADD COLUMN `userId` int REFERENCES user(id)',
+    string: 'ALTER TABLE `post` ADD COLUMN `userId` int REFERENCES user(id)'
+  },
+  params: []
+});
+
+Harness.test({
+  query: post.alter().addColumn(post.picture),
+  pg: {
+    text  : 'ALTER TABLE "post" ADD COLUMN "picture" varchar(100)',
+    string: 'ALTER TABLE "post" ADD COLUMN "picture" varchar(100)'
+  },
+  sqlite: {
+    text  : 'ALTER TABLE "post" ADD COLUMN "picture" varchar(100)',
+    string: 'ALTER TABLE "post" ADD COLUMN "picture" varchar(100)'
+  },
+  mysql: {
+    text  : 'ALTER TABLE `post` ADD COLUMN `picture` varchar(100)',
+    string: 'ALTER TABLE `post` ADD COLUMN `picture` varchar(100)'
+  },
+  params: []
+});
