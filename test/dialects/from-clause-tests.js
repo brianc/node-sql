@@ -35,3 +35,35 @@ Harness.test({
     string: 'SELECT `user`.*, `post`.* FROM `user` , `post`'
   }
 });
+
+Harness.test({
+  query: user.select(user.star()).from(user, post),
+  pg: {
+    text  : 'SELECT "user".* FROM "user" , "post"',
+    string: 'SELECT "user".* FROM "user" , "post"'
+  },
+  sqlite: {
+    text  : 'SELECT "user".* FROM "user" , "post"',
+    string: 'SELECT "user".* FROM "user" , "post"'
+  },
+  mysql: {
+    text  : 'SELECT `user`.* FROM `user` , `post`',
+    string: 'SELECT `user`.* FROM `user` , `post`'
+  }
+});
+
+Harness.test({
+  query: user.select(user.star()).from([user, post]),
+  pg: {
+    text  : 'SELECT "user".* FROM "user" , "post"',
+    string: 'SELECT "user".* FROM "user" , "post"'
+  },
+  sqlite: {
+    text  : 'SELECT "user".* FROM "user" , "post"',
+    string: 'SELECT "user".* FROM "user" , "post"'
+  },
+  mysql: {
+    text  : 'SELECT `user`.* FROM `user` , `post`',
+    string: 'SELECT `user`.* FROM `user` , `post`'
+  }
+});

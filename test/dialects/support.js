@@ -92,6 +92,19 @@ module.exports = {
     });
   },
 
+  defineCustomerAliasTable: function() {
+    return Table.define({
+      name: 'customer',
+      columns: {
+        id: {property: 'id_alias'},
+        name: {property: 'name_alias'},
+        age: {property: 'age_alias'},
+        income: {property: 'income_alias'},
+        metadata: {property: 'metadata_alias'}
+      }
+    });
+  },
+
   // This table contains column names that correspond to popularly used variables in formulas.
   defineVariableTable: function() {
     return Table.define({

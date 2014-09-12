@@ -2,6 +2,8 @@
 
 var Harness = require('./support');
 var post = Harness.definePostTable();
+var customerAlias = Harness.defineCustomerAliasTable();
+
 
 Harness.test({
   query: post.select(post.count()),
@@ -101,6 +103,23 @@ Harness.test({
   mysql: {
     text  : 'SELECT COUNT(`post`.`content`) AS `content_count` FROM `post`',
     string: 'SELECT COUNT(`post`.`content`) AS `content_count` FROM `post`'
+  },
+  params: []
+});
+
+Harness.test({
+  query: customerAlias.select(customerAlias.count()),
+  pg: {
+    text  : 'SELECT COUNT("customer".*) AS "customer_count" FROM "customer"',
+    string: 'SELECT COUNT("customer".*) AS "customer_count" FROM "customer"'
+  },
+  sqlite: {
+    text  : 'SELECT COUNT("customer".*) AS "customer_count" FROM "customer"',
+    string: 'SELECT COUNT("customer".*) AS "customer_count" FROM "customer"'
+  },
+  mysql: {
+    text  : 'SELECT COUNT(`customer`.*) AS `customer_count` FROM `customer`',
+    string: 'SELECT COUNT(`customer`.*) AS `customer_count` FROM `customer`'
   },
   params: []
 });
