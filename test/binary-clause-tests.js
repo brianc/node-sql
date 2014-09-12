@@ -36,4 +36,6 @@ test('operators', function() {
   assert.equal(Foo.baz.notRegex(1).operator, '!~');
   assert.equal(Foo.baz.regexp(1).operator, 'REGEXP');
   assert.equal(Foo.baz.rlike(1).operator, 'RLIKE');
+  assert.equal(Foo.baz.ilike('asdf').operator, 'ILIKE');
+  assert.equal(Foo.baz.notIlike('asdf').operator, 'NOT ILIKE');
 });
