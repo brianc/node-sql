@@ -147,6 +147,53 @@ Harness.test({
 
 Harness.test({
   query: Table.define({
+    name: 'user',
+    columns: [{
+      name: 'id',
+      dataType: 'int',
+      notNull: true
+    }]
+  }).create(),
+  pg: {
+    text  : 'CREATE TABLE "user" ("id" int NOT NULL)',
+    string: 'CREATE TABLE "user" ("id" int NOT NULL)'
+  },
+  sqlite: {
+    text  : 'CREATE TABLE "user" ("id" int NOT NULL)',
+    string: 'CREATE TABLE "user" ("id" int NOT NULL)'
+  },
+  mysql: {
+    text  : 'CREATE TABLE `user` (`id` int NOT NULL)',
+    string: 'CREATE TABLE `user` (`id` int NOT NULL)'
+  }
+});
+
+Harness.test({
+  query: Table.define({
+    name: 'user',
+    columns: [{
+      name: 'id',
+      dataType: 'int',
+      primaryKey: true,
+      notNull: true
+    }]
+  }).create(),
+  pg: {
+    text  : 'CREATE TABLE "user" ("id" int PRIMARY KEY)',
+    string: 'CREATE TABLE "user" ("id" int PRIMARY KEY)'
+  },
+  sqlite: {
+    text  : 'CREATE TABLE "user" ("id" int PRIMARY KEY)',
+    string: 'CREATE TABLE "user" ("id" int PRIMARY KEY)'
+  },
+  mysql: {
+    text  : 'CREATE TABLE `user` (`id` int PRIMARY KEY)',
+    string: 'CREATE TABLE `user` (`id` int PRIMARY KEY)'
+  }
+});
+
+Harness.test({
+  query: Table.define({
     name: 'post',
     columns: [{
       name: 'userId',
