@@ -273,3 +273,25 @@ Harness.test({
   },
   params: []
 });
+
+Harness.test({
+  query: Table.define({
+    name: 'membership',
+    columns: {
+      group_id: { dataType: 'int', primaryKey: true},
+      user_id:  { dataType: 'int', primaryKey: true},
+    }
+  }).create(),
+  pg: {
+    text  : 'CREATE TABLE "membership" ("group_id" int, "user_id" int, PRIMARY KEY ("group_id", "user_id"))',
+    string: 'CREATE TABLE "membership" ("group_id" int, "user_id" int, PRIMARY KEY ("group_id", "user_id"))',
+  },
+  sqlite: {
+    text  : 'CREATE TABLE "membership" ("group_id" int, "user_id" int, PRIMARY KEY ("group_id", "user_id"))',
+    string: 'CREATE TABLE "membership" ("group_id" int, "user_id" int, PRIMARY KEY ("group_id", "user_id"))',
+  },
+  mysql: {
+    text  : 'CREATE TABLE `membership` (`group_id` int, `user_id` int, PRIMARY KEY (`group_id`, `user_id`))',
+    string: 'CREATE TABLE `membership` (`group_id` int, `user_id` int, PRIMARY KEY (`group_id`, `user_id`))',
+  }
+});
