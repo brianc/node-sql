@@ -405,3 +405,12 @@ Harness.test({
   },
   params: [new Buffer('whoah'), new Buffer('hey')]
 });
+Harness.test({
+  query: post.insert([]),
+
+  mysql: {
+    text  : 'INSERT INTO `post` () VALUES ()',
+    string: 'INSERT INTO `post` () VALUES ()'
+  },
+  params: []
+});
