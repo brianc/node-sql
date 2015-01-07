@@ -187,6 +187,40 @@ test('set and get schema', function () {
   assert.equal(table.getSchema(), 'barbarz');
 });
 
+suite('table.clone', function() {
+  test('check if it is a copy, not just a reference', function() {
+    var table = Table.define({ name: 'foo', columns: [] });
+    var copy = table.clone();
+    assert.notEqual(table, copy);
+  });
+
+  test('copy columns', function() {
+    var table = Table.define({ name: 'foo', columns: ['bar'] });
+    var copy = table.clone();
+    assert(copy.get('bar') instanceof Column);
+  });
+
+  test('overwrite config while copying', function() {
+    var table = Table.define({
+      name: 'foo',
+      schema: 'foobar',
+      columns: ['bar'],
+      snakeToCamel: true,
+      columnWhiteList: true
+    });
+
+    var copy = table.clone({
+      schema: 'test',
+      snakeToCamel: false,
+      columnWhiteList: false
+    });
+
+    assert.equal(copy.getSchema(), 'test');
+    assert.equal(copy.snakeToCamel, false);
+    assert.equal(copy.columnWhiteList, false);
+  });
+});
+
 test('dialects', function () {
   var sql = new Sql.Sql('mysql');
   var foo = sql.define({ name: 'foo', columns: [ 'id' ] }),
