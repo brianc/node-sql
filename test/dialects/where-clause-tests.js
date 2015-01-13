@@ -53,3 +53,20 @@ Harness.test({
   },
   params: []
 });
+
+Harness.test({
+  query: user.where([]),
+  pg: {
+    text  : 'SELECT * FROM "user" WHERE (1 = 1)',
+    string: 'SELECT * FROM "user" WHERE (1 = 1)'
+  },
+  mysql: {
+    text  : 'SELECT * FROM `user` WHERE (1 = 1)',
+    string: 'SELECT * FROM `user` WHERE (1 = 1)'
+  },
+  sqlite: {
+    text  : 'SELECT * FROM "user" WHERE (1 = 1)',
+    string: 'SELECT * FROM "user" WHERE (1 = 1)'
+  },
+  params: []
+});
