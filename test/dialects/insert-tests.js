@@ -409,8 +409,8 @@ Harness.test({
   query: post.insert([]),
 
   mysql: {
-    text  : 'INSERT INTO `post` () VALUES ()',
-    string: 'INSERT INTO `post` () VALUES ()'
+    text  : 'SELECT `post`.* FROM `post` WHERE (1=2)',
+    string: 'SELECT `post`.* FROM `post` WHERE (1=2)'
   },
   params: []
 });
