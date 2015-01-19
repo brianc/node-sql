@@ -19,6 +19,10 @@ Harness.test({
     text  : 'SELECT COUNT(`post`.*) AS `post_count` FROM `post`',
     string: 'SELECT COUNT(`post`.*) AS `post_count` FROM `post`'
   },
+  mssql: {
+    text  : 'SELECT COUNT(*) AS [post_count] FROM [post]',
+    string: 'SELECT COUNT(*) AS [post_count] FROM [post]'
+  },
   params: []
 });
 
@@ -35,6 +39,10 @@ Harness.test({
   msyql: {
     text  : 'SELECT COUNT(`post`.*) AS `post_count` FROM `post`',
     string: 'SELECT COUNT(`post`.*) AS `post_count` FROM `post`'
+  },
+  mssql: {
+    text  : 'SELECT COUNT(*) AS [post_count] FROM [post]',
+    string: 'SELECT COUNT(*) AS [post_count] FROM [post]'
   },
   params: []
 });
@@ -53,6 +61,10 @@ Harness.test({
     text  : 'SELECT COUNT(`post`.*) AS `post_amount` FROM `post`',
     string: 'SELECT COUNT(`post`.*) AS `post_amount` FROM `post`'
   },
+  mssql: {
+    text  : 'SELECT COUNT(*) AS [post_amount] FROM [post]',
+    string: 'SELECT COUNT(*) AS [post_amount] FROM [post]'
+  },
   params: []
 });
 
@@ -69,6 +81,10 @@ Harness.test({
   mysql: {
     text  : 'SELECT COUNT(`post`.`content`) AS `content_count` FROM `post`',
     string: 'SELECT COUNT(`post`.`content`) AS `content_count` FROM `post`'
+  },
+  mssql: {
+    text  : 'SELECT COUNT([post].[content]) AS [content_count] FROM [post]',
+    string: 'SELECT COUNT([post].[content]) AS [content_count] FROM [post]'
   },
   params: []
 });
@@ -87,6 +103,10 @@ Harness.test({
     text  : 'SELECT COUNT(`post`.`content`) AS `content_count` FROM `post`',
     string: 'SELECT COUNT(`post`.`content`) AS `content_count` FROM `post`'
   },
+  mssql: {
+    text  : 'SELECT COUNT([post].[content]) AS [content_count] FROM [post]',
+    string: 'SELECT COUNT([post].[content]) AS [content_count] FROM [post]'
+  },
   params: []
 });
 
@@ -103,6 +123,10 @@ Harness.test({
   mysql: {
     text  : 'SELECT COUNT(`post`.`content`) AS `content_count` FROM `post`',
     string: 'SELECT COUNT(`post`.`content`) AS `content_count` FROM `post`'
+  },
+  mssql: {
+    text  : 'SELECT COUNT([post].[content]) AS [content_count] FROM [post]',
+    string: 'SELECT COUNT([post].[content]) AS [content_count] FROM [post]'
   },
   params: []
 });
@@ -138,6 +162,10 @@ Harness.test({
     text  : 'SELECT MIN(`post`.`id`) AS `id_min` FROM `post`',
     string: 'SELECT MIN(`post`.`id`) AS `id_min` FROM `post`'
   },
+  mssql: {
+    text  : 'SELECT MIN([post].[id]) AS [id_min] FROM [post]',
+    string: 'SELECT MIN([post].[id]) AS [id_min] FROM [post]'
+  },
   params: []
 });
 
@@ -154,6 +182,10 @@ Harness.test({
   mysql: {
     text  : 'SELECT MIN(`post`.`id`) AS `min_id` FROM `post`',
     string: 'SELECT MIN(`post`.`id`) AS `min_id` FROM `post`'
+  },
+  mssql: {
+    text  : 'SELECT MIN([post].[id]) AS [min_id] FROM [post]',
+    string: 'SELECT MIN([post].[id]) AS [min_id] FROM [post]'
   },
   params: []
 });
@@ -172,6 +204,10 @@ Harness.test({
     text  : 'SELECT MIN(`post`.`id`) AS `min_id` FROM `post`',
     string: 'SELECT MIN(`post`.`id`) AS `min_id` FROM `post`'
   },
+  mssql: {
+    text  : 'SELECT MIN([post].[id]) AS [min_id] FROM [post]',
+    string: 'SELECT MIN([post].[id]) AS [min_id] FROM [post]'
+  },
   params: []
 });
 
@@ -188,6 +224,10 @@ Harness.test({
   mysql: {
     text  : 'SELECT MAX(`post`.`id`) AS `id_max` FROM `post`',
     string: 'SELECT MAX(`post`.`id`) AS `id_max` FROM `post`'
+  },
+  mssql: {
+    text  : 'SELECT MAX([post].[id]) AS [id_max] FROM [post]',
+    string: 'SELECT MAX([post].[id]) AS [id_max] FROM [post]'
   },
   params: []
 });
@@ -206,6 +246,10 @@ Harness.test({
     text  : 'SELECT MAX(`post`.`id`) AS `max_id` FROM `post`',
     string: 'SELECT MAX(`post`.`id`) AS `max_id` FROM `post`'
   },
+  mssql: {
+    text  : 'SELECT MAX([post].[id]) AS [max_id] FROM [post]',
+    string: 'SELECT MAX([post].[id]) AS [max_id] FROM [post]'
+  },
   params: []
 });
 
@@ -222,6 +266,10 @@ Harness.test({
   mysql: {
     text  : 'SELECT MAX(`post`.`id`) AS `max_id` FROM `post`',
     string: 'SELECT MAX(`post`.`id`) AS `max_id` FROM `post`'
+  },
+  mssql: {
+    text  : 'SELECT MAX([post].[id]) AS [max_id] FROM [post]',
+    string: 'SELECT MAX([post].[id]) AS [max_id] FROM [post]'
   },
   params: []
 });
@@ -240,6 +288,11 @@ Harness.test({
     text  : 'SELECT SUM(`post`.`id`) AS `id_sum` FROM `post`',
     string: 'SELECT SUM(`post`.`id`) AS `id_sum` FROM `post`'
   },
+  mssql: {
+    text  : 'SELECT SUM([post].[id]) AS [id_sum] FROM [post]',
+    string: 'SELECT SUM([post].[id]) AS [id_sum] FROM [post]'
+  },
+  params: []
 });
 
 Harness.test({
@@ -256,6 +309,11 @@ Harness.test({
     text  : 'SELECT SUM(`post`.`id`) AS `sum_id` FROM `post`',
     string: 'SELECT SUM(`post`.`id`) AS `sum_id` FROM `post`'
   },
+  mssql: {
+    text  : 'SELECT SUM([post].[id]) AS [sum_id] FROM [post]',
+    string: 'SELECT SUM([post].[id]) AS [sum_id] FROM [post]'
+  },
+  params: []
 });
 
 Harness.test({
@@ -272,6 +330,11 @@ Harness.test({
     text  : 'SELECT SUM(`post`.`id`) AS `sum_id` FROM `post`',
     string: 'SELECT SUM(`post`.`id`) AS `sum_id` FROM `post`'
   },
+  mssql: {
+    text  : 'SELECT SUM([post].[id]) AS [sum_id] FROM [post]',
+    string: 'SELECT SUM([post].[id]) AS [sum_id] FROM [post]'
+  },
+  params: []
 });
 
 Harness.test({
@@ -288,6 +351,11 @@ Harness.test({
     text  : 'SELECT AVG(`post`.`id`) AS `id_avg` FROM `post`',
     string: 'SELECT AVG(`post`.`id`) AS `id_avg` FROM `post`'
   },
+  mssql: {
+    text  : 'SELECT AVG([post].[id]) AS [id_avg] FROM [post]',
+    string: 'SELECT AVG([post].[id]) AS [id_avg] FROM [post]'
+  },
+  params: []
 });
 
 Harness.test({
@@ -304,6 +372,11 @@ Harness.test({
     text  : 'SELECT AVG(`post`.`id`) AS `avg_id` FROM `post`',
     string: 'SELECT AVG(`post`.`id`) AS `avg_id` FROM `post`'
   },
+  mssql: {
+    text  : 'SELECT AVG([post].[id]) AS [avg_id] FROM [post]',
+    string: 'SELECT AVG([post].[id]) AS [avg_id] FROM [post]'
+  },
+  params: []
 });
 
 Harness.test({
@@ -320,4 +393,9 @@ Harness.test({
     text  : 'SELECT AVG(`post`.`id`) AS `avg_id` FROM `post`',
     string: 'SELECT AVG(`post`.`id`) AS `avg_id` FROM `post`'
   },
+  mssql: {
+    text  : 'SELECT AVG([post].[id]) AS [avg_id] FROM [post]',
+    string: 'SELECT AVG([post].[id]) AS [avg_id] FROM [post]'
+  },
+  params: []
 });

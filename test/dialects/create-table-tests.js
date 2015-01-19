@@ -29,6 +29,10 @@ Harness.test({
     text  : 'CREATE TABLE `group` (`id` varchar(100), `user_id` varchar(100))',
     string: 'CREATE TABLE `group` (`id` varchar(100), `user_id` varchar(100))'
   },
+  mssql: {
+    text  : 'CREATE TABLE [group] ([id] varchar(100), [user_id] varchar(100))',
+    string: 'CREATE TABLE [group] ([id] varchar(100), [user_id] varchar(100))'
+  },
   params: []
 });
 
@@ -45,6 +49,10 @@ Harness.test({
   mysql: {
     text  : 'CREATE TABLE IF NOT EXISTS `group` (`id` varchar(100), `user_id` varchar(100))',
     string: 'CREATE TABLE IF NOT EXISTS `group` (`id` varchar(100), `user_id` varchar(100))'
+  },
+  mssql: {
+    text  : 'IF NOT EXISTS(SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = \'group\') BEGIN CREATE TABLE [group] ([id] varchar(100), [user_id] varchar(100)) END',
+    string: 'IF NOT EXISTS(SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = \'group\') BEGIN CREATE TABLE [group] ([id] varchar(100), [user_id] varchar(100)) END'
   },
   params: []
 });
@@ -70,6 +78,10 @@ Harness.test({
   mysql: {
     text  : 'CREATE TABLE `user` (`id` varchar(100)) ENGINE=InnoDB',
     string: 'CREATE TABLE `user` (`id` varchar(100)) ENGINE=InnoDB'
+  },
+  mssql: {
+    text  : 'CREATE TABLE [user] ([id] varchar(100))',
+    string: 'CREATE TABLE [user] ([id] varchar(100))'
   }
 });
 
@@ -94,6 +106,10 @@ Harness.test({
   mysql: {
     text  : 'CREATE TABLE `user` (`id` varchar(100)) DEFAULT CHARSET=latin1',
     string: 'CREATE TABLE `user` (`id` varchar(100)) DEFAULT CHARSET=latin1'
+  },
+  mssql: {
+    text  : 'CREATE TABLE [user] ([id] varchar(100))',
+    string: 'CREATE TABLE [user] ([id] varchar(100))'
   }
 });
 
@@ -119,6 +135,10 @@ Harness.test({
   mysql: {
     text  : 'CREATE TABLE `user` (`id` varchar(100)) ENGINE=MyISAM DEFAULT CHARSET=latin1',
     string: 'CREATE TABLE `user` (`id` varchar(100)) ENGINE=MyISAM DEFAULT CHARSET=latin1'
+  },
+  mssql: {
+    text  : 'CREATE TABLE [user] ([id] varchar(100))',
+    string: 'CREATE TABLE [user] ([id] varchar(100))'
   }
 });
 
@@ -142,6 +162,10 @@ Harness.test({
   mysql: {
     text  : 'CREATE TABLE `user` (`id` int PRIMARY KEY)',
     string: 'CREATE TABLE `user` (`id` int PRIMARY KEY)'
+  },
+  mssql: {
+    text  : 'CREATE TABLE [user] ([id] int PRIMARY KEY)',
+    string: 'CREATE TABLE [user] ([id] int PRIMARY KEY)'
   }
 });
 

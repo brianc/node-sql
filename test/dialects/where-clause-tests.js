@@ -17,6 +17,10 @@ Harness.test({
     text  : 'SELECT * FROM "user" WHERE (("user"."id" IS NOT NULL) AND ("user"."name" IS NOT NULL))',
     string: 'SELECT * FROM "user" WHERE (("user"."id" IS NOT NULL) AND ("user"."name" IS NOT NULL))'
   },
+  mssql: {
+    text  : 'SELECT * FROM [user] WHERE (([user].[id] IS NOT NULL) AND ([user].[name] IS NOT NULL))',
+    string: 'SELECT * FROM [user] WHERE (([user].[id] IS NOT NULL) AND ([user].[name] IS NOT NULL))'
+  },
   params: []
 });
 
@@ -33,6 +37,10 @@ Harness.test({
   sqlite: {
     text  : 'SELECT * FROM "user" WHERE (("user"."id" IS NOT NULL) AND ("user"."name" IS NOT NULL))',
     string: 'SELECT * FROM "user" WHERE (("user"."id" IS NOT NULL) AND ("user"."name" IS NOT NULL))'
+  },
+  mssql: {
+    text  : 'SELECT * FROM [user] WHERE (([user].[id] IS NOT NULL) AND ([user].[name] IS NOT NULL))',
+    string: 'SELECT * FROM [user] WHERE (([user].[id] IS NOT NULL) AND ([user].[name] IS NOT NULL))'
   },
   params: []
 });

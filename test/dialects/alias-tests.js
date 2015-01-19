@@ -17,6 +17,10 @@ Harness.test({
     text  : 'SELECT (`customer`.`name` IS NULL) AS `nameIsNull` FROM `customer`',
     string: 'SELECT (`customer`.`name` IS NULL) AS `nameIsNull` FROM `customer`'
   },
+  mssql: {
+    text  : 'SELECT ([customer].[name] IS NULL) AS [nameIsNull] FROM [customer]',
+    string: 'SELECT ([customer].[name] IS NULL) AS [nameIsNull] FROM [customer]'
+  },
   params: []
 });
 
@@ -34,6 +38,10 @@ Harness.test({
     text  : 'SELECT (`customer`.`name` + `customer`.`age`) AS `nameAndAge` FROM `customer` WHERE ((`customer`.`age` > ?) AND (`customer`.`age` < ?))',
     string: 'SELECT (`customer`.`name` + `customer`.`age`) AS `nameAndAge` FROM `customer` WHERE ((`customer`.`age` > 10) AND (`customer`.`age` < 20))'
   },
+  mssql: {
+    text  : 'SELECT ([customer].[name] + [customer].[age]) AS [nameAndAge] FROM [customer] WHERE (([customer].[age] > @1) AND ([customer].[age] < @2))',
+    string: 'SELECT ([customer].[name] + [customer].[age]) AS [nameAndAge] FROM [customer] WHERE (([customer].[age] > 10) AND ([customer].[age] < 20))'
+  },
   params: [10, 20]
 });
 
@@ -50,6 +58,10 @@ Harness.test({
   mysql: {
     text  : 'SELECT (`customer`.`age` BETWEEN ? AND ?) AS `ageBetween` FROM `customer`',
     string: 'SELECT (`customer`.`age` BETWEEN 10 AND 20) AS `ageBetween` FROM `customer`'
+  },
+  mssql: {
+    text  : 'SELECT ([customer].[age] BETWEEN @1 AND @2) AS [ageBetween] FROM [customer]',
+    string: 'SELECT ([customer].[age] BETWEEN 10 AND 20) AS [ageBetween] FROM [customer]'
   },
   params: [10, 20]
 });

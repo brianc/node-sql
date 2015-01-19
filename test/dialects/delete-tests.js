@@ -18,6 +18,10 @@ Harness.test({
     text  : 'DELETE FROM `post` WHERE (`post`.`content` = ?)',
     string: 'DELETE FROM `post` WHERE (`post`.`content` = \'hello\'\'s world\')'
   },
+  mssql: {
+    text  : 'DELETE FROM [post] WHERE ([post].[content] = @1)',
+    string: "DELETE FROM [post] WHERE ([post].[content] = 'hello''s world')"
+  },
   params: ["hello's world"]
 });
 
@@ -91,6 +95,10 @@ Harness.test({
     text  : 'DELETE FROM `post` WHERE (`post`.`content` = ?)',
     string: 'DELETE FROM `post` WHERE (`post`.`content` = \'\')'
   },
+  mssql: {
+    text  : 'DELETE FROM [post] WHERE ([post].[content] = @1)',
+    string: "DELETE FROM [post] WHERE ([post].[content] = '')"
+  },
   params: ['']
 });
 
@@ -110,6 +118,10 @@ Harness.test({
     text  : 'DELETE FROM `post` WHERE (`post`.`content` = ?)',
     string: 'DELETE FROM `post` WHERE (`post`.`content` = \'\')'
   },
+  mssql: {
+    text  : 'DELETE FROM [post] WHERE ([post].[content] = @1)',
+    string: "DELETE FROM [post] WHERE ([post].[content] = '')"
+  },
   params: ['']
 });
 
@@ -128,6 +140,10 @@ Harness.test({
   mysql: {
     text  : 'DELETE FROM `post` WHERE ((`post`.`content` = ?) OR (`post`.`content` IS NULL))',
     string: 'DELETE FROM `post` WHERE ((`post`.`content` = \'\') OR (`post`.`content` IS NULL))'
+  },
+  mssql: {
+    text  : 'DELETE FROM [post] WHERE (([post].[content] = @1) OR ([post].[content] IS NULL))',
+    string: "DELETE FROM [post] WHERE (([post].[content] = '') OR ([post].[content] IS NULL))"
   },
   params: ['']
 });

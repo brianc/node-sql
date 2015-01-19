@@ -19,6 +19,10 @@ Harness.test({
     text  : 'SELECT `user`.`name`, `post`.`content` FROM `user` INNER JOIN `post` ON (`user`.`id` = `post`.`userId`)',
     string: 'SELECT `user`.`name`, `post`.`content` FROM `user` INNER JOIN `post` ON (`user`.`id` = `post`.`userId`)'
   },
+  mssql: {
+    text  : 'SELECT [user].[name], [post].[content] FROM [user] INNER JOIN [post] ON ([user].[id] = [post].[userId])',
+    string: 'SELECT [user].[name], [post].[content] FROM [user] INNER JOIN [post] ON ([user].[id] = [post].[userId])'
+  },
   params: []
 });
 
@@ -35,6 +39,10 @@ Harness.test({
   mysql: {
     text  : '`user` INNER JOIN `post` ON (`user`.`id` = `post`.`userId`)',
     string: '`user` INNER JOIN `post` ON (`user`.`id` = `post`.`userId`)'
+  },
+  mssql: {
+    text  : '[user] INNER JOIN [post] ON ([user].[id] = [post].[userId])',
+    string: '[user] INNER JOIN [post] ON ([user].[id] = [post].[userId])'
   },
   params: []
 });
@@ -58,6 +66,10 @@ Harness.test({
     text  : 'SELECT `user`.`name`, `post`.`content`, `comment`.`text` FROM `user` INNER JOIN `post` ON (`user`.`id` = `post`.`userId`) INNER JOIN `comment` ON (`post`.`id` = `comment`.`postId`)',
     string: 'SELECT `user`.`name`, `post`.`content`, `comment`.`text` FROM `user` INNER JOIN `post` ON (`user`.`id` = `post`.`userId`) INNER JOIN `comment` ON (`post`.`id` = `comment`.`postId`)'
   },
+  mssql: {
+    text  : 'SELECT [user].[name], [post].[content], [comment].[text] FROM [user] INNER JOIN [post] ON ([user].[id] = [post].[userId]) INNER JOIN [comment] ON ([post].[id] = [comment].[postId])',
+    string: 'SELECT [user].[name], [post].[content], [comment].[text] FROM [user] INNER JOIN [post] ON ([user].[id] = [post].[userId]) INNER JOIN [comment] ON ([post].[id] = [comment].[postId])'
+  },
   params: []
 });
 
@@ -74,6 +86,10 @@ Harness.test({
   mysql: {
     text  : 'SELECT `user`.`name`, `post`.`content` FROM `user` LEFT JOIN `post` ON (`user`.`id` = `post`.`userId`)',
     string: 'SELECT `user`.`name`, `post`.`content` FROM `user` LEFT JOIN `post` ON (`user`.`id` = `post`.`userId`)'
+  },
+  mssql: {
+    text  : 'SELECT [user].[name], [post].[content] FROM [user] LEFT JOIN [post] ON ([user].[id] = [post].[userId])',
+    string: 'SELECT [user].[name], [post].[content] FROM [user] LEFT JOIN [post] ON ([user].[id] = [post].[userId])'
   },
   params: []
 });
@@ -96,6 +112,10 @@ Harness.test({
   mysql: {
     text  : 'SELECT `user`.`name`, `post`.`content` FROM `user` LEFT JOIN `post` ON (`user`.`id` = `post`.`userId`) LEFT JOIN `comment` ON (`post`.`id` = `comment`.`postId`)',
     string: 'SELECT `user`.`name`, `post`.`content` FROM `user` LEFT JOIN `post` ON (`user`.`id` = `post`.`userId`) LEFT JOIN `comment` ON (`post`.`id` = `comment`.`postId`)'
+  },
+  mssql: {
+    text  : 'SELECT [user].[name], [post].[content] FROM [user] LEFT JOIN [post] ON ([user].[id] = [post].[userId]) LEFT JOIN [comment] ON ([post].[id] = [comment].[postId])',
+    string: 'SELECT [user].[name], [post].[content] FROM [user] LEFT JOIN [post] ON ([user].[id] = [post].[userId]) LEFT JOIN [comment] ON ([post].[id] = [comment].[postId])'
   },
   params: []
 });
@@ -123,6 +143,10 @@ Harness.test({
   mysql: {
     text  : 'SELECT `user`.`name`, `subposts`.`content` FROM `user` INNER JOIN (SELECT `post`.`content`, `post`.`userId` AS `subpostUserId` FROM `post`) subposts ON (`user`.`id` = `subposts`.`subpostUserId`)',
     string: 'SELECT `user`.`name`, `subposts`.`content` FROM `user` INNER JOIN (SELECT `post`.`content`, `post`.`userId` AS `subpostUserId` FROM `post`) subposts ON (`user`.`id` = `subposts`.`subpostUserId`)'
+  },
+  mssql: {
+    text  : 'SELECT [user].[name], [subposts].[content] FROM [user] INNER JOIN (SELECT [post].[content], [post].[userId] AS [subpostUserId] FROM [post]) subposts ON ([user].[id] = [subposts].[subpostUserId])',
+    string: 'SELECT [user].[name], [subposts].[content] FROM [user] INNER JOIN (SELECT [post].[content], [post].[userId] AS [subpostUserId] FROM [post]) subposts ON ([user].[id] = [subposts].[subpostUserId])'
   },
   params: []
 });

@@ -17,6 +17,10 @@ Harness.test({
     text  : 'SELECT `user`.`id` FROM `user`',
     string: 'SELECT `user`.`id` FROM `user`'
   },
+  mssql: {
+    text  : 'SELECT [user].[id] FROM [user]',
+    string: 'SELECT [user].[id] FROM [user]'
+  },
   params: []
 });
 
@@ -34,6 +38,10 @@ Harness.test({
     text  : 'SELECT `user`.`id`, `user`.`name` FROM `user`',
     string: 'SELECT `user`.`id`, `user`.`name` FROM `user`'
   },
+  mssql: {
+    text  : 'SELECT [user].[id], [user].[name] FROM [user]',
+    string: 'SELECT [user].[id], [user].[name] FROM [user]'
+  },
   params: []
 });
 
@@ -50,6 +58,10 @@ Harness.test({
   mysql: {
     text  : 'SELECT `user`.* FROM `user`',
     string: 'SELECT `user`.* FROM `user`'
+  },
+  mssql: {
+    text  : 'SELECT [user].* FROM [user]',
+    string: 'SELECT [user].* FROM [user]'
   },
   params: []
 });
@@ -136,6 +148,10 @@ Harness.test({
     text  : 'SELECT `user`.`id` FROM `user` WHERE (`user`.`name` = ?)',
     string: 'SELECT `user`.`id` FROM `user` WHERE (`user`.`name` = \'foo\')'
   },
+  mssql: {
+    text  : 'SELECT [user].[id] FROM [user] WHERE ([user].[name] = @1)',
+    string: 'SELECT [user].[id] FROM [user] WHERE ([user].[name] = \'foo\')'
+  },
   params: ['foo']
 });
 
@@ -152,6 +168,10 @@ Harness.test({
   mysql: {
     text  : 'SELECT `user`.`id` FROM `user` WHERE ((`user`.`name` = ?) OR (`user`.`name` = ?))',
     string: 'SELECT `user`.`id` FROM `user` WHERE ((`user`.`name` = \'foo\') OR (`user`.`name` = \'bar\'))'
+  },
+  mssql: {
+    text  : 'SELECT [user].[id] FROM [user] WHERE (([user].[name] = @1) OR ([user].[name] = @2))',
+    string: 'SELECT [user].[id] FROM [user] WHERE (([user].[name] = \'foo\') OR ([user].[name] = \'bar\'))'
   },
   params: ['foo', 'bar']
 });
@@ -170,6 +190,10 @@ Harness.test({
     text  : 'SELECT `user`.`id` FROM `user` WHERE ((`user`.`name` = ?) AND (`user`.`name` = ?))',
     string: 'SELECT `user`.`id` FROM `user` WHERE ((`user`.`name` = \'foo\') AND (`user`.`name` = \'bar\'))'
   },
+  mssql: {
+    text  : 'SELECT [user].[id] FROM [user] WHERE (([user].[name] = @1) AND ([user].[name] = @2))',
+    string: 'SELECT [user].[id] FROM [user] WHERE (([user].[name] = \'foo\') AND ([user].[name] = \'bar\'))'
+  },
   params: ['foo', 'bar']
 });
 
@@ -186,6 +210,10 @@ Harness.test({
   mysql: {
     text  : 'SELECT `user`.`id` FROM `user` WHERE ((`user`.`name` = ?) OR (`user`.`name` = ?))',
     string: 'SELECT `user`.`id` FROM `user` WHERE ((`user`.`name` = \'foo\') OR (`user`.`name` = \'bar\'))'
+  },
+  mssql: {
+    text  : 'SELECT [user].[id] FROM [user] WHERE (([user].[name] = @1) OR ([user].[name] = @2))',
+    string: 'SELECT [user].[id] FROM [user] WHERE (([user].[name] = \'foo\') OR ([user].[name] = \'bar\'))'
   },
   params: ['foo', 'bar']
 });
@@ -204,6 +232,10 @@ Harness.test({
     text  : 'SELECT `user`.`id` FROM `user` WHERE (((`user`.`name` = ?) OR (`user`.`name` = ?)) AND (`user`.`name` = ?))',
     string: 'SELECT `user`.`id` FROM `user` WHERE (((`user`.`name` = \'foo\') OR (`user`.`name` = \'baz\')) AND (`user`.`name` = \'bar\'))'
   },
+  mssql: {
+    text  : 'SELECT [user].[id] FROM [user] WHERE ((([user].[name] = @1) OR ([user].[name] = @2)) AND ([user].[name] = @3))',
+    string: 'SELECT [user].[id] FROM [user] WHERE ((([user].[name] = \'foo\') OR ([user].[name] = \'baz\')) AND ([user].[name] = \'bar\'))'
+  },
   params: ['foo', 'baz', 'bar']
 });
 
@@ -220,6 +252,10 @@ Harness.test({
   mysql: {
     text  : 'SELECT `user`.`id` FROM `user` WHERE (`user`.`name` IN (?, ?))',
     string: 'SELECT `user`.`id` FROM `user` WHERE (`user`.`name` IN (\'foo\', \'bar\'))'
+  },
+  mssql: {
+    text  : 'SELECT [user].[id] FROM [user] WHERE ([user].[name] IN (@1, @2))',
+    string: 'SELECT [user].[id] FROM [user] WHERE ([user].[name] IN (\'foo\', \'bar\'))'
   },
   params: ['foo', 'bar']
 });
@@ -238,6 +274,10 @@ Harness.test({
     text  : 'SELECT `user`.`id` FROM `user` WHERE ((`user`.`name` IN (?, ?)) AND (`user`.`id` = ?))',
     string: 'SELECT `user`.`id` FROM `user` WHERE ((`user`.`name` IN (\'foo\', \'bar\')) AND (`user`.`id` = 1))'
   },
+  mssql: {
+    text  : 'SELECT [user].[id] FROM [user] WHERE (([user].[name] IN (@1, @2)) AND ([user].[id] = @3))',
+    string: 'SELECT [user].[id] FROM [user] WHERE (([user].[name] IN (\'foo\', \'bar\')) AND ([user].[id] = 1))'
+  },
   params: ['foo', 'bar', 1]
 });
 
@@ -254,6 +294,10 @@ Harness.test({
   mysql: {
     text  : 'SELECT `user`.`id`, `user`.`name` FROM `user`',
     string: 'SELECT `user`.`id`, `user`.`name` FROM `user`'
+  },
+  mssql: {
+    text  : 'SELECT [user].[id], [user].[name] FROM [user]',
+    string: 'SELECT [user].[id], [user].[name] FROM [user]'
   },
   params: []
 });
@@ -279,6 +323,10 @@ Harness.test({
     text  : 'SELECT `user`.`id` FROM `user` WHERE (((`user`.`name` = ?) AND (`user`.`id` = ?)) OR ((`user`.`name` = ?) AND (`user`.`id` = ?)))',
     string: 'SELECT `user`.`id` FROM `user` WHERE (((`user`.`name` = \'boom\') AND (`user`.`id` = 1)) OR ((`user`.`name` = \'bang\') AND (`user`.`id` = 2)))'
   },
+  mssql: {
+    text  : 'SELECT [user].[id] FROM [user] WHERE ((([user].[name] = @1) AND ([user].[id] = @2)) OR (([user].[name] = @3) AND ([user].[id] = @4)))',
+    string: 'SELECT [user].[id] FROM [user] WHERE ((([user].[name] = \'boom\') AND ([user].[id] = 1)) OR (([user].[name] = \'bang\') AND ([user].[id] = 2)))'
+  },
   params: ['boom', 1, 'bang', 2]
 });
 
@@ -295,6 +343,10 @@ Harness.test({
   mysql: {
     text  : 'SELECT `user`.`name` AS `user name`, `user`.`id` AS `user id` FROM `user`',
     string: 'SELECT `user`.`name` AS `user name`, `user`.`id` AS `user id` FROM `user`'
+  },
+  mssql: {
+    text  : 'SELECT [user].[name] AS [user name], [user].[id] AS [user id] FROM [user]',
+    string: 'SELECT [user].[name] AS [user name], [user].[id] AS [user id] FROM [user]'
   },
   params: []
 });
@@ -313,6 +365,10 @@ Harness.test({
     text  : 'SELECT `user`.`name` AS `user name` FROM `user` WHERE (`user`.`name` = ?)',
     string: 'SELECT `user`.`name` AS `user name` FROM `user` WHERE (`user`.`name` = \'brian\')'
   },
+  sqlsever: {
+    text  : 'SELECT [user].[name] AS [user name] FROM [user] WHERE ([user].[name] = @1)',
+    string: 'SELECT [user].[name] AS [user name] FROM [user] WHERE ([user].[name] = \'brian\')'
+  },
   params: ['brian']
 });
 
@@ -330,6 +386,10 @@ Harness.test({
     text  : 'SELECT `user`.`name` FROM `user` WHERE (`user`.`name` = ?)',
     string: 'SELECT `user`.`name` FROM `user` WHERE (`user`.`name` = \'brian\')'
   },
+  mssql: {
+    text  : 'SELECT [user].[name] FROM [user] WHERE ([user].[name] = @1)',
+    string: 'SELECT [user].[name] FROM [user] WHERE ([user].[name] = \'brian\')'
+  },
   params: ['brian']
 });
 
@@ -344,6 +404,10 @@ Harness.test({
     string: 'SELECT name FROM user WHERE (name <> NULL)'
   },
   mysql: {
+    text  : 'SELECT name FROM user WHERE (name <> NULL)',
+    string: 'SELECT name FROM user WHERE (name <> NULL)'
+  },
+  mssql: {
     text  : 'SELECT name FROM user WHERE (name <> NULL)',
     string: 'SELECT name FROM user WHERE (name <> NULL)'
   },
@@ -364,6 +428,10 @@ Harness.test({
     text  : 'SELECT name,id FROM user WHERE (name <> NULL)',
     string: 'SELECT name,id FROM user WHERE (name <> NULL)'
   },
+  mssql: {
+    text  : 'SELECT name,id FROM user WHERE (name <> NULL)',
+    string: 'SELECT name,id FROM user WHERE (name <> NULL)'
+  },
   params: []
 });
 
@@ -381,6 +449,10 @@ Harness.test({
     text  : 'SELECT name, id FROM user WHERE (name <> NULL)',
     string: 'SELECT name, id FROM user WHERE (name <> NULL)'
   },
+  mssql: {
+    text  : 'SELECT name, id FROM user WHERE (name <> NULL)',
+    string: 'SELECT name, id FROM user WHERE (name <> NULL)'
+  },
   params: []
 });
 
@@ -395,6 +467,10 @@ Harness.test({
     string: 'SELECT name, id FROM user WHERE ((name <> NULL) AND (id <> NULL))'
   },
   mysql: {
+    text  : 'SELECT name, id FROM user WHERE ((name <> NULL) AND (id <> NULL))',
+    string: 'SELECT name, id FROM user WHERE ((name <> NULL) AND (id <> NULL))'
+  },
+  mssql: {
     text  : 'SELECT name, id FROM user WHERE ((name <> NULL) AND (id <> NULL))',
     string: 'SELECT name, id FROM user WHERE ((name <> NULL) AND (id <> NULL))'
   },
@@ -417,6 +493,10 @@ Harness.test({
     text  : 'SELECT name FROM user WHERE (`user`.`name` = ?)',
     string: 'SELECT name FROM user WHERE (`user`.`name` = \'brian\')'
   },
+  mssql: {
+    text  : 'SELECT name FROM user WHERE ([user].[name] = @1)',
+    string: 'SELECT name FROM user WHERE ([user].[name] = \'brian\')'
+  },
   params: ['brian']
 });
 
@@ -437,6 +517,10 @@ Harness.test({
     text  : 'SELECT name FROM user WHERE ((`user`.`name` = ?) AND (`user`.`id` = ?))',
     string: 'SELECT name FROM user WHERE ((`user`.`name` = \'brian\') AND (`user`.`id` = 1))'
   },
+  mssql: {
+    text  : 'SELECT name FROM user WHERE (([user].[name] = @1) AND ([user].[id] = @2))',
+    string: 'SELECT name FROM user WHERE (([user].[name] = \'brian\') AND ([user].[id] = 1))'
+  },
   params: ['brian', 1]
 });
 
@@ -454,6 +538,10 @@ Harness.test({
     text  : 'SELECT `user`.`name` AS `quote"quote"tick``tick``` FROM `user`',
     string: 'SELECT `user`.`name` AS `quote"quote"tick``tick``` FROM `user`'
   },
+  mssql: {
+    text  : 'SELECT [user].[name] AS [quote"quote"tick`tick`] FROM [user]',
+    string: 'SELECT [user].[name] AS [quote"quote"tick`tick`] FROM [user]'
+  },
   params: []
 });
 
@@ -470,6 +558,10 @@ Harness.test({
   mysql: {
     text  : 'SELECT `user`.* FROM `user` WHERE (`user`.`id` IN (SELECT `user`.`id` FROM `user`))',
     string: 'SELECT `user`.* FROM `user` WHERE (`user`.`id` IN (SELECT `user`.`id` FROM `user`))'
+  },
+  mssql: {
+    text  : 'SELECT [user].* FROM [user] WHERE ([user].[id] IN (SELECT [user].[id] FROM [user]))',
+    string: 'SELECT [user].* FROM [user] WHERE ([user].[id] IN (SELECT [user].[id] FROM [user]))'
   },
   params: []
 });

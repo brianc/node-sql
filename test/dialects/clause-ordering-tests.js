@@ -9,7 +9,7 @@ Harness.test({
   query: user.from(user.join(post).on(user.id.equals(post.userId))).select(user.name, post.content),
   pg: {
     text  : 'SELECT "user"."name", "post"."content" FROM "user" INNER JOIN "post" ON ("user"."id" = "post"."userId")',
-    string: 'SELECT "user"."name", "post"."content" FROM "user" INNER JOIN "post" ON ("user"."id" = "post"."userId")',
+    string: 'SELECT "user"."name", "post"."content" FROM "user" INNER JOIN "post" ON ("user"."id" = "post"."userId")'
   },
   sqlite: {
     text  : 'SELECT "user"."name", "post"."content" FROM "user" INNER JOIN "post" ON ("user"."id" = "post"."userId")',
@@ -19,6 +19,11 @@ Harness.test({
     text  : 'SELECT `user`.`name`, `post`.`content` FROM `user` INNER JOIN `post` ON (`user`.`id` = `post`.`userId`)',
     string: 'SELECT `user`.`name`, `post`.`content` FROM `user` INNER JOIN `post` ON (`user`.`id` = `post`.`userId`)'
   },
+  mssql: {
+    text  : 'SELECT [user].[name], [post].[content] FROM [user] INNER JOIN [post] ON ([user].[id] = [post].[userId])',
+    string: 'SELECT [user].[name], [post].[content] FROM [user] INNER JOIN [post] ON ([user].[id] = [post].[userId])'
+  },
+  params: []
 });
 
 // WHERE - FROM - SELECT
@@ -37,6 +42,10 @@ Harness.test({
   mysql: {
     text  : 'SELECT `user`.`id` FROM `user` WHERE (`user`.`name` = ?)',
     string: 'SELECT `user`.`id` FROM `user` WHERE (`user`.`name` = \'\')'
+  },
+  mssql: {
+    text  : 'SELECT [user].[id] FROM [user] WHERE ([user].[name] = @1)',
+    string: 'SELECT [user].[id] FROM [user] WHERE ([user].[name] = \'\')'
   },
   params: ['']
 });
@@ -61,6 +70,10 @@ Harness.test({
     text  : 'SELECT `user`.`name`, `post`.`content` FROM `user` INNER JOIN `post` ON (`user`.`id` = `post`.`userId`) WHERE (`user`.`name` = ?)',
     string: 'SELECT `user`.`name`, `post`.`content` FROM `user` INNER JOIN `post` ON (`user`.`id` = `post`.`userId`) WHERE (`user`.`name` = \'\')'
   },
+  mssql: {
+    text  : 'SELECT [user].[name], [post].[content] FROM [user] INNER JOIN [post] ON ([user].[id] = [post].[userId]) WHERE ([user].[name] = @1)',
+    string: 'SELECT [user].[name], [post].[content] FROM [user] INNER JOIN [post] ON ([user].[id] = [post].[userId]) WHERE ([user].[name] = \'\')'
+  },
   params: ['']
 });
 
@@ -80,6 +93,10 @@ Harness.test({
   mysql: {
     text  : 'SELECT `user`.`id` FROM `user` WHERE (`user`.`name` = ?)',
     string: 'SELECT `user`.`id` FROM `user` WHERE (`user`.`name` = \'\')'
+  },
+  mssql: {
+    text  : 'SELECT [user].[id] FROM [user] WHERE ([user].[name] = @1)',
+    string: 'SELECT [user].[id] FROM [user] WHERE ([user].[name] = \'\')'
   },
   params: ['']
 });

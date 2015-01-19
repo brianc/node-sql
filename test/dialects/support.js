@@ -7,7 +7,8 @@ var Table = require('../../lib/table');
 var dialects = {
   pg     : require('../../lib/dialect/postgres'),
   sqlite : require('../../lib/dialect/sqlite'),
-  mysql  : require('../../lib/dialect/mysql')
+  mysql  : require('../../lib/dialect/mysql'),
+  mssql  : require('../../lib/dialect/mssql')
 };
 
 module.exports = {

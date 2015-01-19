@@ -24,6 +24,10 @@ Harness.test({
     text  : 'SELECT `staging`.`user`.`id` FROM `staging`.`user`',
     string: 'SELECT `staging`.`user`.`id` FROM `staging`.`user`'
   },
+  mssql: {
+    text  : 'SELECT [staging].[user].[id] FROM [staging].[user]',
+    string: 'SELECT [staging].[user].[id] FROM [staging].[user]'
+  },
   params: []
 });
 
@@ -40,6 +44,10 @@ Harness.test({
   mysql: {
     text  : 'SELECT COUNT(`staging`.`user`.`id`) AS `id_count` FROM `staging`.`user`',
     string: 'SELECT COUNT(`staging`.`user`.`id`) AS `id_count` FROM `staging`.`user`'
+  },
+  mssql: {
+    text  : 'SELECT COUNT([staging].[user].[id]) AS [id_count] FROM [staging].[user]',
+    string: 'SELECT COUNT([staging].[user].[id]) AS [id_count] FROM [staging].[user]'
   },
   params: []
 });
@@ -58,6 +66,10 @@ Harness.test({
     text  : 'SELECT `staging`.`user`.`id`, `staging`.`user`.`name` FROM `staging`.`user`',
     string: 'SELECT `staging`.`user`.`id`, `staging`.`user`.`name` FROM `staging`.`user`'
   },
+  mssql: {
+    text  : 'SELECT [staging].[user].[id], [staging].[user].[name] FROM [staging].[user]',
+    string: 'SELECT [staging].[user].[id], [staging].[user].[name] FROM [staging].[user]'
+  },
   params: []
 });
 
@@ -75,6 +87,10 @@ Harness.test({
   mysql: {
     text  : 'SELECT `uws`.`name` FROM `staging`.`user` AS `uws`',
     string: 'SELECT `uws`.`name` FROM `staging`.`user` AS `uws`'
+  },
+  mssql: {
+    text  : 'SELECT [uws].[name] FROM [staging].[user] AS [uws]',
+    string: 'SELECT [uws].[name] FROM [staging].[user] AS [uws]'
   },
   params: []
 });
@@ -99,6 +115,10 @@ Harness.test({
     text  : 'SELECT `staging`.`user`.`name`, `dev`.`post`.`content` FROM `staging`.`user` INNER JOIN `dev`.`post` ON (`staging`.`user`.`id` = `dev`.`post`.`userId`)',
     string: 'SELECT `staging`.`user`.`name`, `dev`.`post`.`content` FROM `staging`.`user` INNER JOIN `dev`.`post` ON (`staging`.`user`.`id` = `dev`.`post`.`userId`)'
   },
+  mssql: {
+    text  : 'SELECT [staging].[user].[name], [dev].[post].[content] FROM [staging].[user] INNER JOIN [dev].[post] ON ([staging].[user].[id] = [dev].[post].[userId])',
+    string: 'SELECT [staging].[user].[name], [dev].[post].[content] FROM [staging].[user] INNER JOIN [dev].[post] ON ([staging].[user].[id] = [dev].[post].[userId])'
+  },
   params: []
 });
 
@@ -115,6 +135,10 @@ Harness.test({
   mysql: {
     text  : 'SELECT `uws`.`name`, `dev`.`post`.`content` FROM `staging`.`user` AS `uws` INNER JOIN `dev`.`post` ON (`uws`.`id` = `dev`.`post`.`userId`)',
     string: 'SELECT `uws`.`name`, `dev`.`post`.`content` FROM `staging`.`user` AS `uws` INNER JOIN `dev`.`post` ON (`uws`.`id` = `dev`.`post`.`userId`)'
+  },
+  mssql: {
+    text  : 'SELECT [uws].[name], [dev].[post].[content] FROM [staging].[user] AS [uws] INNER JOIN [dev].[post] ON ([uws].[id] = [dev].[post].[userId])',
+    string: 'SELECT [uws].[name], [dev].[post].[content] FROM [staging].[user] AS [uws] INNER JOIN [dev].[post] ON ([uws].[id] = [dev].[post].[userId])'
   },
   params: []
 });
