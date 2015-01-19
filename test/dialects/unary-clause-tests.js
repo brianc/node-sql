@@ -18,7 +18,7 @@ Harness.test({
     text  : 'SELECT `customer`.* FROM `customer` WHERE (`customer`.`age` IS NOT NULL)',
     string: 'SELECT `customer`.* FROM `customer` WHERE (`customer`.`age` IS NOT NULL)'
   },
-  sqlserver: {
+  mssql: {
     text  : 'SELECT [customer].* FROM [customer] WHERE ([customer].[age] IS NOT NULL)',
     string: 'SELECT [customer].* FROM [customer] WHERE ([customer].[age] IS NOT NULL)'
   },
@@ -39,7 +39,7 @@ Harness.test({
     text  : 'SELECT `post`.* FROM `post` WHERE (`post`.`userId` IN (SELECT `customer`.`id` FROM `customer` WHERE (`customer`.`age` IS NULL)))',
     string: 'SELECT `post`.* FROM `post` WHERE (`post`.`userId` IN (SELECT `customer`.`id` FROM `customer` WHERE (`customer`.`age` IS NULL)))'
   },
-  sqlserver: {
+  mssql: {
     text  : 'SELECT [post].* FROM [post] WHERE ([post].[userId] IN (SELECT [customer].[id] FROM [customer] WHERE ([customer].[age] IS NULL)))',
     string: 'SELECT [post].* FROM [post] WHERE ([post].[userId] IN (SELECT [customer].[id] FROM [customer] WHERE ([customer].[age] IS NULL)))'
   },

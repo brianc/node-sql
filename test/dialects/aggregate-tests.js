@@ -17,7 +17,7 @@ Harness.test({
     text  : 'SELECT COUNT(`post`.*) AS `post_count` FROM `post`',
     string: 'SELECT COUNT(`post`.*) AS `post_count` FROM `post`'
   },
-  sqlserver: {
+  mssql: {
     text  : 'SELECT COUNT(*) AS [post_count] FROM [post]',
     string: 'SELECT COUNT(*) AS [post_count] FROM [post]'
   },
@@ -38,7 +38,7 @@ Harness.test({
     text  : 'SELECT COUNT(`post`.*) AS `post_count` FROM `post`',
     string: 'SELECT COUNT(`post`.*) AS `post_count` FROM `post`'
   },
-  sqlserver: {
+  mssql: {
     text  : 'SELECT COUNT(*) AS [post_count] FROM [post]',
     string: 'SELECT COUNT(*) AS [post_count] FROM [post]'
   },
@@ -59,7 +59,7 @@ Harness.test({
     text  : 'SELECT COUNT(`post`.*) AS `post_amount` FROM `post`',
     string: 'SELECT COUNT(`post`.*) AS `post_amount` FROM `post`'
   },
-  sqlserver: {
+  mssql: {
     text  : 'SELECT COUNT(*) AS [post_amount] FROM [post]',
     string: 'SELECT COUNT(*) AS [post_amount] FROM [post]'
   },
@@ -80,7 +80,7 @@ Harness.test({
     text  : 'SELECT COUNT(`post`.`content`) AS `content_count` FROM `post`',
     string: 'SELECT COUNT(`post`.`content`) AS `content_count` FROM `post`'
   },
-  sqlserver: {
+  mssql: {
     text  : 'SELECT COUNT([post].[content]) AS [content_count] FROM [post]',
     string: 'SELECT COUNT([post].[content]) AS [content_count] FROM [post]'
   },
@@ -101,7 +101,7 @@ Harness.test({
     text  : 'SELECT COUNT(`post`.`content`) AS `content_count` FROM `post`',
     string: 'SELECT COUNT(`post`.`content`) AS `content_count` FROM `post`'
   },
-  sqlserver: {
+  mssql: {
     text  : 'SELECT COUNT([post].[content]) AS [content_count] FROM [post]',
     string: 'SELECT COUNT([post].[content]) AS [content_count] FROM [post]'
   },
@@ -122,7 +122,7 @@ Harness.test({
     text  : 'SELECT COUNT(`post`.`content`) AS `content_count` FROM `post`',
     string: 'SELECT COUNT(`post`.`content`) AS `content_count` FROM `post`'
   },
-  sqlserver: {
+  mssql: {
     text  : 'SELECT COUNT([post].[content]) AS [content_count] FROM [post]',
     string: 'SELECT COUNT([post].[content]) AS [content_count] FROM [post]'
   },
@@ -143,7 +143,7 @@ Harness.test({
     text  : 'SELECT MIN(`post`.`id`) AS `id_min` FROM `post`',
     string: 'SELECT MIN(`post`.`id`) AS `id_min` FROM `post`'
   },
-  sqlserver: {
+  mssql: {
     text  : 'SELECT MIN([post].[id]) AS [id_min] FROM [post]',
     string: 'SELECT MIN([post].[id]) AS [id_min] FROM [post]'
   },
@@ -164,7 +164,7 @@ Harness.test({
     text  : 'SELECT MIN(`post`.`id`) AS `min_id` FROM `post`',
     string: 'SELECT MIN(`post`.`id`) AS `min_id` FROM `post`'
   },
-  sqlserver: {
+  mssql: {
     text  : 'SELECT MIN([post].[id]) AS [min_id] FROM [post]',
     string: 'SELECT MIN([post].[id]) AS [min_id] FROM [post]'
   },
@@ -185,7 +185,7 @@ Harness.test({
     text  : 'SELECT MIN(`post`.`id`) AS `min_id` FROM `post`',
     string: 'SELECT MIN(`post`.`id`) AS `min_id` FROM `post`'
   },
-  sqlserver: {
+  mssql: {
     text  : 'SELECT MIN([post].[id]) AS [min_id] FROM [post]',
     string: 'SELECT MIN([post].[id]) AS [min_id] FROM [post]'
   },
@@ -206,7 +206,7 @@ Harness.test({
     text  : 'SELECT MAX(`post`.`id`) AS `id_max` FROM `post`',
     string: 'SELECT MAX(`post`.`id`) AS `id_max` FROM `post`'
   },
-  sqlserver: {
+  mssql: {
     text  : 'SELECT MAX([post].[id]) AS [id_max] FROM [post]',
     string: 'SELECT MAX([post].[id]) AS [id_max] FROM [post]'
   },
@@ -227,7 +227,7 @@ Harness.test({
     text  : 'SELECT MAX(`post`.`id`) AS `max_id` FROM `post`',
     string: 'SELECT MAX(`post`.`id`) AS `max_id` FROM `post`'
   },
-  sqlserver: {
+  mssql: {
     text  : 'SELECT MAX([post].[id]) AS [max_id] FROM [post]',
     string: 'SELECT MAX([post].[id]) AS [max_id] FROM [post]'
   },
@@ -248,7 +248,7 @@ Harness.test({
     text  : 'SELECT MAX(`post`.`id`) AS `max_id` FROM `post`',
     string: 'SELECT MAX(`post`.`id`) AS `max_id` FROM `post`'
   },
-  sqlserver: {
+  mssql: {
     text  : 'SELECT MAX([post].[id]) AS [max_id] FROM [post]',
     string: 'SELECT MAX([post].[id]) AS [max_id] FROM [post]'
   },
@@ -269,7 +269,7 @@ Harness.test({
     text  : 'SELECT SUM(`post`.`id`) AS `id_sum` FROM `post`',
     string: 'SELECT SUM(`post`.`id`) AS `id_sum` FROM `post`'
   },
-  sqlserver: {
+  mssql: {
     text  : 'SELECT SUM([post].[id]) AS [id_sum] FROM [post]',
     string: 'SELECT SUM([post].[id]) AS [id_sum] FROM [post]'
   },
@@ -290,7 +290,7 @@ Harness.test({
     text  : 'SELECT SUM(`post`.`id`) AS `sum_id` FROM `post`',
     string: 'SELECT SUM(`post`.`id`) AS `sum_id` FROM `post`'
   },
-  sqlserver: {
+  mssql: {
     text  : 'SELECT SUM([post].[id]) AS [sum_id] FROM [post]',
     string: 'SELECT SUM([post].[id]) AS [sum_id] FROM [post]'
   },
@@ -311,7 +311,7 @@ Harness.test({
     text  : 'SELECT SUM(`post`.`id`) AS `sum_id` FROM `post`',
     string: 'SELECT SUM(`post`.`id`) AS `sum_id` FROM `post`'
   },
-  sqlserver: {
+  mssql: {
     text  : 'SELECT SUM([post].[id]) AS [sum_id] FROM [post]',
     string: 'SELECT SUM([post].[id]) AS [sum_id] FROM [post]'
   },
@@ -332,7 +332,7 @@ Harness.test({
     text  : 'SELECT AVG(`post`.`id`) AS `id_avg` FROM `post`',
     string: 'SELECT AVG(`post`.`id`) AS `id_avg` FROM `post`'
   },
-  sqlserver: {
+  mssql: {
     text  : 'SELECT AVG([post].[id]) AS [id_avg] FROM [post]',
     string: 'SELECT AVG([post].[id]) AS [id_avg] FROM [post]'
   },
@@ -353,7 +353,7 @@ Harness.test({
     text  : 'SELECT AVG(`post`.`id`) AS `avg_id` FROM `post`',
     string: 'SELECT AVG(`post`.`id`) AS `avg_id` FROM `post`'
   },
-  sqlserver: {
+  mssql: {
     text  : 'SELECT AVG([post].[id]) AS [avg_id] FROM [post]',
     string: 'SELECT AVG([post].[id]) AS [avg_id] FROM [post]'
   },
@@ -374,7 +374,7 @@ Harness.test({
     text  : 'SELECT AVG(`post`.`id`) AS `avg_id` FROM `post`',
     string: 'SELECT AVG(`post`.`id`) AS `avg_id` FROM `post`'
   },
-  sqlserver: {
+  mssql: {
     text  : 'SELECT AVG([post].[id]) AS [avg_id] FROM [post]',
     string: 'SELECT AVG([post].[id]) AS [avg_id] FROM [post]'
   },

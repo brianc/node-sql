@@ -23,7 +23,7 @@ Harness.test({
     text  : '(`user`.`name` IN (SELECT `customer`.`name` FROM `customer` WHERE (`user`.`name` IN (SELECT `customer`.`name` FROM `customer` WHERE (`user`.`name` LIKE ?)))))',
     string: '(`user`.`name` IN (SELECT `customer`.`name` FROM `customer` WHERE (`user`.`name` IN (SELECT `customer`.`name` FROM `customer` WHERE (`user`.`name` LIKE \'%HELLO%\')))))'
   },
-  sqlserver: {
+  mssql: {
     text  : '([user].[name] IN (SELECT [customer].[name] FROM [customer] WHERE ([user].[name] IN (SELECT [customer].[name] FROM [customer] WHERE ([user].[name] LIKE @1)))))',
     string: '([user].[name] IN (SELECT [customer].[name] FROM [customer] WHERE ([user].[name] IN (SELECT [customer].[name] FROM [customer] WHERE ([user].[name] LIKE \'%HELLO%\')))))'
   },
@@ -44,7 +44,7 @@ Harness.test({
     text  : 'SELECT * FROM (SELECT * FROM `user`)',
     string: 'SELECT * FROM (SELECT * FROM `user`)'
   },
-  sqlserver: {
+  mssql: {
     text  : 'SELECT * FROM (SELECT * FROM [user])',
     string: 'SELECT * FROM (SELECT * FROM [user])'
   },
@@ -65,7 +65,7 @@ Harness.test({
     text  : 'SELECT * FROM (SELECT * FROM `customer`) T1 , (SELECT * FROM `user`) T2',
     string: 'SELECT * FROM (SELECT * FROM `customer`) T1 , (SELECT * FROM `user`) T2'
   },
-  sqlserver: {
+  mssql: {
     text  : 'SELECT * FROM (SELECT * FROM [customer]) T1 , (SELECT * FROM [user]) T2',
     string: 'SELECT * FROM (SELECT * FROM [customer]) T1 , (SELECT * FROM [user]) T2'
   },
@@ -89,7 +89,7 @@ Harness.test({
     text  : '(`customer`.`name` BETWEEN (SELECT MIN(`customer`.`name`) FROM `customer`) AND (SELECT MAX(`customer`.`name`) FROM `customer`))',
     string: '(`customer`.`name` BETWEEN (SELECT MIN(`customer`.`name`) FROM `customer`) AND (SELECT MAX(`customer`.`name`) FROM `customer`))'
   },
-  sqlserver: {
+  mssql: {
     text  : '([customer].[name] BETWEEN (SELECT MIN([customer].[name]) FROM [customer]) AND (SELECT MAX([customer].[name]) FROM [customer]))',
     string: '([customer].[name] BETWEEN (SELECT MIN([customer].[name]) FROM [customer]) AND (SELECT MAX([customer].[name]) FROM [customer]))'
   },
@@ -110,7 +110,7 @@ Harness.test({
     text  : '(EXISTS (SELECT * FROM `user` WHERE (`user`.`name` = `customer`.`name`)))',
     string: '(EXISTS (SELECT * FROM `user` WHERE (`user`.`name` = `customer`.`name`)))'
   },
-  sqlserver: {
+  mssql: {
     text  : '(EXISTS (SELECT * FROM [user] WHERE ([user].[name] = [customer].[name])))',
     string: '(EXISTS (SELECT * FROM [user] WHERE ([user].[name] = [customer].[name])))'
   },

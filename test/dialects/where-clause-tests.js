@@ -17,7 +17,7 @@ Harness.test({
     text  : 'SELECT * FROM "user" WHERE (("user"."id" IS NOT NULL) AND ("user"."name" IS NOT NULL))',
     string: 'SELECT * FROM "user" WHERE (("user"."id" IS NOT NULL) AND ("user"."name" IS NOT NULL))'
   },
-  sqlserver: {
+  mssql: {
     text  : 'SELECT * FROM [user] WHERE (([user].[id] IS NOT NULL) AND ([user].[name] IS NOT NULL))',
     string: 'SELECT * FROM [user] WHERE (([user].[id] IS NOT NULL) AND ([user].[name] IS NOT NULL))'
   },
@@ -38,7 +38,7 @@ Harness.test({
     text  : 'SELECT * FROM "user" WHERE (("user"."id" IS NOT NULL) AND ("user"."name" IS NOT NULL))',
     string: 'SELECT * FROM "user" WHERE (("user"."id" IS NOT NULL) AND ("user"."name" IS NOT NULL))'
   },
-  sqlserver: {
+  mssql: {
     text  : 'SELECT * FROM [user] WHERE (([user].[id] IS NOT NULL) AND ([user].[name] IS NOT NULL))',
     string: 'SELECT * FROM [user] WHERE (([user].[id] IS NOT NULL) AND ([user].[name] IS NOT NULL))'
   },

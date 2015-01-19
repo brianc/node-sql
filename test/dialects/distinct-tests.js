@@ -17,7 +17,7 @@ Harness.test({
     text  : 'SELECT DISTINCT(`user`.`id`) FROM `user`',
     string: 'SELECT DISTINCT(`user`.`id`) FROM `user`'
   },
-  sqlserver: {
+  mssql: {
     text  : 'SELECT DISTINCT([user].[id]) FROM [user]',
     string: 'SELECT DISTINCT([user].[id]) FROM [user]'
   },
@@ -38,7 +38,7 @@ Harness.test({
     text  : 'SELECT COUNT(DISTINCT(`user`.`id`)) AS `count` FROM `user`',
     string: 'SELECT COUNT(DISTINCT(`user`.`id`)) AS `count` FROM `user`'
   },
-  sqlserver: {
+  mssql: {
     text  : 'SELECT COUNT(DISTINCT([user].[id])) AS [count] FROM [user]',
     string: 'SELECT COUNT(DISTINCT([user].[id])) AS [count] FROM [user]'
   },

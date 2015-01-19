@@ -19,7 +19,7 @@ Harness.test({
     text  : 'SELECT `user`.`name`, `post`.`content` FROM `user` INNER JOIN `post` ON (`user`.`id` = `post`.`userId`)',
     string: 'SELECT `user`.`name`, `post`.`content` FROM `user` INNER JOIN `post` ON (`user`.`id` = `post`.`userId`)'
   },
-  sqlserver: {
+  mssql: {
     text  : 'SELECT [user].[name], [post].[content] FROM [user] INNER JOIN [post] ON ([user].[id] = [post].[userId])',
     string: 'SELECT [user].[name], [post].[content] FROM [user] INNER JOIN [post] ON ([user].[id] = [post].[userId])'
   },
@@ -43,7 +43,7 @@ Harness.test({
     text  : 'SELECT `user`.`id` FROM `user` WHERE (`user`.`name` = ?)',
     string: 'SELECT `user`.`id` FROM `user` WHERE (`user`.`name` = \'\')'
   },
-  sqlserver: {
+  mssql: {
     text  : 'SELECT [user].[id] FROM [user] WHERE ([user].[name] = @1)',
     string: 'SELECT [user].[id] FROM [user] WHERE ([user].[name] = \'\')'
   },
@@ -70,7 +70,7 @@ Harness.test({
     text  : 'SELECT `user`.`name`, `post`.`content` FROM `user` INNER JOIN `post` ON (`user`.`id` = `post`.`userId`) WHERE (`user`.`name` = ?)',
     string: 'SELECT `user`.`name`, `post`.`content` FROM `user` INNER JOIN `post` ON (`user`.`id` = `post`.`userId`) WHERE (`user`.`name` = \'\')'
   },
-  sqlserver: {
+  mssql: {
     text  : 'SELECT [user].[name], [post].[content] FROM [user] INNER JOIN [post] ON ([user].[id] = [post].[userId]) WHERE ([user].[name] = @1)',
     string: 'SELECT [user].[name], [post].[content] FROM [user] INNER JOIN [post] ON ([user].[id] = [post].[userId]) WHERE ([user].[name] = \'\')'
   },
@@ -94,7 +94,7 @@ Harness.test({
     text  : 'SELECT `user`.`id` FROM `user` WHERE (`user`.`name` = ?)',
     string: 'SELECT `user`.`id` FROM `user` WHERE (`user`.`name` = \'\')'
   },
-  sqlserver: {
+  mssql: {
     text  : 'SELECT [user].[id] FROM [user] WHERE ([user].[name] = @1)',
     string: 'SELECT [user].[id] FROM [user] WHERE ([user].[name] = \'\')'
   },

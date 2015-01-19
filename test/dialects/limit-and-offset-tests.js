@@ -20,7 +20,7 @@ Harness.test({
     text  : 'SELECT `user`.* FROM `user` ORDER BY `user`.`name` LIMIT 1',
     string: 'SELECT `user`.* FROM `user` ORDER BY `user`.`name` LIMIT 1'
   },
-  sqlserver: {
+  mssql: {
     text  : 'SELECT TOP(1) [user].* FROM [user] ORDER BY [user].[name]',
     string: 'SELECT TOP(1) [user].* FROM [user] ORDER BY [user].[name]'
   },
@@ -41,7 +41,7 @@ Harness.test({
     text  : 'SELECT `user`.* FROM `user` ORDER BY `user`.`name` LIMIT 3 OFFSET 6',
     string: 'SELECT `user`.* FROM `user` ORDER BY `user`.`name` LIMIT 3 OFFSET 6'
   },
-  sqlserver: {
+  mssql: {
     text  : 'SELECT [user].* FROM [user] ORDER BY [user].[name] OFFSET 6 ROWS FETCH NEXT 3 ROWS ONLY',
     string: 'SELECT [user].* FROM [user] ORDER BY [user].[name] OFFSET 6 ROWS FETCH NEXT 3 ROWS ONLY'
   },
@@ -62,7 +62,7 @@ Harness.test({
     text  : 'SELECT `user`.* FROM `user` ORDER BY `user`.`name` OFFSET 10',
     string: 'SELECT `user`.* FROM `user` ORDER BY `user`.`name` OFFSET 10'
   },
-  sqlserver: {
+  mssql: {
     text  : 'SELECT [user].* FROM [user] ORDER BY [user].[name] OFFSET 10 ROWS',
     string: 'SELECT [user].* FROM [user] ORDER BY [user].[name] OFFSET 10 ROWS'
   },
@@ -87,7 +87,7 @@ Harness.test({
     text  : 'SELECT `user`.* FROM `user` WHERE (`user`.`name` = ?) OFFSET (SELECT FLOOR(RANDOM() * COUNT(*)) FROM `user` WHERE (`user`.`name` = ?)) LIMIT 1',
     string: 'SELECT `user`.* FROM `user` WHERE (`user`.`name` = \'John\') OFFSET (SELECT FLOOR(RANDOM() * COUNT(*)) FROM `user` WHERE (`user`.`name` = \'John\')) LIMIT 1'
   },
-  sqlserver: {
+  mssql: {
     text  : 'Microsoft SQL Server does not support OFFSET without and ORDER BY.',
     throws: true
   },

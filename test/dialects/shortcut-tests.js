@@ -19,7 +19,7 @@ Harness.test({
     text  : 'SELECT `user`.* FROM `user`',
     string: 'SELECT `user`.* FROM `user`'
   },
-  sqlserver: {
+  mssql: {
     text  : 'SELECT [user].* FROM [user]',
     string: 'SELECT [user].* FROM [user]'
   },
@@ -40,7 +40,7 @@ Harness.test({
     text  : 'SELECT * FROM `user` WHERE (`user`.`name` = ?)',
     string: 'SELECT * FROM `user` WHERE (`user`.`name` = 3)'
   },
-  sqlserver: {
+  mssql: {
     text  : 'SELECT * FROM [user] WHERE ([user].[name] = @1)',
     string: 'SELECT * FROM [user] WHERE ([user].[name] = 3)'
   },
@@ -61,7 +61,7 @@ Harness.test({
     text  : 'SELECT * FROM `user` WHERE ((`user`.`name` = ?) AND (`user`.`id` = ?))',
     string: 'SELECT * FROM `user` WHERE ((`user`.`name` = 3) AND (`user`.`id` = 1))'
   },
-  sqlserver: {
+  mssql: {
     text  : 'SELECT * FROM [user] WHERE (([user].[name] = @1) AND ([user].[id] = @2))',
     string: 'SELECT * FROM [user] WHERE (([user].[name] = 3) AND ([user].[id] = 1))'
   },
@@ -83,7 +83,7 @@ Harness.test({
     text  : 'SELECT `post`.`content` FROM `post`',
     string: 'SELECT `post`.`content` FROM `post`'
   },
-  sqlserver: {
+  mssql: {
     text  : 'SELECT [post].[content] FROM [post]',
     string: 'SELECT [post].[content] FROM [post]'
   },
@@ -104,7 +104,7 @@ Harness.test({
     text  : 'SELECT `post`.`content` FROM `post` WHERE (`post`.`userId` = ?)',
     string: 'SELECT `post`.`content` FROM `post` WHERE (`post`.`userId` = 1)'
   },
-  sqlserver: {
+  mssql: {
     text  : 'SELECT [post].[content] FROM [post] WHERE ([post].[userId] = @1)',
     string: 'SELECT [post].[content] FROM [post] WHERE ([post].[userId] = 1)'
   },
@@ -129,7 +129,7 @@ Harness.test({
     text  : 'SELECT * FROM `post` WHERE (((`post`.`content` IS NULL) OR (`post`.`content` = ?)) AND (`post`.`userId` = ?))',
     string: 'SELECT * FROM `post` WHERE (((`post`.`content` IS NULL) OR (`post`.`content` = \'\')) AND (`post`.`userId` = 1))'
   },
-  sqlserver: {
+  mssql: {
     text  : 'SELECT * FROM [post] WHERE ((([post].[content] IS NULL) OR ([post].[content] = @1)) AND ([post].[userId] = @2))',
     string: 'SELECT * FROM [post] WHERE ((([post].[content] IS NULL) OR ([post].[content] = \'\')) AND ([post].[userId] = 1))'
   },

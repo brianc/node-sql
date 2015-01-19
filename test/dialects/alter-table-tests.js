@@ -18,7 +18,7 @@ Harness.test({
     text  : 'ALTER TABLE `post` DROP COLUMN `content`',
     string: 'ALTER TABLE `post` DROP COLUMN `content`'
   },
-  sqlserver: {
+  mssql: {
     text  : 'ALTER TABLE [post] DROP COLUMN [content]',
     string: 'ALTER TABLE [post] DROP COLUMN [content]'
   },
@@ -39,7 +39,7 @@ Harness.test({
     text  : 'ALTER TABLE `post` DROP COLUMN `content`, DROP COLUMN `userId`',
     string: 'ALTER TABLE `post` DROP COLUMN `content`, DROP COLUMN `userId`'
   },
-  sqlserver: {
+  mssql: {
     text  : 'ALTER TABLE [post] DROP COLUMN [content], [userId]',
     string: 'ALTER TABLE [post] DROP COLUMN [content], [userId]'
   },
@@ -60,7 +60,7 @@ Harness.test({
     text  : 'ALTER TABLE `post` DROP COLUMN `content`, DROP COLUMN `userId`',
     string: 'ALTER TABLE `post` DROP COLUMN `content`, DROP COLUMN `userId`'
   },
-  sqlserver: {
+  mssql: {
     text  : 'ALTER TABLE [post] DROP COLUMN [content], [userId]',
     string: 'ALTER TABLE [post] DROP COLUMN [content], [userId]'
   },
@@ -81,7 +81,7 @@ Harness.test({
     text  : 'ALTER TABLE `post` RENAME TO `posts`',
     string: 'ALTER TABLE `post` RENAME TO `posts`'
   },
-  sqlserver: {
+  mssql: {
     text  : 'EXEC sp_rename [post], [posts]',
     string: 'EXEC sp_rename [post], [posts]'
   },
@@ -114,7 +114,7 @@ Harness.test({
     text  : 'ALTER TABLE `group` ADD COLUMN `id` varchar(100)',
     string: 'ALTER TABLE `group` ADD COLUMN `id` varchar(100)'
   },
-  sqlserver: {
+  mssql: {
     text  : 'ALTER TABLE [group] ADD [id] varchar(100)',
     string: 'ALTER TABLE [group] ADD [id] varchar(100)'
   },
@@ -135,7 +135,7 @@ Harness.test({
     text  : 'ALTER TABLE `group` ADD COLUMN `id` varchar(100), ADD COLUMN `userId` varchar(100)',
     string: 'ALTER TABLE `group` ADD COLUMN `id` varchar(100), ADD COLUMN `userId` varchar(100)'
   },
-  sqlserver: {
+  mssql: {
     text  : 'ALTER TABLE [group] ADD [id] varchar(100), [userId] varchar(100)',
     string: 'ALTER TABLE [group] ADD [id] varchar(100), [userId] varchar(100)'
   },
@@ -156,7 +156,7 @@ Harness.test({
     text  : 'ALTER TABLE `group` ADD COLUMN `id` varchar(100), ADD COLUMN `userId` varchar(100)',
     string: 'ALTER TABLE `group` ADD COLUMN `id` varchar(100), ADD COLUMN `userId` varchar(100)'
   },
-  sqlserver: {
+  mssql: {
     text  : 'ALTER TABLE [group] ADD [id] varchar(100), [userId] varchar(100)',
     string: 'ALTER TABLE [group] ADD [id] varchar(100), [userId] varchar(100)'
   },
@@ -177,8 +177,8 @@ Harness.test({
     text  : 'Sqlite cannot rename columns',
     throws: true
   },
-  sqlserver: {
-    text  : 'SqlServer renaming columns not yet implemented',
+  mssql: {
+    text  : 'Mssql renaming columns not yet implemented',
     throws: true
 //    text  : 'EXEC sp_rename [group.userId], [newUserId], \'COLUMN\'',
 //    string: 'EXEC sp_rename [group.userId], [newUserId], \'COLUMN\''
@@ -200,8 +200,8 @@ Harness.test({
     text  : 'ALTER TABLE `group` CHANGE COLUMN `userId` `newUserId` varchar(100)',
     string: 'ALTER TABLE `group` CHANGE COLUMN `userId` `newUserId` varchar(100)'
   },
-  sqlserver: {
-    text  : 'SqlServer renaming columns not yet implemented',
+  mssql: {
+    text  : 'Mssql renaming columns not yet implemented',
     throws: true
 //    text  : 'EXEC sp_rename [group.userId], [newUserId], \'COLUMN\'',
 //    string: 'EXEC sp_rename [group.userId], [newUserId], \'COLUMN\''
@@ -223,8 +223,8 @@ Harness.test({
     text  : 'ALTER TABLE `group` CHANGE COLUMN `userId` `id` varchar(100)',
     string: 'ALTER TABLE `group` CHANGE COLUMN `userId` `id` varchar(100)'
   },
-  sqlserver: {
-    text  : 'SqlServer renaming columns not yet implemented',
+  mssql: {
+    text  : 'Mssql renaming columns not yet implemented',
     throws: true
 //    text  : 'EXEC sp_rename [group.userId], [id], \'COLUMN\'',
 //    string: 'EXEC sp_rename [group.userId], [id], \'COLUMN\''
@@ -255,8 +255,8 @@ Harness.test({
     text  : 'Sqlite cannot rename columns',
     throws: true
   },
-  sqlserver: {
-    text  : 'SqlServer renaming columns not yet implemented',
+  mssql: {
+    text  : 'Mssql renaming columns not yet implemented',
     throws: true
 //    text  : 'EXEC sp_rename [UserWithSignature.Signature], [sig], \'COLUMN\'',
 //    string: 'EXEC sp_rename [UserWithSignature.Signature], [sig], \'COLUMN\''

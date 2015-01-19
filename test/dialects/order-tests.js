@@ -18,7 +18,7 @@ Harness.test({
     text  : 'SELECT `post`.`content` FROM `post` ORDER BY `post`.`content`',
     string: 'SELECT `post`.`content` FROM `post` ORDER BY `post`.`content`'
   },
-  sqlserver: {
+  mssql: {
     text  : 'SELECT [post].[content] FROM [post] ORDER BY [post].[content]',
     string: 'SELECT [post].[content] FROM [post] ORDER BY [post].[content]'
   },
@@ -39,7 +39,7 @@ Harness.test({
     text  : 'SELECT `post`.`content` FROM `post` ORDER BY `post`.`content`, `post`.`userId` DESC',
     string: 'SELECT `post`.`content` FROM `post` ORDER BY `post`.`content`, `post`.`userId` DESC'
   },
-  sqlserver: {
+  mssql: {
     text  : 'SELECT [post].[content] FROM [post] ORDER BY [post].[content], [post].[userId] DESC',
     string: 'SELECT [post].[content] FROM [post] ORDER BY [post].[content], [post].[userId] DESC'
   },
@@ -60,7 +60,7 @@ Harness.test({
     text  : 'SELECT `post`.`content` FROM `post` ORDER BY `post`.`content`, `post`.`userId` DESC',
     string: 'SELECT `post`.`content` FROM `post` ORDER BY `post`.`content`, `post`.`userId` DESC'
   },
-  sqlserver: {
+  mssql: {
     text  : 'SELECT [post].[content] FROM [post] ORDER BY [post].[content], [post].[userId] DESC',
     string: 'SELECT [post].[content] FROM [post] ORDER BY [post].[content], [post].[userId] DESC'
   },
@@ -81,7 +81,7 @@ Harness.test({
     text  : 'SELECT `post`.`content` FROM `post` ORDER BY `post`.`content`, `post`.`userId` DESC',
     string: 'SELECT `post`.`content` FROM `post` ORDER BY `post`.`content`, `post`.`userId` DESC'
   },
-  sqlserver: {
+  mssql: {
     text  : 'SELECT [post].[content] FROM [post] ORDER BY [post].[content], [post].[userId] DESC',
     string: 'SELECT [post].[content] FROM [post] ORDER BY [post].[content], [post].[userId] DESC'
   },
@@ -102,7 +102,7 @@ Harness.test({
     text  : 'SELECT `post`.`content` FROM `post` ORDER BY `post`.`content`, `post`.`userId` DESC',
     string: 'SELECT `post`.`content` FROM `post` ORDER BY `post`.`content`, `post`.`userId` DESC'
   },
-  sqlserver: {
+  mssql: {
     text  : 'SELECT [post].[content] FROM [post] ORDER BY [post].[content], [post].[userId] DESC',
     string: 'SELECT [post].[content] FROM [post] ORDER BY [post].[content], [post].[userId] DESC'
   },
@@ -123,7 +123,7 @@ Harness.test({
     text  : 'SELECT (`post`.`content` IS NULL) FROM `post` ORDER BY (`post`.`content` IS NULL)',
     string: 'SELECT (`post`.`content` IS NULL) FROM `post` ORDER BY (`post`.`content` IS NULL)'
   },
-  sqlserver: {
+  mssql: {
     text  : 'SELECT ([post].[content] IS NULL) FROM [post] ORDER BY ([post].[content] IS NULL)',
     string: 'SELECT ([post].[content] IS NULL) FROM [post] ORDER BY ([post].[content] IS NULL)'
   },
@@ -144,7 +144,7 @@ Harness.test({
     text  : 'SELECT (`post`.`content` IS NULL) FROM `post` ORDER BY (`post`.`content` IS NULL) DESC',
     string: 'SELECT (`post`.`content` IS NULL) FROM `post` ORDER BY (`post`.`content` IS NULL) DESC'
   },
-  sqlserver: {
+  mssql: {
     text  : 'SELECT ([post].[content] IS NULL) FROM [post] ORDER BY ([post].[content] IS NULL) DESC',
     string: 'SELECT ([post].[content] IS NULL) FROM [post] ORDER BY ([post].[content] IS NULL) DESC'
   },
@@ -165,7 +165,7 @@ Harness.test({
     text  : 'SELECT (`post`.`content` IS NULL) FROM `post` ORDER BY (`post`.`content` IS NULL)',
     string: 'SELECT (`post`.`content` IS NULL) FROM `post` ORDER BY (`post`.`content` IS NULL)'
   },
-  sqlserver: {
+  mssql: {
     text  : 'SELECT ([post].[content] IS NULL) FROM [post] ORDER BY ([post].[content] IS NULL)',
     string: 'SELECT ([post].[content] IS NULL) FROM [post] ORDER BY ([post].[content] IS NULL)'
   },
@@ -186,7 +186,7 @@ Harness.test({
     text  : 'SELECT RTRIM(`post`.`content`) FROM `post` ORDER BY RTRIM(`post`.`content`)',
     string: 'SELECT RTRIM(`post`.`content`) FROM `post` ORDER BY RTRIM(`post`.`content`)'
   },
-  sqlserver: {
+  mssql: {
     text  : 'SELECT RTRIM([post].[content]) FROM [post] ORDER BY RTRIM([post].[content])',
     string: 'SELECT RTRIM([post].[content]) FROM [post] ORDER BY RTRIM([post].[content])'
   },
@@ -207,7 +207,7 @@ Harness.test({
     text  : 'SELECT RTRIM(`post`.`content`) FROM `post` ORDER BY RTRIM(`post`.`content`) DESC',
     string: 'SELECT RTRIM(`post`.`content`) FROM `post` ORDER BY RTRIM(`post`.`content`) DESC'
   },
-  sqlserver: {
+  mssql: {
     text  : 'SELECT RTRIM([post].[content]) FROM [post] ORDER BY RTRIM([post].[content]) DESC',
     string: 'SELECT RTRIM([post].[content]) FROM [post] ORDER BY RTRIM([post].[content]) DESC'
   },

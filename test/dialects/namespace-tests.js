@@ -20,7 +20,7 @@ Harness.test({
     text  : 'SELECT `u`.`name` FROM `user` AS `u`',
     string: 'SELECT `u`.`name` FROM `user` AS `u`'
   },
-  sqlserver: {
+  mssql: {
     text  : 'SELECT [u].[name] FROM [user] AS [u]',
     string: 'SELECT [u].[name] FROM [user] AS [u]'
   },
@@ -41,7 +41,7 @@ Harness.test({
     text  : 'SELECT `u`.* FROM `user` AS `u`',
     string: 'SELECT `u`.* FROM `user` AS `u`'
   },
-  sqlserver: {
+  mssql: {
     text  : 'SELECT [u].* FROM [user] AS [u]',
     string: 'SELECT [u].* FROM [user] AS [u]'
   },
@@ -63,7 +63,7 @@ Harness.test({
     text  : 'SELECT `u`.`name` FROM `user` AS `u` INNER JOIN `post` AS `p` ON ((`u`.`id` = `p`.`userId`) AND (`p`.`id` = ?))',
     string: 'SELECT `u`.`name` FROM `user` AS `u` INNER JOIN `post` AS `p` ON ((`u`.`id` = `p`.`userId`) AND (`p`.`id` = 3))'
   },
-  sqlserver: {
+  mssql: {
     text  : 'SELECT [u].[name] FROM [user] AS [u] INNER JOIN [post] AS [p] ON (([u].[id] = [p].[userId]) AND ([p].[id] = @1))',
     string: 'SELECT [u].[name] FROM [user] AS [u] INNER JOIN [post] AS [p] ON (([u].[id] = [p].[userId]) AND ([p].[id] = 3))'
   },
@@ -84,7 +84,7 @@ Harness.test({
     text  : 'SELECT `p`.`content`, `u`.`name` FROM `user` AS `u` INNER JOIN `post` AS `p` ON ((`u`.`id` = `p`.`userId`) AND (`p`.`content` IS NOT NULL))',
     string: 'SELECT `p`.`content`, `u`.`name` FROM `user` AS `u` INNER JOIN `post` AS `p` ON ((`u`.`id` = `p`.`userId`) AND (`p`.`content` IS NOT NULL))'
   },
-  sqlserver: {
+  mssql: {
     text  : 'SELECT [p].[content], [u].[name] FROM [user] AS [u] INNER JOIN [post] AS [p] ON (([u].[id] = [p].[userId]) AND ([p].[content] IS NOT NULL))',
     string: 'SELECT [p].[content], [u].[name] FROM [user] AS [u] INNER JOIN [post] AS [p] ON (([u].[id] = [p].[userId]) AND ([p].[content] IS NOT NULL))'
   },
@@ -118,7 +118,7 @@ Harness.test({
     text  : 'SELECT `comment`.`text`, `comment`.`userId` FROM `comment`',
     string: 'SELECT `comment`.`text`, `comment`.`userId` FROM `comment`'
   },
-  sqlserver: {
+  mssql: {
     text  : 'SELECT [comment].[text], [comment].[userId] FROM [comment]',
     string: 'SELECT [comment].[text], [comment].[userId] FROM [comment]'
   },

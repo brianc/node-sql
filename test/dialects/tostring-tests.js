@@ -19,7 +19,7 @@ Harness.test({
     text  : '(`post`.`content` = ?)',
     string: '(`post`.`content` = NULL)'
   },
-  sqlserver: {
+  mssql: {
     text  : '([post].[content] = @1)',
     string: '([post].[content] = NULL)'
   },
@@ -41,7 +41,7 @@ Harness.test({
     text  : '(`post`.`content` = ?)',
     string: '(`post`.`content` = 3.14)'
   },
-  sqlserver: {
+  mssql: {
     text  : '([post].[content] = @1)',
     string: '([post].[content] = 3.14)'
   },
@@ -63,7 +63,7 @@ Harness.test({
     text  : '(`post`.`content` = ?)',
     string: '(`post`.`content` = \'hello\'\'\')'
   },
-  sqlserver: {
+  mssql: {
     text  : '([post].[content] = @1)',
     string: '([post].[content] = \'hello\'\'\')'
   },
@@ -85,7 +85,7 @@ Harness.test({
     text  : '(`post`.`content` = (?, ?, ?))',
     string: '(`post`.`content` = (1, \'2\', NULL))'
   },
-  sqlserver: {
+  mssql: {
     text  : 'SQL Server does not support arrays.',
     throws: true
   },
@@ -107,7 +107,7 @@ Harness.test({
     text  : '(`post`.`content` = ?)',
     string: '(`post`.`content` = \'2000-01-01T00:00:00.000Z\')'
   },
-  sqlserver: {
+  mssql: {
     text  : '([post].[content] = @1)',
     string: '([post].[content] = \'2000-01-01T00:00:00.000Z\')'
   },
@@ -135,7 +135,7 @@ Harness.test({
     text  : '(`post`.`content` = ?)',
     string: '(`post`.`content` = \'secretMessage\')'
   },
-  sqlserver: {
+  mssql: {
     text  : '([post].[content] = @1)',
     string: '([post].[content] = \'secretMessage\')'
   },

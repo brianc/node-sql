@@ -17,7 +17,7 @@ Harness.test({
     text  : 'DROP TABLE `post`',
     string: 'DROP TABLE `post`'
   },
-  sqlserver: {
+  mssql: {
     text  : 'DROP TABLE [post]',
     string: 'DROP TABLE [post]'
   },
@@ -38,7 +38,7 @@ Harness.test({
     text  : 'DROP TABLE IF EXISTS `post`',
     string: 'DROP TABLE IF EXISTS `post`'
   },
-  sqlserver: {
+  mssql: {
     text  : 'IF EXISTS(SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = [post]) BEGIN DROP TABLE [post] END',
     string: 'IF EXISTS(SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = [post]) BEGIN DROP TABLE [post] END'
   },

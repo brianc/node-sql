@@ -18,7 +18,7 @@ Harness.test({
     text  : 'SELECT CAST(`customer`.`age` AS int) FROM `customer`',
     string: 'SELECT CAST(`customer`.`age` AS int) FROM `customer`'
   },
-  sqlserver: {
+  mssql: {
     text  : 'SELECT CAST([customer].[age] AS int) FROM [customer]',
     string: 'SELECT CAST([customer].[age] AS int) FROM [customer]'
   },
@@ -39,7 +39,7 @@ Harness.test({
     text  : 'SELECT CAST(`customer`.`name` AS varchar(10)) FROM `customer`',
     string: 'SELECT CAST(`customer`.`name` AS varchar(10)) FROM `customer`'
   },
-  sqlserver: {
+  mssql: {
     text  : 'SELECT CAST([customer].[name] AS varchar(10)) FROM [customer]',
     string: 'SELECT CAST([customer].[name] AS varchar(10)) FROM [customer]'
   },
@@ -61,7 +61,7 @@ Harness.test({
     text  : 'SELECT CAST((`customer`.`name` + `customer`.`age`) AS varchar(15)) FROM `customer`',
     string: 'SELECT CAST((`customer`.`name` + `customer`.`age`) AS varchar(15)) FROM `customer`'
   },
-  sqlserver: {
+  mssql: {
     text  : 'SELECT CAST(([customer].[name] + [customer].[age]) AS varchar(15)) FROM [customer]',
     string: 'SELECT CAST(([customer].[name] + [customer].[age]) AS varchar(15)) FROM [customer]'
   },
@@ -83,7 +83,7 @@ Harness.test({
     text  : 'SELECT CAST(CAST(`customer`.`name` AS varchar(15)) AS varchar(10)) FROM `customer`',
     string: 'SELECT CAST(CAST(`customer`.`name` AS varchar(15)) AS varchar(10)) FROM `customer`'
   },
-  sqlserver: {
+  mssql: {
     text  : 'SELECT CAST(CAST([customer].[name] AS varchar(15)) AS varchar(10)) FROM [customer]',
     string: 'SELECT CAST(CAST([customer].[name] AS varchar(15)) AS varchar(10)) FROM [customer]'
   },
@@ -105,7 +105,7 @@ Harness.test({
     text  : 'SELECT `customer`.`name` FROM `customer` WHERE ((CAST(`customer`.`age` AS int) + ?) = ?)',
     string: 'SELECT `customer`.`name` FROM `customer` WHERE ((CAST(`customer`.`age` AS int) + 100) = 150)'
   },
-  sqlserver: {
+  mssql: {
     text  : 'SELECT [customer].[name] FROM [customer] WHERE ((CAST([customer].[age] AS int) + @1) = @2)',
     string: 'SELECT [customer].[name] FROM [customer] WHERE ((CAST([customer].[age] AS int) + 100) = 150)'
   },
@@ -127,7 +127,7 @@ Harness.test({
     text  : 'SELECT CAST(`customer`.`age` AS int) AS `age_int` FROM `customer`',
     string: 'SELECT CAST(`customer`.`age` AS int) AS `age_int` FROM `customer`'
   },
-  sqlserver: {
+  mssql: {
     text  : 'SELECT CAST([customer].[age] AS int) AS [age_int] FROM [customer]',
     string: 'SELECT CAST([customer].[age] AS int) AS [age_int] FROM [customer]'
   },

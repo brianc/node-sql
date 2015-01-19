@@ -20,7 +20,7 @@ Harness.test({
     text  : 'UPDATE `post` SET `content` = ?',
     string: 'UPDATE `post` SET `content` = \'test\''
   },
-  sqlserver: {
+  mssql: {
     text  : 'UPDATE [post] SET [content] = @1',
     string: 'UPDATE [post] SET [content] = \'test\''
   },
@@ -44,7 +44,7 @@ Harness.test({
     text  : 'UPDATE `post` SET `content` = ?, `userId` = ?',
     string: 'UPDATE `post` SET `content` = \'test\', `userId` = 3'
   },
-  sqlserver: {
+  mssql: {
     text  : 'UPDATE [post] SET [content] = @1, [userId] = @2',
     string: 'UPDATE [post] SET [content] = \'test\', [userId] = 3'
   },
@@ -68,7 +68,7 @@ Harness.test({
     text  : 'UPDATE `post` SET `content` = ?, `userId` = ?',
     string: 'UPDATE `post` SET `content` = NULL, `userId` = 3'
   },
-  sqlserver: {
+  mssql: {
     text  : 'UPDATE [post] SET [content] = @1, [userId] = @2',
     string: 'UPDATE [post] SET [content] = NULL, [userId] = 3'
   },
@@ -92,7 +92,7 @@ Harness.test({
     text  : 'UPDATE `post` SET `content` = ?, `userId` = ? WHERE (`post`.`content` = ?)',
     string: 'UPDATE `post` SET `content` = \'test\', `userId` = 3 WHERE (`post`.`content` = \'no\')'
   },
-  sqlserver: {
+  mssql: {
     text  : 'UPDATE [post] SET [content] = @1, [userId] = @2 WHERE ([post].[content] = @3)',
     string: 'UPDATE [post] SET [content] = \'test\', [userId] = 3 WHERE ([post].[content] = \'no\')'
   },
@@ -115,7 +115,7 @@ Harness.test({
     text  : 'UPDATE `post` SET `content` = `user`.`name` FROM `user` WHERE (`post`.`userId` = `user`.`id`)',
     string: 'UPDATE `post` SET `content` = `user`.`name` FROM `user` WHERE (`post`.`userId` = `user`.`id`)'
   },
-  sqlserver: {
+  mssql: {
     text  : 'UPDATE [post] SET [content] = [user].[name] FROM [user] WHERE ([post].[userId] = [user].[id])',
     string: 'UPDATE [post] SET [content] = [user].[name] FROM [user] WHERE ([post].[userId] = [user].[id])'
   },
@@ -139,7 +139,7 @@ Harness.test({
     text  : 'UPDATE `post` SET `userId` = `user`.`id` FROM `user` WHERE (`post`.`userId` = `user`.`id`)',
     string: 'UPDATE `post` SET `userId` = `user`.`id` FROM `user` WHERE (`post`.`userId` = `user`.`id`)'
   },
-  sqlserver: {
+  mssql: {
     text  : 'UPDATE [post] SET [userId] = [user].[id] FROM [user] WHERE ([post].[userId] = [user].[id])',
     string: 'UPDATE [post] SET [userId] = [user].[id] FROM [user] WHERE ([post].[userId] = [user].[id])'
   },

@@ -17,7 +17,7 @@ Harness.test({
     text  : 'SELECT `post`.`content` FROM `post` GROUP BY `post`.`userId`',
     string: 'SELECT `post`.`content` FROM `post` GROUP BY `post`.`userId`'
   },
-  sqlserver: {
+  mssql: {
     text  : 'SELECT [post].[content] FROM [post] GROUP BY [post].[userId]',
     string: 'SELECT [post].[content] FROM [post] GROUP BY [post].[userId]'
   },
@@ -38,7 +38,7 @@ Harness.test({
     text  : 'SELECT `post`.`content` FROM `post` GROUP BY `post`.`userId`, `post`.`id`',
     string: 'SELECT `post`.`content` FROM `post` GROUP BY `post`.`userId`, `post`.`id`'
   },
-  sqlserver: {
+  mssql: {
     text  : 'SELECT [post].[content] FROM [post] GROUP BY [post].[userId], [post].[id]',
     string: 'SELECT [post].[content] FROM [post] GROUP BY [post].[userId], [post].[id]'
   },
@@ -59,7 +59,7 @@ Harness.test({
     text  : 'SELECT GROUP_CONCAT(`post`.`content`) AS `contents` FROM `post` GROUP BY `post`.`userId`',
     string: 'SELECT GROUP_CONCAT(`post`.`content`) AS `contents` FROM `post` GROUP BY `post`.`userId`'
   },
-  sqlserver: {
+  mssql: {
     text  : 'SQL Server does not support array_agg.',
     throws: true
   },
@@ -80,7 +80,7 @@ Harness.test({
     text  : 'SELECT GROUP_CONCAT(`post`.`content`) AS `post contents` FROM `post` GROUP BY `post`.`userId`',
     string: 'SELECT GROUP_CONCAT(`post`.`content`) AS `post contents` FROM `post` GROUP BY `post`.`userId`'
   },
-  sqlserver: {
+  mssql: {
     text  : 'SQL Server does not support array_agg.',
     throws: true
   },
@@ -101,7 +101,7 @@ Harness.test({
     text  : 'SELECT `post`.`content` FROM `post` GROUP BY `post`.`userId`, `post`.`id`',
     string: 'SELECT `post`.`content` FROM `post` GROUP BY `post`.`userId`, `post`.`id`'
   },
-  sqlserver: {
+  mssql: {
     text  : 'SELECT [post].[content] FROM [post] GROUP BY [post].[userId], [post].[id]',
     string: 'SELECT [post].[content] FROM [post] GROUP BY [post].[userId], [post].[id]'
   },
