@@ -17,6 +17,10 @@ Harness.test({
     text  : 'SELECT `post`.* FROM `post` WHERE (1=0)',
     string: 'SELECT `post`.* FROM `post` WHERE (1=0)'
   },
+  mssql: {
+    text  : 'SELECT [post].* FROM [post] WHERE (1=0)',
+    string: 'SELECT [post].* FROM [post] WHERE (1=0)'
+  },
   params: []
 });
 
@@ -33,6 +37,10 @@ Harness.test({
   mysql: {
     text  : 'SELECT `post`.* FROM `post` WHERE (`post`.`id` IN (?))',
     string: 'SELECT `post`.* FROM `post` WHERE (`post`.`id` IN (1))'
+  },
+  mssql: {
+    text  : 'SELECT [post].* FROM [post] WHERE ([post].[id] IN (@1))',
+    string: 'SELECT [post].* FROM [post] WHERE ([post].[id] IN (1))'
   },
   params: [1]
 });
@@ -51,6 +59,10 @@ Harness.test({
     text  : 'SELECT `post`.* FROM `post` WHERE (`post`.`id` IS NULL)',
     string: 'SELECT `post`.* FROM `post` WHERE (`post`.`id` IS NULL)'
   },
+  mssql: {
+    text  : 'SELECT [post].* FROM [post] WHERE ([post].[id] IS NULL)',
+    string: 'SELECT [post].* FROM [post] WHERE ([post].[id] IS NULL)'
+  },
   params: []
 });
 
@@ -67,6 +79,10 @@ Harness.test({
   mysql: {
     text  : 'SELECT `post`.* FROM `post` WHERE (`post`.`id` IN (?, ?))',
     string: 'SELECT `post`.* FROM `post` WHERE (`post`.`id` IN (1, 2))'
+  },
+  mssql: {
+    text  : 'SELECT [post].* FROM [post] WHERE ([post].[id] IN (@1, @2))',
+    string: 'SELECT [post].* FROM [post] WHERE ([post].[id] IN (1, 2))'
   },
   params: [1, 2]
 });
@@ -85,6 +101,10 @@ Harness.test({
     text  : 'SELECT `post`.* FROM `post` WHERE (`post`.`id` IS NULL)',
     string: 'SELECT `post`.* FROM `post` WHERE (`post`.`id` IS NULL)'
   },
+  mssql: {
+    text  : 'SELECT [post].* FROM [post] WHERE ([post].[id] IS NULL)',
+    string: 'SELECT [post].* FROM [post] WHERE ([post].[id] IS NULL)'
+  },
   params: []
 });
 
@@ -102,6 +122,10 @@ Harness.test({
     text  : 'SELECT `post`.* FROM `post` WHERE (`post`.`id` IN (?, ?) OR `post`.`id` IS NULL)',
     string: 'SELECT `post`.* FROM `post` WHERE (`post`.`id` IN (1, 2) OR `post`.`id` IS NULL)'
   },
+  mssql: {
+    text  : 'SELECT [post].* FROM [post] WHERE ([post].[id] IN (@1, @2) OR [post].[id] IS NULL)',
+    string: 'SELECT [post].* FROM [post] WHERE ([post].[id] IN (1, 2) OR [post].[id] IS NULL)'
+  },
   params: [1, 2]
 });
 
@@ -118,6 +142,10 @@ Harness.test({
   mysql: {
     text  : 'SELECT `post`.* FROM `post` WHERE (`post`.`id` IN (?, ?) OR `post`.`id` IS NULL)',
     string: 'SELECT `post`.* FROM `post` WHERE (`post`.`id` IN (1, 2) OR `post`.`id` IS NULL)'
+  },
+  mssql: {
+    text  : 'SELECT [post].* FROM [post] WHERE ([post].[id] IN (@1, @2) OR [post].[id] IS NULL)',
+    string: 'SELECT [post].* FROM [post] WHERE ([post].[id] IN (1, 2) OR [post].[id] IS NULL)'
   },
   params: [1, 2]
 });
