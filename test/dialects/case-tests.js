@@ -19,8 +19,9 @@ Harness.test({
     string: 'SELECT (CASE WHEN TRUE THEN 0 WHEN FALSE THEN 1 ELSE 2 END) FROM `customer`'
   },
   mssql: {
-    text  : 'SELECT (CASE WHEN @1 THEN @2 WHEN @3 THEN @4 ELSE @5 END) FROM [customer]',
-    string: 'SELECT (CASE WHEN TRUE THEN 0 WHEN FALSE THEN 1 ELSE 2 END) FROM [customer]'
+    text  : 'SELECT (CASE WHEN 1=1 THEN @1 WHEN 0=1 THEN @2 ELSE @3 END) FROM [customer]',
+    string: 'SELECT (CASE WHEN 1=1 THEN 0 WHEN 0=1 THEN 1 ELSE 2 END) FROM [customer]',
+    params: [0, 1, 2]
   },
   params: [true, 0, false, 1, 2]
 });
@@ -41,8 +42,9 @@ Harness.test({
     string: 'SELECT (`customer`.`age` + (CASE WHEN TRUE THEN 0 WHEN FALSE THEN 1 ELSE 2 END)) FROM `customer`'
   },
   mssql: {
-    text  : 'SELECT ([customer].[age] + (CASE WHEN @1 THEN @2 WHEN @3 THEN @4 ELSE @5 END)) FROM [customer]',
-    string: 'SELECT ([customer].[age] + (CASE WHEN TRUE THEN 0 WHEN FALSE THEN 1 ELSE 2 END)) FROM [customer]'
+    text  : 'SELECT ([customer].[age] + (CASE WHEN 1=1 THEN @1 WHEN 0=1 THEN @2 ELSE @3 END)) FROM [customer]',
+    string: 'SELECT ([customer].[age] + (CASE WHEN 1=1 THEN 0 WHEN 0=1 THEN 1 ELSE 2 END)) FROM [customer]',
+    params: [0, 1, 2]
   },
   params: [true, 0, false, 1, 2]
 });
@@ -63,8 +65,9 @@ Harness.test({
     string: 'SELECT ((CASE WHEN TRUE THEN 0 WHEN FALSE THEN 1 ELSE 2 END) + 3) FROM `customer`'
   },
   mssql: {
-    text  : 'SELECT ((CASE WHEN @1 THEN @2 WHEN @3 THEN @4 ELSE @5 END) + @6) FROM [customer]',
-    string: 'SELECT ((CASE WHEN TRUE THEN 0 WHEN FALSE THEN 1 ELSE 2 END) + 3) FROM [customer]'
+    text  : 'SELECT ((CASE WHEN 1=1 THEN @1 WHEN 0=1 THEN @2 ELSE @3 END) + @4) FROM [customer]',
+    string: 'SELECT ((CASE WHEN 1=1 THEN 0 WHEN 0=1 THEN 1 ELSE 2 END) + 3) FROM [customer]',
+    params: [0, 1, 2, 3]
   },
   params: [true, 0, false, 1, 2, 3]
 });
@@ -85,8 +88,9 @@ Harness.test({
     string: 'SELECT (CASE WHEN TRUE THEN 0 WHEN FALSE THEN 1 ELSE (`customer`.`age` BETWEEN 10 AND 20) END) FROM `customer`'
   },
   mssql: {
-    text  : 'SELECT (CASE WHEN @1 THEN @2 WHEN @3 THEN @4 ELSE ([customer].[age] BETWEEN @5 AND @6) END) FROM [customer]',
-    string: 'SELECT (CASE WHEN TRUE THEN 0 WHEN FALSE THEN 1 ELSE ([customer].[age] BETWEEN 10 AND 20) END) FROM [customer]'
+    text  : 'SELECT (CASE WHEN 1=1 THEN @1 WHEN 0=1 THEN @2 ELSE ([customer].[age] BETWEEN @3 AND @4) END) FROM [customer]',
+    string: 'SELECT (CASE WHEN 1=1 THEN 0 WHEN 0=1 THEN 1 ELSE ([customer].[age] BETWEEN 10 AND 20) END) FROM [customer]',
+    params: [0, 1, 10, 20]
   },
   params: [true, 0, false, 1, 10, 20]
 });
@@ -107,8 +111,9 @@ Harness.test({
     string: 'SELECT (CASE WHEN TRUE THEN 0 WHEN FALSE THEN 1 END) FROM `customer`'
   },
   mssql: {
-    text  : 'SELECT (CASE WHEN @1 THEN @2 WHEN @3 THEN @4 END) FROM [customer]',
-    string: 'SELECT (CASE WHEN TRUE THEN 0 WHEN FALSE THEN 1 END) FROM [customer]'
+    text  : 'SELECT (CASE WHEN 1=1 THEN @1 WHEN 0=1 THEN @2 END) FROM [customer]',
+    string: 'SELECT (CASE WHEN 1=1 THEN 0 WHEN 0=1 THEN 1 END) FROM [customer]',
+    params: [0, 1]
   },
   params: [true, 0, false, 1]
 });
