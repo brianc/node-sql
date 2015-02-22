@@ -128,8 +128,8 @@ Harness.test({
     string: 'DROP INDEX "public"."index_name"'
   },
   mysql: {
-    text  : 'DROP INDEX "public"."index_name"',
-    string: 'DROP INDEX "public"."index_name"'
+    text  : 'DROP INDEX `public`.`index_name`',
+    string: 'DROP INDEX `public`.`index_name`'
   },
   sqlite: {
     text  : 'DROP INDEX "public"."index_name"',
@@ -145,8 +145,8 @@ Harness.test({
     string: 'DROP INDEX "public"."post_id_userId"'
   },
   mysql: {
-    text  : 'DROP INDEX "public"."post_id_userId"',
-    string: 'DROP INDEX "public"."post_id_userId"'
+    text  : 'DROP INDEX `public`.`post_id_userId`',
+    string: 'DROP INDEX `public`.`post_id_userId`'
   },
   sqlite: {
     text  : 'DROP INDEX "public"."post_id_userId"',
