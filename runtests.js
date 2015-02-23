@@ -10,6 +10,7 @@ var options={
 }
 
 var command = path.join(".","node_modules",".bin","mocha")
+
 try {
-childProcess.execSync(command,options)
+  childProcess.execSync(command,options)
 }catch(ex){}
