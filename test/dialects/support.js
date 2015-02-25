@@ -34,7 +34,7 @@ module.exports = {
 
             // test result is correct
             var expectedText = expectedObject.text || expectedObject;
-            assert.equal(compiledQuery.text, expectedText, 'query result');
+            assert.equal(compiledQuery.text, expectedText);
 
             // if params are specified then test these are correct
             var expectedParams = expectedObject.params || expected.params;

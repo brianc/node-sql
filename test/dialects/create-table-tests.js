@@ -304,18 +304,19 @@ Harness.test({
     columns: {
       group_id: { dataType: 'int', primaryKey: true},
       user_id:  { dataType: 'int', primaryKey: true},
+      desc:  { dataType: 'varchar'}
     }
   }).create(),
   pg: {
-    text  : 'CREATE TABLE "membership" ("group_id" int, "user_id" int, PRIMARY KEY ("group_id", "user_id"))',
-    string: 'CREATE TABLE "membership" ("group_id" int, "user_id" int, PRIMARY KEY ("group_id", "user_id"))',
+    text  : 'CREATE TABLE "membership" ("group_id" int, "user_id" int, "desc" varchar, PRIMARY KEY ("group_id", "user_id"))',
+    string: 'CREATE TABLE "membership" ("group_id" int, "user_id" int, "desc" varchar, PRIMARY KEY ("group_id", "user_id"))',
   },
   sqlite: {
-    text  : 'CREATE TABLE "membership" ("group_id" int, "user_id" int, PRIMARY KEY ("group_id", "user_id"))',
-    string: 'CREATE TABLE "membership" ("group_id" int, "user_id" int, PRIMARY KEY ("group_id", "user_id"))',
+    text  : 'CREATE TABLE "membership" ("group_id" int, "user_id" int, "desc" varchar, PRIMARY KEY ("group_id", "user_id"))',
+    string: 'CREATE TABLE "membership" ("group_id" int, "user_id" int, "desc" varchar, PRIMARY KEY ("group_id", "user_id"))',
   },
   mysql: {
-    text  : 'CREATE TABLE `membership` (`group_id` int, `user_id` int, PRIMARY KEY (`group_id`, `user_id`))',
-    string: 'CREATE TABLE `membership` (`group_id` int, `user_id` int, PRIMARY KEY (`group_id`, `user_id`))',
+    text  : 'CREATE TABLE `membership` (`group_id` int, `user_id` int, `desc` varchar, PRIMARY KEY (`group_id`, `user_id`))',
+    string: 'CREATE TABLE `membership` (`group_id` int, `user_id` int, `desc` varchar, PRIMARY KEY (`group_id`, `user_id`))',
   }
 });
