@@ -2,7 +2,7 @@
   "author": "brianc <brian.m.carlson@gmail.com>",
   "name": "sql",
   "description": "sql builder",
-  "version": "0.45.3",
+  "version": "0.46.0",
   "homepage": "https://github.com/brianc/node-sql",
   "repository": {
     "type": "git",
