@@ -5,12 +5,14 @@ var env = process.env
 env.NODE_ENV = "test"
 
 var options = {
-	env:   env,
-	stdio: "inherit",
+  env: env
 }
 
 var command = path.join(".", "node_modules", ".bin", "mocha")
 if (process.platform == "win32") command += ".cmd"
-try {
-	childProcess.spawn(command, options)
-} catch (ex) {}
+var run = childProcess.spawn(command, [], options)
+run.stdout.pipe(process.stdout)
+run.stderr.pipe(process.stderr)
+run.on('close', function(code) {
+  process.exit(code)
+})
