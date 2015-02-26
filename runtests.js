@@ -4,13 +4,13 @@ var path = require("path")
 var env = process.env
 env.NODE_ENV = "test"
 
-var options={
-  env:env,
-  stdio:"inherit"
+var options = {
+	env:   env,
+	stdio: "inherit",
 }
 
-var command = path.join(".","node_modules",".bin","mocha")
-
+var command = path.join(".", "node_modules", ".bin", "mocha")
+if (process.platform == "win32") command += ".cmd"
 try {
-  childProcess.execSync(command,options)
-}catch(ex){}
+	childProcess.spawn(command, options)
+} catch (ex) {}
