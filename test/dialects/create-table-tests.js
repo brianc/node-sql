@@ -320,3 +320,64 @@ Harness.test({
     string: 'CREATE TABLE `membership` (`group_id` int, `user_id` int, `desc` varchar, PRIMARY KEY (`group_id`, `user_id`))',
   }
 });
+
+// TEMPORARY TABLE TESTS
+
+// This tests explicitly setting the isTemporary flag to false, as opposed to all the test above here which have it
+// as undefined.
+Harness.test({
+  query: Table.define({
+    name: 'post',
+    columns: [{
+        name: 'id',
+        dataType: 'int'
+      }],
+    isTemporary:false
+  }).create(),
+  pg: {
+    text  : 'CREATE TABLE "post" ("id" int)',
+    string: 'CREATE TABLE "post" ("id" int)'
+  },
+  sqlite: {
+    text  : 'CREATE TABLE "post" ("id" int)',
+    string: 'CREATE TABLE "post" ("id" int)'
+  },
+  mysql: {
+    text  : 'CREATE TABLE `post` (`id` int)',
+    string: 'CREATE TABLE `post` (`id` int)'
+  },
+  mssql: {
+    text  : 'CREATE TABLE [post] ([id] int)',
+    string: 'CREATE TABLE [post] ([id] int)'
+  },
+  params: []
+});
+
+Harness.test({
+  query: Table.define({
+    name: 'post',
+    columns: [{
+        name: 'id',
+        dataType: 'int'
+      }],
+    isTemporary:true
+  }).create(),
+  pg: {
+    text  : 'CREATE TEMPORARY TABLE "post" ("id" int)',
+    string: 'CREATE TEMPORARY TABLE "post" ("id" int)'
+  },
+  sqlite: {
+    text  : 'CREATE TEMPORARY TABLE "post" ("id" int)',
+    string: 'CREATE TEMPORARY TABLE "post" ("id" int)'
+  },
+  mysql: {
+    text  : 'CREATE TEMPORARY TABLE `post` (`id` int)',
+    string: 'CREATE TEMPORARY TABLE `post` (`id` int)'
+  },
+  //mssql: {
+  //  text  : 'CREATE TABLE [#post] ([id] int)',
+  //  string: 'CREATE TABLE [#post] ([id] int)'
+  //},
+  params: []
+});
+
