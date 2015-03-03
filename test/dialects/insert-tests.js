@@ -295,16 +295,16 @@ Harness.test({
   query: post.insert(post.content, post.userId)
       .select('\'test\'', user.id).from(user).where(user.name.like('A%')),
   pg: {
-    text  : 'INSERT INTO "post" ("content", "userId") SELECT \'test\', "id" FROM "user" WHERE ("name" LIKE $1)',
-    string: 'INSERT INTO "post" ("content", "userId") SELECT \'test\', "id" FROM "user" WHERE ("name" LIKE \'A%\')'
+    text  : 'INSERT INTO "post" ("content", "userId") SELECT \'test\', "user"."id" FROM "user" WHERE ("user"."name" LIKE $1)',
+    string: 'INSERT INTO "post" ("content", "userId") SELECT \'test\', "user"."id" FROM "user" WHERE ("user"."name" LIKE \'A%\')'
   },
   sqlite: {
-    text  : 'INSERT INTO "post" ("content", "userId") SELECT \'test\', "id" FROM "user" WHERE ("name" LIKE $1)',
-    string: 'INSERT INTO "post" ("content", "userId") SELECT \'test\', "id" FROM "user" WHERE ("name" LIKE \'A%\')'
+    text  : 'INSERT INTO "post" ("content", "userId") SELECT \'test\', "user"."id" FROM "user" WHERE ("user"."name" LIKE $1)',
+    string: 'INSERT INTO "post" ("content", "userId") SELECT \'test\', "user"."id" FROM "user" WHERE ("user"."name" LIKE \'A%\')'
   },
   mysql: {
-    text  : 'INSERT INTO `post` (`content`, `userId`) SELECT \'test\', `id` FROM `user` WHERE (`name` LIKE ?)',
-    string: 'INSERT INTO `post` (`content`, `userId`) SELECT \'test\', `id` FROM `user` WHERE (`name` LIKE \'A%\')'
+    text  : 'INSERT INTO `post` (`content`, `userId`) SELECT \'test\', `user`.`id` FROM `user` WHERE (`user`.`name` LIKE ?)',
+    string: 'INSERT INTO `post` (`content`, `userId`) SELECT \'test\', `user`.`id` FROM `user` WHERE (`user`.`name` LIKE \'A%\')'
   },
   params: ['A%']
 });
@@ -313,16 +313,16 @@ Harness.test({
   query: post.insert([post.content, post.userId])
       .select('\'test\'', user.id).from(user).where(user.name.like('A%')),
   pg: {
-    text  : 'INSERT INTO "post" ("content", "userId") SELECT \'test\', "id" FROM "user" WHERE ("name" LIKE $1)',
-    string: 'INSERT INTO "post" ("content", "userId") SELECT \'test\', "id" FROM "user" WHERE ("name" LIKE \'A%\')'
+    text  : 'INSERT INTO "post" ("content", "userId") SELECT \'test\', "user"."id" FROM "user" WHERE ("user"."name" LIKE $1)',
+    string: 'INSERT INTO "post" ("content", "userId") SELECT \'test\', "user"."id" FROM "user" WHERE ("user"."name" LIKE \'A%\')'
   },
   sqlite: {
-    text  : 'INSERT INTO "post" ("content", "userId") SELECT \'test\', "id" FROM "user" WHERE ("name" LIKE $1)',
-    string: 'INSERT INTO "post" ("content", "userId") SELECT \'test\', "id" FROM "user" WHERE ("name" LIKE \'A%\')'
+    text  : 'INSERT INTO "post" ("content", "userId") SELECT \'test\', "user"."id" FROM "user" WHERE ("user"."name" LIKE $1)',
+    string: 'INSERT INTO "post" ("content", "userId") SELECT \'test\', "user"."id" FROM "user" WHERE ("user"."name" LIKE \'A%\')'
   },
   mysql: {
-    text  : 'INSERT INTO `post` (`content`, `userId`) SELECT \'test\', `id` FROM `user` WHERE (`name` LIKE ?)',
-    string: 'INSERT INTO `post` (`content`, `userId`) SELECT \'test\', `id` FROM `user` WHERE (`name` LIKE \'A%\')'
+    text  : 'INSERT INTO `post` (`content`, `userId`) SELECT \'test\', `user`.`id` FROM `user` WHERE (`user`.`name` LIKE ?)',
+    string: 'INSERT INTO `post` (`content`, `userId`) SELECT \'test\', `user`.`id` FROM `user` WHERE (`user`.`name` LIKE \'A%\')'
   },
   params: ['A%']
 });
@@ -331,16 +331,16 @@ Harness.test({
   query: post.insert(post.userId)
       .select(user.id).from(user).where(user.name.like('A%')),
   pg: {
-    text  : 'INSERT INTO "post" ("userId") SELECT "id" FROM "user" WHERE ("name" LIKE $1)',
-    string: 'INSERT INTO "post" ("userId") SELECT "id" FROM "user" WHERE ("name" LIKE \'A%\')'
+    text  : 'INSERT INTO "post" ("userId") SELECT "user"."id" FROM "user" WHERE ("user"."name" LIKE $1)',
+    string: 'INSERT INTO "post" ("userId") SELECT "user"."id" FROM "user" WHERE ("user"."name" LIKE \'A%\')'
   },
   sqlite: {
-    text  : 'INSERT INTO "post" ("userId") SELECT "id" FROM "user" WHERE ("name" LIKE $1)',
-    string: 'INSERT INTO "post" ("userId") SELECT "id" FROM "user" WHERE ("name" LIKE \'A%\')'
+    text  : 'INSERT INTO "post" ("userId") SELECT "user"."id" FROM "user" WHERE ("user"."name" LIKE $1)',
+    string: 'INSERT INTO "post" ("userId") SELECT "user"."id" FROM "user" WHERE ("user"."name" LIKE \'A%\')'
   },
   mysql: {
-    text  : 'INSERT INTO `post` (`userId`) SELECT `id` FROM `user` WHERE (`name` LIKE ?)',
-    string: 'INSERT INTO `post` (`userId`) SELECT `id` FROM `user` WHERE (`name` LIKE \'A%\')'
+    text  : 'INSERT INTO `post` (`userId`) SELECT `user`.`id` FROM `user` WHERE (`user`.`name` LIKE ?)',
+    string: 'INSERT INTO `post` (`userId`) SELECT `user`.`id` FROM `user` WHERE (`user`.`name` LIKE \'A%\')'
   },
   params: ['A%']
 });
