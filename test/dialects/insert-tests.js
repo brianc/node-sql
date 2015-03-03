@@ -345,6 +345,24 @@ Harness.test({
   params: ['A%']
 });
 
+Harness.test({
+  query: post.insert(post.userId)
+      .select(post.userId).from(user.join(post).on(user.id.equals(post.userId))).where(post.tags.like('A%')),
+  pg: {
+    text  : 'INSERT INTO "post" ("userId") SELECT "post"."userId" FROM "user" INNER JOIN "post" ON ("user"."id" = "post"."userId") WHERE ("post"."tags" LIKE $1)',
+    string: 'INSERT INTO "post" ("userId") SELECT "post"."userId" FROM "user" INNER JOIN "post" ON ("user"."id" = "post"."userId") WHERE ("post"."tags" LIKE \'A%\')'
+  },
+  sqlite: {
+    text  : 'INSERT INTO "post" ("userId") SELECT "post"."userId" FROM "user" INNER JOIN "post" ON ("user"."id" = "post"."userId") WHERE ("post"."tags" LIKE $1)',
+    string: 'INSERT INTO "post" ("userId") SELECT "post"."userId" FROM "user" INNER JOIN "post" ON ("user"."id" = "post"."userId") WHERE ("post"."tags" LIKE \'A%\')'
+  },
+  mysql: {
+    text  : 'INSERT INTO `post` (`userId`) SELECT `post`.`userId` FROM `user` INNER JOIN `post` ON (`user`.`id` = `post`.`userId`) WHERE (`post`.`tags` LIKE ?)',
+    string: 'INSERT INTO `post` (`userId`) SELECT `post`.`userId` FROM `user` INNER JOIN `post` ON (`user`.`id` = `post`.`userId`) WHERE (`post`.`tags` LIKE \'A%\')'
+  },
+  params: ['A%']
+});
+
 // Binary inserts
 Harness.test({
   query: post.insert(post.content.value(new Buffer('test')), post.userId.value(2)),
