@@ -120,7 +120,7 @@ describe('column', function() {
       });
       it('respects AS rename in RETURNING clause', function() {
         assert.equal(table.update({makeMeCamel:0}).returning(table.makeMeCamel.as('rename')).toQuery().text,
-          'UPDATE "sc" SET "make_me_camel" = $1 RETURNING "sc"."make_me_camel" AS "rename"');
+          'UPDATE "sc" SET "make_me_camel" = $1 RETURNING "make_me_camel" AS "rename"');
       });
     });
   });
