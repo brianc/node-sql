@@ -15,6 +15,10 @@ Maybe it's still not fun, but at least it's _less not fun_.
 //require the module
 var sql = require('sql');
 
+//(optionally) set the SQL dialect
+sql.setDialect('postgres');
+//possible dialects: mssql, mysql, postgres (default), sqlite
+
 //first we define our tables
 var user = sql.define({
   name: 'user',
