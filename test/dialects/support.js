@@ -33,6 +33,7 @@ module.exports = {
 						var compiledQuery = new DialectClass().getQuery(expected.query);
 
 						// test result is correct
+						var expectedText = expectedObject.text || expectedObject;
 						assert.equal(compiledQuery.text, expectedText);
 
 						// if params are specified then test these are correct
