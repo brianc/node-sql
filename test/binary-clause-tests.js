@@ -33,7 +33,9 @@ test('operators', function() {
   assert.equal(Foo.baz.divide(1).operator, '/');
   assert.equal(Foo.baz.modulo(1).operator, '%');
   assert.equal(Foo.baz.regex(1).operator, '~');
+  assert.equal(Foo.baz.iregex(1).operator, '~*');
   assert.equal(Foo.baz.notRegex(1).operator, '!~');
+  assert.equal(Foo.baz.notIregex(1).operator, '!~*');
   assert.equal(Foo.baz.regexp(1).operator, 'REGEXP');
   assert.equal(Foo.baz.rlike(1).operator, 'RLIKE');
   assert.equal(Foo.baz.ilike('asdf').operator, 'ILIKE');
