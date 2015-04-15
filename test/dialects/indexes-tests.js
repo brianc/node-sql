@@ -124,16 +124,16 @@ Harness.test({
 Harness.test({
   query: post.indexes().drop('index_name'),
   pg: {
-    text  : 'DROP INDEX "index_name" ON "post"',
-    string: 'DROP INDEX "index_name" ON "post"'
+    text  : 'DROP INDEX "public"."index_name"',
+    string: 'DROP INDEX "public"."index_name"'
   },
   mysql: {
-    text  : 'DROP INDEX `index_name` ON `post`',
-    string: 'DROP INDEX `index_name` ON `post`'
+    text  : 'DROP INDEX `public`.`index_name`',
+    string: 'DROP INDEX `public`.`index_name`'
   },
   sqlite: {
-    text  : 'DROP INDEX "index_name" ON "post"',
-    string: 'DROP INDEX "index_name" ON "post"'
+    text  : 'DROP INDEX "public"."index_name"',
+    string: 'DROP INDEX "public"."index_name"'
   },
   params: []
 });
@@ -141,16 +141,16 @@ Harness.test({
 Harness.test({
   query: post.indexes().drop(post.userId, post.id),
   pg: {
-    text  : 'DROP INDEX "post_id_userId" ON "post"',
-    string: 'DROP INDEX "post_id_userId" ON "post"'
+    text  : 'DROP INDEX "public"."post_id_userId"',
+    string: 'DROP INDEX "public"."post_id_userId"'
   },
   mysql: {
-    text  : 'DROP INDEX `post_id_userId` ON `post`',
-    string: 'DROP INDEX `post_id_userId` ON `post`'
+    text  : 'DROP INDEX `public`.`post_id_userId`',
+    string: 'DROP INDEX `public`.`post_id_userId`'
   },
   sqlite: {
-    text  : 'DROP INDEX "post_id_userId" ON "post"',
-    string: 'DROP INDEX "post_id_userId" ON "post"'
+    text  : 'DROP INDEX "public"."post_id_userId"',
+    string: 'DROP INDEX "public"."post_id_userId"'
   },
   params: []
 });
