@@ -93,6 +93,17 @@ module.exports = {
     });
   },
 
+  // This table defines the customer attributes as a composite field
+  defineCustomerCompositeTable: function() {
+    return Table.define({
+      name: 'customer',
+      columns: {
+        id: {},
+        info: {subfields: ['name', 'age', 'salary']}
+      }
+    });
+  },
+
   defineCustomerAliasTable: function() {
     return Table.define({
       name: 'customer',
