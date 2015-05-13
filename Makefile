@@ -1,7 +1,17 @@
-.PHONY: jshint test
-
-jshint:
-	./node_modules/.bin/jshint lib test
+.PHONY: jshint test publish-patch test
 
 test:
 	npm test
+
+patch: test
+	npm version patch -m "Bump version"
+	git push origin master --tags
+	npm publish
+
+minor: test
+	npm version minor -m "Bump version"
+	git push origin master --tags
+	npm publish
+
+jshint:
+	./node_modules/.bin/jshint lib
