@@ -9,7 +9,13 @@ Maybe it's still not fun, but at least it's _less not fun_.
 
 [![Build Status](https://secure.travis-ci.org/brianc/node-sql.png)](http://travis-ci.org/brianc/node-sql)
 
-## examples
+## install
+
+```sh
+$ npm install sql
+```
+
+## use
 
 ```js
 //require the module
@@ -102,7 +108,7 @@ console.log(user.select().where(user.state.equals('WA')).toQuery().text);
 // "SELECT "user".* FROM "user" WHERE ("user"."state_or_province" = $1)"
 ```
 
-There are a __lot__ more examples included in the `test/dialects` folder.
+There are a __lot__ more examples included in the [test/dialects](https://github.com/brianc/node-sql/tree/master/test/dialects) folder.  We encourage you to read through them if you have any questions on usage!
 
 ## from the command line
 You can use the [sql-generate module](https://github.com/tmont/node-sql-generate)
