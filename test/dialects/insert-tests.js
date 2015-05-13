@@ -408,6 +408,27 @@ Harness.test({
   params: ['A%']
 });
 
+Harness.test({
+  query: post.insert(post.userId).select(user.id).distinct().from(user),
+  pg: {
+    text  : 'INSERT INTO "post" ("userId") SELECT DISTINCT "user"."id" FROM "user"',
+    string: 'INSERT INTO "post" ("userId") SELECT DISTINCT "user"."id" FROM "user"'
+  },
+  sqlite: {
+    text  : 'INSERT INTO "post" ("userId") SELECT DISTINCT "user"."id" FROM "user"',
+    string: 'INSERT INTO "post" ("userId") SELECT DISTINCT "user"."id" FROM "user"'
+  },
+  mysql: {
+    text  : 'INSERT INTO `post` (`userId`) SELECT DISTINCT `user`.`id` FROM `user`',
+    string: 'INSERT INTO `post` (`userId`) SELECT DISTINCT `user`.`id` FROM `user`'
+  },
+  mssql: {
+    text  : 'INSERT INTO [post] ([userId]) SELECT DISTINCT [user].[id] FROM [user]',
+    string: 'INSERT INTO [post] ([userId]) SELECT DISTINCT [user].[id] FROM [user]'
+  },
+  params: []
+});
+
 // Binary inserts
 Harness.test({
   query: post.insert(post.content.value(new Buffer('test')), post.userId.value(2)),
