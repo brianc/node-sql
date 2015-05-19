@@ -2,10 +2,33 @@
 
 var Harness = require('./support');
 var customer = Harness.defineCustomerTable();
+var customerAlias = Harness.defineCustomerAliasTable();
 var post = Harness.definePostTable();
+
 
 Harness.test({
   query: customer.select(customer.name.plus(customer.age)),
+  pg: {
+    text  : 'SELECT ("customer"."name" + "customer"."age") FROM "customer"',
+    string: 'SELECT ("customer"."name" + "customer"."age") FROM "customer"'
+  },
+  sqlite: {
+    text  : 'SELECT ("customer"."name" + "customer"."age") FROM "customer"',
+    string: 'SELECT ("customer"."name" + "customer"."age") FROM "customer"'
+  },
+  mysql: {
+    text  : 'SELECT (`customer`.`name` + `customer`.`age`) FROM `customer`',
+    string: 'SELECT (`customer`.`name` + `customer`.`age`) FROM `customer`'
+  },
+  mssql: {
+    text  : 'SELECT ([customer].[name] + [customer].[age]) FROM [customer]',
+    string: 'SELECT ([customer].[name] + [customer].[age]) FROM [customer]'
+  },
+  params: []
+});
+
+Harness.test({
+  query: customerAlias.select(customerAlias.name_alias.plus(customerAlias.age_alias)),
   pg: {
     text  : 'SELECT ("customer"."name" + "customer"."age") FROM "customer"',
     string: 'SELECT ("customer"."name" + "customer"."age") FROM "customer"'
