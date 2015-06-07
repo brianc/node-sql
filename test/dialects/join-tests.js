@@ -133,20 +133,20 @@ Harness.test({
     .from(user.join(subposts)
     .on(user.id.equals(subposts.subpostUserId))),
   pg: {
-    text  : 'SELECT "user"."name", "subposts"."content" FROM "user" INNER JOIN (SELECT "post"."content", "post"."userId" AS "subpostUserId" FROM "post") subposts ON ("user"."id" = "subposts"."subpostUserId")',
-    string: 'SELECT "user"."name", "subposts"."content" FROM "user" INNER JOIN (SELECT "post"."content", "post"."userId" AS "subpostUserId" FROM "post") subposts ON ("user"."id" = "subposts"."subpostUserId")'
+    text  : 'SELECT "user"."name", "subposts"."content" FROM "user" INNER JOIN (SELECT "post"."content", "post"."userId" AS "subpostUserId" FROM "post") "subposts" ON ("user"."id" = "subposts"."subpostUserId")',
+    string: 'SELECT "user"."name", "subposts"."content" FROM "user" INNER JOIN (SELECT "post"."content", "post"."userId" AS "subpostUserId" FROM "post") "subposts" ON ("user"."id" = "subposts"."subpostUserId")'
   },
   sqlite: {
-    text  : 'SELECT "user"."name", "subposts"."content" FROM "user" INNER JOIN (SELECT "post"."content", "post"."userId" AS "subpostUserId" FROM "post") subposts ON ("user"."id" = "subposts"."subpostUserId")',
-    string: 'SELECT "user"."name", "subposts"."content" FROM "user" INNER JOIN (SELECT "post"."content", "post"."userId" AS "subpostUserId" FROM "post") subposts ON ("user"."id" = "subposts"."subpostUserId")'
+    text  : 'SELECT "user"."name", "subposts"."content" FROM "user" INNER JOIN (SELECT "post"."content", "post"."userId" AS "subpostUserId" FROM "post") "subposts" ON ("user"."id" = "subposts"."subpostUserId")',
+    string: 'SELECT "user"."name", "subposts"."content" FROM "user" INNER JOIN (SELECT "post"."content", "post"."userId" AS "subpostUserId" FROM "post") "subposts" ON ("user"."id" = "subposts"."subpostUserId")'
   },
   mysql: {
-    text  : 'SELECT `user`.`name`, `subposts`.`content` FROM `user` INNER JOIN (SELECT `post`.`content`, `post`.`userId` AS `subpostUserId` FROM `post`) subposts ON (`user`.`id` = `subposts`.`subpostUserId`)',
-    string: 'SELECT `user`.`name`, `subposts`.`content` FROM `user` INNER JOIN (SELECT `post`.`content`, `post`.`userId` AS `subpostUserId` FROM `post`) subposts ON (`user`.`id` = `subposts`.`subpostUserId`)'
+    text  : 'SELECT `user`.`name`, `subposts`.`content` FROM `user` INNER JOIN (SELECT `post`.`content`, `post`.`userId` AS `subpostUserId` FROM `post`) `subposts` ON (`user`.`id` = `subposts`.`subpostUserId`)',
+    string: 'SELECT `user`.`name`, `subposts`.`content` FROM `user` INNER JOIN (SELECT `post`.`content`, `post`.`userId` AS `subpostUserId` FROM `post`) `subposts` ON (`user`.`id` = `subposts`.`subpostUserId`)'
   },
   mssql: {
-    text  : 'SELECT [user].[name], [subposts].[content] FROM [user] INNER JOIN (SELECT [post].[content], [post].[userId] AS [subpostUserId] FROM [post]) subposts ON ([user].[id] = [subposts].[subpostUserId])',
-    string: 'SELECT [user].[name], [subposts].[content] FROM [user] INNER JOIN (SELECT [post].[content], [post].[userId] AS [subpostUserId] FROM [post]) subposts ON ([user].[id] = [subposts].[subpostUserId])'
+    text  : 'SELECT [user].[name], [subposts].[content] FROM [user] INNER JOIN (SELECT [post].[content], [post].[userId] AS [subpostUserId] FROM [post]) [subposts] ON ([user].[id] = [subposts].[subpostUserId])',
+    string: 'SELECT [user].[name], [subposts].[content] FROM [user] INNER JOIN (SELECT [post].[content], [post].[userId] AS [subpostUserId] FROM [post]) [subposts] ON ([user].[id] = [subposts].[subpostUserId])'
   },
   params: []
 });
