@@ -276,6 +276,34 @@ Harness.test({
 
 Harness.test({
   query: Table.define({
+  name: 'picture',
+  columns: [{
+    name: 'userId',
+    dataType: 'int',
+    references: {
+      table: 'user',
+      column: 'id',
+      onDelete: 'cascade'
+    }
+    }]
+  }).create(),
+  pg: {
+    text  : 'CREATE TABLE "picture" ("userId" int REFERENCES user(id) ON DELETE CASCADE)',
+    string: 'CREATE TABLE "picture" ("userId" int REFERENCES user(id) ON DELETE CASCADE)'
+  },
+  sqlite: {
+    text  : 'CREATE TABLE "picture" ("userId" int REFERENCES user(id) ON DELETE CASCADE)',
+    string: 'CREATE TABLE "picture" ("userId" int REFERENCES user(id) ON DELETE CASCADE)'
+  },
+  mysql: {
+    text  : 'CREATE TABLE `picture` (`userId` int REFERENCES user(id) ON DELETE CASCADE)',
+    string: 'CREATE TABLE `picture` (`userId` int REFERENCES user(id) ON DELETE CASCADE)'
+  },
+  params: []
+});
+
+Harness.test({
+  query: Table.define({
     name: 'post',
     columns: [{
       name: 'userId',
