@@ -45,16 +45,16 @@ var subquery = user.subQuery('subquery_for_count').select(user.literal(1).as('co
 Harness.test({
   query: user.select(subquery.count_column.count()).from(subquery),
   pg: {
-    text  : 'SELECT COUNT("subquery_for_count"."count_column") AS "count_column_count" FROM (SELECT 1 AS "count_column" FROM "user" LIMIT 10 OFFSET 20) subquery_for_count',
-    string: 'SELECT COUNT("subquery_for_count"."count_column") AS "count_column_count" FROM (SELECT 1 AS "count_column" FROM "user" LIMIT 10 OFFSET 20) subquery_for_count'
+    text  : 'SELECT COUNT("subquery_for_count"."count_column") AS "count_column_count" FROM (SELECT 1 AS "count_column" FROM "user" LIMIT 10 OFFSET 20) "subquery_for_count"',
+    string: 'SELECT COUNT("subquery_for_count"."count_column") AS "count_column_count" FROM (SELECT 1 AS "count_column" FROM "user" LIMIT 10 OFFSET 20) "subquery_for_count"'
   },
   sqlite: {
-    text  : 'SELECT COUNT("subquery_for_count"."count_column") AS "count_column_count" FROM (SELECT 1 AS "count_column" FROM "user" LIMIT 10 OFFSET 20) subquery_for_count',
-    string: 'SELECT COUNT("subquery_for_count"."count_column") AS "count_column_count" FROM (SELECT 1 AS "count_column" FROM "user" LIMIT 10 OFFSET 20) subquery_for_count'
+    text  : 'SELECT COUNT("subquery_for_count"."count_column") AS "count_column_count" FROM (SELECT 1 AS "count_column" FROM "user" LIMIT 10 OFFSET 20) "subquery_for_count"',
+    string: 'SELECT COUNT("subquery_for_count"."count_column") AS "count_column_count" FROM (SELECT 1 AS "count_column" FROM "user" LIMIT 10 OFFSET 20) "subquery_for_count"'
   },
   mysql: {
-    text  : 'SELECT COUNT(`subquery_for_count`.`count_column`) AS `count_column_count` FROM (SELECT 1 AS `count_column` FROM `user` LIMIT 10 OFFSET 20) subquery_for_count',
-    string: 'SELECT COUNT(`subquery_for_count`.`count_column`) AS `count_column_count` FROM (SELECT 1 AS `count_column` FROM `user` LIMIT 10 OFFSET 20) subquery_for_count'
+    text  : 'SELECT COUNT(`subquery_for_count`.`count_column`) AS `count_column_count` FROM (SELECT 1 AS `count_column` FROM `user` LIMIT 10 OFFSET 20) `subquery_for_count`',
+    string: 'SELECT COUNT(`subquery_for_count`.`count_column`) AS `count_column_count` FROM (SELECT 1 AS `count_column` FROM `user` LIMIT 10 OFFSET 20) `subquery_for_count`'
   },
   params: []
 });

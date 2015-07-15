@@ -54,20 +54,20 @@ Harness.test({
 Harness.test({
   query: Sql.select('*').from(customer.subQuery('T1')).from(user.subQuery('T2')),
   pg: {
-    text  : 'SELECT * FROM (SELECT * FROM "customer") T1 , (SELECT * FROM "user") T2',
-    string: 'SELECT * FROM (SELECT * FROM "customer") T1 , (SELECT * FROM "user") T2'
+    text  : 'SELECT * FROM (SELECT * FROM "customer") "T1" , (SELECT * FROM "user") "T2"',
+    string: 'SELECT * FROM (SELECT * FROM "customer") "T1" , (SELECT * FROM "user") "T2"'
   },
   sqlite: {
-    text  : 'SELECT * FROM (SELECT * FROM "customer") T1 , (SELECT * FROM "user") T2',
-    string: 'SELECT * FROM (SELECT * FROM "customer") T1 , (SELECT * FROM "user") T2'
+    text  : 'SELECT * FROM (SELECT * FROM "customer") "T1" , (SELECT * FROM "user") "T2"',
+    string: 'SELECT * FROM (SELECT * FROM "customer") "T1" , (SELECT * FROM "user") "T2"'
   },
   mysql: {
-    text  : 'SELECT * FROM (SELECT * FROM `customer`) T1 , (SELECT * FROM `user`) T2',
-    string: 'SELECT * FROM (SELECT * FROM `customer`) T1 , (SELECT * FROM `user`) T2'
+    text  : 'SELECT * FROM (SELECT * FROM `customer`) `T1` , (SELECT * FROM `user`) `T2`',
+    string: 'SELECT * FROM (SELECT * FROM `customer`) `T1` , (SELECT * FROM `user`) `T2`'
   },
   mssql: {
-    text  : 'SELECT * FROM (SELECT * FROM [customer]) T1 , (SELECT * FROM [user]) T2',
-    string: 'SELECT * FROM (SELECT * FROM [customer]) T1 , (SELECT * FROM [user]) T2'
+    text  : 'SELECT * FROM (SELECT * FROM [customer]) [T1] , (SELECT * FROM [user]) [T2]',
+    string: 'SELECT * FROM (SELECT * FROM [customer]) [T1] , (SELECT * FROM [user]) [T2]'
   },
   params: []
 });
