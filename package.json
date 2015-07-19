@@ -4,6 +4,7 @@
   "description": "sql builder",
   "version": "0.55.0",
   "homepage": "https://github.com/brianc/node-sql",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git://github.com/brianc/node-sql.git"
