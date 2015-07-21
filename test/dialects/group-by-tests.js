@@ -21,6 +21,10 @@ Harness.test({
     text  : 'SELECT [post].[content] FROM [post] GROUP BY [post].[userId]',
     string: 'SELECT [post].[content] FROM [post] GROUP BY [post].[userId]'
   },
+  oracle: {
+    text  : 'SELECT "post"."content" FROM "post" GROUP BY "post"."userId"',
+    string: 'SELECT "post"."content" FROM "post" GROUP BY "post"."userId"'
+  },
   params: []
 });
 
@@ -42,6 +46,10 @@ Harness.test({
     text  : 'SELECT [post].[content] FROM [post] GROUP BY [post].[userId], [post].[id]',
     string: 'SELECT [post].[content] FROM [post] GROUP BY [post].[userId], [post].[id]'
   },
+  oracle: {
+    text  : 'SELECT "post"."content" FROM "post" GROUP BY "post"."userId", "post"."id"',
+    string: 'SELECT "post"."content" FROM "post" GROUP BY "post"."userId", "post"."id"'
+  },
   params: []
 });
 
@@ -61,6 +69,10 @@ Harness.test({
   },
   mssql: {
     text  : 'SQL Server does not support array_agg.',
+    throws: true
+  },
+  oracle: {
+    text  : 'Oracle does not support array_agg.',
     throws: true
   },
   params: []
@@ -84,6 +96,10 @@ Harness.test({
     text  : 'SQL Server does not support array_agg.',
     throws: true
   },
+  oracle: {
+    text  : 'Oracle does not support array_agg.',
+    throws: true
+  },
   params: []
 });
 
@@ -104,6 +120,10 @@ Harness.test({
   mssql: {
     text  : 'SELECT [post].[content] FROM [post] GROUP BY [post].[userId], [post].[id]',
     string: 'SELECT [post].[content] FROM [post] GROUP BY [post].[userId], [post].[id]'
+  },
+  oracel: {
+    text  : 'SELECT "post"."content" FROM "post" GROUP BY "post"."userId", "post"."id"',
+    string: 'SELECT "post"."content" FROM "post" GROUP BY "post"."userId", "post"."id"'
   },
   params: []
 });

@@ -22,6 +22,10 @@ Harness.test({
     text  : 'SELECT [post].[id], [post].[content] FROM [post]',
     string: 'SELECT [post].[id], [post].[content] FROM [post]'
   },
+  oracle: {
+    text  : 'SELECT "post"."id", "post"."content" FROM "post"',
+    string: 'SELECT "post"."id", "post"."content" FROM "post"'
+  },
   params: []
 });
 
@@ -38,6 +42,14 @@ Harness.test({
   mysql: {
     text :  'SELECT `customer`.`id` AS `id_alias`, `customer`.`name` AS `name_alias`, `customer`.`age` AS `age_alias`, `customer`.`income` AS `income_alias`, `customer`.`metadata` AS `metadata_alias` FROM `customer`',
     string: 'SELECT `customer`.`id` AS `id_alias`, `customer`.`name` AS `name_alias`, `customer`.`age` AS `age_alias`, `customer`.`income` AS `income_alias`, `customer`.`metadata` AS `metadata_alias` FROM `customer`'
+  },
+  mssql: {
+    text  : 'SELECT [customer].[id] AS [id_alias], [customer].[name] AS [name_alias], [customer].[age] AS [age_alias], [customer].[income] AS [income_alias], [customer].[metadata] AS [metadata_alias] FROM [customer]',
+    string: 'SELECT [customer].[id] AS [id_alias], [customer].[name] AS [name_alias], [customer].[age] AS [age_alias], [customer].[income] AS [income_alias], [customer].[metadata] AS [metadata_alias] FROM [customer]'
+  },
+  oracle: {
+    text  : 'SELECT "customer"."id" "id_alias", "customer"."name" "name_alias", "customer"."age" "age_alias", "customer"."income" "income_alias", "customer"."metadata" "metadata_alias" FROM "customer"',
+    string: 'SELECT "customer"."id" "id_alias", "customer"."name" "name_alias", "customer"."age" "age_alias", "customer"."income" "income_alias", "customer"."metadata" "metadata_alias" FROM "customer"'
   },
   params: []
 });

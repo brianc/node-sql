@@ -22,6 +22,10 @@ Harness.test({
     text  : 'SELECT [post].[content] FROM [post] ORDER BY [post].[content]',
     string: 'SELECT [post].[content] FROM [post] ORDER BY [post].[content]'
   },
+  oracle: {
+    text  : 'SELECT "post"."content" FROM "post" ORDER BY "post"."content"',
+    string: 'SELECT "post"."content" FROM "post" ORDER BY "post"."content"'
+  },
   params: []
 });
 
@@ -42,6 +46,10 @@ Harness.test({
   mssql: {
     text  : 'SELECT [post].[content] FROM [post] ORDER BY [post].[content], [post].[userId] DESC',
     string: 'SELECT [post].[content] FROM [post] ORDER BY [post].[content], [post].[userId] DESC'
+  },
+  oracle: {
+    text  : 'SELECT "post"."content" FROM "post" ORDER BY "post"."content", "post"."userId" DESC',
+    string: 'SELECT "post"."content" FROM "post" ORDER BY "post"."content", "post"."userId" DESC'
   },
   params: []
 });
@@ -64,6 +72,10 @@ Harness.test({
     text  : 'SELECT [post].[content] FROM [post] ORDER BY [post].[content], [post].[userId] DESC',
     string: 'SELECT [post].[content] FROM [post] ORDER BY [post].[content], [post].[userId] DESC'
   },
+  oracle: {
+    text  : 'SELECT "post"."content" FROM "post" ORDER BY "post"."content", "post"."userId" DESC',
+    string: 'SELECT "post"."content" FROM "post" ORDER BY "post"."content", "post"."userId" DESC'
+  },
   params: []
 });
 
@@ -84,6 +96,10 @@ Harness.test({
   mssql: {
     text  : 'SELECT [post].[content] FROM [post] ORDER BY [post].[content], [post].[userId] DESC',
     string: 'SELECT [post].[content] FROM [post] ORDER BY [post].[content], [post].[userId] DESC'
+  },
+  oracle: {
+    text  : 'SELECT "post"."content" FROM "post" ORDER BY "post"."content", "post"."userId" DESC',
+    string: 'SELECT "post"."content" FROM "post" ORDER BY "post"."content", "post"."userId" DESC'
   },
   params: []
 });
@@ -106,6 +122,10 @@ Harness.test({
     text  : 'SELECT [post].[content] FROM [post] ORDER BY [post].[content], [post].[userId] DESC',
     string: 'SELECT [post].[content] FROM [post] ORDER BY [post].[content], [post].[userId] DESC'
   },
+  oracle: {
+    text  : 'SELECT "post"."content" FROM "post" ORDER BY "post"."content", "post"."userId" DESC',
+    string: 'SELECT "post"."content" FROM "post" ORDER BY "post"."content", "post"."userId" DESC'
+  },
   params: []
 });
 
@@ -126,6 +146,10 @@ Harness.test({
   mssql: {
     text  : 'SELECT ([post].[content] IS NULL) FROM [post] ORDER BY ([post].[content] IS NULL)',
     string: 'SELECT ([post].[content] IS NULL) FROM [post] ORDER BY ([post].[content] IS NULL)'
+  },
+  oracle: {
+    text  : 'SELECT ("post"."content" IS NULL) FROM "post" ORDER BY ("post"."content" IS NULL)',
+    string: 'SELECT ("post"."content" IS NULL) FROM "post" ORDER BY ("post"."content" IS NULL)'
   },
   params: []
 });
@@ -148,6 +172,10 @@ Harness.test({
     text  : 'SELECT ([post].[content] IS NULL) FROM [post] ORDER BY ([post].[content] IS NULL) DESC',
     string: 'SELECT ([post].[content] IS NULL) FROM [post] ORDER BY ([post].[content] IS NULL) DESC'
   },
+  oracle: {
+    text  : 'SELECT ("post"."content" IS NULL) FROM "post" ORDER BY ("post"."content" IS NULL) DESC',
+    string: 'SELECT ("post"."content" IS NULL) FROM "post" ORDER BY ("post"."content" IS NULL) DESC'
+  },
   params: []
 });
 
@@ -168,6 +196,10 @@ Harness.test({
   mssql: {
     text  : 'SELECT ([post].[content] IS NULL) FROM [post] ORDER BY ([post].[content] IS NULL)',
     string: 'SELECT ([post].[content] IS NULL) FROM [post] ORDER BY ([post].[content] IS NULL)'
+  },
+  oracle: {
+    text  : 'SELECT ("post"."content" IS NULL) FROM "post" ORDER BY ("post"."content" IS NULL)',
+    string: 'SELECT ("post"."content" IS NULL) FROM "post" ORDER BY ("post"."content" IS NULL)'
   },
   params: []
 });
@@ -190,6 +222,10 @@ Harness.test({
     text  : 'SELECT RTRIM([post].[content]) FROM [post] ORDER BY RTRIM([post].[content])',
     string: 'SELECT RTRIM([post].[content]) FROM [post] ORDER BY RTRIM([post].[content])'
   },
+  oracle: {
+    text  : 'SELECT RTRIM("post"."content") FROM "post" ORDER BY RTRIM("post"."content")',
+    string: 'SELECT RTRIM("post"."content") FROM "post" ORDER BY RTRIM("post"."content")'
+  },
   params: []
 });
 
@@ -210,6 +246,10 @@ Harness.test({
   mssql: {
     text  : 'SELECT RTRIM([post].[content]) FROM [post] ORDER BY RTRIM([post].[content]) DESC',
     string: 'SELECT RTRIM([post].[content]) FROM [post] ORDER BY RTRIM([post].[content]) DESC'
+  },
+  oracle: {
+    text  : 'SELECT RTRIM("post"."content") FROM "post" ORDER BY RTRIM("post"."content") DESC',
+    string: 'SELECT RTRIM("post"."content") FROM "post" ORDER BY RTRIM("post"."content") DESC'
   },
   params: []
 });

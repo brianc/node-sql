@@ -18,6 +18,10 @@ Harness.test({
     text  : 'INSERT INTO `post` (`content`, `userId`) VALUES (?, ?)',
     string: 'INSERT INTO `post` (`content`, `userId`) VALUES (\'test\', 1)'
   },
+  oracle: {
+    text  : 'INSERT INTO "post" ("content", "userId") VALUES (:1, :2)',
+    string: 'INSERT INTO "post" ("content", "userId") VALUES (\'test\', 1)'
+  },
   params: ['test', 1]
 });
 
@@ -34,6 +38,14 @@ Harness.test({
   mysql: {
     text  : 'INSERT INTO `post` (`content`) VALUES (?)',
     string: 'INSERT INTO `post` (`content`) VALUES (\'whoah\')'
+  },
+  mssql: {
+    text  : 'INSERT INTO [post] ([content]) VALUES (@1)',
+    string: 'INSERT INTO [post] ([content]) VALUES (\'whoah\')'
+  },
+  oracle: {
+    text  : 'INSERT INTO "post" ("content") VALUES (:1)',
+    string: 'INSERT INTO "post" ("content") VALUES (\'whoah\')'
   },
   params: ['whoah']
 });
@@ -55,6 +67,10 @@ Harness.test({
     text  : 'INSERT INTO `post` (`content`, `userId`) VALUES (?, ?)',
     string: 'INSERT INTO `post` (`content`, `userId`) VALUES (\'test\', 2)'
   },
+  oracle: {
+    text  : 'INSERT INTO "post" ("content", "userId") VALUES (:1, :2)',
+    string: 'INSERT INTO "post" ("content", "userId") VALUES (\'test\', 2)'
+  },
   params: ['test', 2]
 });
 
@@ -74,6 +90,10 @@ Harness.test({
   mysql: {
     text  : 'INSERT INTO `post` (`content`, `userId`) VALUES (LOWER(?), ?)',
     string: 'INSERT INTO `post` (`content`, `userId`) VALUES (LOWER(\'TEST\'), 2)'
+  },
+  oracle: {
+    text  : 'INSERT INTO "post" ("content", "userId") VALUES (LOWER(:1), :2)',
+    string: 'INSERT INTO "post" ("content", "userId") VALUES (LOWER(\'TEST\'), 2)'
   },
   params: ['TEST', 2]
 });
@@ -98,6 +118,10 @@ Harness.test({
     text  : 'INSERT INTO `post` (`content`) VALUES (?), (?)',
     string: 'INSERT INTO `post` (`content`) VALUES (\'whoah\'), (\'hey\')'
   },
+  oracle: {
+    text  : 'INSERT INTO "post" ("content") VALUES (:1), (:2)',
+    string: 'INSERT INTO "post" ("content") VALUES (\'whoah\'), (\'hey\')'
+  },
   params: ['whoah', 'hey']
 });
 
@@ -121,6 +145,10 @@ Harness.test({
   mysql: {
     text  : 'INSERT INTO `post` (`content`, `userId`) VALUES (?, ?), (?, ?)',
     string: 'INSERT INTO `post` (`content`, `userId`) VALUES (\'whoah\', 1), (\'hey\', 2)'
+  },
+  oracle: {
+    text  : 'INSERT INTO "post" ("content", "userId") VALUES (:1, :2), (:3, :4)',
+    string: 'INSERT INTO "post" ("content", "userId") VALUES (\'whoah\', 1), (\'hey\', 2)'
   },
   params: ['whoah', 1, 'hey', 2]
 });
@@ -151,6 +179,10 @@ Harness.test({
     text  : 'INSERT INTO [post] ([content], [userId]) VALUES (@1, @2), (@3, @4)',
     string: 'INSERT INTO [post] ([content], [userId]) VALUES (\'whoah\', 1), (\'hey\', 2)'
   },
+  oracle: {
+    text  : 'INSERT INTO "post" ("content", "userId") VALUES (:1, :2), (:3, :4)',
+    string: 'INSERT INTO "post" ("content", "userId") VALUES (\'whoah\', 1), (\'hey\', 2)'
+  },
   params: ['whoah', 1, 'hey', 2]
 });
 
@@ -172,6 +204,10 @@ Harness.test({
     text  : 'INSERT INTO [post] DEFAULT VALUES',
     string: 'INSERT INTO [post] DEFAULT VALUES'
   },
+  oracle: {
+    text  : 'INSERT INTO "post" DEFAULT VALUES',
+    string: 'INSERT INTO "post" DEFAULT VALUES'
+  },
   params: []
 });
 
@@ -188,6 +224,9 @@ Harness.test({
     throws: true
   },
   mssql: {
+    throws: true
+  },
+  oracle: {
     throws: true
   },
   params: []
@@ -208,6 +247,9 @@ Harness.test({
   mssql: {
     throws: true
   },
+  oracle: {
+    throws: true
+  },
   params: []
 });
 
@@ -224,6 +266,9 @@ Harness.test({
     throws: true
   },
   mssql: {
+    throws: true
+  },
+  oracle: {
     throws: true
   },
   params: []
@@ -244,6 +289,9 @@ Harness.test({
   mssql: {
     throws: true
   },
+  oracle: {
+    throws: true
+  },
   params: []
 });
 
@@ -260,6 +308,9 @@ Harness.test({
     throws: true
   },
   mssql: {
+    throws: true
+  },
+  oracle: {
     throws: true
   },
   params: []
@@ -292,7 +343,12 @@ Harness.test({
     text  : 'INSERT INTO [post] ([content], [userId]) VALUES (@1, @2), (@3, DEFAULT)',
     string: 'INSERT INTO [post] ([content], [userId]) VALUES (\'whoah\', 1), (\'hey\', DEFAULT)',
     params: ['whoah', 1, 'hey']
-  }
+  },
+  oracle: {
+    text  : 'INSERT INTO "post" ("content", "userId") VALUES (:1, :2), (:3, DEFAULT)',
+    string: 'INSERT INTO "post" ("content", "userId") VALUES (\'whoah\', 1), (\'hey\', DEFAULT)',
+    params: ['whoah', 1, 'hey']
+  },
 });
 
 Harness.test({
@@ -321,6 +377,11 @@ Harness.test({
     text  : 'INSERT INTO [post] ([userId], [content]) VALUES (@1, DEFAULT), (@2, @3)',
     string: 'INSERT INTO [post] ([userId], [content]) VALUES (1, DEFAULT), (2, \'hey\')',
     params: [1, 2, 'hey']
+  },
+  oracle: {
+    text  : 'INSERT INTO "post" ("userId", "content") VALUES (:1, DEFAULT), (:2, :3)',
+    string: 'INSERT INTO "post" ("userId", "content") VALUES (1, DEFAULT), (2, \'hey\')',
+    params: [1, 2, 'hey']
   }
 });
 
@@ -342,6 +403,10 @@ Harness.test({
   mssql: {
     text  : 'INSERT INTO [post] ([content], [userId]) SELECT \'test\', [user].[id] FROM [user] WHERE ([user].[name] LIKE @1)',
     string: 'INSERT INTO [post] ([content], [userId]) SELECT \'test\', [user].[id] FROM [user] WHERE ([user].[name] LIKE \'A%\')'
+  },
+  oracle: {
+    text  : 'INSERT INTO "post" ("content", "userId") SELECT \'test\', "user"."id" FROM "user" WHERE ("user"."name" LIKE :1)',
+    string: 'INSERT INTO "post" ("content", "userId") SELECT \'test\', "user"."id" FROM "user" WHERE ("user"."name" LIKE \'A%\')'
   },
   params: ['A%']
 });
@@ -365,6 +430,10 @@ Harness.test({
     text  : 'INSERT INTO [post] ([content], [userId]) SELECT \'test\', [user].[id] FROM [user] WHERE ([user].[name] LIKE @1)',
     string: 'INSERT INTO [post] ([content], [userId]) SELECT \'test\', [user].[id] FROM [user] WHERE ([user].[name] LIKE \'A%\')'
   },
+  oracle: {
+    text  : 'INSERT INTO "post" ("content", "userId") SELECT \'test\', "user"."id" FROM "user" WHERE ("user"."name" LIKE :1)',
+    string: 'INSERT INTO "post" ("content", "userId") SELECT \'test\', "user"."id" FROM "user" WHERE ("user"."name" LIKE \'A%\')'
+  },
   params: ['A%']
 });
 
@@ -382,6 +451,10 @@ Harness.test({
   mysql: {
     text  : 'INSERT INTO `post` (`userId`) SELECT `user`.`id` FROM `user` WHERE (`user`.`name` LIKE ?)',
     string: 'INSERT INTO `post` (`userId`) SELECT `user`.`id` FROM `user` WHERE (`user`.`name` LIKE \'A%\')'
+  },
+  oracle: {
+    text  : 'INSERT INTO "post" ("userId") SELECT "user"."id" FROM "user" WHERE ("user"."name" LIKE :1)',
+    string: 'INSERT INTO "post" ("userId") SELECT "user"."id" FROM "user" WHERE ("user"."name" LIKE \'A%\')'
   },
   params: ['A%']
 });
@@ -405,6 +478,10 @@ Harness.test({
     text  : 'INSERT INTO [post] ([userId]) SELECT [post].[userId] FROM [user] INNER JOIN [post] ON ([user].[id] = [post].[userId]) WHERE ([post].[tags] LIKE @1)',
     string: 'INSERT INTO [post] ([userId]) SELECT [post].[userId] FROM [user] INNER JOIN [post] ON ([user].[id] = [post].[userId]) WHERE ([post].[tags] LIKE \'A%\')'
   },
+  oracle: {
+    text  : 'INSERT INTO "post" ("userId") SELECT "post"."userId" FROM "user" INNER JOIN "post" ON ("user"."id" = "post"."userId") WHERE ("post"."tags" LIKE :1)',
+    string: 'INSERT INTO "post" ("userId") SELECT "post"."userId" FROM "user" INNER JOIN "post" ON ("user"."id" = "post"."userId") WHERE ("post"."tags" LIKE \'A%\')'
+  },
   params: ['A%']
 });
 
@@ -425,6 +502,10 @@ Harness.test({
   mssql: {
     text  : 'INSERT INTO [post] ([userId]) SELECT DISTINCT [user].[id] FROM [user]',
     string: 'INSERT INTO [post] ([userId]) SELECT DISTINCT [user].[id] FROM [user]'
+  },
+  oracle: {
+    text  : 'INSERT INTO "post" ("userId") SELECT DISTINCT "user"."id" FROM "user"',
+    string: 'INSERT INTO "post" ("userId") SELECT DISTINCT "user"."id" FROM "user"'
   },
   params: []
 });
@@ -447,6 +528,10 @@ Harness.test({
   mssql: {
     text  : 'INSERT INTO [post] ([content], [userId]) VALUES (@1, @2)',
     string: 'INSERT INTO [post] ([content], [userId]) VALUES (\'\\x74657374\', 2)'
+  },
+  oracle: {
+    text  : 'INSERT INTO "post" ("content", "userId") VALUES (:1, :2)',
+    string: 'INSERT INTO "post" ("content", "userId") VALUES (utl_raw.cast_to_varchar2(hextoraw(\'74657374\')), 2)'
   },
   params: [new Buffer('test'), 2]
 });
@@ -471,6 +556,10 @@ Harness.test({
   mssql: {
     text  : 'INSERT INTO [post] ([content], [userId]) VALUES (@1, @2)',
     string: 'INSERT INTO [post] ([content], [userId]) VALUES (\'\\x74657374\', 2)'
+  },
+  oracle: {
+    text  : 'INSERT INTO "post" ("content", "userId") VALUES (:1, :2)',
+    string: 'INSERT INTO "post" ("content", "userId") VALUES (utl_raw.cast_to_varchar2(hextoraw(\'74657374\')), 2)'
   },
   params: [new Buffer('test'), 2]
 });
@@ -499,6 +588,10 @@ Harness.test({
     text  : 'INSERT INTO [post] ([content]) VALUES (@1), (@2)',
     string: 'INSERT INTO [post] ([content]) VALUES (\'\\x77686f6168\'), (\'\\x686579\')'
   },
+  oracle: {
+    text  : 'INSERT INTO "post" ("content") VALUES (:1), (:2)',
+    string: 'INSERT INTO "post" ("content") VALUES (utl_raw.cast_to_varchar2(hextoraw(\'77686f6168\'))), (utl_raw.cast_to_varchar2(hextoraw(\'686579\')))'
+  },
   params: [new Buffer('whoah'), new Buffer('hey')]
 });
 
@@ -520,6 +613,9 @@ Harness.test({
     string: 'INSERT INTO `post` (`content`, `userId`) VALUES (\'test\', 2) ON DUPLICATE KEY UPDATE `post`.`content` = \'testupdate\''
   },
   mssql: {
+    throws: true
+  },
+  oracle: {
     throws: true
   },
   params: ['test', 2, 'testupdate']

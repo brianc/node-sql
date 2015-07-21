@@ -23,6 +23,10 @@ Harness.test({
     text  : 'SELECT [user].* FROM [user]',
     string: 'SELECT [user].* FROM [user]'
   },
+  oracle: {
+    text  : 'SELECT "user".* FROM "user"',
+    string: 'SELECT "user".* FROM "user"'
+  },
   params: []
 });
 
@@ -44,6 +48,10 @@ Harness.test({
     text  : 'SELECT * FROM [user] WHERE ([user].[name] = @1)',
     string: 'SELECT * FROM [user] WHERE ([user].[name] = 3)'
   },
+  oracle: {
+    text  : 'SELECT * FROM "user" WHERE ("user"."name" = :1)',
+    string: 'SELECT * FROM "user" WHERE ("user"."name" = 3)'
+  },
   params: [3]
 });
 
@@ -64,6 +72,10 @@ Harness.test({
   mssql: {
     text  : 'SELECT * FROM [user] WHERE (([user].[name] = @1) AND ([user].[id] = @2))',
     string: 'SELECT * FROM [user] WHERE (([user].[name] = 3) AND ([user].[id] = 1))'
+  },
+  oracle: {
+    text  : 'SELECT * FROM "user" WHERE (("user"."name" = :1) AND ("user"."id" = :2))',
+    string: 'SELECT * FROM "user" WHERE (("user"."name" = 3) AND ("user"."id" = 1))'
   },
   params: [3, 1]
 });
@@ -87,6 +99,10 @@ Harness.test({
     text  : 'SELECT [post].[content] FROM [post]',
     string: 'SELECT [post].[content] FROM [post]'
   },
+  oracle: {
+    text  : 'SELECT "post"."content" FROM "post"',
+    string: 'SELECT "post"."content" FROM "post"'
+  },
   params: []
 });
 
@@ -107,6 +123,10 @@ Harness.test({
   mssql: {
     text  : 'SELECT [post].[content] FROM [post] WHERE ([post].[userId] = @1)',
     string: 'SELECT [post].[content] FROM [post] WHERE ([post].[userId] = 1)'
+  },
+  oracle: {
+    text  : 'SELECT "post"."content" FROM "post" WHERE ("post"."userId" = :1)',
+    string: 'SELECT "post"."content" FROM "post" WHERE ("post"."userId" = 1)'
   },
   params: [1]
 });
@@ -132,6 +152,10 @@ Harness.test({
   mssql: {
     text  : 'SELECT * FROM [post] WHERE ((([post].[content] IS NULL) OR ([post].[content] = @1)) AND ([post].[userId] = @2))',
     string: 'SELECT * FROM [post] WHERE ((([post].[content] IS NULL) OR ([post].[content] = \'\')) AND ([post].[userId] = 1))'
+  },
+  oracle: {
+    text  : 'SELECT * FROM "post" WHERE ((("post"."content" IS NULL) OR ("post"."content" = :1)) AND ("post"."userId" = :2))',
+    string: 'SELECT * FROM "post" WHERE ((("post"."content" IS NULL) OR ("post"."content" = \'\')) AND ("post"."userId" = 1))'
   },
   params: ['', 1]
 });

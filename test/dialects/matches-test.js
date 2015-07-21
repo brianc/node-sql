@@ -30,6 +30,10 @@ Harness.test({
     text  : 'SELECT [post].* FROM [post] WHERE (CONTAINS ([post].[content], @1))',
     string: 'SELECT [post].* FROM [post] WHERE (CONTAINS ([post].[content], \'hello\'))'
   },
+  oracle: {
+    text  : 'SELECT "post".* FROM "post" WHERE (INSTR ("post"."content", :1) > 0)',
+    string: 'SELECT "post".* FROM "post" WHERE (INSTR ("post"."content", \'hello\') > 0)'
+  },
   params: ['hello']
 });
 

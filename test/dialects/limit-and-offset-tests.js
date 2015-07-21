@@ -66,6 +66,10 @@ Harness.test({
     text  : 'SELECT [user].* FROM [user] ORDER BY [user].[name] OFFSET 10 ROWS',
     string: 'SELECT [user].* FROM [user] ORDER BY [user].[name] OFFSET 10 ROWS'
   },
+  oracle: {
+    text  : 'SELECT "user".* FROM "user" ORDER BY "user"."name" OFFSET 10 ROWS',
+    string: 'SELECT "user".* FROM "user" ORDER BY "user"."name" OFFSET 10 ROWS'
+  },
   params: []
 });
 
@@ -90,6 +94,10 @@ Harness.test({
   mssql: {
     text  : 'Microsoft SQL Server does not support OFFSET without and ORDER BY.',
     throws: true
+  },
+  oracle: {
+    text  : 'SELECT "user".* FROM "user" WHERE ("user"."name" = :1) OFFSET (SELECT FLOOR(RANDOM() * COUNT(*)) FROM "user" WHERE ("user"."name" = :2)) ROWS FETCH NEXT 1 ROWS ONLY',
+    string: 'SELECT "user".* FROM "user" WHERE ("user"."name" = \'John\') OFFSET (SELECT FLOOR(RANDOM() * COUNT(*)) FROM "user" WHERE ("user"."name" = \'John\')) ROWS FETCH NEXT 1 ROWS ONLY'
   },
   values: ['John', 'John']
 });

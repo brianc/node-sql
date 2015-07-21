@@ -54,6 +54,10 @@ Harness.test({
     text  : '[user] INNER JOIN [post] ON ([user].[id] = [post].[ownerId])',
     string: '[user] INNER JOIN [post] ON ([user].[id] = [post].[ownerId])'
   },
+  oracle: {
+    text  : '"user" INNER JOIN "post" ON ("user"."id" = "post"."ownerId")',
+    string: '"user" INNER JOIN "post" ON ("user"."id" = "post"."ownerId")'
+  },
   params: []
 });
 
@@ -75,6 +79,10 @@ Harness.test({
     text  : '[post] INNER JOIN [user] ON ([user].[id] = [post].[ownerId])',
     string: '[post] INNER JOIN [user] ON ([user].[id] = [post].[ownerId])'
   },
+  oracle: {
+    text  : '"post" INNER JOIN "user" ON ("user"."id" = "post"."ownerId")',
+    string: '"post" INNER JOIN "user" ON ("user"."id" = "post"."ownerId")'
+  },
   params: []
 });
 
@@ -95,6 +103,10 @@ Harness.test({
   mssql: {
     text  : '[user] INNER JOIN [photo] ON ([user].[id] = [photo].[ownerId])',
     string: '[user] INNER JOIN [photo] ON ([user].[id] = [photo].[ownerId])'
+  },
+  oracle: {
+    text  : '"user" INNER JOIN "photo" ON ("user"."id" = "photo"."ownerId")',
+    string: '"user" INNER JOIN "photo" ON ("user"."id" = "photo"."ownerId")'
   },
   params: []
 });

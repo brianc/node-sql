@@ -24,6 +24,10 @@ Harness.test({
     text  : 'SELECT [u].[name] FROM [user] AS [u]',
     string: 'SELECT [u].[name] FROM [user] AS [u]'
   },
+  oracle: {
+    text  : 'SELECT "u"."name" FROM "user" "u"',
+    string: 'SELECT "u"."name" FROM "user" "u"'
+  },
   params: []
 });
 
@@ -44,6 +48,10 @@ Harness.test({
   mssql: {
     text  : 'SELECT [u].* FROM [user] AS [u]',
     string: 'SELECT [u].* FROM [user] AS [u]'
+  },
+  oracle: {
+    text  : 'SELECT "u".* FROM "user" "u"',
+    string: 'SELECT "u".* FROM "user" "u"'
   },
   params: []
 });
@@ -67,6 +75,10 @@ Harness.test({
     text  : 'SELECT [u].[name] FROM [user] AS [u] INNER JOIN [post] AS [p] ON (([u].[id] = [p].[userId]) AND ([p].[id] = @1))',
     string: 'SELECT [u].[name] FROM [user] AS [u] INNER JOIN [post] AS [p] ON (([u].[id] = [p].[userId]) AND ([p].[id] = 3))'
   },
+  oracle: {
+    text  : 'SELECT "u"."name" FROM "user" "u" INNER JOIN "post" "p" ON (("u"."id" = "p"."userId") AND ("p"."id" = :1))',
+    string: 'SELECT "u"."name" FROM "user" "u" INNER JOIN "post" "p" ON (("u"."id" = "p"."userId") AND ("p"."id" = 3))'
+  },
   params: [3]
 });
 
@@ -87,6 +99,10 @@ Harness.test({
   mssql: {
     text  : 'SELECT [p].[content], [u].[name] FROM [user] AS [u] INNER JOIN [post] AS [p] ON (([u].[id] = [p].[userId]) AND ([p].[content] IS NOT NULL))',
     string: 'SELECT [p].[content], [u].[name] FROM [user] AS [u] INNER JOIN [post] AS [p] ON (([u].[id] = [p].[userId]) AND ([p].[content] IS NOT NULL))'
+  },
+  oracle: {
+    text  : 'SELECT "p"."content", "u"."name" FROM "user" "u" INNER JOIN "post" "p" ON (("u"."id" = "p"."userId") AND ("p"."content" IS NOT NULL))',
+    string: 'SELECT "p"."content", "u"."name" FROM "user" "u" INNER JOIN "post" "p" ON (("u"."id" = "p"."userId") AND ("p"."content" IS NOT NULL))'
   },
   params: []
 });
@@ -121,6 +137,10 @@ Harness.test({
   mssql: {
     text  : 'SELECT [comment].[text], [comment].[userId] FROM [comment]',
     string: 'SELECT [comment].[text], [comment].[userId] FROM [comment]'
+  },
+  orcle: {
+    text  : 'SELECT "comment"."text", "comment"."userId" FROM "comment"',
+    string: 'SELECT "comment"."text", "comment"."userId" FROM "comment"'
   },
   params: []
 });

@@ -27,6 +27,10 @@ Harness.test({
     text  : '([user].[name] IN (SELECT [customer].[name] FROM [customer] WHERE ([user].[name] IN (SELECT [customer].[name] FROM [customer] WHERE ([user].[name] LIKE @1)))))',
     string: '([user].[name] IN (SELECT [customer].[name] FROM [customer] WHERE ([user].[name] IN (SELECT [customer].[name] FROM [customer] WHERE ([user].[name] LIKE \'%HELLO%\')))))'
   },
+  oracle: {
+    text  : '("user"."name" IN (SELECT "customer"."name" FROM "customer" WHERE ("user"."name" IN (SELECT "customer"."name" FROM "customer" WHERE ("user"."name" LIKE :1)))))',
+    string: '("user"."name" IN (SELECT "customer"."name" FROM "customer" WHERE ("user"."name" IN (SELECT "customer"."name" FROM "customer" WHERE ("user"."name" LIKE \'%HELLO%\')))))'
+  },
   params: ['%HELLO%']
 });
 
@@ -48,6 +52,10 @@ Harness.test({
     text  : 'SELECT * FROM (SELECT * FROM [user])',
     string: 'SELECT * FROM (SELECT * FROM [user])'
   },
+  oracle: {
+    text  : 'SELECT * FROM (SELECT * FROM "user")',
+    string: 'SELECT * FROM (SELECT * FROM "user")'
+  },
   params: []
 });
 
@@ -68,6 +76,10 @@ Harness.test({
   mssql: {
     text  : 'SELECT * FROM (SELECT * FROM [customer]) [T1] , (SELECT * FROM [user]) [T2]',
     string: 'SELECT * FROM (SELECT * FROM [customer]) [T1] , (SELECT * FROM [user]) [T2]'
+  },
+  oracle: {
+    text  : 'SELECT * FROM (SELECT * FROM "customer") "T1" , (SELECT * FROM "user") "T2"',
+    string: 'SELECT * FROM (SELECT * FROM "customer") "T1" , (SELECT * FROM "user") "T2"'
   },
   params: []
 });
@@ -93,6 +105,10 @@ Harness.test({
     text  : '([customer].[name] BETWEEN (SELECT MIN([customer].[name]) FROM [customer]) AND (SELECT MAX([customer].[name]) FROM [customer]))',
     string: '([customer].[name] BETWEEN (SELECT MIN([customer].[name]) FROM [customer]) AND (SELECT MAX([customer].[name]) FROM [customer]))'
   },
+  oracle: {
+    text  : '("customer"."name" BETWEEN (SELECT MIN("customer"."name") FROM "customer") AND (SELECT MAX("customer"."name") FROM "customer"))',
+    string: '("customer"."name" BETWEEN (SELECT MIN("customer"."name") FROM "customer") AND (SELECT MAX("customer"."name") FROM "customer"))'
+  },
   params: []
 });
 
@@ -113,6 +129,10 @@ Harness.test({
   mssql: {
     text  : '(EXISTS (SELECT * FROM [user] WHERE ([user].[name] = [customer].[name])))',
     string: '(EXISTS (SELECT * FROM [user] WHERE ([user].[name] = [customer].[name])))'
+  },
+  oracle: {
+    text  : '(EXISTS (SELECT * FROM "user" WHERE ("user"."name" = "customer"."name")))',
+    string: '(EXISTS (SELECT * FROM "user" WHERE ("user"."name" = "customer"."name")))'
   },
   params: []
 });

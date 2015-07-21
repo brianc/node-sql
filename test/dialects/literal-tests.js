@@ -17,6 +17,10 @@ Harness.test({
     text  : 'SELECT foo, `user`.`name`, 123 AS `onetwothree` FROM `user`',
     string: 'SELECT foo, `user`.`name`, 123 AS `onetwothree` FROM `user`'
   },
+  oracle: {
+    text  : 'SELECT foo, "user"."name", 123 "onetwothree" FROM "user"',
+    string: 'SELECT foo, "user"."name", 123 "onetwothree" FROM "user"'
+  },
   params: []
 });
 
@@ -34,6 +38,10 @@ Harness.test({
   mysql: {
     text  : 'SELECT `user`.* FROM `user` WHERE foo = bar',
     string: 'SELECT `user`.* FROM `user` WHERE foo = bar'
+  },
+  oracle: {
+    text  : 'SELECT "user".* FROM "user" WHERE foo = bar',
+    string: 'SELECT "user".* FROM "user" WHERE foo = bar'
   },
   params: []
 });
@@ -55,6 +63,10 @@ Harness.test({
   mysql: {
     text  : 'SELECT COUNT(`subquery_for_count`.`count_column`) AS `count_column_count` FROM (SELECT 1 AS `count_column` FROM `user` LIMIT 10 OFFSET 20) `subquery_for_count`',
     string: 'SELECT COUNT(`subquery_for_count`.`count_column`) AS `count_column_count` FROM (SELECT 1 AS `count_column` FROM `user` LIMIT 10 OFFSET 20) `subquery_for_count`'
+  },
+  oracle: {
+    text  : 'SELECT COUNT("subquery_for_count"."count_column") "count_column_count" FROM (SELECT 1 "count_column" FROM "user" OFFSET 20 ROWS FETCH NEXT 10 ROWS ONLY) "subquery_for_count"',
+    string: 'SELECT COUNT("subquery_for_count"."count_column") "count_column_count" FROM (SELECT 1 "count_column" FROM "user" OFFSET 20 ROWS FETCH NEXT 10 ROWS ONLY) "subquery_for_count"'
   },
   params: []
 });

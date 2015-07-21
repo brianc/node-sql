@@ -8,7 +8,8 @@ var dialects = {
   pg     : require('../../lib/dialect/postgres'),
   sqlite : require('../../lib/dialect/sqlite'),
   mysql  : require('../../lib/dialect/mysql'),
-  mssql  : require('../../lib/dialect/mssql')
+  mssql  : require('../../lib/dialect/mssql'),
+  oracle  : require('../../lib/dialect/oracle')
 };
 
 module.exports = {
