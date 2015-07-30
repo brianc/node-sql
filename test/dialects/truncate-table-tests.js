@@ -21,5 +21,9 @@ Harness.test({
     text  : 'TRUNCATE TABLE [post]',
     string: 'TRUNCATE TABLE [post]'
   },
+  oracle: {
+    text  : 'TRUNCATE TABLE "post"',
+    string: 'TRUNCATE TABLE "post"'
+  },
   params: []
 });

@@ -21,6 +21,10 @@ Harness.test({
     text  : 'SELECT DISTINCT([user].[id]) FROM [user]',
     string: 'SELECT DISTINCT([user].[id]) FROM [user]'
   },
+  oracle: {
+    text  : 'SELECT DISTINCT("user"."id") FROM "user"',
+    string: 'SELECT DISTINCT("user"."id") FROM "user"'
+  },
   params: []
 });
 
@@ -41,6 +45,10 @@ Harness.test({
   mssql: {
     text  : 'SELECT COUNT(DISTINCT([user].[id])) AS [count] FROM [user]',
     string: 'SELECT COUNT(DISTINCT([user].[id])) AS [count] FROM [user]'
+  },
+  oracle: {
+    text  : 'SELECT COUNT(DISTINCT("user"."id")) "count" FROM "user"',
+    string: 'SELECT COUNT(DISTINCT("user"."id")) "count" FROM "user"'
   },
   params: []
 });
@@ -65,6 +73,10 @@ Harness.test({
     text  : 'SELECT DISTINCT [user].* FROM [user]',
     string: 'SELECT DISTINCT [user].* FROM [user]'
   },
+  oracle: {
+    text  : 'SELECT DISTINCT "user".* FROM "user"',
+    string: 'SELECT DISTINCT "user".* FROM "user"'
+  },
   params: []
 });
 
@@ -86,6 +98,10 @@ Harness.test({
     text  : 'SELECT DISTINCT [user].[id] FROM [user]',
     string: 'SELECT DISTINCT [user].[id] FROM [user]'
   },
+  oracle: {
+    text  : 'SELECT DISTINCT "user"."id" FROM "user"',
+    string: 'SELECT DISTINCT "user"."id" FROM "user"'
+  },
   params: []
 });
 
@@ -106,6 +122,10 @@ Harness.test({
   mssql: {
     text  : 'SELECT DISTINCT [user].[id], [user].[name] FROM [user]',
     string: 'SELECT DISTINCT [user].[id], [user].[name] FROM [user]'
+  },
+  oracle: {
+    text  : 'SELECT DISTINCT "user"."id", "user"."name" FROM "user"',
+    string: 'SELECT DISTINCT "user"."id", "user"."name" FROM "user"'
   },
   params: []
 });

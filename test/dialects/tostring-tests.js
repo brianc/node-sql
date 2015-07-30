@@ -23,6 +23,10 @@ Harness.test({
     text  : '([post].[content] = @1)',
     string: '([post].[content] = NULL)'
   },
+  oracle: {
+    text  : '("post"."content" = :1)',
+    string: '("post"."content" = NULL)'
+  },
   params: [null]
 });
 
@@ -44,6 +48,10 @@ Harness.test({
   mssql: {
     text  : '([post].[content] = @1)',
     string: '([post].[content] = 3.14)'
+  },
+  oracle: {
+    text  : '("post"."content" = :1)',
+    string: '("post"."content" = 3.14)'
   },
   params: [3.14]
 });
@@ -67,6 +75,10 @@ Harness.test({
     text  : '([post].[content] = @1)',
     string: '([post].[content] = \'hello\'\'\')'
   },
+  oracle: {
+    text  : '("post"."content" = :1)',
+    string: '("post"."content" = \'hello\'\'\')'
+  },
   params: ['hello\'']
 });
 
@@ -86,6 +98,10 @@ Harness.test({
     string: '(`post`.`content` = (1, \'2\', NULL))'
   },
   mssql: {
+    text  : 'SQL Server does not support arrays.',
+    throws: true
+  },
+  oracle: {
     text  : 'SQL Server does not support arrays.',
     throws: true
   },
@@ -110,6 +126,10 @@ Harness.test({
   mssql: {
     text  : '([post].[content] = @1)',
     string: '([post].[content] = \'2000-01-01T00:00:00.000Z\')'
+  },
+  oracle: {
+    text  : '("post"."content" = :1)',
+    string: '("post"."content" = \'2000-01-01T00:00:00.000Z\')'
   },
   params: [new Date('Sat, 01 Jan 2000 00:00:00 GMT')]
 });
@@ -138,6 +158,10 @@ Harness.test({
   mssql: {
     text  : '([post].[content] = @1)',
     string: '([post].[content] = \'secretMessage\')'
+  },
+  oracle: {
+    text  : '("post"."content" = :1)',
+    string: '("post"."content" = \'secretMessage\')'
   },
   params: [customObject]
 });

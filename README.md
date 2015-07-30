@@ -1,5 +1,5 @@
 # node-sql
-_sql string builder for node_ - supports PostgreSQL, mysql, Microsoft SQL Server, and sqlite dialects.
+_sql string builder for node_ - supports PostgreSQL, mysql, Microsoft SQL Server, Oracle and sqlite dialects.
 
 Building SQL statements by hand is no fun, especially in a language which has clumsy support for multi-line strings.
 

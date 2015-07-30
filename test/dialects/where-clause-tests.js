@@ -21,6 +21,10 @@ Harness.test({
     text  : 'SELECT * FROM [user] WHERE (([user].[id] IS NOT NULL) AND ([user].[name] IS NOT NULL))',
     string: 'SELECT * FROM [user] WHERE (([user].[id] IS NOT NULL) AND ([user].[name] IS NOT NULL))'
   },
+  oracle: {
+    text  : 'SELECT * FROM "user" WHERE (("user"."id" IS NOT NULL) AND ("user"."name" IS NOT NULL))',
+    string: 'SELECT * FROM "user" WHERE (("user"."id" IS NOT NULL) AND ("user"."name" IS NOT NULL))'
+  },
   params: []
 });
 
@@ -41,6 +45,10 @@ Harness.test({
   mssql: {
     text  : 'SELECT * FROM [user] WHERE (([user].[id] IS NOT NULL) AND ([user].[name] IS NOT NULL))',
     string: 'SELECT * FROM [user] WHERE (([user].[id] IS NOT NULL) AND ([user].[name] IS NOT NULL))'
+  },
+  oracle: {
+    text  : 'SELECT * FROM "user" WHERE (("user"."id" IS NOT NULL) AND ("user"."name" IS NOT NULL))',
+    string: 'SELECT * FROM "user" WHERE (("user"."id" IS NOT NULL) AND ("user"."name" IS NOT NULL))'
   },
   params: []
 });
@@ -63,6 +71,10 @@ Harness.test({
     text  : 'SELECT * FROM [user] WHERE (([user].[id] IS NOT NULL) AND ([user].[name] IS NOT NULL))',
     string: 'SELECT * FROM [user] WHERE (([user].[id] IS NOT NULL) AND ([user].[name] IS NOT NULL))'
   },
+  oracle: {
+    text  : 'SELECT * FROM "user" WHERE (("user"."id" IS NOT NULL) AND ("user"."name" IS NOT NULL))',
+    string: 'SELECT * FROM "user" WHERE (("user"."id" IS NOT NULL) AND ("user"."name" IS NOT NULL))'
+  },
   params: []
 });
 
@@ -83,6 +95,10 @@ Harness.test({
   mssql: {
     text  : 'SELECT * FROM [user] WHERE (1 = 1)',
     string: 'SELECT * FROM [user] WHERE (1 = 1)'
+  },
+  oracle: {
+    text  : 'SELECT * FROM "user" WHERE (1 = 1)',
+    string: 'SELECT * FROM "user" WHERE (1 = 1)'
   },
   params: []
 });
@@ -105,6 +121,10 @@ Harness.test({
     text  : 'SELECT [user].* FROM [user] WHERE (([user].[id] = @1) AND ([user].[name] = @2))',
     string: 'SELECT [user].* FROM [user] WHERE (([user].[id] = 1) AND ([user].[name] = \'a\'))'
   },
+  oracle: {
+    text  : 'SELECT "user".* FROM "user" WHERE (("user"."id" = :1) AND ("user"."name" = :2))',
+    string: 'SELECT "user".* FROM "user" WHERE (("user"."id" = 1) AND ("user"."name" = \'a\'))'
+  },
   params: [1,'a']
 });
 
@@ -125,6 +145,10 @@ Harness.test({
   mssql: {
     text  : 'SELECT [user].* FROM [user] WHERE ([user].[id] = @1)',
     string: 'SELECT [user].* FROM [user] WHERE ([user].[id] = 1)'
+  },
+  oracle: {
+    text  : 'SELECT "user".* FROM "user" WHERE ("user"."id" = :1)',
+    string: 'SELECT "user".* FROM "user" WHERE ("user"."id" = 1)'
   },
   params: [1]
 });
@@ -147,6 +171,10 @@ Harness.test({
     text  : 'SELECT [user].* FROM [user] WHERE ([user].[id] = @1)',
     string: 'SELECT [user].* FROM [user] WHERE ([user].[id] = 1)'
   },
+  oracle: {
+    text  : 'SELECT "user".* FROM "user" WHERE ("user"."id" = :1)',
+    string: 'SELECT "user".* FROM "user" WHERE ("user"."id" = 1)'
+  },
   params: [1]
 });
 
@@ -167,6 +195,10 @@ Harness.test({
   mssql: {
     text  : 'SELECT [user].* FROM [user] WHERE (([user].[id] = @1) OR ([user].[name] = @2))',
     string: 'SELECT [user].* FROM [user] WHERE (([user].[id] = 1) OR ([user].[name] = \'a\'))'
+  },
+  oracle: {
+    text  : 'SELECT "user".* FROM "user" WHERE (("user"."id" = :1) OR ("user"."name" = :2))',
+    string: 'SELECT "user".* FROM "user" WHERE (("user"."id" = 1) OR ("user"."name" = \'a\'))'
   },
   params: [1,'a']
 });

@@ -21,6 +21,10 @@ Harness.test({
     text  : 'DROP TABLE [post]',
     string: 'DROP TABLE [post]'
   },
+  oracle: {
+    text  : 'DROP TABLE "post"',
+    string: 'DROP TABLE "post"'
+  },
   params: []
 });
 
@@ -42,6 +46,10 @@ Harness.test({
     text  : 'IF EXISTS(SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = [post]) BEGIN DROP TABLE [post] END',
     string: 'IF EXISTS(SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = [post]) BEGIN DROP TABLE [post] END'
   },
+  oracle: {
+    text  : 'BEGIN EXECUTE IMMEDIATE \'DROP TABLE "post"\'; EXCEPTION WHEN OTHERS THEN IF SQLCODE != -942 THEN RAISE; END IF; END;',
+    string: 'BEGIN EXECUTE IMMEDIATE \'DROP TABLE "post"\'; EXCEPTION WHEN OTHERS THEN IF SQLCODE != -942 THEN RAISE; END IF; END;'
+  },
   params: []
 });
 
@@ -59,6 +67,10 @@ Harness.test({
     text  : 'DROP TABLE `post` CASCADE',
     string: 'DROP TABLE `post` CASCADE'
   },
+  oracle: {
+    text  : 'DROP TABLE "post" CASCADE CONSTRAINTS',
+    string: 'DROP TABLE "post" CASCADE CONSTRAINTS'
+  },
   params: []
 });
 
@@ -75,6 +87,10 @@ Harness.test({
   mysql: {
     text  : 'DROP TABLE `post` RESTRICT',
     string: 'DROP TABLE `post` RESTRICT'
+  },
+  oracle: {
+    text  : 'Oracle do not support RESTRICT in DROP TABLE',
+    throws: true
   },
   params: []
 });

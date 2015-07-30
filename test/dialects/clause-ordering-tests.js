@@ -23,6 +23,10 @@ Harness.test({
     text  : 'SELECT [user].[name], [post].[content] FROM [user] INNER JOIN [post] ON ([user].[id] = [post].[userId])',
     string: 'SELECT [user].[name], [post].[content] FROM [user] INNER JOIN [post] ON ([user].[id] = [post].[userId])'
   },
+  oracle: {
+    text  : 'SELECT "user"."name", "post"."content" FROM "user" INNER JOIN "post" ON ("user"."id" = "post"."userId")',
+    string: 'SELECT "user"."name", "post"."content" FROM "user" INNER JOIN "post" ON ("user"."id" = "post"."userId")'
+  },
   params: []
 });
 
@@ -46,6 +50,10 @@ Harness.test({
   mssql: {
     text  : 'SELECT [user].[id] FROM [user] WHERE ([user].[name] = @1)',
     string: 'SELECT [user].[id] FROM [user] WHERE ([user].[name] = \'\')'
+  },
+  oracle: {
+    text  : 'SELECT "user"."id" FROM "user" WHERE ("user"."name" = :1)',
+    string: 'SELECT "user"."id" FROM "user" WHERE ("user"."name" = \'\')'
   },
   params: ['']
 });
@@ -74,6 +82,10 @@ Harness.test({
     text  : 'SELECT [user].[name], [post].[content] FROM [user] INNER JOIN [post] ON ([user].[id] = [post].[userId]) WHERE ([user].[name] = @1)',
     string: 'SELECT [user].[name], [post].[content] FROM [user] INNER JOIN [post] ON ([user].[id] = [post].[userId]) WHERE ([user].[name] = \'\')'
   },
+  oracle: {
+    text  : 'SELECT "user"."name", "post"."content" FROM "user" INNER JOIN "post" ON ("user"."id" = "post"."userId") WHERE ("user"."name" = :1)',
+    string: 'SELECT "user"."name", "post"."content" FROM "user" INNER JOIN "post" ON ("user"."id" = "post"."userId") WHERE ("user"."name" = \'\')'
+  },
   params: ['']
 });
 
@@ -97,6 +109,10 @@ Harness.test({
   mssql: {
     text  : 'SELECT [user].[id] FROM [user] WHERE ([user].[name] = @1)',
     string: 'SELECT [user].[id] FROM [user] WHERE ([user].[name] = \'\')'
+  },
+  oracle: {
+    text  : 'SELECT "user"."id" FROM "user" WHERE ("user"."name" = :1)',
+    string: 'SELECT "user"."id" FROM "user" WHERE ("user"."name" = \'\')'
   },
   params: ['']
 });
