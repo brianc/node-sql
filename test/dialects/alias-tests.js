@@ -2,6 +2,7 @@
 
 var Harness = require('./support');
 var customer = Harness.defineCustomerTable();
+var Sql = require('../../lib').setDialect('postgres');
 
 Harness.test({
   query: customer.select(customer.name.isNull().as('nameIsNull')),
@@ -76,4 +77,29 @@ Harness.test({
     string: 'SELECT ("customer"."age" BETWEEN 10 AND 20) "ageBetween" FROM "customer"'
   },
   params: [10, 20]
+});
+
+Harness.test({
+  query: customer.select(Sql.functions.ROUND(customer.age.as('ageBetween'), 2)),
+  pg: {
+    text  : 'SELECT ROUND("customer"."age", $1) FROM "customer"',
+    string: 'SELECT ROUND("customer"."age", 2) FROM "customer"'
+  },
+  sqlite: {
+    text  : 'SELECT ROUND("customer"."age", $1) FROM "customer"',
+    string: 'SELECT ROUND("customer"."age", 2) FROM "customer"'
+  },
+  mysql: {
+    text  : 'SELECT ROUND(`customer`.`age`, ?) FROM `customer`',
+    string: 'SELECT ROUND(`customer`.`age`, 2) FROM `customer`'
+  },
+  mssql: {
+    text  : 'SELECT ROUND([customer].[age], @1) FROM [customer]',
+    string: 'SELECT ROUND([customer].[age], 2) FROM [customer]'
+  },
+  oracle: {
+    text  : 'SELECT ROUND("customer"."age", :1) FROM "customer"',
+    string: 'SELECT ROUND("customer"."age", 2) FROM "customer"'
+  },
+  params: [2]
 });
