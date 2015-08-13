@@ -235,3 +235,14 @@ test('dialects', function () {
   actual = foo.join(bar).on(bar.id.equals(1)).toString();
   assert.equal(actual, '"foo" INNER JOIN "bar" ON ("bar"."id" = 1)');
 });
+
+test('limit', function () {
+  var user = Table.define({
+    name: 'user',
+    columns: ['id', 'name']
+  });
+  var query = user.limit(3);
+  assert.equal(query.nodes.length, 1);
+  assert.equal(query.nodes[0].type, 'LIMIT');
+  assert.equal(query.nodes[0].count, 3);
+});
