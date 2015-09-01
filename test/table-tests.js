@@ -237,12 +237,24 @@ test('dialects', function () {
 });
 
 test('limit', function () {
-  var user = Table.define({
-    name: 'user',
-    columns: ['id', 'name']
-  });
+  var user = Table.define({name: 'user', columns: ['id', 'name']});
   var query = user.limit(3);
   assert.equal(query.nodes.length, 1);
   assert.equal(query.nodes[0].type, 'LIMIT');
   assert.equal(query.nodes[0].count, 3);
+});
+
+test('offset', function () {
+  var user = Table.define({name: 'user', columns: ['id', 'name']});
+  var query = user.offset(20);
+  assert.equal(query.nodes.length, 1);
+  assert.equal(query.nodes[0].type, 'OFFSET');
+  assert.equal(query.nodes[0].count, 20);
+});
+
+test('order', function () {
+  var user = Table.define({name: 'user', columns: ['id', 'name']});
+  var query = user.order(user.name);
+  assert.equal(query.nodes.length, 1);
+  assert.equal(query.nodes[0].type, 'ORDER BY');
 });
