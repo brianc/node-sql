@@ -5,7 +5,12 @@ var sql = require(__dirname + '/../lib').setDialect('postgres');
 
 var user = sql.define({
   name: 'user',
-  columns: ['id', 'email', 'name']
+  columns: [
+    {name: 'id'}, 
+    {name:'email'},
+    {name: 'name'},
+    {name: 'age', property: 'howOld'}
+    ]
 });
 
 suite('function', function() {
@@ -14,6 +19,14 @@ suite('function', function() {
     var aliasedUpper = upper(user.email).as('upperAlias').toQuery();
 
     assert.equal(aliasedUpper.text, 'UPPER("user"."email") AS "upperAlias"');
+  });
+
+  test('function call on aliased column', function() {
+    var round = sql.functions.ROUND;
+    var aliasedRound = round(user.howOld, 2).toQuery();
+
+    assert.equal(aliasedRound.text, 'ROUND("user"."age", $1)');
+    assert.equal(aliasedRound.values[0], 2);
   });
 
   test('creating function call works', function() {

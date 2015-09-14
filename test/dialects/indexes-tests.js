@@ -122,6 +122,57 @@ Harness.test({
 });
 
 Harness.test({
+  query: post.indexes().create().on(post.userId, post.id.desc),
+  pg: {
+    text  : 'CREATE INDEX "post_id_userId" ON "post" ("userId","id" DESC)',
+    string: 'CREATE INDEX "post_id_userId" ON "post" ("userId","id" DESC)'
+  },
+  mysql: {
+    text  : 'CREATE INDEX `post_id_userId` ON `post` (`userId`,`id` DESC)',
+    string: 'CREATE INDEX `post_id_userId` ON `post` (`userId`,`id` DESC)'
+  },
+  sqlite: {
+    text  : 'CREATE INDEX "post_id_userId" ON "post" ("userId","id" DESC)',
+    string: 'CREATE INDEX "post_id_userId" ON "post" ("userId","id" DESC)'
+  },
+  mssql: {
+    text  : 'CREATE INDEX [post_id_userId] ON [post] ([userId],[id] DESC)',
+    string: 'CREATE INDEX [post_id_userId] ON [post] ([userId],[id] DESC)'
+  },
+  oracle: {
+    text  : 'CREATE INDEX "post_id_userId" ON "post" ("userId","id" DESC)',
+    string: 'CREATE INDEX "post_id_userId" ON "post" ("userId","id" DESC)'
+  },
+  params: []
+});
+
+Harness.test({
+  query: post.indexes().create().on(post.userId).on(post.id.descending),
+  pg: {
+    text  : 'CREATE INDEX "post_id_userId" ON "post" ("userId","id" DESC)',
+    string: 'CREATE INDEX "post_id_userId" ON "post" ("userId","id" DESC)'
+  },
+  mysql: {
+    text  : 'CREATE INDEX `post_id_userId` ON `post` (`userId`,`id` DESC)',
+    string: 'CREATE INDEX `post_id_userId` ON `post` (`userId`,`id` DESC)'
+  },
+  sqlite: {
+    text  : 'CREATE INDEX "post_id_userId" ON "post" ("userId","id" DESC)',
+    string: 'CREATE INDEX "post_id_userId" ON "post" ("userId","id" DESC)'
+  },
+  mssql: {
+    text  : 'CREATE INDEX [post_id_userId] ON [post] ([userId],[id] DESC)',
+    string: 'CREATE INDEX [post_id_userId] ON [post] ([userId],[id] DESC)'
+  },
+  oracle: {
+    text  : 'CREATE INDEX "post_id_userId" ON "post" ("userId","id" DESC)',
+    string: 'CREATE INDEX "post_id_userId" ON "post" ("userId","id" DESC)'
+  },
+  params: []
+});
+
+
+Harness.test({
   query: post.indexes().create(),
   pg: {
     text  : 'No columns defined!',
