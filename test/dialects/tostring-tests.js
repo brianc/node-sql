@@ -134,6 +134,35 @@ Harness.test({
   params: [new Date('Sat, 01 Jan 2000 00:00:00 GMT')]
 });
 
+// Date to milliseconds
+Harness.test({
+  query: post.content.equals(new Date('Sat, 01 Jan 2000 00:00:00 GMT')),
+  pg: {
+    text  : '("post"."content" = $1)',
+    string: '("post"."content" = \'2000-01-01T00:00:00.000Z\')'
+  },
+  sqlite: {
+    text  : '("post"."content" = $1)',
+    string: '("post"."content" = 946684800000)',
+    config: {
+      dateTimeMillis: true
+    }
+  },
+  mysql: {
+    text  : '(`post`.`content` = ?)',
+    string: '(`post`.`content` = \'2000-01-01T00:00:00.000Z\')'
+  },
+  mssql: {
+    text  : '([post].[content] = @1)',
+    string: '([post].[content] = \'2000-01-01T00:00:00.000Z\')'
+  },
+  oracle: {
+    text  : '("post"."content" = :1)',
+    string: '("post"."content" = \'2000-01-01T00:00:00.000Z\')'
+  },
+  params: [new Date('Sat, 01 Jan 2000 00:00:00 GMT')]
+});
+
 // Object
 var customObject = {
   toString: function() {
