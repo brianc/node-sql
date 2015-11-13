@@ -253,3 +253,59 @@ Harness.test({
   },
   params: []
 });
+
+Harness.test({
+  query: post.select(post.content).order(post.content.descending),
+  pg: {
+    text  : 'SELECT "post"."content" FROM "post" ORDER BY "post"."content" DESC NULLS LAST',
+    string: 'SELECT "post"."content" FROM "post" ORDER BY "post"."content" DESC NULLS LAST',
+    config: {
+        nullsLast: true
+    }
+  },
+  sqlite: {
+    text  : 'SELECT "post"."content" FROM "post" ORDER BY "post"."content" DESC',
+    string: 'SELECT "post"."content" FROM "post" ORDER BY "post"."content" DESC'
+  },
+  mysql: {
+    text  : 'SELECT `post`.`content` FROM `post` ORDER BY `post`.`content` DESC',
+    string: 'SELECT `post`.`content` FROM `post` ORDER BY `post`.`content` DESC'
+  },
+  mssql: {
+    text  : 'SELECT [post].[content] FROM [post] ORDER BY [post].[content] DESC',
+    string: 'SELECT [post].[content] FROM [post] ORDER BY [post].[content] DESC'
+  },
+  oracle: {
+    text  : 'SELECT "post"."content" FROM "post" ORDER BY "post"."content" DESC',
+    string: 'SELECT "post"."content" FROM "post" ORDER BY "post"."content" DESC'
+  },
+  params: []
+});
+
+Harness.test({
+  query: post.select(post.content).order(post.content),
+  pg: {
+    text  : 'SELECT "post"."content" FROM "post" ORDER BY "post"."content" NULLS LAST',
+    string: 'SELECT "post"."content" FROM "post" ORDER BY "post"."content" NULLS LAST',
+    config: {
+        nullsLast: true
+    }
+  },
+  sqlite: {
+    text  : 'SELECT "post"."content" FROM "post" ORDER BY "post"."content"',
+    string: 'SELECT "post"."content" FROM "post" ORDER BY "post"."content"'
+  },
+  mysql: {
+    text  : 'SELECT `post`.`content` FROM `post` ORDER BY `post`.`content`',
+    string: 'SELECT `post`.`content` FROM `post` ORDER BY `post`.`content`'
+  },
+  mssql: {
+    text  : 'SELECT [post].[content] FROM [post] ORDER BY [post].[content]',
+    string: 'SELECT [post].[content] FROM [post] ORDER BY [post].[content]'
+  },
+  oracle: {
+    text  : 'SELECT "post"."content" FROM "post" ORDER BY "post"."content"',
+    string: 'SELECT "post"."content" FROM "post" ORDER BY "post"."content"'
+  },
+  params: []
+});
