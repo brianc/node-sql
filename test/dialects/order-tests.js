@@ -260,7 +260,7 @@ Harness.test({
     text  : 'SELECT "post"."content" FROM "post" ORDER BY "post"."content" DESC NULLS LAST',
     string: 'SELECT "post"."content" FROM "post" ORDER BY "post"."content" DESC NULLS LAST',
     config: {
-        nullsLast: true
+        nullOrder: "last"
     }
   },
   sqlite: {
@@ -288,7 +288,35 @@ Harness.test({
     text  : 'SELECT "post"."content" FROM "post" ORDER BY "post"."content" NULLS LAST',
     string: 'SELECT "post"."content" FROM "post" ORDER BY "post"."content" NULLS LAST',
     config: {
-        nullsLast: true
+        nullOrder: "last"
+    }
+  },
+  sqlite: {
+    text  : 'SELECT "post"."content" FROM "post" ORDER BY "post"."content"',
+    string: 'SELECT "post"."content" FROM "post" ORDER BY "post"."content"'
+  },
+  mysql: {
+    text  : 'SELECT `post`.`content` FROM `post` ORDER BY `post`.`content`',
+    string: 'SELECT `post`.`content` FROM `post` ORDER BY `post`.`content`'
+  },
+  mssql: {
+    text  : 'SELECT [post].[content] FROM [post] ORDER BY [post].[content]',
+    string: 'SELECT [post].[content] FROM [post] ORDER BY [post].[content]'
+  },
+  oracle: {
+    text  : 'SELECT "post"."content" FROM "post" ORDER BY "post"."content"',
+    string: 'SELECT "post"."content" FROM "post" ORDER BY "post"."content"'
+  },
+  params: []
+});
+
+Harness.test({
+  query: post.select(post.content).order(post.content.asc),
+  pg: {
+    text  : 'SELECT "post"."content" FROM "post" ORDER BY "post"."content" NULLS FIRST',
+    string: 'SELECT "post"."content" FROM "post" ORDER BY "post"."content" NULLS FIRST',
+    config: {
+        nullOrder: "first"
     }
   },
   sqlite: {
