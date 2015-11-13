@@ -162,3 +162,30 @@ Harness.test({
   },
   params: []
 });
+
+var limitUsers = user.subQuery('limit-users').select(user.id, user.name).from(user).order(user.name).limit(10).offset(10);
+Harness.test({
+  query: Sql.select(limitUsers.name, post.tags).from(limitUsers.leftJoin(post).on(post.userId.equals(limitUsers.id))),
+  pg: {
+    text  : 'SELECT "limit-users"."name", "post"."tags" FROM (SELECT "user"."id", "user"."name" FROM "user" ORDER BY "user"."name" LIMIT 10 OFFSET 10) "limit-users" LEFT JOIN "post" ON ("post"."userId" = "limit-users"."id")',
+    string: 'SELECT "limit-users"."name", "post"."tags" FROM (SELECT "user"."id", "user"."name" FROM "user" ORDER BY "user"."name" LIMIT 10 OFFSET 10) "limit-users" LEFT JOIN "post" ON ("post"."userId" = "limit-users"."id")'
+  },
+  sqlite: {
+    text  : 'SELECT "limit-users"."name", "post"."tags" FROM (SELECT "user"."id", "user"."name" FROM "user" ORDER BY "user"."name" LIMIT 10 OFFSET 10) "limit-users" LEFT JOIN "post" ON ("post"."userId" = "limit-users"."id")',
+    string: 'SELECT "limit-users"."name", "post"."tags" FROM (SELECT "user"."id", "user"."name" FROM "user" ORDER BY "user"."name" LIMIT 10 OFFSET 10) "limit-users" LEFT JOIN "post" ON ("post"."userId" = "limit-users"."id")'
+  },
+  mysql: {
+    text  : 'SELECT `limit-users`.`name`, `post`.`tags` FROM (SELECT `user`.`id`, `user`.`name` FROM `user` ORDER BY `user`.`name` LIMIT 10 OFFSET 10) `limit-users` LEFT JOIN `post` ON (`post`.`userId` = `limit-users`.`id`)',
+    string: 'SELECT `limit-users`.`name`, `post`.`tags` FROM (SELECT `user`.`id`, `user`.`name` FROM `user` ORDER BY `user`.`name` LIMIT 10 OFFSET 10) `limit-users` LEFT JOIN `post` ON (`post`.`userId` = `limit-users`.`id`)'
+  },
+  mssql: {
+    text  : 'SELECT [limit-users].[name], [post].[tags] FROM (SELECT [user].[id], [user].[name] FROM [user] ORDER BY [user].[name] OFFSET 10 ROWS FETCH NEXT 10 ROWS ONLY) [limit-users] LEFT JOIN [post] ON ([post].[userId] = [limit-users].[id])',
+    string: 'SELECT [limit-users].[name], [post].[tags] FROM (SELECT [user].[id], [user].[name] FROM [user] ORDER BY [user].[name] OFFSET 10 ROWS FETCH NEXT 10 ROWS ONLY) [limit-users] LEFT JOIN [post] ON ([post].[userId] = [limit-users].[id])'
+  },
+  oracle: {
+    text  : 'SELECT "limit-users"."name", "post"."tags" FROM (SELECT "user"."id", "user"."name" FROM "user" ORDER BY "user"."name" OFFSET 10 ROWS FETCH NEXT 10 ROWS ONLY) "limit-users" LEFT JOIN "post" ON ("post"."userId" = "limit-users"."id")',
+    string: 'SELECT "limit-users"."name", "post"."tags" FROM (SELECT "user"."id", "user"."name" FROM "user" ORDER BY "user"."name" OFFSET 10 ROWS FETCH NEXT 10 ROWS ONLY) "limit-users" LEFT JOIN "post" ON ("post"."userId" = "limit-users"."id")'
+  },
+  params: []
+});
+
