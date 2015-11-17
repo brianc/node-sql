@@ -85,6 +85,36 @@ Harness.test({
   params: []
 });
 
+// Subquery with a date
+Harness.test({
+  query: Sql.select('*').from(post.subQuery().where(post.content.equals(new Date('Sat, 01 Jan 2000 00:00:00 GMT')))),
+  pg: {
+    text  : 'SELECT * FROM (SELECT * FROM "post" WHERE ("post"."content" = $1))',
+    string: 'SELECT * FROM (SELECT * FROM "post" WHERE ("post"."content" = \'2000-01-01T00:00:00.000Z\'))'
+  },
+  sqlite: {
+    text  : 'SELECT * FROM (SELECT * FROM "post" WHERE ("post"."content" = $1))',
+    string: 'SELECT * FROM (SELECT * FROM "post" WHERE ("post"."content" = 946684800000))',
+    config: {
+        dateTimeMillis: true
+    }
+  },
+  mysql: {
+    text  : 'SELECT * FROM (SELECT * FROM `post` WHERE (`post`.`content` = ?))',
+    string: 'SELECT * FROM (SELECT * FROM `post` WHERE (`post`.`content` = \'2000-01-01T00:00:00.000Z\'))'
+  },
+  mssql: {
+    text  : 'SELECT * FROM (SELECT * FROM [post] WHERE ([post].[content] = @1))',
+    string: 'SELECT * FROM (SELECT * FROM [post] WHERE ([post].[content] = \'2000-01-01T00:00:00.000Z\'))'
+  },
+  oracle: {
+    text  : 'SELECT * FROM (SELECT * FROM "post" WHERE ("post"."content" = :1))',
+    string: 'SELECT * FROM (SELECT * FROM "post" WHERE ("post"."content" = \'2000-01-01T00:00:00.000Z\'))'
+  },
+  params: [new Date('Sat, 01 Jan 2000 00:00:00 GMT')]
+});
+
+
 Harness.test({
   query: Sql.select('*').from(customer.subQuery('T1')).from(user.subQuery('T2')),
   pg: {
