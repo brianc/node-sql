@@ -22,6 +22,10 @@ Harness.test({
     text  : 'SELECT [customer].* FROM [customer] WHERE ([customer].[age] IS NOT NULL)',
     string: 'SELECT [customer].* FROM [customer] WHERE ([customer].[age] IS NOT NULL)'
   },
+  oracle: {
+    text  : 'SELECT "customer".* FROM "customer" WHERE ("customer"."age" IS NOT NULL)',
+    string: 'SELECT "customer".* FROM "customer" WHERE ("customer"."age" IS NOT NULL)'
+  },
   params: []
 });
 
@@ -42,6 +46,10 @@ Harness.test({
   mssql: {
     text  : 'SELECT [post].* FROM [post] WHERE ([post].[userId] IN (SELECT [customer].[id] FROM [customer] WHERE ([customer].[age] IS NULL)))',
     string: 'SELECT [post].* FROM [post] WHERE ([post].[userId] IN (SELECT [customer].[id] FROM [customer] WHERE ([customer].[age] IS NULL)))'
+  },
+  oracle: {
+    text  : 'SELECT "post".* FROM "post" WHERE ("post"."userId" IN (SELECT "customer"."id" FROM "customer" WHERE ("customer"."age" IS NULL)))',
+    string: 'SELECT "post".* FROM "post" WHERE ("post"."userId" IN (SELECT "customer"."id" FROM "customer" WHERE ("customer"."age" IS NULL)))'
   },
   params: []
 });

@@ -23,6 +23,11 @@ Harness.test({
     string: 'SELECT (CASE WHEN 1=1 THEN 0 WHEN 0=1 THEN 1 ELSE 2 END) FROM [customer]',
     params: [0, 1, 2]
   },
+  oracle: {
+    text  : 'SELECT (CASE WHEN 1=1 THEN :1 WHEN 0=1 THEN :2 ELSE :3 END) FROM "customer"',
+    string: 'SELECT (CASE WHEN 1=1 THEN 0 WHEN 0=1 THEN 1 ELSE 2 END) FROM "customer"',
+    params: [0, 1, 2]
+  },
   params: [true, 0, false, 1, 2]
 });
 
@@ -44,6 +49,11 @@ Harness.test({
   mssql: {
     text  : 'SELECT ([customer].[age] + (CASE WHEN 1=1 THEN @1 WHEN 0=1 THEN @2 ELSE @3 END)) FROM [customer]',
     string: 'SELECT ([customer].[age] + (CASE WHEN 1=1 THEN 0 WHEN 0=1 THEN 1 ELSE 2 END)) FROM [customer]',
+    params: [0, 1, 2]
+  },
+  oracle: {
+    text  : 'SELECT ("customer"."age" + (CASE WHEN 1=1 THEN :1 WHEN 0=1 THEN :2 ELSE :3 END)) FROM "customer"',
+    string: 'SELECT ("customer"."age" + (CASE WHEN 1=1 THEN 0 WHEN 0=1 THEN 1 ELSE 2 END)) FROM "customer"',
     params: [0, 1, 2]
   },
   params: [true, 0, false, 1, 2]
@@ -69,6 +79,11 @@ Harness.test({
     string: 'SELECT ((CASE WHEN 1=1 THEN 0 WHEN 0=1 THEN 1 ELSE 2 END) + 3) FROM [customer]',
     params: [0, 1, 2, 3]
   },
+  oracle: {
+    text  : 'SELECT ((CASE WHEN 1=1 THEN :1 WHEN 0=1 THEN :2 ELSE :3 END) + :4) FROM "customer"',
+    string: 'SELECT ((CASE WHEN 1=1 THEN 0 WHEN 0=1 THEN 1 ELSE 2 END) + 3) FROM "customer"',
+    params: [0, 1, 2, 3]
+  },
   params: [true, 0, false, 1, 2, 3]
 });
 
@@ -90,6 +105,11 @@ Harness.test({
   mssql: {
     text  : 'SELECT (CASE WHEN 1=1 THEN @1 WHEN 0=1 THEN @2 ELSE ([customer].[age] BETWEEN @3 AND @4) END) FROM [customer]',
     string: 'SELECT (CASE WHEN 1=1 THEN 0 WHEN 0=1 THEN 1 ELSE ([customer].[age] BETWEEN 10 AND 20) END) FROM [customer]',
+    params: [0, 1, 10, 20]
+  },
+  oracle: {
+    text  : 'SELECT (CASE WHEN 1=1 THEN :1 WHEN 0=1 THEN :2 ELSE ("customer"."age" BETWEEN :3 AND :4) END) FROM "customer"',
+    string: 'SELECT (CASE WHEN 1=1 THEN 0 WHEN 0=1 THEN 1 ELSE ("customer"."age" BETWEEN 10 AND 20) END) FROM "customer"',
     params: [0, 1, 10, 20]
   },
   params: [true, 0, false, 1, 10, 20]
@@ -115,6 +135,11 @@ Harness.test({
     string: 'SELECT (CASE WHEN 1=1 THEN 0 WHEN 0=1 THEN 1 END) FROM [customer]',
     params: [0, 1]
   },
+  oracle: {
+    text  : 'SELECT (CASE WHEN 1=1 THEN :1 WHEN 0=1 THEN :2 END) FROM "customer"',
+    string: 'SELECT (CASE WHEN 1=1 THEN 0 WHEN 0=1 THEN 1 END) FROM "customer"',
+    params: [0, 1]
+  },
   params: [true, 0, false, 1]
 });
 
@@ -136,6 +161,10 @@ Harness.test({
   mssql: {
     text  : 'SELECT (CASE WHEN ([customer].[age] IN (@1, @2, @3)) THEN @4 WHEN ([customer].[age] <= @5) THEN @6 ELSE @7 END) FROM [customer]',
     string: 'SELECT (CASE WHEN ([customer].[age] IN (10, 20, 30)) THEN 0 WHEN ([customer].[age] <= 60) THEN 1 ELSE 2 END) FROM [customer]'
+  },
+  oracle: {
+    text  : 'SELECT (CASE WHEN ("customer"."age" IN (:1, :2, :3)) THEN :4 WHEN ("customer"."age" <= :5) THEN :6 ELSE :7 END) FROM "customer"',
+    string: 'SELECT (CASE WHEN ("customer"."age" IN (10, 20, 30)) THEN 0 WHEN ("customer"."age" <= 60) THEN 1 ELSE 2 END) FROM "customer"'
   },
   params: [10, 20, 30, 0, 60, 1, 2]
 });
@@ -159,6 +188,10 @@ Harness.test({
     text  : 'SELECT (CASE WHEN ([customer].[age] IN (@1, @2, @3)) THEN @4 WHEN ([customer].[age] <= @5) THEN @6 END) FROM [customer]',
     string: 'SELECT (CASE WHEN ([customer].[age] IN (10, 20, 30)) THEN 0 WHEN ([customer].[age] <= 60) THEN 1 END) FROM [customer]'
   },
+  oracle: {
+    text  : 'SELECT (CASE WHEN ("customer"."age" IN (:1, :2, :3)) THEN :4 WHEN ("customer"."age" <= :5) THEN :6 END) FROM "customer"',
+    string: 'SELECT (CASE WHEN ("customer"."age" IN (10, 20, 30)) THEN 0 WHEN ("customer"."age" <= 60) THEN 1 END) FROM "customer"'
+  },
   params: [10, 20, 30, 0, 60, 1]
 });
 
@@ -180,6 +213,10 @@ Harness.test({
   mssql: {
     text  : 'SELECT (CASE WHEN ([customer].[age] IN (@1, @2, @3)) THEN ([customer].[age] + @4) WHEN ([customer].[age] <= @5) THEN ([customer].[age] - @6) END) FROM [customer]',
     string: 'SELECT (CASE WHEN ([customer].[age] IN (10, 20, 30)) THEN ([customer].[age] + 5) WHEN ([customer].[age] <= 60) THEN ([customer].[age] - 1) END) FROM [customer]'
+  },
+  oracle: {
+    text  : 'SELECT (CASE WHEN ("customer"."age" IN (:1, :2, :3)) THEN ("customer"."age" + :4) WHEN ("customer"."age" <= :5) THEN ("customer"."age" - :6) END) FROM "customer"',
+    string: 'SELECT (CASE WHEN ("customer"."age" IN (10, 20, 30)) THEN ("customer"."age" + 5) WHEN ("customer"."age" <= 60) THEN ("customer"."age" - 1) END) FROM "customer"'
   },
   params: [10, 20, 30, 5, 60, 1]
 });

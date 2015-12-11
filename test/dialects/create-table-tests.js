@@ -33,6 +33,10 @@ Harness.test({
     text  : 'CREATE TABLE [group] ([id] varchar(100), [user_id] varchar(100))',
     string: 'CREATE TABLE [group] ([id] varchar(100), [user_id] varchar(100))'
   },
+  oracle: {
+    text  : 'CREATE TABLE "group" ("id" varchar(100), "user_id" varchar(100))',
+    string: 'CREATE TABLE "group" ("id" varchar(100), "user_id" varchar(100))'
+  },
   params: []
 });
 
@@ -53,6 +57,10 @@ Harness.test({
   mssql: {
     text  : 'IF NOT EXISTS(SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = \'group\') BEGIN CREATE TABLE [group] ([id] varchar(100), [user_id] varchar(100)) END',
     string: 'IF NOT EXISTS(SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = \'group\') BEGIN CREATE TABLE [group] ([id] varchar(100), [user_id] varchar(100)) END'
+  },
+  oracle: {
+    text  : 'BEGIN EXECUTE IMMEDIATE \'CREATE TABLE "group" ("id" varchar(100), "user_id" varchar(100))\'; EXCEPTION WHEN OTHERS THEN IF SQLCODE != -955 THEN RAISE; END IF; END;',
+    string: 'BEGIN EXECUTE IMMEDIATE \'CREATE TABLE "group" ("id" varchar(100), "user_id" varchar(100))\'; EXCEPTION WHEN OTHERS THEN IF SQLCODE != -955 THEN RAISE; END IF; END;'
   },
   params: []
 });
@@ -82,6 +90,10 @@ Harness.test({
   mssql: {
     text  : 'CREATE TABLE [user] ([id] varchar(100))',
     string: 'CREATE TABLE [user] ([id] varchar(100))'
+  },
+  oracle: {
+    text  : 'CREATE TABLE "user" ("id" varchar(100))',
+    string: 'CREATE TABLE "user" ("id" varchar(100))'
   }
 });
 
@@ -110,6 +122,10 @@ Harness.test({
   mssql: {
     text  : 'CREATE TABLE [user] ([id] varchar(100))',
     string: 'CREATE TABLE [user] ([id] varchar(100))'
+  },
+  oracle: {
+    text  : 'CREATE TABLE "user" ("id" varchar(100))',
+    string: 'CREATE TABLE "user" ("id" varchar(100))'
   }
 });
 
@@ -139,6 +155,10 @@ Harness.test({
   mssql: {
     text  : 'CREATE TABLE [user] ([id] varchar(100))',
     string: 'CREATE TABLE [user] ([id] varchar(100))'
+  },
+  oracle: {
+    text  : 'CREATE TABLE "user" ("id" varchar(100))',
+    string: 'CREATE TABLE "user" ("id" varchar(100))'
   }
 });
 
@@ -166,6 +186,10 @@ Harness.test({
   mssql: {
     text  : 'CREATE TABLE [user] ([id] int PRIMARY KEY)',
     string: 'CREATE TABLE [user] ([id] int PRIMARY KEY)'
+  },
+  oracle: {
+    text  : 'CREATE TABLE "user" ("id" int PRIMARY KEY)',
+    string: 'CREATE TABLE "user" ("id" int PRIMARY KEY)'
   }
 });
 
@@ -189,6 +213,10 @@ Harness.test({
   mysql: {
     text  : 'CREATE TABLE `user` (`id` int NOT NULL)',
     string: 'CREATE TABLE `user` (`id` int NOT NULL)'
+  },
+  oracle: {
+    text  : 'CREATE TABLE "user" ("id" int NOT NULL)',
+    string: 'CREATE TABLE "user" ("id" int NOT NULL)'
   }
 });
 
@@ -213,6 +241,10 @@ Harness.test({
   mysql: {
     text  : 'CREATE TABLE `user` (`id` int PRIMARY KEY)',
     string: 'CREATE TABLE `user` (`id` int PRIMARY KEY)'
+  },
+  oracle: {
+    text  : 'CREATE TABLE "user" ("id" int PRIMARY KEY)',
+    string: 'CREATE TABLE "user" ("id" int PRIMARY KEY)'
   }
 });
 
@@ -229,16 +261,20 @@ Harness.test({
     }]
   }).create(),
   pg: {
-    text  : 'CREATE TABLE "post" ("userId" int REFERENCES user(id))',
-    string: 'CREATE TABLE "post" ("userId" int REFERENCES user(id))'
+    text  : 'CREATE TABLE "post" ("userId" int REFERENCES "user"("id"))',
+    string: 'CREATE TABLE "post" ("userId" int REFERENCES "user"("id"))'
   },
   sqlite: {
-    text  : 'CREATE TABLE "post" ("userId" int REFERENCES user(id))',
-    string: 'CREATE TABLE "post" ("userId" int REFERENCES user(id))'
+    text  : 'CREATE TABLE "post" ("userId" int REFERENCES "user"("id"))',
+    string: 'CREATE TABLE "post" ("userId" int REFERENCES "user"("id"))'
   },
   mysql: {
-    text  : 'CREATE TABLE `post` (`userId` int REFERENCES user(id))',
-    string: 'CREATE TABLE `post` (`userId` int REFERENCES user(id))'
+    text  : 'CREATE TABLE `post` (`userId` int REFERENCES `user`(`id`))',
+    string: 'CREATE TABLE `post` (`userId` int REFERENCES `user`(`id`))'
+  },
+  oracle: {
+    text  : 'CREATE TABLE "post" ("userId" int REFERENCES "user"("id"))',
+    string: 'CREATE TABLE "post" ("userId" int REFERENCES "user"("id"))'
   },
   params: []
 });
@@ -260,16 +296,52 @@ Harness.test({
     }]
   }).create(),
   pg: {
-    text  : 'CREATE TABLE "picture" ("userId" int REFERENCES user(id), "caption" varchar(100))',
-    string: 'CREATE TABLE "picture" ("userId" int REFERENCES user(id), "caption" varchar(100))'
+    text  : 'CREATE TABLE "picture" ("userId" int REFERENCES "user"("id"), "caption" varchar(100))',
+    string: 'CREATE TABLE "picture" ("userId" int REFERENCES "user"("id"), "caption" varchar(100))'
   },
   sqlite: {
-    text  : 'CREATE TABLE "picture" ("userId" int REFERENCES user(id), "caption" varchar(100))',
-    string: 'CREATE TABLE "picture" ("userId" int REFERENCES user(id), "caption" varchar(100))'
+    text  : 'CREATE TABLE "picture" ("userId" int REFERENCES "user"("id"), "caption" varchar(100))',
+    string: 'CREATE TABLE "picture" ("userId" int REFERENCES "user"("id"), "caption" varchar(100))'
   },
   mysql: {
-    text  : 'CREATE TABLE `picture` (`userId` int REFERENCES user(id), `caption` varchar(100))',
-    string: 'CREATE TABLE `picture` (`userId` int REFERENCES user(id), `caption` varchar(100))'
+    text  : 'CREATE TABLE `picture` (`userId` int REFERENCES `user`(`id`), `caption` varchar(100))',
+    string: 'CREATE TABLE `picture` (`userId` int REFERENCES `user`(`id`), `caption` varchar(100))'
+  },
+  oracle: {
+    text  : 'CREATE TABLE "picture" ("userId" int REFERENCES "user"("id"), "caption" varchar(100))',
+    string: 'CREATE TABLE "picture" ("userId" int REFERENCES "user"("id"), "caption" varchar(100))'
+  },
+  params: []
+});
+
+Harness.test({
+  query: Table.define({
+  name: 'picture',
+  columns: [{
+    name: 'userId',
+    dataType: 'int',
+    references: {
+      table: 'user',
+      column: 'id',
+      onDelete: 'cascade'
+    }
+    }]
+  }).create(),
+  pg: {
+    text  : 'CREATE TABLE "picture" ("userId" int REFERENCES "user"("id") ON DELETE CASCADE)',
+    string: 'CREATE TABLE "picture" ("userId" int REFERENCES "user"("id") ON DELETE CASCADE)'
+  },
+  sqlite: {
+    text  : 'CREATE TABLE "picture" ("userId" int REFERENCES "user"("id") ON DELETE CASCADE)',
+    string: 'CREATE TABLE "picture" ("userId" int REFERENCES "user"("id") ON DELETE CASCADE)'
+  },
+  mysql: {
+    text  : 'CREATE TABLE `picture` (`userId` int REFERENCES `user`(`id`) ON DELETE CASCADE)',
+    string: 'CREATE TABLE `picture` (`userId` int REFERENCES `user`(`id`) ON DELETE CASCADE)'
+  },
+  oracle: {
+    text  : 'CREATE TABLE "picture" ("userId" int REFERENCES "user"("id") ON DELETE CASCADE)',
+    string: 'CREATE TABLE "picture" ("userId" int REFERENCES "user"("id") ON DELETE CASCADE)'
   },
   params: []
 });
@@ -292,6 +364,10 @@ Harness.test({
     throws: true
   },
   mysql: {
+    text  : 'references is not a object for column userId (REFERENCES statements within CREATE TABLE and ADD COLUMN statements require refrences to be expressed as an object)',
+    throws: true
+  },
+  oracle: {
     text  : 'references is not a object for column userId (REFERENCES statements within CREATE TABLE and ADD COLUMN statements require refrences to be expressed as an object)',
     throws: true
   },
@@ -349,6 +425,10 @@ Harness.test({
   mssql: {
     text  : 'CREATE TABLE [post] ([id] int)',
     string: 'CREATE TABLE [post] ([id] int)'
+  },
+  oracle: {
+    text  : 'CREATE TABLE "post" ("id" int)',
+    string: 'CREATE TABLE "post" ("id" int)'
   },
   params: []
 });

@@ -8,7 +8,8 @@ var dialects = {
   pg     : require('../../lib/dialect/postgres'),
   sqlite : require('../../lib/dialect/sqlite'),
   mysql  : require('../../lib/dialect/mysql'),
-  mssql  : require('../../lib/dialect/mssql')
+  mssql  : require('../../lib/dialect/mssql'),
+  oracle  : require('../../lib/dialect/oracle')
 };
 
 module.exports = {
@@ -26,11 +27,11 @@ module.exports = {
           // check if this query is expected to throw
           if (expectedObject.throws) {
             assert.throws(function() {
-              new DialectClass().getQuery(expected.query);
+              new DialectClass(expectedObject.config).getQuery(expected.query);
             });
           } else {
             // build query for dialect
-            var compiledQuery = new DialectClass().getQuery(expected.query);
+            var compiledQuery = new DialectClass(expectedObject.config).getQuery(expected.query);
 
             // test result is correct
             var expectedText = expectedObject.text || expectedObject;
@@ -50,10 +51,10 @@ module.exports = {
             // test the toString
             if (expectedObject.throws) {
               assert.throws(function() {
-                new DialectClass().getString(expected.query);
+                new DialectClass(expectedObject.config).getString(expected.query);
               });
             } else {
-              var compiledString = new DialectClass().getString(expected.query);
+              var compiledString = new DialectClass(expectedObject.config).getString(expected.query);
 
               // test result is correct
               assert.equal(compiledString, expectedObject.string);

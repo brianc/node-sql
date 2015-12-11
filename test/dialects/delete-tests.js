@@ -22,6 +22,10 @@ Harness.test({
     text  : 'DELETE FROM [post] WHERE ([post].[content] = @1)',
     string: "DELETE FROM [post] WHERE ([post].[content] = 'hello''s world')"
   },
+  oracle: {
+    text  : 'DELETE FROM "post" WHERE ("post"."content" = :1)',
+    string: 'DELETE FROM "post" WHERE ("post"."content" = \'hello\'\'s world\')'
+  },
   params: ["hello's world"]
 });
 
@@ -76,6 +80,10 @@ Harness.test({
     text: 'DELETE `user` FROM `user` INNER JOIN `post` ON (`post`.`userId` = `user`.`id`) WHERE (`post`.`content` = ?)',
     string: 'DELETE `user` FROM `user` INNER JOIN `post` ON (`post`.`userId` = `user`.`id`) WHERE (`post`.`content` = \'foo\')'
   },
+  oracle: {
+    text: 'DELETE "user" FROM "user" INNER JOIN "post" ON ("post"."userId" = "user"."id") WHERE ("post"."content" = :1)',
+    string: 'DELETE "user" FROM "user" INNER JOIN "post" ON ("post"."userId" = "user"."id") WHERE ("post"."content" = \'foo\')'
+  },
   params: [ 'foo' ]
 });
 
@@ -99,6 +107,10 @@ Harness.test({
     text  : 'DELETE FROM [post] WHERE ([post].[content] = @1)',
     string: "DELETE FROM [post] WHERE ([post].[content] = '')"
   },
+  oracle: {
+    text  : 'DELETE FROM "post" WHERE ("post"."content" = :1)',
+    string: 'DELETE FROM "post" WHERE ("post"."content" = \'\')'
+  },
   params: ['']
 });
 
@@ -122,6 +134,10 @@ Harness.test({
     text  : 'DELETE FROM [post] WHERE ([post].[content] = @1)',
     string: "DELETE FROM [post] WHERE ([post].[content] = '')"
   },
+  oracle: {
+    text  : 'DELETE FROM "post" WHERE ("post"."content" = :1)',
+    string: 'DELETE FROM "post" WHERE ("post"."content" = \'\')'
+  },
   params: ['']
 });
 
@@ -144,6 +160,10 @@ Harness.test({
   mssql: {
     text  : 'DELETE FROM [post] WHERE (([post].[content] = @1) OR ([post].[content] IS NULL))',
     string: "DELETE FROM [post] WHERE (([post].[content] = '') OR ([post].[content] IS NULL))"
+  },
+  oracle: {
+    text  : 'DELETE FROM "post" WHERE (("post"."content" = :1) OR ("post"."content" IS NULL))',
+    string: 'DELETE FROM "post" WHERE (("post"."content" = \'\') OR ("post"."content" IS NULL))'
   },
   params: ['']
 });

@@ -28,6 +28,10 @@ Harness.test({
     text  : 'SELECT [staging].[user].[id] FROM [staging].[user]',
     string: 'SELECT [staging].[user].[id] FROM [staging].[user]'
   },
+  oracle: {
+    text  : 'SELECT "staging"."user"."id" FROM "staging"."user"',
+    string: 'SELECT "staging"."user"."id" FROM "staging"."user"'
+  },
   params: []
 });
 
@@ -48,6 +52,10 @@ Harness.test({
   mssql: {
     text  : 'SELECT COUNT([staging].[user].[id]) AS [id_count] FROM [staging].[user]',
     string: 'SELECT COUNT([staging].[user].[id]) AS [id_count] FROM [staging].[user]'
+  },
+  oracle: {
+    text  : 'SELECT COUNT("staging"."user"."id") "id_count" FROM "staging"."user"',
+    string: 'SELECT COUNT("staging"."user"."id") "id_count" FROM "staging"."user"'
   },
   params: []
 });
@@ -70,6 +78,10 @@ Harness.test({
     text  : 'SELECT [staging].[user].[id], [staging].[user].[name] FROM [staging].[user]',
     string: 'SELECT [staging].[user].[id], [staging].[user].[name] FROM [staging].[user]'
   },
+  oracle: {
+    text  : 'SELECT "staging"."user"."id", "staging"."user"."name" FROM "staging"."user"',
+    string: 'SELECT "staging"."user"."id", "staging"."user"."name" FROM "staging"."user"'
+  },
   params: []
 });
 
@@ -91,6 +103,10 @@ Harness.test({
   mssql: {
     text  : 'SELECT [uws].[name] FROM [staging].[user] AS [uws]',
     string: 'SELECT [uws].[name] FROM [staging].[user] AS [uws]'
+  },
+  oracle: {
+    text  : 'SELECT "uws"."name" FROM "staging"."user" "uws"',
+    string: 'SELECT "uws"."name" FROM "staging"."user" "uws"'
   },
   params: []
 });
@@ -119,6 +135,10 @@ Harness.test({
     text  : 'SELECT [staging].[user].[name], [dev].[post].[content] FROM [staging].[user] INNER JOIN [dev].[post] ON ([staging].[user].[id] = [dev].[post].[userId])',
     string: 'SELECT [staging].[user].[name], [dev].[post].[content] FROM [staging].[user] INNER JOIN [dev].[post] ON ([staging].[user].[id] = [dev].[post].[userId])'
   },
+  oracle: {
+    text  : 'SELECT "staging"."user"."name", "dev"."post"."content" FROM "staging"."user" INNER JOIN "dev"."post" ON ("staging"."user"."id" = "dev"."post"."userId")',
+    string: 'SELECT "staging"."user"."name", "dev"."post"."content" FROM "staging"."user" INNER JOIN "dev"."post" ON ("staging"."user"."id" = "dev"."post"."userId")'
+  },
   params: []
 });
 
@@ -139,6 +159,10 @@ Harness.test({
   mssql: {
     text  : 'SELECT [uws].[name], [dev].[post].[content] FROM [staging].[user] AS [uws] INNER JOIN [dev].[post] ON ([uws].[id] = [dev].[post].[userId])',
     string: 'SELECT [uws].[name], [dev].[post].[content] FROM [staging].[user] AS [uws] INNER JOIN [dev].[post] ON ([uws].[id] = [dev].[post].[userId])'
+  },
+  oracle: {
+    text  : 'SELECT "uws"."name", "dev"."post"."content" FROM "staging"."user" "uws" INNER JOIN "dev"."post" ON ("uws"."id" = "dev"."post"."userId")',
+    string: 'SELECT "uws"."name", "dev"."post"."content" FROM "staging"."user" "uws" INNER JOIN "dev"."post" ON ("uws"."id" = "dev"."post"."userId")'
   },
   params: []
 });

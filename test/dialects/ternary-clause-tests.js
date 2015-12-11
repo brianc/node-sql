@@ -22,6 +22,10 @@ Harness.test({
     text  : 'SELECT [customer].* FROM [customer] WHERE ([customer].[age] BETWEEN @1 AND @2)',
     string: 'SELECT [customer].* FROM [customer] WHERE ([customer].[age] BETWEEN 18 AND 25)'
   },
+  oracle: {
+    text  : 'SELECT "customer".* FROM "customer" WHERE ("customer"."age" BETWEEN :1 AND :2)',
+    string: 'SELECT "customer".* FROM "customer" WHERE ("customer"."age" BETWEEN 18 AND 25)'
+  },
   params: [18, 25]
 });
 
@@ -42,6 +46,10 @@ Harness.test({
   mssql: {
     text  : 'SELECT [post].* FROM [post] WHERE ([post].[userId] BETWEEN (SELECT MIN([customer].[id]) AS [id_min] FROM [customer]) AND (SELECT MAX([customer].[id]) AS [id_max] FROM [customer]))',
     string: 'SELECT [post].* FROM [post] WHERE ([post].[userId] BETWEEN (SELECT MIN([customer].[id]) AS [id_min] FROM [customer]) AND (SELECT MAX([customer].[id]) AS [id_max] FROM [customer]))'
+  },
+  oracle: {
+    text  : 'SELECT "post".* FROM "post" WHERE ("post"."userId" BETWEEN (SELECT MIN("customer"."id") "id_min" FROM "customer") AND (SELECT MAX("customer"."id") "id_max" FROM "customer"))',
+    string: 'SELECT "post".* FROM "post" WHERE ("post"."userId" BETWEEN (SELECT MIN("customer"."id") "id_min" FROM "customer") AND (SELECT MAX("customer"."id") "id_max" FROM "customer"))'
   },
   params: []
 });

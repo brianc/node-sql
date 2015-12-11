@@ -178,10 +178,8 @@ Harness.test({
     throws: true
   },
   mssql: {
-    text  : 'Mssql renaming columns not yet implemented',
-    throws: true
-//    text  : 'EXEC sp_rename [group.userId], [newUserId], \'COLUMN\'',
-//    string: 'EXEC sp_rename [group.userId], [newUserId], \'COLUMN\''
+   text  : 'EXEC sp_rename \'[group].[userId]\', [newUserId], \'COLUMN\'',
+   string: 'EXEC sp_rename \'[group].[userId]\', [newUserId], \'COLUMN\''
   },
   params: []
 });
@@ -201,10 +199,8 @@ Harness.test({
     string: 'ALTER TABLE `group` CHANGE COLUMN `userId` `newUserId` varchar(100)'
   },
   mssql: {
-    text  : 'Mssql renaming columns not yet implemented',
-    throws: true
-//    text  : 'EXEC sp_rename [group.userId], [newUserId], \'COLUMN\'',
-//    string: 'EXEC sp_rename [group.userId], [newUserId], \'COLUMN\''
+   text  : 'EXEC sp_rename \'[group].[userId]\', [newUserId], \'COLUMN\'',
+   string: 'EXEC sp_rename \'[group].[userId]\', [newUserId], \'COLUMN\''
   },
   params: []
 });
@@ -224,10 +220,8 @@ Harness.test({
     string: 'ALTER TABLE `group` CHANGE COLUMN `userId` `id` varchar(100)'
   },
   mssql: {
-    text  : 'Mssql renaming columns not yet implemented',
-    throws: true
-//    text  : 'EXEC sp_rename [group.userId], [id], \'COLUMN\'',
-//    string: 'EXEC sp_rename [group.userId], [id], \'COLUMN\''
+   text  : 'EXEC sp_rename \'[group].[userId]\', [id], \'COLUMN\'',
+   string: 'EXEC sp_rename \'[group].[userId]\', [id], \'COLUMN\''
   },
   params: []
 });
@@ -256,10 +250,8 @@ Harness.test({
     throws: true
   },
   mssql: {
-    text  : 'Mssql renaming columns not yet implemented',
-    throws: true
-//    text  : 'EXEC sp_rename [UserWithSignature.Signature], [sig], \'COLUMN\'',
-//    string: 'EXEC sp_rename [UserWithSignature.Signature], [sig], \'COLUMN\''
+   text  : 'EXEC sp_rename \'[UserWithSignature].[Signature]\', [sig], \'COLUMN\'',
+   string: 'EXEC sp_rename \'[UserWithSignature].[Signature]\', [sig], \'COLUMN\''
   }
 });
 
@@ -282,16 +274,20 @@ var post = Table.define({
 Harness.test({
   query: post.alter().addColumn(post.userId),
   pg: {
-    text  : 'ALTER TABLE "post" ADD COLUMN "userId" int REFERENCES user(id)',
-    string: 'ALTER TABLE "post" ADD COLUMN "userId" int REFERENCES user(id)'
+    text  : 'ALTER TABLE "post" ADD COLUMN "userId" int REFERENCES "user"("id")',
+    string: 'ALTER TABLE "post" ADD COLUMN "userId" int REFERENCES "user"("id")'
   },
   sqlite: {
-    text  : 'ALTER TABLE "post" ADD COLUMN "userId" int REFERENCES user(id)',
-    string: 'ALTER TABLE "post" ADD COLUMN "userId" int REFERENCES user(id)'
+    text  : 'ALTER TABLE "post" ADD COLUMN "userId" int REFERENCES "user"("id")',
+    string: 'ALTER TABLE "post" ADD COLUMN "userId" int REFERENCES "user"("id")'
   },
   mysql: {
-    text  : 'ALTER TABLE `post` ADD COLUMN `userId` int REFERENCES user(id)',
-    string: 'ALTER TABLE `post` ADD COLUMN `userId` int REFERENCES user(id)'
+    text  : 'ALTER TABLE `post` ADD COLUMN `userId` int REFERENCES `user`(`id`)',
+    string: 'ALTER TABLE `post` ADD COLUMN `userId` int REFERENCES `user`(`id`)'
+  },
+  oracle: {
+    text  : 'ALTER TABLE "post" ADD COLUMN "userId" int REFERENCES "user"("id")',
+    string: 'ALTER TABLE "post" ADD COLUMN "userId" int REFERENCES "user"("id")'
   },
   params: []
 });
@@ -309,6 +305,10 @@ Harness.test({
   mysql: {
     text  : 'ALTER TABLE `post` ADD COLUMN `picture` varchar(100)',
     string: 'ALTER TABLE `post` ADD COLUMN `picture` varchar(100)'
+  },
+  oracle: {
+    text  : 'ALTER TABLE "post" ADD COLUMN "picture" varchar(100)',
+    string: 'ALTER TABLE "post" ADD COLUMN "picture" varchar(100)'
   },
   params: []
 });
