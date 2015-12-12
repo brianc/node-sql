@@ -6,7 +6,7 @@ var sql = require(__dirname + '/../lib');
 describe('column', function() {
   var table = sql.define({
     name: 'user',
-    columns: ['id', 'created']
+    columns: ['id', 'created', 'alias']
   });
 
   it('can be accessed by property and array', function() {
@@ -16,6 +16,10 @@ describe('column', function() {
   describe('toQuery()', function() {
     it('works', function() {
       assert.equal(table.id.toQuery().text, '"user"."id"');
+    });
+
+    it('works with a column name of "alias"', function() {
+      assert.equal(table.alias.toQuery().text, '"user"."alias"');
     });
 
     it('respects AS rename', function() {
