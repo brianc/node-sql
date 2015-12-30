@@ -461,7 +461,7 @@ Harness.test({
   params: []
 });
 
-const users = Table.define({
+var users = Table.define({
   name: 'users',
   columns: {
     id: {
@@ -501,7 +501,7 @@ Harness.test({
   params: []
 });
 
-const noUsers = Table.define({
+var noUsers = Table.define({
   name: 'no_users',
   columns: {
     id: {
