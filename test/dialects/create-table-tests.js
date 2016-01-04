@@ -461,3 +461,105 @@ Harness.test({
   params: []
 });
 
+// UNIQUE COLUMN TESTS
+Harness.test({
+  query: Table.define({
+    name: 'post',
+    columns: [{
+      name: 'id',
+      dataType: 'int',
+      //primaryKey: true,
+      //notNull: true,
+      unique: true
+    }]
+  }).create(),
+  pg: {
+    text  : 'CREATE TABLE "post" ("id" int UNIQUE)',
+    string: 'CREATE TABLE "post" ("id" int UNIQUE)'
+  },
+  sqlite: {
+    text  : 'CREATE TABLE "post" ("id" int UNIQUE)',
+    string: 'CREATE TABLE "post" ("id" int UNIQUE)'
+  },
+  mysql: {
+    text  : 'CREATE TABLE `post` (`id` int UNIQUE)',
+    string: 'CREATE TABLE `post` (`id` int UNIQUE)'
+  },
+  mssql: {
+    text  : 'CREATE TABLE [post] ([id] int UNIQUE)',
+    string: 'CREATE TABLE [post] ([id] int UNIQUE)'
+  },
+  oracle: {
+    text  : 'CREATE TABLE "post" ("id" int UNIQUE)',
+    string: 'CREATE TABLE "post" ("id" int UNIQUE)'
+  },
+  params: []
+});
+
+Harness.test({
+  query: Table.define({
+    name: 'post',
+    columns: [{
+      name: 'id',
+      dataType: 'int',
+      //primaryKey: true,
+      notNull: true,
+      unique: true
+    }]
+  }).create(),
+  pg: {
+    text  : 'CREATE TABLE "post" ("id" int NOT NULL UNIQUE)',
+    string: 'CREATE TABLE "post" ("id" int NOT NULL UNIQUE)'
+  },
+  sqlite: {
+    text  : 'CREATE TABLE "post" ("id" int NOT NULL UNIQUE)',
+    string: 'CREATE TABLE "post" ("id" int NOT NULL UNIQUE)'
+  },
+  mysql: {
+    text  : 'CREATE TABLE `post` (`id` int NOT NULL UNIQUE)',
+    string: 'CREATE TABLE `post` (`id` int NOT NULL UNIQUE)'
+  },
+  mssql: {
+    text  : 'CREATE TABLE [post] ([id] int NOT NULL UNIQUE)',
+    string: 'CREATE TABLE [post] ([id] int NOT NULL UNIQUE)'
+  },
+  oracle: {
+    text  : 'CREATE TABLE "post" ("id" int NOT NULL UNIQUE)',
+    string: 'CREATE TABLE "post" ("id" int NOT NULL UNIQUE)'
+  },
+  params: []
+});
+
+Harness.test({
+  query: Table.define({
+    name: 'post',
+    columns: [{
+      name: 'id',
+      dataType: 'int',
+      primaryKey: true,
+      //notNull: true,
+      unique: true
+    }]
+  }).create(),
+  pg: {
+    text  : 'CREATE TABLE "post" ("id" int PRIMARY KEY)',
+    string: 'CREATE TABLE "post" ("id" int PRIMARY KEY)'
+  },
+  sqlite: {
+    text  : 'CREATE TABLE "post" ("id" int PRIMARY KEY)',
+    string: 'CREATE TABLE "post" ("id" int PRIMARY KEY)'
+  },
+  mysql: {
+    text  : 'CREATE TABLE `post` (`id` int PRIMARY KEY)',
+    string: 'CREATE TABLE `post` (`id` int PRIMARY KEY)'
+  },
+  mssql: {
+    text  : 'CREATE TABLE [post] ([id] int PRIMARY KEY)',
+    string: 'CREATE TABLE [post] ([id] int PRIMARY KEY)'
+  },
+  oracle: {
+    text  : 'CREATE TABLE "post" ("id" int PRIMARY KEY)',
+    string: 'CREATE TABLE "post" ("id" int PRIMARY KEY)'
+  },
+  params: []
+});
