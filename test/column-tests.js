@@ -96,10 +96,10 @@ describe('column', function() {
         columns: ['id', 'name']
       });
       it('throws for insert properties that are not a column', function() {
-        assert.throws(function() { table.insert({id:0, _private:'_private', name:'name'}) }, Error);
+        assert.throws(function() { table.insert({id:0, _private:'_private', name:'name'}); }, Error);
       });
       it('throws for update properties that are not a column', function() {
-        assert.throws(function() { table.update({id:0, _private:'_private', name:'name'}) }, Error);
+        assert.throws(function() { table.update({id:0, _private:'_private', name:'name'}); }, Error);
       });
     });
 
