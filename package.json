@@ -11,7 +11,9 @@
   },
   "main": "lib/",
   "scripts": {
-    "test": "node ./runtests"
+    "test": "node ./runtests",
+    "lint": "jshint lib test runtests.js",
+    "posttest": "jshint lib test runtests.js"
   },
   "engines": {
     "node": "*"
