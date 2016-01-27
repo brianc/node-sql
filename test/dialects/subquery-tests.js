@@ -29,7 +29,7 @@ Harness.test({
     string: 'SELECT "user"."name" FROM "user" WHERE ("user"."id" IN (SELECT "post"."userId" FROM "post"))'
   },
   params: []
-})
+});
 
 Harness.test({
   query: user.name.in(
