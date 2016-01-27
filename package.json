@@ -11,9 +11,9 @@
   },
   "main": "lib/",
   "scripts": {
-    "test": "node ./runtests",
-    "lint": "jshint lib test runtests.js",
-    "posttest": "jshint lib test runtests.js"
+    "test": "node_modules/.bin/mocha",
+    "lint": "jshint lib test",
+    "posttest": "jshint lib test"
   },
   "engines": {
     "node": "*"
