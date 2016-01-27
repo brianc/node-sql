@@ -1,8 +1,14 @@
 'use strict';
 
+var Table = require(__dirname + '/../../lib/table');
 var Harness = require('./support');
 var post = Harness.definePostTable();
 var user = Harness.defineUserTable();
+
+var arrayTable = Table.define({
+    name: 'arraytest',
+    columns: ['id', 'numbers']
+});
 
 Harness.test({
   query: post.insert(post.content.value('test'), post.userId.value(1)),
@@ -629,4 +635,44 @@ Harness.test({
     string: 'SELECT `post`.* FROM `post` WHERE (1=2)'
   },
   params: []
+});
+
+Harness.test({
+  query: arrayTable.insert(arrayTable.id.value(1), arrayTable.numbers.value([2, 3, 4])),
+  pg: {
+    text  : 'INSERT INTO "arraytest" ("id", "numbers") VALUES ($1, $2)',
+    string: 'INSERT INTO "arraytest" ("id", "numbers") VALUES (1, \'{2,3,4}\')'
+  },
+  sqlite: {
+    text  : 'INSERT INTO "arraytest" ("id", "numbers") VALUES ($1, $2)',
+    string: 'INSERT INTO "arraytest" ("id", "numbers") VALUES (1, (2, 3, 4))'
+  },
+  mysql: {
+    text  : 'INSERT INTO `arraytest` (`id`, `numbers`) VALUES (?, ?)',
+    string: 'INSERT INTO `arraytest` (`id`, `numbers`) VALUES (1, (2, 3, 4))'
+  },
+  oracle: {
+    text  : 'INSERT INTO "arraytest" ("id", "numbers") VALUES (:1, :2)',
+    string: 'INSERT INTO "arraytest" ("id", "numbers") VALUES (1, (2, 3, 4))'
+  }
+});
+
+Harness.test({
+  query: arrayTable.insert(arrayTable.id.value(1), arrayTable.numbers.value(["one", "two", "three"])),
+  pg: {
+    text  : 'INSERT INTO "arraytest" ("id", "numbers") VALUES ($1, $2)',
+    string: 'INSERT INTO "arraytest" ("id", "numbers") VALUES (1, \'{"one","two","three"}\')'
+  },
+  sqlite: {
+    text  : 'INSERT INTO "arraytest" ("id", "numbers") VALUES ($1, $2)',
+    string: 'INSERT INTO "arraytest" ("id", "numbers") VALUES (1, (\'one\', \'two\', \'three\'))'
+  },
+  mysql: {
+    text  : 'INSERT INTO `arraytest` (`id`, `numbers`) VALUES (?, ?)',
+    string: 'INSERT INTO `arraytest` (`id`, `numbers`) VALUES (1, (\'one\', \'two\', \'three\'))'
+  },
+  oracle: {
+    text  : 'INSERT INTO "arraytest" ("id", "numbers") VALUES (:1, :2)',
+    string: 'INSERT INTO "arraytest" ("id", "numbers") VALUES (1, (\'one\', \'two\', \'three\'))'
+  }
 });
