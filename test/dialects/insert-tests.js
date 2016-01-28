@@ -4,7 +4,7 @@ var Harness = require('./support');
 var post = Harness.definePostTable();
 var user = Harness.defineUserTable();
 
-var arrayTable = Table.define({
+var arrayTable = require('../../lib/table').define({
     name: 'arraytest',
     columns: ['id', 'numbers']
 });
