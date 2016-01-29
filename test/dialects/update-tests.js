@@ -228,7 +228,7 @@ Harness.test({
   }),
   pg: {
     text  : 'UPDATE "variable" SET "a" = $1, "b" = $2',
-    string: 'UPDATE "variable" SET "a" = \'{"id":1,"value":2}\', "b" = (\'{"id":2,"value":3}\', \'{"id":3,"value":4}\')'
+    string: 'UPDATE "variable" SET "a" = \'{"id":1,"value":2}\', "b" = \'[{"id":2,"value":3},{"id":3,"value":4}]\''
   },
   sqlite: {
     text  : 'UPDATE "variable" SET "a" = $1, "b" = $2',
