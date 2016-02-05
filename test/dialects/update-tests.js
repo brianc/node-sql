@@ -3,6 +3,7 @@
 var Harness = require('./support');
 var post = Harness.definePostTable();
 var user = Harness.defineUserTable();
+var variable = Harness.defineVariableTable();
 
 Harness.test({
   query: post.update({
@@ -192,4 +193,54 @@ Harness.test({
     string: 'UPDATE "post" SET "content" = utl_raw.cast_to_varchar2(hextoraw(\'74657374\'))'
   },
   params: [new Buffer('test')]
+});
+
+// Boolean updates
+Harness.test({
+  query: variable.update({
+    a: true,
+    b: false
+  }),
+  pg: {
+    text  : 'UPDATE "variable" SET "a" = $1, "b" = $2',
+    string: 'UPDATE "variable" SET "a" = TRUE, "b" = FALSE'
+  },
+  sqlite: {
+    text  : 'UPDATE "variable" SET "a" = $1, "b" = $2',
+    string: 'UPDATE "variable" SET "a" = 1, "b" = 0'
+  },
+  mysql: {
+    text  : 'UPDATE `variable` SET `a` = ?, `b` = ?',
+    string: 'UPDATE `variable` SET `a` = TRUE, `b` = FALSE'
+  },
+  oracle: {
+    text  : 'UPDATE "variable" SET "a" = :1, "b" = :2',
+    string: 'UPDATE "variable" SET "a" = TRUE, "b" = FALSE'
+  },
+  params: [true, false]
+});
+
+// Object updates
+Harness.test({
+  query: variable.update({
+    a: {"id": 1, "value": 2},
+    b: [{"id": 2, "value": 3}, {"id": 3, "value": 4}]
+  }),
+  pg: {
+    text  : 'UPDATE "variable" SET "a" = $1, "b" = $2',
+    string: 'UPDATE "variable" SET "a" = \'{"id":1,"value":2}\', "b" = \'[{"id":2,"value":3},{"id":3,"value":4}]\''
+  },
+  sqlite: {
+    text  : 'UPDATE "variable" SET "a" = $1, "b" = $2',
+    string: 'UPDATE "variable" SET "a" = \'{"id":1,"value":2}\', "b" = \'[{"id":2,"value":3},{"id":3,"value":4}]\''
+  },
+  mysql: {
+    text  : 'UPDATE `variable` SET `a` = ?, `b` = ?',
+    string: 'UPDATE `variable` SET `a` = \'{"id":1,"value":2}\', `b` = (\'{"id":2,"value":3}\', \'{"id":3,"value":4}\')'
+  },
+  oracle: {
+    text  : 'UPDATE "variable" SET "a" = :1, "b" = :2',
+    string: 'UPDATE "variable" SET "a" = \'{"id":1,"value":2}\', "b" = (\'{"id":2,"value":3}\', \'{"id":3,"value":4}\')'
+  },
+  params: [{"id": 1, "value": 2}, [{"id": 2, "value": 3}, {"id": 3, "value": 4}]]
 });

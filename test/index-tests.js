@@ -195,4 +195,20 @@ suite('index', function() {
     });
   });
 
+  test('mssql default parameter place holder is @index', function() {
+    var Sql = sql.Sql;
+    var mssql = new Sql('mssql');
+    var query = mssql.select(user.id).from(user).where(user.email.equals('x@y.com')).toQuery();
+    assert.equal(query.text, 'SELECT [user].[id] FROM [user] WHERE ([user].[email] = @1)');
+    assert.equal(query.values[0], 'x@y.com');
+  });
+
+  test('mssql override default parameter placeholder with ?', function() {
+    var Sql = sql.Sql;
+    var mssql = new Sql('mssql',{questionMarkParameterPlaceholder:true});
+    var query = mssql.select(user.id).from(user).where(user.email.equals('x@y.com')).toQuery();
+    assert.equal(query.text, 'SELECT [user].[id] FROM [user] WHERE ([user].[email] = ?)');
+    assert.equal(query.values[0], 'x@y.com');
+  });
+
 });

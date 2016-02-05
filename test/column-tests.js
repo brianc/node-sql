@@ -36,29 +36,29 @@ describe('column', function() {
       assert.equal(col, '"subTable"."subId"');
     });
 
-	  describe('property', function() {
-		  var table = sql.define({
-			  name: 'roundtrip',
-			  columns: {
-				  column_name: { property: 'propertyName' }
-			  }
-		  });
-		  it('used as alias when !== column name', function() {
-			  assert.equal(table.propertyName.toQuery().text, '"roundtrip"."column_name" AS "propertyName"');
-		  });
-		  it('uses explicit alias when !== column name', function() {
-			  assert.equal(table.propertyName.as('alias').toQuery().text, '"roundtrip"."column_name" AS "alias"');
-		  });
-		  it('maps to column name in insert', function() {
-			  assert.equal(table.insert({propertyName:'propVal'}).toQuery().text, 'INSERT INTO "roundtrip" ("column_name") VALUES ($1)');
-		  });
-		  it('maps to column name in update', function() {
-			  assert.equal(table.update({propertyName:'propVal'}).toQuery().text, 'UPDATE "roundtrip" SET "column_name" = $1');
-		  });
-		  it('explicitly selected by *', function() {
-			  assert.equal(table.select(table.star()).from(table).toQuery().text, 'SELECT "roundtrip"."column_name" AS "propertyName" FROM "roundtrip"');
-		  });
-	  });
+    describe('property', function() {
+      var table = sql.define({
+        name: 'roundtrip',
+        columns: {
+          column_name: { property: 'propertyName' }
+        }
+      });
+      it('used as alias when !== column name', function() {
+        assert.equal(table.propertyName.toQuery().text, '"roundtrip"."column_name" AS "propertyName"');
+      });
+      it('uses explicit alias when !== column name', function() {
+        assert.equal(table.propertyName.as('alias').toQuery().text, '"roundtrip"."column_name" AS "alias"');
+      });
+      it('maps to column name in insert', function() {
+        assert.equal(table.insert({propertyName:'propVal'}).toQuery().text, 'INSERT INTO "roundtrip" ("column_name") VALUES ($1)');
+      });
+      it('maps to column name in update', function() {
+        assert.equal(table.update({propertyName:'propVal'}).toQuery().text, 'UPDATE "roundtrip" SET "column_name" = $1');
+      });
+      it('explicitly selected by *', function() {
+        assert.equal(table.select(table.star()).from(table).toQuery().text, 'SELECT "roundtrip"."column_name" AS "propertyName" FROM "roundtrip"');
+      });
+    });
 
     describe('autoGenerate', function() {
       var table = sql.define({
@@ -96,10 +96,10 @@ describe('column', function() {
         columns: ['id', 'name']
       });
       it('throws for insert properties that are not a column', function() {
-        assert.throws(function() { table.insert({id:0, _private:'_private', name:'name'}) }, Error);
+        assert.throws(function() { table.insert({id:0, _private:'_private', name:'name'}); }, Error);
       });
       it('throws for update properties that are not a column', function() {
-        assert.throws(function() { table.update({id:0, _private:'_private', name:'name'}) }, Error);
+        assert.throws(function() { table.update({id:0, _private:'_private', name:'name'}); }, Error);
       });
     });
 

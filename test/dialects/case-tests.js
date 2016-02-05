@@ -12,7 +12,7 @@ Harness.test({
   },
   sqlite: {
     text  : 'SELECT (CASE WHEN $1 THEN $2 WHEN $3 THEN $4 ELSE $5 END) FROM "customer"',
-    string: 'SELECT (CASE WHEN TRUE THEN 0 WHEN FALSE THEN 1 ELSE 2 END) FROM "customer"'
+    string: 'SELECT (CASE WHEN 1 THEN 0 WHEN 0 THEN 1 ELSE 2 END) FROM "customer"'
   },
   mysql: {
     text  : 'SELECT (CASE WHEN ? THEN ? WHEN ? THEN ? ELSE ? END) FROM `customer`',
@@ -40,7 +40,7 @@ Harness.test({
   },
   sqlite: {
     text  : 'SELECT ("customer"."age" + (CASE WHEN $1 THEN $2 WHEN $3 THEN $4 ELSE $5 END)) FROM "customer"',
-    string: 'SELECT ("customer"."age" + (CASE WHEN TRUE THEN 0 WHEN FALSE THEN 1 ELSE 2 END)) FROM "customer"'
+    string: 'SELECT ("customer"."age" + (CASE WHEN 1 THEN 0 WHEN 0 THEN 1 ELSE 2 END)) FROM "customer"'
   },
   mysql: {
     text  : 'SELECT (`customer`.`age` + (CASE WHEN ? THEN ? WHEN ? THEN ? ELSE ? END)) FROM `customer`',
@@ -68,7 +68,7 @@ Harness.test({
   },
   sqlite: {
     text  : 'SELECT ((CASE WHEN $1 THEN $2 WHEN $3 THEN $4 ELSE $5 END) + $6) FROM "customer"',
-    string: 'SELECT ((CASE WHEN TRUE THEN 0 WHEN FALSE THEN 1 ELSE 2 END) + 3) FROM "customer"'
+    string: 'SELECT ((CASE WHEN 1 THEN 0 WHEN 0 THEN 1 ELSE 2 END) + 3) FROM "customer"'
   },
   mysql: {
     text  : 'SELECT ((CASE WHEN ? THEN ? WHEN ? THEN ? ELSE ? END) + ?) FROM `customer`',
@@ -96,7 +96,7 @@ Harness.test({
   },
   sqlite: {
     text  : 'SELECT (CASE WHEN $1 THEN $2 WHEN $3 THEN $4 ELSE ("customer"."age" BETWEEN $5 AND $6) END) FROM "customer"',
-    string: 'SELECT (CASE WHEN TRUE THEN 0 WHEN FALSE THEN 1 ELSE ("customer"."age" BETWEEN 10 AND 20) END) FROM "customer"'
+    string: 'SELECT (CASE WHEN 1 THEN 0 WHEN 0 THEN 1 ELSE ("customer"."age" BETWEEN 10 AND 20) END) FROM "customer"'
   },
   mysql: {
     text  : 'SELECT (CASE WHEN ? THEN ? WHEN ? THEN ? ELSE (`customer`.`age` BETWEEN ? AND ?) END) FROM `customer`',
@@ -124,7 +124,7 @@ Harness.test({
   },
   sqlite: {
     text  : 'SELECT (CASE WHEN $1 THEN $2 WHEN $3 THEN $4 END) FROM "customer"',
-    string: 'SELECT (CASE WHEN TRUE THEN 0 WHEN FALSE THEN 1 END) FROM "customer"'
+    string: 'SELECT (CASE WHEN 1 THEN 0 WHEN 0 THEN 1 END) FROM "customer"'
   },
   mysql: {
     text  : 'SELECT (CASE WHEN ? THEN ? WHEN ? THEN ? END) FROM `customer`',
