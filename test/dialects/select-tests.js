@@ -81,6 +81,32 @@ Harness.test({
   params: []
 });
 
+// Test that we can generate a SELECT claus without a FROM clause
+Harness.test({
+  query: Sql.select("1"),
+  pg: {
+    text  : 'SELECT 1',
+    string: 'SELECT 1'
+  },
+  sqlite: {
+    text  : 'SELECT 1',
+    string: 'SELECT 1'
+  },
+  mysql: {
+    text  : 'SELECT 1',
+    string: 'SELECT 1'
+  },
+  mssql: {
+    text  : 'SELECT 1',
+    string: 'SELECT 1'
+  },
+  oracle: {
+    text  : 'SELECT 1',
+    string: 'SELECT 1'
+  },
+  params: []
+});
+
 Harness.test({
   query: Sql.select("1").where("1=1"),
   pg: {
