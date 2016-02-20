@@ -675,3 +675,104 @@ Harness.test({
     string: 'INSERT INTO "arraytest" ("id", "numbers") VALUES (1, (\'one\', \'two\', \'three\'))'
   }
 });
+
+Harness.test({
+  query: post.insert(post.userId).select(user.id).from(user),
+  pg: {
+    text  : 'INSERT INTO "post" ("userId") SELECT "user"."id" FROM "user"',
+    string: 'INSERT INTO "post" ("userId") SELECT "user"."id" FROM "user"'
+  },
+  sqlite: {
+    text  : 'INSERT INTO "post" ("userId") SELECT "user"."id" FROM "user"',
+    string: 'INSERT INTO "post" ("userId") SELECT "user"."id" FROM "user"'
+  },
+  mysql: {
+    text  : 'INSERT INTO `post` (`userId`) SELECT `user`.`id` FROM `user`',
+    string: 'INSERT INTO `post` (`userId`) SELECT `user`.`id` FROM `user`'
+  },
+  mssql: {
+    text  : 'INSERT INTO [post] ([userId]) SELECT [user].[id] FROM [user]',
+    string: 'INSERT INTO [post] ([userId]) SELECT [user].[id] FROM [user]'
+  },
+  oracle: {
+    text  : 'INSERT INTO "post" ("userId") SELECT "user"."id" FROM "user"',
+    string: 'INSERT INTO "post" ("userId") SELECT "user"."id" FROM "user"'
+  },
+  params: []
+});
+
+Harness.test({
+  query: post.insert(post.userId).add(user.select(user.id)),
+  pg: {
+    text  : 'INSERT INTO "post" ("userId") SELECT "user"."id" FROM "user"',
+    string: 'INSERT INTO "post" ("userId") SELECT "user"."id" FROM "user"'
+  },
+  sqlite: {
+    text  : 'INSERT INTO "post" ("userId") SELECT "user"."id" FROM "user"',
+    string: 'INSERT INTO "post" ("userId") SELECT "user"."id" FROM "user"'
+  },
+  mysql: {
+    text  : 'INSERT INTO `post` (`userId`) SELECT `user`.`id` FROM `user`',
+    string: 'INSERT INTO `post` (`userId`) SELECT `user`.`id` FROM `user`'
+  },
+  mssql: {
+    text  : 'INSERT INTO [post] ([userId]) SELECT [user].[id] FROM [user]',
+    string: 'INSERT INTO [post] ([userId]) SELECT [user].[id] FROM [user]'
+  },
+  oracle: {
+    text  : 'INSERT INTO "post" ("userId") SELECT "user"."id" FROM "user"',
+    string: 'INSERT INTO "post" ("userId") SELECT "user"."id" FROM "user"'
+  },
+  params: []
+});
+
+Harness.test({
+  query: post.insert(post.userId).add(user.select(user.id).from(user)),
+  pg: {
+    text  : 'INSERT INTO "post" ("userId") SELECT "user"."id" FROM "user"',
+    string: 'INSERT INTO "post" ("userId") SELECT "user"."id" FROM "user"'
+  },
+  sqlite: {
+    text  : 'INSERT INTO "post" ("userId") SELECT "user"."id" FROM "user"',
+    string: 'INSERT INTO "post" ("userId") SELECT "user"."id" FROM "user"'
+  },
+  mysql: {
+    text  : 'INSERT INTO `post` (`userId`) SELECT `user`.`id` FROM `user`',
+    string: 'INSERT INTO `post` (`userId`) SELECT `user`.`id` FROM `user`'
+  },
+  mssql: {
+    text  : 'INSERT INTO [post] ([userId]) SELECT [user].[id] FROM [user]',
+    string: 'INSERT INTO [post] ([userId]) SELECT [user].[id] FROM [user]'
+  },
+  oracle: {
+    text  : 'INSERT INTO "post" ("userId") SELECT "user"."id" FROM "user"',
+    string: 'INSERT INTO "post" ("userId") SELECT "user"."id" FROM "user"'
+  },
+  params: []
+});
+
+Harness.test({
+  query: post.insert(post.userId).add(user.select(user.id).order(user.id)),
+  pg: {
+    text  : 'INSERT INTO "post" ("userId") SELECT "user"."id" FROM "user" ORDER BY "user"."id"',
+    string: 'INSERT INTO "post" ("userId") SELECT "user"."id" FROM "user" ORDER BY "user"."id"'
+  },
+  sqlite: {
+    text  : 'INSERT INTO "post" ("userId") SELECT "user"."id" FROM "user" ORDER BY "user"."id"',
+    string: 'INSERT INTO "post" ("userId") SELECT "user"."id" FROM "user" ORDER BY "user"."id"'
+  },
+  mysql: {
+    text  : 'INSERT INTO `post` (`userId`) SELECT `user`.`id` FROM `user` ORDER BY `user`.`id`',
+    string: 'INSERT INTO `post` (`userId`) SELECT `user`.`id` FROM `user` ORDER BY `user`.`id`'
+  },
+  mssql: {
+    text  : 'INSERT INTO [post] ([userId]) SELECT [user].[id] FROM [user] ORDER BY [user].[id]',
+    string: 'INSERT INTO [post] ([userId]) SELECT [user].[id] FROM [user] ORDER BY [user].[id]'
+  },
+  oracle: {
+    text  : 'INSERT INTO "post" ("userId") SELECT "user"."id" FROM "user" ORDER BY "user"."id"',
+    string: 'INSERT INTO "post" ("userId") SELECT "user"."id" FROM "user" ORDER BY "user"."id"'
+  },
+  params: []
+});
+
