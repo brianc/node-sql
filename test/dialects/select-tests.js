@@ -181,3 +181,180 @@ Harness.test({
   },
   params: []
 });
+
+Harness.test({
+  query: post.select(post.id.as('col1')),
+  pg: {
+    text  : 'SELECT "post"."id" AS "col1" FROM "post"',
+    string: 'SELECT "post"."id" AS "col1" FROM "post"'
+  },
+  sqlite: {
+    text  : 'SELECT "post"."id" AS "col1" FROM "post"',
+    string: 'SELECT "post"."id" AS "col1" FROM "post"'
+  },
+  mysql: {
+    text  : 'SELECT `post`.`id` AS `col1` FROM `post`',
+    string: 'SELECT `post`.`id` AS `col1` FROM `post`'
+  },
+  mssql: {
+    text  : 'SELECT [post].[id] AS [col1] FROM [post]',
+    string: 'SELECT [post].[id] AS [col1] FROM [post]'
+  },
+  oracle: {
+    text  : 'SELECT "post"."id" "col1" FROM "post"',
+    string: 'SELECT "post"."id" "col1" FROM "post"'
+  },
+  params: []
+});
+
+Harness.test({
+  query: post.select(Sql.literalColumn(4)),
+  pg: {
+    text  : 'SELECT $1 FROM "post"',
+    string: 'SELECT 4 FROM "post"'
+  },
+  sqlite: {
+    text  : 'SELECT $1 FROM "post"',
+    string: 'SELECT 4 FROM "post"'
+  },
+  mysql: {
+    text  : 'SELECT ? FROM `post`',
+    string: 'SELECT 4 FROM `post`'
+  },
+  mssql: {
+    text  : 'SELECT @1 FROM [post]',
+    string: 'SELECT 4 FROM [post]'
+  },
+  oracle: {
+    text  : 'SELECT :1 FROM "post"',
+    string: 'SELECT 4 FROM "post"'
+  },
+  params: [4]
+});
+
+Harness.test({
+  query: post.select(post.id,Sql.literalColumn(4)),
+  pg: {
+    text  : 'SELECT "post"."id", $1 FROM "post"',
+    string: 'SELECT "post"."id", 4 FROM "post"'
+  },
+  sqlite: {
+    text  : 'SELECT "post"."id", $1 FROM "post"',
+    string: 'SELECT "post"."id", 4 FROM "post"'
+  },
+  mysql: {
+    text  : 'SELECT `post`.`id`, ? FROM `post`',
+    string: 'SELECT `post`.`id`, 4 FROM `post`'
+  },
+  mssql: {
+    text  : 'SELECT [post].[id], @1 FROM [post]',
+    string: 'SELECT [post].[id], 4 FROM [post]'
+  },
+  oracle: {
+    text  : 'SELECT "post"."id", :1 FROM "post"',
+    string: 'SELECT "post"."id", 4 FROM "post"'
+  },
+  params: [4]
+});
+
+Harness.test({
+  query: post.select(Sql.literalColumn(4).as('col1')),
+  pg: {
+    text  : 'SELECT $1 AS "col1" FROM "post"',
+    string: 'SELECT 4 AS "col1" FROM "post"'
+  },
+  sqlite: {
+    text  : 'SELECT $1 AS "col1" FROM "post"',
+    string: 'SELECT 4 AS "col1" FROM "post"'
+  },
+  mysql: {
+    text  : 'SELECT ? AS `col1` FROM `post`',
+    string: 'SELECT 4 AS `col1` FROM `post`'
+  },
+  mssql: {
+    text  : 'SELECT @1 AS [col1] FROM [post]',
+    string: 'SELECT 4 AS [col1] FROM [post]'
+  },
+  oracle: {
+    text  : 'SELECT :1 "col1" FROM "post"',
+    string: 'SELECT 4 "col1" FROM "post"'
+  },
+  params: [4]
+});
+
+Harness.test({
+  query: post.select(Sql.literalColumn(4).plus(5)),
+  pg: {
+    text  : 'SELECT ($1 + $2) FROM "post"',
+    string: 'SELECT (4 + 5) FROM "post"'
+  },
+  sqlite: {
+    text  : 'SELECT ($1 + $2) FROM "post"',
+    string: 'SELECT (4 + 5) FROM "post"'
+  },
+  mysql: {
+    text  : 'SELECT (? + ?) FROM `post`',
+    string: 'SELECT (4 + 5) FROM `post`'
+  },
+  mssql: {
+    text  : 'SELECT (@1 + @2) FROM [post]',
+    string: 'SELECT (4 + 5) FROM [post]'
+  },
+  oracle: {
+    text  : 'SELECT (:1 + :2) FROM "post"',
+    string: 'SELECT (4 + 5) FROM "post"'
+  },
+  params: [4,5]
+});
+
+Harness.test({
+  query: post.select(Sql.literalColumn(4).plus(5).as('col1')),
+  pg: {
+    text  : 'SELECT ($1 + $2) AS "col1" FROM "post"',
+    string: 'SELECT (4 + 5) AS "col1" FROM "post"'
+  },
+  sqlite: {
+    text  : 'SELECT ($1 + $2) AS "col1" FROM "post"',
+    string: 'SELECT (4 + 5) AS "col1" FROM "post"'
+  },
+  mysql: {
+    text  : 'SELECT (? + ?) AS `col1` FROM `post`',
+    string: 'SELECT (4 + 5) AS `col1` FROM `post`'
+  },
+  mssql: {
+    text  : 'SELECT (@1 + @2) AS [col1] FROM [post]',
+    string: 'SELECT (4 + 5) AS [col1] FROM [post]'
+  },
+  oracle: {
+    text  : 'SELECT (:1 + :2) "col1" FROM "post"',
+    string: 'SELECT (4 + 5) "col1" FROM "post"'
+  },
+  params: [4,5]
+});
+
+Harness.test({
+  query: post.select(Sql.literalColumn(4),Sql.literalColumn("abc"),Sql.literalColumn(true)),
+  pg: {
+    text  : 'SELECT $1, $2, $3 FROM "post"',
+    string: 'SELECT 4, \'abc\', TRUE FROM "post"'
+  },
+  sqlite: {
+    text  : 'SELECT $1, $2, $3 FROM "post"',
+    string: 'SELECT 4, \'abc\', 1 FROM "post"'
+  },
+  mysql: {
+    text  : 'SELECT ?, ?, ? FROM `post`',
+    string: 'SELECT 4, \'abc\', TRUE FROM `post`'
+  },
+  mssql: {
+    text  : 'SELECT @1, @2, @3 FROM [post]',
+    string: 'SELECT 4, \'abc\', TRUE FROM [post]'
+  },
+  oracle: {
+    text  : 'SELECT :1, :2, :3 FROM "post"',
+    string: 'SELECT 4, \'abc\', TRUE FROM "post"'
+  },
+  params: [4,'abc',true]
+});
+
+
