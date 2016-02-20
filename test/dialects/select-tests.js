@@ -357,4 +357,29 @@ Harness.test({
   params: [4,'abc',true]
 });
 
+Harness.test({
+  query: post.select(Sql.literalColumn(1).sum()),
+  pg: {
+    text  : 'SELECT SUM($1) AS "literal_sum" FROM "post"',
+    string: 'SELECT SUM(1) AS "literal_sum" FROM "post"'
+  },
+  sqlite: {
+    text  : 'SELECT SUM($1) AS "literal_sum" FROM "post"',
+    string: 'SELECT SUM(1) AS "literal_sum" FROM "post"'
+  },
+  mysql: {
+    text  : 'SELECT SUM(?) AS `literal_sum` FROM `post`',
+    string: 'SELECT SUM(1) AS `literal_sum` FROM `post`'
+  },
+  mssql: {
+    text  : 'SELECT SUM(@1) AS [literal_sum] FROM [post]',
+    string: 'SELECT SUM(1) AS [literal_sum] FROM [post]'
+  },
+  oracle: {
+    text  : 'SELECT SUM(:1) "literal_sum" FROM "post"',
+    string: 'SELECT SUM(1) "literal_sum" FROM "post"'
+  },
+  params: [1]
+});
+
 
