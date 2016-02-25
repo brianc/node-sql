@@ -461,6 +461,46 @@ Harness.test({
   params: []
 });
 
+var users = Table.define({
+  name: 'users',
+  columns: {
+    id: {
+      primaryKey: true,
+      dataType: 'int',
+      references: {
+        table: "entity",
+        column: "id",
+        constraint: "DEFERRABLE INITIALLY DEFERRED"
+      }
+    }
+  }
+});
+
+Harness.test({
+  query: users.create(),
+  pg: {
+    text: 'CREATE TABLE "users" ("id" int PRIMARY KEY REFERENCES "entity"("id") DEFERRABLE INITIALLY DEFERRED)',
+    string: 'CREATE TABLE "users" ("id" int PRIMARY KEY REFERENCES "entity"("id") DEFERRABLE INITIALLY DEFERRED)'
+  },
+  sqlite: {
+    text: 'CREATE TABLE "users" ("id" int PRIMARY KEY REFERENCES "entity"("id") DEFERRABLE INITIALLY DEFERRED)',
+    string: 'CREATE TABLE "users" ("id" int PRIMARY KEY REFERENCES "entity"("id") DEFERRABLE INITIALLY DEFERRED)'
+  },
+  mysql: {
+    text: 'CREATE TABLE `users` (`id` int PRIMARY KEY REFERENCES `entity`(`id`) DEFERRABLE INITIALLY DEFERRED)',
+    string: 'CREATE TABLE `users` (`id` int PRIMARY KEY REFERENCES `entity`(`id`) DEFERRABLE INITIALLY DEFERRED)'
+  },
+  mssql: {
+    text: 'CREATE TABLE [users] ([id] int PRIMARY KEY REFERENCES [entity]([id]) DEFERRABLE INITIALLY DEFERRED)',
+    string: 'CREATE TABLE [users] ([id] int PRIMARY KEY REFERENCES [entity]([id]) DEFERRABLE INITIALLY DEFERRED)'
+  },
+  oracle: {
+    text: 'CREATE TABLE "users" ("id" int PRIMARY KEY REFERENCES "entity"("id") DEFERRABLE INITIALLY DEFERRED)',
+    string: 'CREATE TABLE "users" ("id" int PRIMARY KEY REFERENCES "entity"("id") DEFERRABLE INITIALLY DEFERRED)'
+  },
+  params: []
+});
+
 // UNIQUE COLUMN TESTS
 Harness.test({
   query: Table.define({
@@ -492,6 +532,47 @@ Harness.test({
   oracle: {
     text  : 'CREATE TABLE "post" ("id" int UNIQUE)',
     string: 'CREATE TABLE "post" ("id" int UNIQUE)'
+  },
+  params: []
+});
+
+
+var noUsers = Table.define({
+  name: 'no_users',
+  columns: {
+    id: {
+      primaryKey: true,
+      dataType: 'int',
+      references: {
+        table: "entity",
+        column: "id",
+        constraint: ""
+      }
+    }
+  }
+});
+
+Harness.test({
+  query: noUsers.create(),
+  pg: {
+    text  : 'CREATE TABLE "no_users" ("id" int PRIMARY KEY REFERENCES "entity"("id"))',
+    string: 'CREATE TABLE "no_users" ("id" int PRIMARY KEY REFERENCES "entity"("id"))'
+  },
+  sqlite: {
+    text  : 'CREATE TABLE "no_users" ("id" int PRIMARY KEY REFERENCES "entity"("id"))',
+    string: 'CREATE TABLE "no_users" ("id" int PRIMARY KEY REFERENCES "entity"("id"))'
+  },
+  mysql: {
+    text  : 'CREATE TABLE `no_users` (`id` int PRIMARY KEY REFERENCES `entity`(`id`))',
+    string: 'CREATE TABLE `no_users` (`id` int PRIMARY KEY REFERENCES `entity`(`id`))'
+  },
+  mssql: {
+    text  : 'CREATE TABLE [no_users] ([id] int PRIMARY KEY REFERENCES [entity]([id]))',
+    string: 'CREATE TABLE [no_users] ([id] int PRIMARY KEY REFERENCES [entity]([id]))'
+  },
+  oracle: {
+    text  : 'CREATE TABLE "no_users" ("id" int PRIMARY KEY REFERENCES "entity"("id"))',
+    string: 'CREATE TABLE "no_users" ("id" int PRIMARY KEY REFERENCES "entity"("id"))'
   },
   params: []
 });
