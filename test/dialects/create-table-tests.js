@@ -250,6 +250,39 @@ Harness.test({
 
 Harness.test({
   query: Table.define({
+    name: 'user',
+    columns: [{
+      name: 'id',
+      dataType: 'int',
+      primaryKey: true,
+      notNull: true
+    }, {
+      name: 'posts',
+      dataType: 'int',
+      notNull: true,
+      defaultValue: 0
+    }]
+  }).create(),
+  pg: {
+    text  : 'CREATE TABLE "user" ("id" int PRIMARY KEY, "posts" int NOT NULL DEFAULT 0)',
+    string: 'CREATE TABLE "user" ("id" int PRIMARY KEY, "posts" int NOT NULL DEFAULT 0)'
+  },
+  sqlite: {
+    text  : 'CREATE TABLE "user" ("id" int PRIMARY KEY, "posts" int NOT NULL DEFAULT 0)',
+    string: 'CREATE TABLE "user" ("id" int PRIMARY KEY, "posts" int NOT NULL DEFAULT 0)'
+  },
+  mysql: {
+    text  : 'CREATE TABLE `user` (`id` int PRIMARY KEY, `posts` int NOT NULL DEFAULT 0)',
+    string: 'CREATE TABLE `user` (`id` int PRIMARY KEY, `posts` int NOT NULL DEFAULT 0)'
+  },
+  oracle: {
+    text  : 'CREATE TABLE "user" ("id" int PRIMARY KEY, "posts" int NOT NULL DEFAULT 0)',
+    string: 'CREATE TABLE "user" ("id" int PRIMARY KEY, "posts" int NOT NULL DEFAULT 0)'
+  }
+});
+
+Harness.test({
+  query: Table.define({
     name: 'post',
     columns: [{
       name: 'userId',
