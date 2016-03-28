@@ -256,25 +256,27 @@ Harness.test({
       dataType: 'int',
       references: {
         table: 'user',
-        column: 'id'
+        column: 'id',
+        onDelete: 'restrict',
+        onUpdate: 'cascade'
       }
     }]
   }).create(),
   pg: {
-    text  : 'CREATE TABLE "post" ("userId" int REFERENCES "user"("id"))',
-    string: 'CREATE TABLE "post" ("userId" int REFERENCES "user"("id"))'
+    text  : 'CREATE TABLE "post" ("userId" int REFERENCES "user"("id") ON DELETE RESTRICT ON UPDATE CASCADE)',
+    string: 'CREATE TABLE "post" ("userId" int REFERENCES "user"("id") ON DELETE RESTRICT ON UPDATE CASCADE)'
   },
   sqlite: {
-    text  : 'CREATE TABLE "post" ("userId" int REFERENCES "user"("id"))',
-    string: 'CREATE TABLE "post" ("userId" int REFERENCES "user"("id"))'
+    text  : 'CREATE TABLE "post" ("userId" int REFERENCES "user"("id") ON DELETE RESTRICT ON UPDATE CASCADE)',
+    string: 'CREATE TABLE "post" ("userId" int REFERENCES "user"("id") ON DELETE RESTRICT ON UPDATE CASCADE)'
   },
   mysql: {
-    text  : 'CREATE TABLE `post` (`userId` int REFERENCES `user`(`id`))',
-    string: 'CREATE TABLE `post` (`userId` int REFERENCES `user`(`id`))'
+    text  : 'CREATE TABLE `post` (`userId` int REFERENCES `user`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE)',
+    string: 'CREATE TABLE `post` (`userId` int REFERENCES `user`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE)'
   },
   oracle: {
-    text  : 'CREATE TABLE "post" ("userId" int REFERENCES "user"("id"))',
-    string: 'CREATE TABLE "post" ("userId" int REFERENCES "user"("id"))'
+    text  : 'CREATE TABLE "post" ("userId" int REFERENCES "user"("id") ON DELETE RESTRICT ON UPDATE CASCADE)',
+    string: 'CREATE TABLE "post" ("userId" int REFERENCES "user"("id") ON DELETE RESTRICT ON UPDATE CASCADE)'
   },
   params: []
 });
@@ -705,20 +707,21 @@ Harness.test({
       table: 'posts',
       columns: [ 'blog_id', 'post_id' ],
       refColumns: [ 'blog_id', 'id' ],
-      onDelete: 'cascade'
+      onDelete: 'cascade',
+      onUpdate: 'cascade'
     }]
   }).create(),
   pg: {
-    text  : 'CREATE TABLE "replies" ("id" int PRIMARY KEY, "blog_id" int, "post_id" int, "user_id" int, FOREIGN KEY ( "blog_id", "user_id" ) REFERENCES "users", CONSTRAINT "posts_idx" FOREIGN KEY ( "blog_id", "post_id" ) REFERENCES "posts" ( "blog_id", "id" ) ON DELETE CASCADE)',
-    string: 'CREATE TABLE "replies" ("id" int PRIMARY KEY, "blog_id" int, "post_id" int, "user_id" int, FOREIGN KEY ( "blog_id", "user_id" ) REFERENCES "users", CONSTRAINT "posts_idx" FOREIGN KEY ( "blog_id", "post_id" ) REFERENCES "posts" ( "blog_id", "id" ) ON DELETE CASCADE)'
+    text  : 'CREATE TABLE "replies" ("id" int PRIMARY KEY, "blog_id" int, "post_id" int, "user_id" int, FOREIGN KEY ( "blog_id", "user_id" ) REFERENCES "users", CONSTRAINT "posts_idx" FOREIGN KEY ( "blog_id", "post_id" ) REFERENCES "posts" ( "blog_id", "id" ) ON DELETE CASCADE ON UPDATE CASCADE)',
+    string: 'CREATE TABLE "replies" ("id" int PRIMARY KEY, "blog_id" int, "post_id" int, "user_id" int, FOREIGN KEY ( "blog_id", "user_id" ) REFERENCES "users", CONSTRAINT "posts_idx" FOREIGN KEY ( "blog_id", "post_id" ) REFERENCES "posts" ( "blog_id", "id" ) ON DELETE CASCADE ON UPDATE CASCADE)'
   },
   sqlite: {
-    text  : 'CREATE TABLE "replies" ("id" int PRIMARY KEY, "blog_id" int, "post_id" int, "user_id" int, FOREIGN KEY ( "blog_id", "user_id" ) REFERENCES "users", CONSTRAINT "posts_idx" FOREIGN KEY ( "blog_id", "post_id" ) REFERENCES "posts" ( "blog_id", "id" ) ON DELETE CASCADE)',
-    string: 'CREATE TABLE "replies" ("id" int PRIMARY KEY, "blog_id" int, "post_id" int, "user_id" int, FOREIGN KEY ( "blog_id", "user_id" ) REFERENCES "users", CONSTRAINT "posts_idx" FOREIGN KEY ( "blog_id", "post_id" ) REFERENCES "posts" ( "blog_id", "id" ) ON DELETE CASCADE)'
+    text  : 'CREATE TABLE "replies" ("id" int PRIMARY KEY, "blog_id" int, "post_id" int, "user_id" int, FOREIGN KEY ( "blog_id", "user_id" ) REFERENCES "users", CONSTRAINT "posts_idx" FOREIGN KEY ( "blog_id", "post_id" ) REFERENCES "posts" ( "blog_id", "id" ) ON DELETE CASCADE ON UPDATE CASCADE)',
+    string: 'CREATE TABLE "replies" ("id" int PRIMARY KEY, "blog_id" int, "post_id" int, "user_id" int, FOREIGN KEY ( "blog_id", "user_id" ) REFERENCES "users", CONSTRAINT "posts_idx" FOREIGN KEY ( "blog_id", "post_id" ) REFERENCES "posts" ( "blog_id", "id" ) ON DELETE CASCADE ON UPDATE CASCADE)'
   },
   mysql: {
-    text  : 'CREATE TABLE `replies` (`id` int PRIMARY KEY, `blog_id` int, `post_id` int, `user_id` int, FOREIGN KEY ( `blog_id`, `user_id` ) REFERENCES `users`, CONSTRAINT `posts_idx` FOREIGN KEY ( `blog_id`, `post_id` ) REFERENCES `posts` ( `blog_id`, `id` ) ON DELETE CASCADE)',
-    string: 'CREATE TABLE `replies` (`id` int PRIMARY KEY, `blog_id` int, `post_id` int, `user_id` int, FOREIGN KEY ( `blog_id`, `user_id` ) REFERENCES `users`, CONSTRAINT `posts_idx` FOREIGN KEY ( `blog_id`, `post_id` ) REFERENCES `posts` ( `blog_id`, `id` ) ON DELETE CASCADE)'
+    text  : 'CREATE TABLE `replies` (`id` int PRIMARY KEY, `blog_id` int, `post_id` int, `user_id` int, FOREIGN KEY ( `blog_id`, `user_id` ) REFERENCES `users`, CONSTRAINT `posts_idx` FOREIGN KEY ( `blog_id`, `post_id` ) REFERENCES `posts` ( `blog_id`, `id` ) ON DELETE CASCADE ON UPDATE CASCADE)',
+    string: 'CREATE TABLE `replies` (`id` int PRIMARY KEY, `blog_id` int, `post_id` int, `user_id` int, FOREIGN KEY ( `blog_id`, `user_id` ) REFERENCES `users`, CONSTRAINT `posts_idx` FOREIGN KEY ( `blog_id`, `post_id` ) REFERENCES `posts` ( `blog_id`, `id` ) ON DELETE CASCADE ON UPDATE CASCADE)'
   },
   params: []
 });
