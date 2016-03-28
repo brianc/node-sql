@@ -258,25 +258,25 @@ Harness.test({
         table: 'user',
         column: 'id',
         onDelete: 'restrict',
-        onUpdate: 'cascade'
+        onUpdate: 'set null'
       }
     }]
   }).create(),
   pg: {
-    text  : 'CREATE TABLE "post" ("userId" int REFERENCES "user"("id") ON DELETE RESTRICT ON UPDATE CASCADE)',
-    string: 'CREATE TABLE "post" ("userId" int REFERENCES "user"("id") ON DELETE RESTRICT ON UPDATE CASCADE)'
+    text  : 'CREATE TABLE "post" ("userId" int REFERENCES "user"("id") ON DELETE RESTRICT ON UPDATE SET NULL)',
+    string: 'CREATE TABLE "post" ("userId" int REFERENCES "user"("id") ON DELETE RESTRICT ON UPDATE SET NULL)'
   },
   sqlite: {
-    text  : 'CREATE TABLE "post" ("userId" int REFERENCES "user"("id") ON DELETE RESTRICT ON UPDATE CASCADE)',
-    string: 'CREATE TABLE "post" ("userId" int REFERENCES "user"("id") ON DELETE RESTRICT ON UPDATE CASCADE)'
+    text  : 'CREATE TABLE "post" ("userId" int REFERENCES "user"("id") ON DELETE RESTRICT ON UPDATE SET NULL)',
+    string: 'CREATE TABLE "post" ("userId" int REFERENCES "user"("id") ON DELETE RESTRICT ON UPDATE SET NULL)'
   },
   mysql: {
-    text  : 'CREATE TABLE `post` (`userId` int REFERENCES `user`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE)',
-    string: 'CREATE TABLE `post` (`userId` int REFERENCES `user`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE)'
+    text  : 'CREATE TABLE `post` (`userId` int REFERENCES `user`(`id`) ON DELETE RESTRICT ON UPDATE SET NULL)',
+    string: 'CREATE TABLE `post` (`userId` int REFERENCES `user`(`id`) ON DELETE RESTRICT ON UPDATE SET NULL)'
   },
   oracle: {
-    text  : 'CREATE TABLE "post" ("userId" int REFERENCES "user"("id") ON DELETE RESTRICT ON UPDATE CASCADE)',
-    string: 'CREATE TABLE "post" ("userId" int REFERENCES "user"("id") ON DELETE RESTRICT ON UPDATE CASCADE)'
+    text  : 'CREATE TABLE "post" ("userId" int REFERENCES "user"("id") ON DELETE RESTRICT ON UPDATE SET NULL)',
+    string: 'CREATE TABLE "post" ("userId" int REFERENCES "user"("id") ON DELETE RESTRICT ON UPDATE SET NULL)'
   },
   params: []
 });
@@ -701,27 +701,28 @@ Harness.test({
     }],
     foreignKeys: [{
       table: 'users',
-      columns: [ 'blog_id', 'user_id' ]
+      columns: [ 'blog_id', 'user_id' ],
+      onDelete: 'no action'
     }, {
       name: 'posts_idx',
       table: 'posts',
       columns: [ 'blog_id', 'post_id' ],
       refColumns: [ 'blog_id', 'id' ],
       onDelete: 'cascade',
-      onUpdate: 'cascade'
+      onUpdate: 'set default'
     }]
   }).create(),
   pg: {
-    text  : 'CREATE TABLE "replies" ("id" int PRIMARY KEY, "blog_id" int, "post_id" int, "user_id" int, FOREIGN KEY ( "blog_id", "user_id" ) REFERENCES "users", CONSTRAINT "posts_idx" FOREIGN KEY ( "blog_id", "post_id" ) REFERENCES "posts" ( "blog_id", "id" ) ON DELETE CASCADE ON UPDATE CASCADE)',
-    string: 'CREATE TABLE "replies" ("id" int PRIMARY KEY, "blog_id" int, "post_id" int, "user_id" int, FOREIGN KEY ( "blog_id", "user_id" ) REFERENCES "users", CONSTRAINT "posts_idx" FOREIGN KEY ( "blog_id", "post_id" ) REFERENCES "posts" ( "blog_id", "id" ) ON DELETE CASCADE ON UPDATE CASCADE)'
+    text  : 'CREATE TABLE "replies" ("id" int PRIMARY KEY, "blog_id" int, "post_id" int, "user_id" int, FOREIGN KEY ( "blog_id", "user_id" ) REFERENCES "users" ON DELETE NO ACTION, CONSTRAINT "posts_idx" FOREIGN KEY ( "blog_id", "post_id" ) REFERENCES "posts" ( "blog_id", "id" ) ON DELETE CASCADE ON UPDATE SET DEFAULT)',
+    string: 'CREATE TABLE "replies" ("id" int PRIMARY KEY, "blog_id" int, "post_id" int, "user_id" int, FOREIGN KEY ( "blog_id", "user_id" ) REFERENCES "users" ON DELETE NO ACTION, CONSTRAINT "posts_idx" FOREIGN KEY ( "blog_id", "post_id" ) REFERENCES "posts" ( "blog_id", "id" ) ON DELETE CASCADE ON UPDATE SET DEFAULT)'
   },
   sqlite: {
-    text  : 'CREATE TABLE "replies" ("id" int PRIMARY KEY, "blog_id" int, "post_id" int, "user_id" int, FOREIGN KEY ( "blog_id", "user_id" ) REFERENCES "users", CONSTRAINT "posts_idx" FOREIGN KEY ( "blog_id", "post_id" ) REFERENCES "posts" ( "blog_id", "id" ) ON DELETE CASCADE ON UPDATE CASCADE)',
-    string: 'CREATE TABLE "replies" ("id" int PRIMARY KEY, "blog_id" int, "post_id" int, "user_id" int, FOREIGN KEY ( "blog_id", "user_id" ) REFERENCES "users", CONSTRAINT "posts_idx" FOREIGN KEY ( "blog_id", "post_id" ) REFERENCES "posts" ( "blog_id", "id" ) ON DELETE CASCADE ON UPDATE CASCADE)'
+    text  : 'CREATE TABLE "replies" ("id" int PRIMARY KEY, "blog_id" int, "post_id" int, "user_id" int, FOREIGN KEY ( "blog_id", "user_id" ) REFERENCES "users" ON DELETE NO ACTION, CONSTRAINT "posts_idx" FOREIGN KEY ( "blog_id", "post_id" ) REFERENCES "posts" ( "blog_id", "id" ) ON DELETE CASCADE ON UPDATE SET DEFAULT)',
+    string: 'CREATE TABLE "replies" ("id" int PRIMARY KEY, "blog_id" int, "post_id" int, "user_id" int, FOREIGN KEY ( "blog_id", "user_id" ) REFERENCES "users" ON DELETE NO ACTION, CONSTRAINT "posts_idx" FOREIGN KEY ( "blog_id", "post_id" ) REFERENCES "posts" ( "blog_id", "id" ) ON DELETE CASCADE ON UPDATE SET DEFAULT)'
   },
   mysql: {
-    text  : 'CREATE TABLE `replies` (`id` int PRIMARY KEY, `blog_id` int, `post_id` int, `user_id` int, FOREIGN KEY ( `blog_id`, `user_id` ) REFERENCES `users`, CONSTRAINT `posts_idx` FOREIGN KEY ( `blog_id`, `post_id` ) REFERENCES `posts` ( `blog_id`, `id` ) ON DELETE CASCADE ON UPDATE CASCADE)',
-    string: 'CREATE TABLE `replies` (`id` int PRIMARY KEY, `blog_id` int, `post_id` int, `user_id` int, FOREIGN KEY ( `blog_id`, `user_id` ) REFERENCES `users`, CONSTRAINT `posts_idx` FOREIGN KEY ( `blog_id`, `post_id` ) REFERENCES `posts` ( `blog_id`, `id` ) ON DELETE CASCADE ON UPDATE CASCADE)'
+    text  : 'CREATE TABLE `replies` (`id` int PRIMARY KEY, `blog_id` int, `post_id` int, `user_id` int, FOREIGN KEY ( `blog_id`, `user_id` ) REFERENCES `users` ON DELETE NO ACTION, CONSTRAINT `posts_idx` FOREIGN KEY ( `blog_id`, `post_id` ) REFERENCES `posts` ( `blog_id`, `id` ) ON DELETE CASCADE ON UPDATE SET DEFAULT)',
+    string: 'CREATE TABLE `replies` (`id` int PRIMARY KEY, `blog_id` int, `post_id` int, `user_id` int, FOREIGN KEY ( `blog_id`, `user_id` ) REFERENCES `users` ON DELETE NO ACTION, CONSTRAINT `posts_idx` FOREIGN KEY ( `blog_id`, `post_id` ) REFERENCES `posts` ( `blog_id`, `id` ) ON DELETE CASCADE ON UPDATE SET DEFAULT)'
   },
   params: []
 });
