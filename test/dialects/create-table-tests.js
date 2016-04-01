@@ -256,25 +256,27 @@ Harness.test({
       dataType: 'int',
       references: {
         table: 'user',
-        column: 'id'
+        column: 'id',
+        onDelete: 'restrict',
+        onUpdate: 'set null'
       }
     }]
   }).create(),
   pg: {
-    text  : 'CREATE TABLE "post" ("userId" int REFERENCES "user"("id"))',
-    string: 'CREATE TABLE "post" ("userId" int REFERENCES "user"("id"))'
+    text  : 'CREATE TABLE "post" ("userId" int REFERENCES "user"("id") ON DELETE RESTRICT ON UPDATE SET NULL)',
+    string: 'CREATE TABLE "post" ("userId" int REFERENCES "user"("id") ON DELETE RESTRICT ON UPDATE SET NULL)'
   },
   sqlite: {
-    text  : 'CREATE TABLE "post" ("userId" int REFERENCES "user"("id"))',
-    string: 'CREATE TABLE "post" ("userId" int REFERENCES "user"("id"))'
+    text  : 'CREATE TABLE "post" ("userId" int REFERENCES "user"("id") ON DELETE RESTRICT ON UPDATE SET NULL)',
+    string: 'CREATE TABLE "post" ("userId" int REFERENCES "user"("id") ON DELETE RESTRICT ON UPDATE SET NULL)'
   },
   mysql: {
-    text  : 'CREATE TABLE `post` (`userId` int REFERENCES `user`(`id`))',
-    string: 'CREATE TABLE `post` (`userId` int REFERENCES `user`(`id`))'
+    text  : 'CREATE TABLE `post` (`userId` int REFERENCES `user`(`id`) ON DELETE RESTRICT ON UPDATE SET NULL)',
+    string: 'CREATE TABLE `post` (`userId` int REFERENCES `user`(`id`) ON DELETE RESTRICT ON UPDATE SET NULL)'
   },
   oracle: {
-    text  : 'CREATE TABLE "post" ("userId" int REFERENCES "user"("id"))',
-    string: 'CREATE TABLE "post" ("userId" int REFERENCES "user"("id"))'
+    text  : 'CREATE TABLE "post" ("userId" int REFERENCES "user"("id") ON DELETE RESTRICT ON UPDATE SET NULL)',
+    string: 'CREATE TABLE "post" ("userId" int REFERENCES "user"("id") ON DELETE RESTRICT ON UPDATE SET NULL)'
   },
   params: []
 });
@@ -641,6 +643,86 @@ Harness.test({
   oracle: {
     text  : 'CREATE TABLE "post" ("id" int PRIMARY KEY)',
     string: 'CREATE TABLE "post" ("id" int PRIMARY KEY)'
+  },
+  params: []
+});
+
+Harness.test({
+  query: Table.define({
+    name: 'post',
+    columns: [{
+      name: 'id',
+      dataType: 'int',
+      primaryKey: true
+    }, {
+      name: 'blog_id',
+      dataType: 'int'
+    }, {
+      name: 'user_id',
+      dataType: 'int'
+    }],
+    foreignKeys: {
+      table: 'users',
+      columns: [ 'blog_id', 'user_id' ],
+      refColumns: [ 'id', 'user_id' ]
+    }
+  }).create(),
+  pg: {
+    text  : 'CREATE TABLE "post" ("id" int PRIMARY KEY, "blog_id" int, "user_id" int, FOREIGN KEY ( "blog_id", "user_id" ) REFERENCES "users" ( "id", "user_id" ))',
+    string: 'CREATE TABLE "post" ("id" int PRIMARY KEY, "blog_id" int, "user_id" int, FOREIGN KEY ( "blog_id", "user_id" ) REFERENCES "users" ( "id", "user_id" ))'
+  },
+  sqlite: {
+    text  : 'CREATE TABLE "post" ("id" int PRIMARY KEY, "blog_id" int, "user_id" int, FOREIGN KEY ( "blog_id", "user_id" ) REFERENCES "users" ( "id", "user_id" ))',
+    string: 'CREATE TABLE "post" ("id" int PRIMARY KEY, "blog_id" int, "user_id" int, FOREIGN KEY ( "blog_id", "user_id" ) REFERENCES "users" ( "id", "user_id" ))'
+  },
+  mysql: {
+    text  : 'CREATE TABLE `post` (`id` int PRIMARY KEY, `blog_id` int, `user_id` int, FOREIGN KEY ( `blog_id`, `user_id` ) REFERENCES `users` ( `id`, `user_id` ))',
+    string: 'CREATE TABLE `post` (`id` int PRIMARY KEY, `blog_id` int, `user_id` int, FOREIGN KEY ( `blog_id`, `user_id` ) REFERENCES `users` ( `id`, `user_id` ))'
+  },
+  params: []
+});
+
+Harness.test({
+  query: Table.define({
+    name: 'replies',
+    columns: [{
+      name: 'id',
+      dataType: 'int',
+      primaryKey: true
+    }, {
+      name: 'blog_id',
+      dataType: 'int'
+    }, {
+      name: 'post_id',
+      dataType: 'int'
+    }, {
+      name: 'user_id',
+      dataType: 'int'
+    }],
+    foreignKeys: [{
+      table: 'users',
+      columns: [ 'blog_id', 'user_id' ],
+      onDelete: 'no action'
+    }, {
+      name: 'posts_idx',
+      table: 'posts',
+      columns: [ 'blog_id', 'post_id' ],
+      refColumns: [ 'blog_id', 'id' ],
+      onDelete: 'cascade',
+      onUpdate: 'set default'
+    }]
+  }).create(),
+  pg: {
+    text  : 'CREATE TABLE "replies" ("id" int PRIMARY KEY, "blog_id" int, "post_id" int, "user_id" int, FOREIGN KEY ( "blog_id", "user_id" ) REFERENCES "users" ON DELETE NO ACTION, CONSTRAINT "posts_idx" FOREIGN KEY ( "blog_id", "post_id" ) REFERENCES "posts" ( "blog_id", "id" ) ON DELETE CASCADE ON UPDATE SET DEFAULT)',
+    string: 'CREATE TABLE "replies" ("id" int PRIMARY KEY, "blog_id" int, "post_id" int, "user_id" int, FOREIGN KEY ( "blog_id", "user_id" ) REFERENCES "users" ON DELETE NO ACTION, CONSTRAINT "posts_idx" FOREIGN KEY ( "blog_id", "post_id" ) REFERENCES "posts" ( "blog_id", "id" ) ON DELETE CASCADE ON UPDATE SET DEFAULT)'
+  },
+  sqlite: {
+    text  : 'CREATE TABLE "replies" ("id" int PRIMARY KEY, "blog_id" int, "post_id" int, "user_id" int, FOREIGN KEY ( "blog_id", "user_id" ) REFERENCES "users" ON DELETE NO ACTION, CONSTRAINT "posts_idx" FOREIGN KEY ( "blog_id", "post_id" ) REFERENCES "posts" ( "blog_id", "id" ) ON DELETE CASCADE ON UPDATE SET DEFAULT)',
+    string: 'CREATE TABLE "replies" ("id" int PRIMARY KEY, "blog_id" int, "post_id" int, "user_id" int, FOREIGN KEY ( "blog_id", "user_id" ) REFERENCES "users" ON DELETE NO ACTION, CONSTRAINT "posts_idx" FOREIGN KEY ( "blog_id", "post_id" ) REFERENCES "posts" ( "blog_id", "id" ) ON DELETE CASCADE ON UPDATE SET DEFAULT)'
+  },
+  mysql: {
+    text  : 'CREATE TABLE `replies` (`id` int PRIMARY KEY, `blog_id` int, `post_id` int, `user_id` int, FOREIGN KEY ( `blog_id`, `user_id` ) REFERENCES `users` ON DELETE NO ACTION, CONSTRAINT `posts_idx` FOREIGN KEY ( `blog_id`, `post_id` ) REFERENCES `posts` ( `blog_id`, `id` ) ON DELETE CASCADE ON UPDATE SET DEFAULT)',
+    string: 'CREATE TABLE `replies` (`id` int PRIMARY KEY, `blog_id` int, `post_id` int, `user_id` int, FOREIGN KEY ( `blog_id`, `user_id` ) REFERENCES `users` ON DELETE NO ACTION, CONSTRAINT `posts_idx` FOREIGN KEY ( `blog_id`, `post_id` ) REFERENCES `posts` ( `blog_id`, `id` ) ON DELETE CASCADE ON UPDATE SET DEFAULT)'
   },
   params: []
 });
