@@ -208,7 +208,7 @@ Harness.test({
 });
 
 Harness.test({
-  query: post.select(Sql.literalColumn(4)),
+  query: post.select(Sql.constant(4)),
   pg: {
     text  : 'SELECT $1 FROM "post"',
     string: 'SELECT 4 FROM "post"'
@@ -233,7 +233,7 @@ Harness.test({
 });
 
 Harness.test({
-  query: post.select(post.id,Sql.literalColumn(4)),
+  query: post.select(post.id,Sql.constant(4)),
   pg: {
     text  : 'SELECT "post"."id", $1 FROM "post"',
     string: 'SELECT "post"."id", 4 FROM "post"'
@@ -258,7 +258,7 @@ Harness.test({
 });
 
 Harness.test({
-  query: post.select(Sql.literalColumn(4).as('col1')),
+  query: post.select(Sql.constant(4).as('col1')),
   pg: {
     text  : 'SELECT $1 AS "col1" FROM "post"',
     string: 'SELECT 4 AS "col1" FROM "post"'
@@ -283,7 +283,7 @@ Harness.test({
 });
 
 Harness.test({
-  query: post.select(Sql.literalColumn(4).plus(5)),
+  query: post.select(Sql.constant(4).plus(5)),
   pg: {
     text  : 'SELECT ($1 + $2) FROM "post"',
     string: 'SELECT (4 + 5) FROM "post"'
@@ -308,7 +308,7 @@ Harness.test({
 });
 
 Harness.test({
-  query: post.select(Sql.literalColumn(4).plus(5).as('col1')),
+  query: post.select(Sql.constant(4).plus(5).as('col1')),
   pg: {
     text  : 'SELECT ($1 + $2) AS "col1" FROM "post"',
     string: 'SELECT (4 + 5) AS "col1" FROM "post"'
@@ -333,7 +333,7 @@ Harness.test({
 });
 
 Harness.test({
-  query: post.select(Sql.literalColumn(4),Sql.literalColumn("abc"),Sql.literalColumn(true)),
+  query: post.select(Sql.constant(4),Sql.constant("abc"),Sql.constant(true)),
   pg: {
     text  : 'SELECT $1, $2, $3 FROM "post"',
     string: 'SELECT 4, \'abc\', TRUE FROM "post"'
@@ -358,26 +358,26 @@ Harness.test({
 });
 
 Harness.test({
-  query: post.select(Sql.literalColumn(1).sum()),
+  query: post.select(Sql.constant(1).sum()),
   pg: {
-    text  : 'SELECT SUM($1) AS "literal_sum" FROM "post"',
-    string: 'SELECT SUM(1) AS "literal_sum" FROM "post"'
+    text  : 'SELECT SUM($1) AS "constant_sum" FROM "post"',
+    string: 'SELECT SUM(1) AS "constant_sum" FROM "post"'
   },
   sqlite: {
-    text  : 'SELECT SUM($1) AS "literal_sum" FROM "post"',
-    string: 'SELECT SUM(1) AS "literal_sum" FROM "post"'
+    text  : 'SELECT SUM($1) AS "constant_sum" FROM "post"',
+    string: 'SELECT SUM(1) AS "constant_sum" FROM "post"'
   },
   mysql: {
-    text  : 'SELECT SUM(?) AS `literal_sum` FROM `post`',
-    string: 'SELECT SUM(1) AS `literal_sum` FROM `post`'
+    text  : 'SELECT SUM(?) AS `constant_sum` FROM `post`',
+    string: 'SELECT SUM(1) AS `constant_sum` FROM `post`'
   },
   mssql: {
-    text  : 'SELECT SUM(@1) AS [literal_sum] FROM [post]',
-    string: 'SELECT SUM(1) AS [literal_sum] FROM [post]'
+    text  : 'SELECT SUM(@1) AS [constant_sum] FROM [post]',
+    string: 'SELECT SUM(1) AS [constant_sum] FROM [post]'
   },
   oracle: {
-    text  : 'SELECT SUM(:1) "literal_sum" FROM "post"',
-    string: 'SELECT SUM(1) "literal_sum" FROM "post"'
+    text  : 'SELECT SUM(:1) "constant_sum" FROM "post"',
+    string: 'SELECT SUM(1) "constant_sum" FROM "post"'
   },
   params: [1]
 });
