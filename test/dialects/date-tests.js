@@ -36,8 +36,11 @@ Harness.test({
     string: 'SELECT EXTRACT(MONTH FROM "customer"."metadata") FROM "customer"'
   },
   sqlite: {
-    text  : 'SELECT strftime(\'%m\', "customer"."metadata") FROM "customer"',
-    string: 'SELECT strftime(\'%m\', "customer"."metadata") FROM "customer"'
+    text: 'SELECT strftime(\'%m\', datetime("customer"."metadata"/1000, "unixepoch")) FROM "customer"',
+    string: 'SELECT strftime(\'%m\', datetime("customer"."metadata"/1000, "unixepoch")) FROM "customer"',
+    config: {
+      dateTimeMillis: true
+    }
   },
   mysql: {
     text  : 'SELECT MONTH(`customer`.`metadata`) FROM `customer`',
@@ -86,8 +89,11 @@ Harness.test({
     string: 'SELECT EXTRACT(HOUR FROM "customer"."metadata") FROM "customer"'
   },
   sqlite: {
-    text  : 'SELECT strftime(\'%H\', "customer"."metadata") FROM "customer"',
-    string: 'SELECT strftime(\'%H\', "customer"."metadata") FROM "customer"'
+    text: 'SELECT strftime(\'%H\', datetime("customer"."metadata"/1000, "unixepoch")) FROM "customer"',
+    string: 'SELECT strftime(\'%H\', datetime("customer"."metadata"/1000, "unixepoch")) FROM "customer"',
+    config: {
+      dateTimeMillis: true
+    }
   },
   mysql: {
     text  : 'SELECT HOUR(`customer`.`metadata`) FROM `customer`',
