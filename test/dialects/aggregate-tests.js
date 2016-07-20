@@ -16,8 +16,8 @@ Harness.test({
     string: 'SELECT COUNT("post".*) AS "post_count" FROM "post"'
   },
   mysql: {
-    text  : 'SELECT COUNT(`post`.*) AS `post_count` FROM `post`',
-    string: 'SELECT COUNT(`post`.*) AS `post_count` FROM `post`'
+    text  : 'SELECT COUNT(*) AS `post_count` FROM `post`',
+    string: 'SELECT COUNT(*) AS `post_count` FROM `post`'
   },
   mssql: {
     text  : 'SELECT COUNT(*) AS [post_count] FROM [post]',
@@ -41,8 +41,8 @@ Harness.test({
     string: 'SELECT COUNT("post".*) AS "post_count" FROM "post"'
   },
   msyql: {
-    text  : 'SELECT COUNT(`post`.*) AS `post_count` FROM `post`',
-    string: 'SELECT COUNT(`post`.*) AS `post_count` FROM `post`'
+    text  : 'SELECT COUNT(*) AS `post_count` FROM `post`',
+    string: 'SELECT COUNT(*) AS `post_count` FROM `post`'
   },
   mssql: {
     text  : 'SELECT COUNT(*) AS [post_count] FROM [post]',
@@ -66,8 +66,8 @@ Harness.test({
     string: 'SELECT COUNT("post".*) AS "post_amount" FROM "post"'
   },
   mysql: {
-    text  : 'SELECT COUNT(`post`.*) AS `post_amount` FROM `post`',
-    string: 'SELECT COUNT(`post`.*) AS `post_amount` FROM `post`'
+    text  : 'SELECT COUNT(*) AS `post_amount` FROM `post`',
+    string: 'SELECT COUNT(*) AS `post_amount` FROM `post`'
   },
   mssql: {
     text  : 'SELECT COUNT(*) AS [post_amount] FROM [post]',
@@ -166,8 +166,8 @@ Harness.test({
     string: 'SELECT COUNT("customer".*) AS "customer_count" FROM "customer"'
   },
   mysql: {
-    text  : 'SELECT COUNT(`customer`.*) AS `customer_count` FROM `customer`',
-    string: 'SELECT COUNT(`customer`.*) AS `customer_count` FROM `customer`'
+    text  : 'SELECT COUNT(*) AS `customer_count` FROM `customer`',
+    string: 'SELECT COUNT(*) AS `customer_count` FROM `customer`'
   },
   oracle: {
     text  : 'SELECT COUNT(*) "customer_count" FROM "customer"',
