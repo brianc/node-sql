@@ -134,3 +134,82 @@ Harness.test({
   },
   params: []
 });
+
+Harness.test({
+  query: Sql.select(Sql.functions.CURRENT_TIMESTAMP().plus(Sql.interval({hours:1}))),
+  pg: {
+    text  : 'SELECT (CURRENT_TIMESTAMP + INTERVAL \'1 HOUR\')',
+    string: 'SELECT (CURRENT_TIMESTAMP + INTERVAL \'1 HOUR\')'
+  },
+  mysql: {
+    text  : 'SELECT (CURRENT_TIMESTAMP + INTERVAL \'1:0:0\' HOUR_SECOND)',
+    string: 'SELECT (CURRENT_TIMESTAMP + INTERVAL \'1:0:0\' HOUR_SECOND)'
+  },
+  params: []
+});
+
+Harness.test({
+  query: Sql.select(Sql.functions.CURRENT_TIMESTAMP().minus(Sql.interval({years:3}))),
+  pg: {
+    text  : 'SELECT (CURRENT_TIMESTAMP - INTERVAL \'3 YEAR\')',
+    string: 'SELECT (CURRENT_TIMESTAMP - INTERVAL \'3 YEAR\')'
+  },
+  mysql: {
+    text  : 'SELECT (CURRENT_TIMESTAMP - INTERVAL 3 YEAR)',
+    string: 'SELECT (CURRENT_TIMESTAMP - INTERVAL 3 YEAR)'
+  },
+  params: []
+});
+
+Harness.test({
+  query: Sql.select(Sql.functions.CURRENT_TIMESTAMP().minus(Sql.interval({years:3, months:2}))),
+  pg: {
+    text  : 'SELECT (CURRENT_TIMESTAMP - INTERVAL \'3 YEAR 2 MONTH\')',
+    string: 'SELECT (CURRENT_TIMESTAMP - INTERVAL \'3 YEAR 2 MONTH\')'
+  },
+  mysql: {
+    text  : 'SELECT (CURRENT_TIMESTAMP - INTERVAL \'3-2\' YEAR_MONTH)',
+    string: 'SELECT (CURRENT_TIMESTAMP - INTERVAL \'3-2\' YEAR_MONTH)'
+  },
+  params: []
+});
+
+Harness.test({
+  query: Sql.select(Sql.functions.CURRENT_TIMESTAMP().plus(Sql.interval({hours:1, minutes:20}))),
+  pg: {
+    text  : 'SELECT (CURRENT_TIMESTAMP + INTERVAL \'1 HOUR 20 MINUTE\')',
+    string: 'SELECT (CURRENT_TIMESTAMP + INTERVAL \'1 HOUR 20 MINUTE\')'
+  },
+  mysql: {
+    text  : 'SELECT (CURRENT_TIMESTAMP + INTERVAL \'1:20:0\' HOUR_SECOND)',
+    string: 'SELECT (CURRENT_TIMESTAMP + INTERVAL \'1:20:0\' HOUR_SECOND)'
+  },
+  params: []
+});
+
+Harness.test({
+  query: Sql.select(Sql.functions.CURRENT_TIMESTAMP().plus(Sql.interval({hours:'sql\'injection', minutes:20}))),
+  pg: {
+    text  : 'SELECT (CURRENT_TIMESTAMP + INTERVAL \'20 MINUTE\')',
+    string: 'SELECT (CURRENT_TIMESTAMP + INTERVAL \'20 MINUTE\')'
+  },
+  mysql: {
+    text  : 'SELECT (CURRENT_TIMESTAMP + INTERVAL \'0:20:0\' HOUR_SECOND)',
+    string: 'SELECT (CURRENT_TIMESTAMP + INTERVAL \'0:20:0\' HOUR_SECOND)'
+  },
+  params: []
+});
+
+Harness.test({
+  query: Sql.select(Sql.functions.CURRENT_TIMESTAMP().minus(Sql.interval({days: 1, hours:5, minutes: 'sql\'injection'}))),
+  pg: {
+    text  : 'SELECT (CURRENT_TIMESTAMP - INTERVAL \'1 DAY 5 HOUR\')',
+    string: 'SELECT (CURRENT_TIMESTAMP - INTERVAL \'1 DAY 5 HOUR\')'
+  },
+  mysql: {
+    text  : 'SELECT (CURRENT_TIMESTAMP - INTERVAL \'1 5:0:0\' DAY_SECOND)',
+    string: 'SELECT (CURRENT_TIMESTAMP - INTERVAL \'1 5:0:0\' DAY_SECOND)'
+  },
+  params: []
+});
+
