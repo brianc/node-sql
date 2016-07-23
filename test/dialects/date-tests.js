@@ -213,3 +213,16 @@ Harness.test({
   params: []
 });
 
+Harness.test({
+  query: Sql.select(Sql.functions.CURRENT_TIMESTAMP().minus(Sql.interval({years: 2, months: 5}))),
+  pg: {
+    text  : 'SELECT (CURRENT_TIMESTAMP - INTERVAL \'2 YEAR 5 MONTH\')',
+    string: 'SELECT (CURRENT_TIMESTAMP - INTERVAL \'2 YEAR 5 MONTH\')'
+  },
+  mysql: {
+    text  : 'SELECT (CURRENT_TIMESTAMP - INTERVAL \'2-5\' YEAR_MONTH)',
+    string: 'SELECT (CURRENT_TIMESTAMP - INTERVAL \'2-5\' YEAR_MONTH)'
+  },
+  params: []
+});
+
