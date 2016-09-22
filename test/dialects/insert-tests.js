@@ -414,3 +414,23 @@ Harness.test({
   },
   params: []
 });
+
+Harness.test({
+  query: post.insert({
+    content: 'test',
+    userId: 2
+  }).onDuplicate({
+    content: 'testupdate',
+  }),
+  pg: {
+    throws: true
+  },
+  sqlite: {
+    throws: true
+  },
+  mysql: {
+    text  : 'INSERT INTO `post` (`content`, `userId`) VALUES (?, ?) ON DUPLICATE KEY UPDATE `post`.`content` = ?',
+    string: 'INSERT INTO `post` (`content`, `userId`) VALUES (\'test\', 2) ON DUPLICATE KEY UPDATE `post`.`content` = \'testupdate\''
+  },
+  params: ['test', 2, 'testupdate']
+});
