@@ -2,6 +2,7 @@
 
 var Harness = require('./support');
 var post = Harness.definePostTable();
+var user = Harness.defineUserTable();
 var customerAlias = Harness.defineCustomerAliasTable();
 var Sql = require('../../lib');
 
@@ -181,3 +182,280 @@ Harness.test({
   },
   params: []
 });
+
+Harness.test({
+  query: post.select(post.id.as('col1')),
+  pg: {
+    text  : 'SELECT "post"."id" AS "col1" FROM "post"',
+    string: 'SELECT "post"."id" AS "col1" FROM "post"'
+  },
+  sqlite: {
+    text  : 'SELECT "post"."id" AS "col1" FROM "post"',
+    string: 'SELECT "post"."id" AS "col1" FROM "post"'
+  },
+  mysql: {
+    text  : 'SELECT `post`.`id` AS `col1` FROM `post`',
+    string: 'SELECT `post`.`id` AS `col1` FROM `post`'
+  },
+  mssql: {
+    text  : 'SELECT [post].[id] AS [col1] FROM [post]',
+    string: 'SELECT [post].[id] AS [col1] FROM [post]'
+  },
+  oracle: {
+    text  : 'SELECT "post"."id" "col1" FROM "post"',
+    string: 'SELECT "post"."id" "col1" FROM "post"'
+  },
+  params: []
+});
+
+Harness.test({
+  query: post.select(Sql.constant(4)),
+  pg: {
+    text  : 'SELECT $1 FROM "post"',
+    string: 'SELECT 4 FROM "post"'
+  },
+  sqlite: {
+    text  : 'SELECT $1 FROM "post"',
+    string: 'SELECT 4 FROM "post"'
+  },
+  mysql: {
+    text  : 'SELECT ? FROM `post`',
+    string: 'SELECT 4 FROM `post`'
+  },
+  mssql: {
+    text  : 'SELECT @1 FROM [post]',
+    string: 'SELECT 4 FROM [post]'
+  },
+  oracle: {
+    text  : 'SELECT :1 FROM "post"',
+    string: 'SELECT 4 FROM "post"'
+  },
+  params: [4]
+});
+
+Harness.test({
+  query: post.select(post.id,Sql.constant(4)),
+  pg: {
+    text  : 'SELECT "post"."id", $1 FROM "post"',
+    string: 'SELECT "post"."id", 4 FROM "post"'
+  },
+  sqlite: {
+    text  : 'SELECT "post"."id", $1 FROM "post"',
+    string: 'SELECT "post"."id", 4 FROM "post"'
+  },
+  mysql: {
+    text  : 'SELECT `post`.`id`, ? FROM `post`',
+    string: 'SELECT `post`.`id`, 4 FROM `post`'
+  },
+  mssql: {
+    text  : 'SELECT [post].[id], @1 FROM [post]',
+    string: 'SELECT [post].[id], 4 FROM [post]'
+  },
+  oracle: {
+    text  : 'SELECT "post"."id", :1 FROM "post"',
+    string: 'SELECT "post"."id", 4 FROM "post"'
+  },
+  params: [4]
+});
+
+Harness.test({
+  query: post.select(Sql.constant(4).as('col1')),
+  pg: {
+    text  : 'SELECT $1 AS "col1" FROM "post"',
+    string: 'SELECT 4 AS "col1" FROM "post"'
+  },
+  sqlite: {
+    text  : 'SELECT $1 AS "col1" FROM "post"',
+    string: 'SELECT 4 AS "col1" FROM "post"'
+  },
+  mysql: {
+    text  : 'SELECT ? AS `col1` FROM `post`',
+    string: 'SELECT 4 AS `col1` FROM `post`'
+  },
+  mssql: {
+    text  : 'SELECT @1 AS [col1] FROM [post]',
+    string: 'SELECT 4 AS [col1] FROM [post]'
+  },
+  oracle: {
+    text  : 'SELECT :1 "col1" FROM "post"',
+    string: 'SELECT 4 "col1" FROM "post"'
+  },
+  params: [4]
+});
+
+Harness.test({
+  query: post.select(Sql.constant(4).plus(5)),
+  pg: {
+    text  : 'SELECT ($1 + $2) FROM "post"',
+    string: 'SELECT (4 + 5) FROM "post"'
+  },
+  sqlite: {
+    text  : 'SELECT ($1 + $2) FROM "post"',
+    string: 'SELECT (4 + 5) FROM "post"'
+  },
+  mysql: {
+    text  : 'SELECT (? + ?) FROM `post`',
+    string: 'SELECT (4 + 5) FROM `post`'
+  },
+  mssql: {
+    text  : 'SELECT (@1 + @2) FROM [post]',
+    string: 'SELECT (4 + 5) FROM [post]'
+  },
+  oracle: {
+    text  : 'SELECT (:1 + :2) FROM "post"',
+    string: 'SELECT (4 + 5) FROM "post"'
+  },
+  params: [4,5]
+});
+
+Harness.test({
+  query: post.select(Sql.constant(4).plus(5).as('col1')),
+  pg: {
+    text  : 'SELECT ($1 + $2) AS "col1" FROM "post"',
+    string: 'SELECT (4 + 5) AS "col1" FROM "post"'
+  },
+  sqlite: {
+    text  : 'SELECT ($1 + $2) AS "col1" FROM "post"',
+    string: 'SELECT (4 + 5) AS "col1" FROM "post"'
+  },
+  mysql: {
+    text  : 'SELECT (? + ?) AS `col1` FROM `post`',
+    string: 'SELECT (4 + 5) AS `col1` FROM `post`'
+  },
+  mssql: {
+    text  : 'SELECT (@1 + @2) AS [col1] FROM [post]',
+    string: 'SELECT (4 + 5) AS [col1] FROM [post]'
+  },
+  oracle: {
+    text  : 'SELECT (:1 + :2) "col1" FROM "post"',
+    string: 'SELECT (4 + 5) "col1" FROM "post"'
+  },
+  params: [4,5]
+});
+
+Harness.test({
+  query: post.select(Sql.constant(4),Sql.constant("abc"),Sql.constant(true)),
+  pg: {
+    text  : 'SELECT $1, $2, $3 FROM "post"',
+    string: 'SELECT 4, \'abc\', TRUE FROM "post"'
+  },
+  sqlite: {
+    text  : 'SELECT $1, $2, $3 FROM "post"',
+    string: 'SELECT 4, \'abc\', 1 FROM "post"'
+  },
+  mysql: {
+    text  : 'SELECT ?, ?, ? FROM `post`',
+    string: 'SELECT 4, \'abc\', TRUE FROM `post`'
+  },
+  mssql: {
+    text  : 'SELECT @1, @2, @3 FROM [post]',
+    string: 'SELECT 4, \'abc\', TRUE FROM [post]'
+  },
+  oracle: {
+    text  : 'SELECT :1, :2, :3 FROM "post"',
+    string: 'SELECT 4, \'abc\', TRUE FROM "post"'
+  },
+  params: [4,'abc',true]
+});
+
+Harness.test({
+  query: post.select(Sql.constant(1).sum()),
+  pg: {
+    text  : 'SELECT SUM($1) AS "constant_sum" FROM "post"',
+    string: 'SELECT SUM(1) AS "constant_sum" FROM "post"'
+  },
+  sqlite: {
+    text  : 'SELECT SUM($1) AS "constant_sum" FROM "post"',
+    string: 'SELECT SUM(1) AS "constant_sum" FROM "post"'
+  },
+  mysql: {
+    text  : 'SELECT SUM(?) AS `constant_sum` FROM `post`',
+    string: 'SELECT SUM(1) AS `constant_sum` FROM `post`'
+  },
+  mssql: {
+    text  : 'SELECT SUM(@1) AS [constant_sum] FROM [post]',
+    string: 'SELECT SUM(1) AS [constant_sum] FROM [post]'
+  },
+  oracle: {
+    text  : 'SELECT SUM(:1) "constant_sum" FROM "post"',
+    string: 'SELECT SUM(1) "constant_sum" FROM "post"'
+  },
+  params: [1]
+});
+
+Harness.test({
+  query: Sql.select(post.select(post.id).as("column1")),
+  pg: {
+    text  : 'SELECT (SELECT "post"."id" FROM "post") AS "column1"',
+    string: 'SELECT (SELECT "post"."id" FROM "post") AS "column1"'
+  },
+  sqlite: {
+    text  : 'SELECT (SELECT "post"."id" FROM "post") AS "column1"',
+    string: 'SELECT (SELECT "post"."id" FROM "post") AS "column1"'
+  },
+  mysql: {
+    text  : 'SELECT (SELECT `post`.`id` FROM `post`) AS `column1`',
+    string: 'SELECT (SELECT `post`.`id` FROM `post`) AS `column1`'
+  },
+  mssql: {
+    text  : 'SELECT (SELECT [post].[id] FROM [post]) AS [column1]',
+    string: 'SELECT (SELECT [post].[id] FROM [post]) AS [column1]'
+  },
+  oracle: {
+    text  : 'SELECT (SELECT "post"."id" FROM "post") "column1"',
+    string: 'SELECT (SELECT "post"."id" FROM "post") "column1"'
+  },
+  params: []
+});
+
+Harness.test({
+  query: Sql.select(post.select(post.count()).as("column1")),
+  pg: {
+    text  : 'SELECT (SELECT COUNT("post".*) AS "post_count" FROM "post") AS "column1"',
+    string: 'SELECT (SELECT COUNT("post".*) AS "post_count" FROM "post") AS "column1"'
+  },
+  sqlite: {
+    text  : 'SELECT (SELECT COUNT("post".*) AS "post_count" FROM "post") AS "column1"',
+    string: 'SELECT (SELECT COUNT("post".*) AS "post_count" FROM "post") AS "column1"'
+  },
+  mysql: {
+    text  : 'SELECT (SELECT COUNT(*) AS `post_count` FROM `post`) AS `column1`',
+    string: 'SELECT (SELECT COUNT(*) AS `post_count` FROM `post`) AS `column1`'
+  },
+  mssql: {
+    text  : 'SELECT (SELECT COUNT(*) AS [post_count] FROM [post]) AS [column1]',
+    string: 'SELECT (SELECT COUNT(*) AS [post_count] FROM [post]) AS [column1]'
+  },
+  oracle: {
+    text  : 'SELECT (SELECT COUNT(*) "post_count" FROM "post") "column1"',
+    string: 'SELECT (SELECT COUNT(*) "post_count" FROM "post") "column1"'
+  },
+  params: []
+});
+
+Harness.test({
+  query: Sql.select(post.select(post.id).as("column1"),user.select(user.id).as("column2")),
+  pg: {
+    text  : 'SELECT (SELECT "post"."id" FROM "post") AS "column1", (SELECT "user"."id" FROM "user") AS "column2"',
+    string: 'SELECT (SELECT "post"."id" FROM "post") AS "column1", (SELECT "user"."id" FROM "user") AS "column2"'
+  },
+  sqlite: {
+    text  : 'SELECT (SELECT "post"."id" FROM "post") AS "column1", (SELECT "user"."id" FROM "user") AS "column2"',
+    string: 'SELECT (SELECT "post"."id" FROM "post") AS "column1", (SELECT "user"."id" FROM "user") AS "column2"'
+  },
+  mysql: {
+    text  : 'SELECT (SELECT `post`.`id` FROM `post`) AS `column1`, (SELECT `user`.`id` FROM `user`) AS `column2`',
+    string: 'SELECT (SELECT `post`.`id` FROM `post`) AS `column1`, (SELECT `user`.`id` FROM `user`) AS `column2`'
+  },
+  mssql: {
+    text  : 'SELECT (SELECT [post].[id] FROM [post]) AS [column1], (SELECT [user].[id] FROM [user]) AS [column2]',
+    string: 'SELECT (SELECT [post].[id] FROM [post]) AS [column1], (SELECT [user].[id] FROM [user]) AS [column2]'
+  },
+  oracle: {
+    text  : 'SELECT (SELECT "post"."id" FROM "post") "column1", (SELECT "user"."id" FROM "user") "column2"',
+    string: 'SELECT (SELECT "post"."id" FROM "post") "column1", (SELECT "user"."id" FROM "user") "column2"'
+  },
+  params: []
+});
+
+
