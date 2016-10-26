@@ -56,6 +56,31 @@ Harness.test({
 });
 
 Harness.test({
+  query: post.insert({length: 0}),
+  pg: {
+    text  : 'INSERT INTO "post" ("length") VALUES ($1)',
+    string: 'INSERT INTO "post" ("length") VALUES (0)'
+  },
+  sqlite: {
+    text  : 'INSERT INTO "post" ("length") VALUES ($1)',
+    string: 'INSERT INTO "post" ("length") VALUES (0)'
+  },
+  mysql: {
+    text  : 'INSERT INTO `post` (`length`) VALUES (?)',
+    string: 'INSERT INTO `post` (`length`) VALUES (0)'
+  },
+  mssql: {
+    text  : 'INSERT INTO [post] ([length]) VALUES (@1)',
+    string: 'INSERT INTO [post] ([length]) VALUES (0)'
+  },
+  oracle: {
+    text  : 'INSERT INTO "post" ("length") VALUES (:1)',
+    string: 'INSERT INTO "post" ("length") VALUES (0)'
+  },
+  params: [0]
+});
+
+Harness.test({
   query: post.insert({
     content: 'test',
     userId: 2
