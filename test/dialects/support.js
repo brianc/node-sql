@@ -124,5 +124,14 @@ module.exports = {
       name: 'variable',
       columns: ['a', 'b', 'c', 'd', 't', 'u', 'v', 'x', 'y', 'z']
     });
+  },
+
+// this table is for testing snakeName related stuff
+  defineContentTable: function() {
+    return Table.define({
+      name: 'content',
+      columns: ['content_id', 'text', 'content_posts'],
+      snakeToCamel: true
+    });
   }
 };
