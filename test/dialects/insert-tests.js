@@ -3,6 +3,8 @@
 var Harness = require('./support');
 var post = Harness.definePostTable();
 var user = Harness.defineUserTable();
+var contentTable = Harness.defineContentTable();
+var customerAliasTable = Harness.defineCustomerAliasTable();
 
 var arrayTable = require('../../lib/table').define({
     name: 'arraytest',
@@ -627,6 +629,33 @@ Harness.test({
 });
 
 Harness.test({
+  query: customerAliasTable.insert({
+    id : 2,
+    name : 'test'
+  }).onConflict({
+    columns: ['id'],
+    update: ['name']
+  }),
+  mysql: {
+    throws: true
+  },
+  sqlite: {
+    throws: true
+  },
+  pg: {
+    text  : 'INSERT INTO "customer" ("id", "name") VALUES ($1, $2) ON CONFLICT ("id") DO UPDATE SET "name" = EXCLUDED."name"',
+    string: 'INSERT INTO "customer" ("id", "name") VALUES (2, \'test\') ON CONFLICT ("id") DO UPDATE SET "name" = EXCLUDED."name"'
+  },
+  mssql: {
+    throws: true
+  },
+  oracle: {
+    throws: true
+  },
+  params: [2, 'test']
+});
+
+Harness.test({
   query: post.insert({
     content: 'test',
     userId: 2
@@ -784,6 +813,60 @@ Harness.test({
     throws: true
   },
   params: ['test', 2]
+});
+
+Harness.test({
+  query: contentTable.insert({
+    contentId: 20,
+    text : "something" 
+  }).onConflict({
+    columns: ['contentId'],
+  }),
+  mysql: {
+    throws: true
+  },
+  sqlite: {
+    throws: true
+  },
+  pg: {
+    text  : 'INSERT INTO "content" ("content_id", "text") VALUES ($1, $2) ON CONFLICT ("content_id") DO NOTHING',
+    string: 'INSERT INTO "content" ("content_id", "text") VALUES (20, \'something\') ON CONFLICT ("content_id") DO NOTHING'
+  },
+  mssql: {
+    throws: true
+  },
+  oracle: {
+    throws: true
+  },
+  params: [20, "something"]
+});
+
+Harness.test({
+  query: contentTable.insert({
+    contentId: 20,
+    text : "something",
+    contentPosts : "another thing",
+  }).onConflict({
+    columns: ['contentId'],
+    update: ['contentPosts']
+  }),
+  mysql: {
+    throws: true
+  },
+  sqlite: {
+    throws: true
+  },
+  pg: {
+    text  : 'INSERT INTO "content" ("content_id", "text", "content_posts") VALUES ($1, $2, $3) ON CONFLICT ("content_id") DO UPDATE SET "content_posts" = EXCLUDED."content_posts"',
+    string: 'INSERT INTO "content" ("content_id", "text", "content_posts") VALUES (20, \'something\', \'another thing\') ON CONFLICT ("content_id") DO UPDATE SET "content_posts" = EXCLUDED."content_posts"'
+  },
+  mssql: {
+    throws: true
+  },
+  oracle: {
+    throws: true
+  },
+  params: [20, "something", "another thing"]
 });
 
 Harness.test({
