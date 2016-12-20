@@ -167,6 +167,19 @@ test('hasColumn', function() {
   assert.equal(table.hasColumn('baz'), true);
 });
 
+test('hasColumn with user-defined column property', function() {
+  var table = Table.define({
+    name: 'blah',
+    columns: [{
+        name: 'id',
+        property: 'theId'
+    }, {name: 'foo'}]
+  });
+
+  assert.equal(table.hasColumn('id'), true);
+  assert.equal(table.hasColumn('theId'), true);
+});
+
 test('the column "from" does not overwrite the from method', function() {
   var table = Table.define({ name: 'foo', columns: [] });
   table.addColumn('from');
