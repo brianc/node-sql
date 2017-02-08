@@ -681,6 +681,30 @@ Harness.test({
 });
 
 Harness.test({
+  query: customerAliasTable.insert({
+    id : 2,
+    name : 'test'
+  }).orIgnore(),
+  mysql: {
+    throws: true
+  },
+  sqlite: {
+    text  : 'INSERT OR IGNORE INTO "customer" ("id", "name") VALUES ($1, $2)',
+    string: 'INSERT OR IGNORE INTO "customer" ("id", "name") VALUES (2, \'test\')'
+  },
+  pg: {
+    throws: true
+  },
+  mssql: {
+    throws: true
+  },
+  oracle: {
+    throws: true
+  },
+  params: [2, 'test']
+});
+
+Harness.test({
   query: post.insert({
     content: 'test',
     userId: 2
