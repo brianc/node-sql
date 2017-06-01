@@ -6,6 +6,14 @@
  */
 declare module "sql" {
 
+	type SQLDialects =
+		| "mssql"
+		| "mysql"
+		| "oracle"
+		| "postgres"
+		| "sqlite"
+		;
+
 	interface OrderByValueNode {}
 
 	interface Named<Name extends string> {
@@ -30,6 +38,7 @@ declare module "sql" {
 		name: Name;
 		schema: string;
 		columns: {[CName in keyof Row]: ColumnDefinition<CName, Row[CName]>};
+		dialect?: SQLDialects;
 		isTemporary?: boolean;
 		foreignKeys?: {
 			table: string,
@@ -207,5 +216,6 @@ declare module "sql" {
 	}
 
 	function define<Name extends string, T>(map:TableDefinition<Name, T>): Table<Name, T>;
+	function setDialect(dialect: SQLDialects): void;
 
 }
