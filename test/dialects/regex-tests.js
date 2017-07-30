@@ -2,7 +2,6 @@
 
 var Harness = require('./support');
 var customer = Harness.defineCustomerTable();
-var Sql = require('../../lib').setDialect('postgres');
 
 Harness.test({
   query: customer.select(customer.metadata.regex('age')),

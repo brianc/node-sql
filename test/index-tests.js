@@ -1,7 +1,8 @@
 'use strict';
 var assert = require('assert');
 
-var sql = require('../lib');
+var Sql = require('../lib');
+var sql = new Sql();
 
 var user = sql.define({
   name: 'user',
@@ -30,7 +31,7 @@ suite('index', function() {
   test('stores the mssql dialect', function() {
     assert.equal(sql.create('mssql').dialectName, 'mssql');
   });
-  
+
   test('stores the oracle dialect', function() {
     assert.equal(sql.create('oracle').dialectName, 'oracle');
   });
@@ -117,7 +118,7 @@ suite('index', function() {
 
     assert.equal(mssqlQuery.text, 'SELECT [user].[id] FROM [user] WHERE ([user].[email] = @1)');
     assert.deepEqual(mssqlQuery.values, values);
-    
+
     assert.equal(oracleQuery.text, 'SELECT "user"."id" FROM "user" WHERE ("user"."email" = :1)');
     assert.deepEqual(oracleQuery.values, values);
   });
@@ -177,11 +178,11 @@ suite('index', function() {
     assert.equal(mysqlQuery.text, 'SELECT `user`.`id` FROM `user` WHERE (`user`.`email` = ?)');
     assert.deepEqual(mysqlQuery.values, values);
     assert.equal('user.select_brian', mysqlQuery.name);
-    
+
     assert.equal(mssqlQuery.text, 'SELECT [user].[id] FROM [user] WHERE ([user].[email] = @1)');
     assert.deepEqual(mssqlQuery.values, values);
     assert.equal('user.select_brian', mssqlQuery.name);
-    
+
     assert.equal(oracleQuery.text, 'SELECT "user"."id" FROM "user" WHERE ("user"."email" = :1)');
     assert.deepEqual(oracleQuery.values, values);
     assert.equal('user.select_brian', oracleQuery.name);

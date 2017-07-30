@@ -5,6 +5,7 @@ var post = Harness.definePostTable();
 var user = Harness.defineUserTable();
 var customerAlias = Harness.defineCustomerAliasTable();
 var Sql = require('../../lib');
+var sql = new Sql();
 
 Harness.test({
   query: post.select(post.id).select(post.content),
@@ -58,7 +59,7 @@ Harness.test({
 
 // Test that we can generate a SELECT claus without a FROM clause
 Harness.test({
-  query: Sql.select(),
+  query: sql.select(),
   pg: {
     text  : 'SELECT ',
     string: 'SELECT '
@@ -84,7 +85,7 @@ Harness.test({
 
 // Test that we can generate a SELECT claus without a FROM clause
 Harness.test({
-  query: Sql.select("1"),
+  query: sql.select("1"),
   pg: {
     text  : 'SELECT 1',
     string: 'SELECT 1'
@@ -109,7 +110,7 @@ Harness.test({
 });
 
 Harness.test({
-  query: Sql.select("1").where("1=1"),
+  query: sql.select("1").where("1=1"),
   pg: {
     text  : 'SELECT 1 WHERE (1=1)',
     string: 'SELECT 1 WHERE (1=1)'
@@ -134,7 +135,7 @@ Harness.test({
 });
 
 Harness.test({
-  query: Sql.select(post.select(post.id)),
+  query: sql.select(post.select(post.id)),
   pg: {
     text  : 'SELECT (SELECT "post"."id" FROM "post")',
     string: 'SELECT (SELECT "post"."id" FROM "post")'
@@ -159,7 +160,7 @@ Harness.test({
 });
 
 Harness.test({
-  query: Sql.select(post.select(post.content).plus(post.select(post.content))),
+  query: sql.select(post.select(post.content).plus(post.select(post.content))),
   pg: {
     text  : 'SELECT ((SELECT "post"."content" FROM "post") + (SELECT "post"."content" FROM "post"))',
     string: 'SELECT ((SELECT "post"."content" FROM "post") + (SELECT "post"."content" FROM "post"))'
@@ -209,7 +210,7 @@ Harness.test({
 });
 
 Harness.test({
-  query: post.select(Sql.constant(4)),
+  query: post.select(sql.constant(4)),
   pg: {
     text  : 'SELECT $1 FROM "post"',
     string: 'SELECT 4 FROM "post"'
@@ -234,7 +235,7 @@ Harness.test({
 });
 
 Harness.test({
-  query: post.select(post.id,Sql.constant(4)),
+  query: post.select(post.id,sql.constant(4)),
   pg: {
     text  : 'SELECT "post"."id", $1 FROM "post"',
     string: 'SELECT "post"."id", 4 FROM "post"'
@@ -259,7 +260,7 @@ Harness.test({
 });
 
 Harness.test({
-  query: post.select(Sql.constant(4).as('col1')),
+  query: post.select(sql.constant(4).as('col1')),
   pg: {
     text  : 'SELECT $1 AS "col1" FROM "post"',
     string: 'SELECT 4 AS "col1" FROM "post"'
@@ -284,7 +285,7 @@ Harness.test({
 });
 
 Harness.test({
-  query: post.select(Sql.constant(4).plus(5)),
+  query: post.select(sql.constant(4).plus(5)),
   pg: {
     text  : 'SELECT ($1 + $2) FROM "post"',
     string: 'SELECT (4 + 5) FROM "post"'
@@ -309,7 +310,7 @@ Harness.test({
 });
 
 Harness.test({
-  query: post.select(Sql.constant(4).plus(5).as('col1')),
+  query: post.select(sql.constant(4).plus(5).as('col1')),
   pg: {
     text  : 'SELECT ($1 + $2) AS "col1" FROM "post"',
     string: 'SELECT (4 + 5) AS "col1" FROM "post"'
@@ -334,7 +335,7 @@ Harness.test({
 });
 
 Harness.test({
-  query: post.select(Sql.constant(4),Sql.constant("abc"),Sql.constant(true)),
+  query: post.select(sql.constant(4),sql.constant("abc"),sql.constant(true)),
   pg: {
     text  : 'SELECT $1, $2, $3 FROM "post"',
     string: 'SELECT 4, \'abc\', TRUE FROM "post"'
@@ -359,7 +360,7 @@ Harness.test({
 });
 
 Harness.test({
-  query: post.select(Sql.constant(1).sum()),
+  query: post.select(sql.constant(1).sum()),
   pg: {
     text  : 'SELECT SUM($1) AS "constant_sum" FROM "post"',
     string: 'SELECT SUM(1) AS "constant_sum" FROM "post"'
@@ -384,7 +385,7 @@ Harness.test({
 });
 
 Harness.test({
-  query: Sql.select(post.select(post.id).as("column1")),
+  query: sql.select(post.select(post.id).as("column1")),
   pg: {
     text  : 'SELECT (SELECT "post"."id" FROM "post") AS "column1"',
     string: 'SELECT (SELECT "post"."id" FROM "post") AS "column1"'
@@ -409,7 +410,7 @@ Harness.test({
 });
 
 Harness.test({
-  query: Sql.select(post.select(post.count()).as("column1")),
+  query: sql.select(post.select(post.count()).as("column1")),
   pg: {
     text  : 'SELECT (SELECT COUNT("post".*) AS "post_count" FROM "post") AS "column1"',
     string: 'SELECT (SELECT COUNT("post".*) AS "post_count" FROM "post") AS "column1"'
@@ -434,7 +435,7 @@ Harness.test({
 });
 
 Harness.test({
-  query: Sql.select(post.select(post.id).as("column1"),user.select(user.id).as("column2")),
+  query: sql.select(post.select(post.id).as("column1"),user.select(user.id).as("column2")),
   pg: {
     text  : 'SELECT (SELECT "post"."id" FROM "post") AS "column1", (SELECT "user"."id" FROM "user") AS "column2"',
     string: 'SELECT (SELECT "post"."id" FROM "post") AS "column1", (SELECT "user"."id" FROM "user") AS "column2"'
@@ -457,5 +458,3 @@ Harness.test({
   },
   params: []
 });
-
-

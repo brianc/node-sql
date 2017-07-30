@@ -2,7 +2,6 @@
 
 var Harness = require('./support');
 var customer = Harness.defineCustomerCompositeTable();
-var Sql = require('../../lib').setDialect('postgres');
 
 Harness.test({
   query: customer.select(customer.info.subfields.age),

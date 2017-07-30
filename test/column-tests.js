@@ -1,7 +1,8 @@
 'use strict';
 
 var assert = require('assert');
-var sql = require(__dirname + '/../lib');
+var Sql = require(__dirname + '/../lib');
+var sql = new Sql();
 
 describe('column', function() {
   var table = sql.define({

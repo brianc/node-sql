@@ -1,12 +1,14 @@
 'use strict';
 var assert = require('assert');
 
-var sql = require(__dirname + '/../lib').setDialect('postgres');
+var Sql = require(__dirname + '/../lib')
+var sql = new Sql();
+sql.setDialect('postgres');
 
 var user = sql.define({
   name: 'user',
   columns: [
-    {name: 'id'}, 
+    {name: 'id'},
     {name:'email'},
     {name: 'name'},
     {name: 'age', property: 'howOld'}

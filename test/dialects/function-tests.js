@@ -2,11 +2,13 @@
 
 var Harness = require('./support');
 var Sql = require('../../lib');
+var sql = new Sql();
+
 
 var post = Harness.definePostTable();
 
 Harness.test({
-  query: post.select(Sql.functions.LENGTH(post.content)),
+  query: post.select(sql.functions.LENGTH(post.content)),
   pg: {
     text  : 'SELECT LENGTH("post"."content") FROM "post"',
     string: 'SELECT LENGTH("post"."content") FROM "post"'
@@ -31,7 +33,7 @@ Harness.test({
 });
 
 Harness.test({
-  query: post.select(Sql.functions.LEFT(post.content,4)),
+  query: post.select(sql.functions.LEFT(post.content,4)),
   pg: {
     text  : 'SELECT LEFT("post"."content", $1) FROM "post"',
     string: 'SELECT LEFT("post"."content", 4) FROM "post"'
@@ -56,7 +58,7 @@ Harness.test({
 });
 
 Harness.test({
-  query: post.select(Sql.functions.RIGHT(post.content,4)),
+  query: post.select(sql.functions.RIGHT(post.content,4)),
   pg: {
     text  : 'SELECT RIGHT("post"."content", $1) FROM "post"',
     string: 'SELECT RIGHT("post"."content", 4) FROM "post"'
@@ -79,4 +81,3 @@ Harness.test({
   },
   params: [4]
 });
-

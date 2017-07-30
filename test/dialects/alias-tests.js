@@ -2,7 +2,9 @@
 
 var Harness = require('./support');
 var customer = Harness.defineCustomerTable();
-var Sql = require('../../lib').setDialect('postgres');
+var Sql = require('../../lib');
+var sql = new Sql();
+sql.setDialect('postgres');
 
 Harness.test({
   query: customer.select(customer.name.isNull().as('nameIsNull')),
@@ -80,7 +82,7 @@ Harness.test({
 });
 
 Harness.test({
-  query: customer.select(Sql.functions.ROUND(customer.age.as('ageBetween'), 2)),
+  query: customer.select(sql.functions.ROUND(customer.age.as('ageBetween'), 2)),
   pg: {
     text  : 'SELECT ROUND("customer"."age", $1) FROM "customer"',
     string: 'SELECT ROUND("customer"."age", 2) FROM "customer"'
