@@ -3,7 +3,6 @@
 var Harness = require('./support');
 var post = Harness.definePostTable();
 var user = Harness.defineUserTable();
-var Sql = require('../../lib').setDialect('postgres');
 
 Harness.test({
   query: post.select(post.content, post.userId).where(post.content.ilike('A%')),

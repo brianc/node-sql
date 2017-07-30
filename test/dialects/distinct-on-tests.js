@@ -2,7 +2,6 @@
 
 var Harness = require('./support');
 var user = Harness.defineUserTable();
-var Sql = require('../../lib').setDialect('postgres');
 
 Harness.test({
   query: user.select().distinctOn(user.id),
@@ -21,4 +20,3 @@ Harness.test({
   },
   params: []
 });
-

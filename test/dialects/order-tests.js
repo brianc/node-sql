@@ -2,7 +2,8 @@
 
 var Harness = require('./support');
 var post    = Harness.definePostTable();
-var sql     = require('../../lib');
+var Sql     = require('../../lib');
+var sql     = new Sql();
 
 Harness.test({
   query: post.select(post.content).order(post.content),

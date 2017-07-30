@@ -1,7 +1,8 @@
 'use strict';
 var assert = require('assert');
 
-var sql = require('../lib');
+var Sql = require('../lib');
+var sql = new Sql();
 
 var user = sql.define({
   name: 'user',
@@ -30,7 +31,7 @@ suite('index', function() {
   test('stores the mssql dialect', function() {
     assert.equal(sql.create('mssql').dialectName, 'mssql');
   });
-  
+
   test('stores the oracle dialect', function() {
     assert.equal(sql.create('oracle').dialectName, 'oracle');
   });
@@ -77,7 +78,6 @@ suite('index', function() {
   });
 
   test('using Sql as a class', function() {
-    var Sql = sql.Sql;
     var mssql = new Sql('mssql');
     var mysql = new Sql('mysql');
     var postgres = new Sql('postgres');
@@ -92,7 +92,6 @@ suite('index', function() {
   });
 
   test('override dialect for toQuery using dialect name', function() {
-    var Sql = sql.Sql;
     var mssql = new Sql('mssql');
     var mysql = new Sql('mysql');
     var postgres = new Sql('postgres');
@@ -117,7 +116,7 @@ suite('index', function() {
 
     assert.equal(mssqlQuery.text, 'SELECT [user].[id] FROM [user] WHERE ([user].[email] = @1)');
     assert.deepEqual(mssqlQuery.values, values);
-    
+
     assert.equal(oracleQuery.text, 'SELECT "user"."id" FROM "user" WHERE ("user"."email" = :1)');
     assert.deepEqual(oracleQuery.values, values);
   });
@@ -151,7 +150,6 @@ suite('index', function() {
   });
 
   test('override dialect for toNamedQuery using dialect name', function() {
-    var Sql = sql.Sql;
     var mysql = new Sql('mysql');
     var postgres = new Sql('postgres');
     var sqlite = new Sql('sqlite');
@@ -177,11 +175,11 @@ suite('index', function() {
     assert.equal(mysqlQuery.text, 'SELECT `user`.`id` FROM `user` WHERE (`user`.`email` = ?)');
     assert.deepEqual(mysqlQuery.values, values);
     assert.equal('user.select_brian', mysqlQuery.name);
-    
+
     assert.equal(mssqlQuery.text, 'SELECT [user].[id] FROM [user] WHERE ([user].[email] = @1)');
     assert.deepEqual(mssqlQuery.values, values);
     assert.equal('user.select_brian', mssqlQuery.name);
-    
+
     assert.equal(oracleQuery.text, 'SELECT "user"."id" FROM "user" WHERE ("user"."email" = :1)');
     assert.deepEqual(oracleQuery.values, values);
     assert.equal('user.select_brian', oracleQuery.name);
@@ -196,7 +194,6 @@ suite('index', function() {
   });
 
   test('mssql default parameter place holder is @index', function() {
-    var Sql = sql.Sql;
     var mssql = new Sql('mssql');
     var query = mssql.select(user.id).from(user).where(user.email.equals('x@y.com')).toQuery();
     assert.equal(query.text, 'SELECT [user].[id] FROM [user] WHERE ([user].[email] = @1)');
@@ -204,7 +201,6 @@ suite('index', function() {
   });
 
   test('mssql override default parameter placeholder with ?', function() {
-    var Sql = sql.Sql;
     var mssql = new Sql('mssql',{questionMarkParameterPlaceholder:true});
     var query = mssql.select(user.id).from(user).where(user.email.equals('x@y.com')).toQuery();
     assert.equal(query.text, 'SELECT [user].[id] FROM [user] WHERE ([user].[email] = ?)');
