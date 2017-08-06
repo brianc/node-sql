@@ -84,4 +84,10 @@ suite('function', function() {
     assert.equal(query.text, 'SELECT (AVG((DISTINCT((COUNT("user"."id") + MAX("user"."id"))) - MIN("user"."id"))) * $1) FROM "user"');
     assert.equal(query.values[0], 100);
   });
+
+  test('use custom function', function() {
+    var query = user.select(sql.function('PHRASE_TO_TSQUERY')('simple', user.name)).toQuery();
+    assert.equal(query.text, 'SELECT PHRASE_TO_TSQUERY($1, "user"."name") FROM "user"');
+    assert.equal(query.values[0], 'simple');
+  });
 });
