@@ -185,24 +185,69 @@ declare module "sql" {
 		or(node:BinaryNode):BinaryNode
 	}
 
-	interface Column<Name, T> {
-		name: Name
-		in(arr:T[]):BinaryNode
-		in(subQuery:SubQuery<T>):BinaryNode
-		notIn(arr:T[]):BinaryNode
+	interface ValueExpression<T> {
+		isNull():BinaryNode
+		isNotNull():BinaryNode
+		and(node:BinaryNode):BinaryNode
+		or(node:BinaryNode):BinaryNode
 		equals(node: T|Column<any, T>):BinaryNode
+		equal(node: T|Column<any, T>):BinaryNode
 		notEquals(node: T|Column<any, T>):BinaryNode
-		gte(node: T|Column<any, T>):BinaryNode
-		lte(node: T|Column<any, T>):BinaryNode
+		notEqual(node: T|Column<any, T>):BinaryNode
 		gt(node:T|Column<any, T>):BinaryNode
+		gte(node: T|Column<any, T>):BinaryNode
 		lt(node: T|Column<any, T>):BinaryNode
-		like(str:string):BinaryNode
+		lte(node: T|Column<any, T>):BinaryNode
+		// TODO: plus
+		// TODO: minus
 		multiply:{
 				(node:Column<any, T>):Column<any, T>
 				(n:number):Column<any, number> //todo check column names
 		}
-		isNull():BinaryNode
-		isNotNull():BinaryNode
+		// TODO: divide
+		// TODO: modulo
+		// TODO: leftShift
+		// TODO: rightShift
+		// TODO: bitwiseAnd
+		// TODO: bitwiseNot
+		// TODO: bitwiseOr
+		// TODO: bitwiseXor
+		// TODO: regex
+		// TODO: iregex
+		// TODO: regexp
+		// TODO: notRegex
+		// TODO: notIregex
+		// TODO: concat
+		// TODO: key
+		// TODO: keyText
+		// TODO: path
+		// TODO: pathText
+		like(str:string):BinaryNode
+		// TODO: rlike
+		// TODO: notLike
+		// TODO: ilike
+		// TODO: notIlike
+		// TODO: match
+		in(arr:T[]):BinaryNode
+		in(subQuery:SubQuery<T>):BinaryNode
+		// QUESTION: Doens't this also take a SubQuery ?
+		notIn(arr:T[]):BinaryNode
+		// TODO: between
+		// TODO: notBetween
+		// TODO: at
+		// TODO: contains
+		// TODO: containedBy
+		// TODO: containsKey
+		// TODO: overlap
+		// TODO: slice
+		// TODO: cast
+		// TODO: descending
+		descending:OrderByValueNode
+		// TODO: case
+	}
+
+	type Column<Name, T> = {
+		name: Name
 		//todo check column names
 		sum():Column<any, number>
 		count():Column<any, number>
@@ -210,10 +255,9 @@ declare module "sql" {
 		distinct():Column<Name, T>
 		as<OtherName>(name:OtherName):Column<OtherName, T>
 		ascending:OrderByValueNode
-		descending:OrderByValueNode
 		asc:OrderByValueNode
 		desc:OrderByValueNode
-	}
+	} & ValueExpression<T>;
 
 	function define<Name extends string, T>(map:TableDefinition<Name, T>): Table<Name, T>;
 	function setDialect(dialect: SQLDialects): void;
