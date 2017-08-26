@@ -246,6 +246,10 @@ declare module "sql" {
 		// TODO: case
 	}
 
+	type FunctionCallNode<T> = {
+		as(name: string): FunctionCallNode<T>
+	} & ValueExpression<T>;
+
 	type Column<Name, T> = {
 		name: Name
 		//todo check column names
@@ -261,5 +265,6 @@ declare module "sql" {
 
 	function define<Name extends string, T>(map:TableDefinition<Name, T>): Table<Name, T>;
 	function setDialect(dialect: SQLDialects): void;
+	function functionCallCreator<T>(name: string): (...args: any[]) => FunctionCallNode<T>;
 
 }
