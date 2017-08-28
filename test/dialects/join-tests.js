@@ -174,3 +174,49 @@ Harness.test({
   },
   params: []
 });
+
+Harness.test({
+  query: user.select(user.name, post.content)
+    .from(user.fullOuterJoin(post)
+    .on(user.id.equals(post.userId))),
+  pg: {
+    text: 'SELECT "user"."name", "post"."content" FROM "user" FULL OUTER JOIN "post" ON ("user"."id" = "post"."userId")',
+    string: 'SELECT "user"."name", "post"."content" FROM "user" FULL OUTER JOIN "post" ON ("user"."id" = "post"."userId")'
+  },
+  mysql: {
+    text: 'SELECT `user`.`name`, `post`.`content` FROM `user` FULL OUTER JOIN `post` ON (`user`.`id` = `post`.`userId`)',
+    string: 'SELECT `user`.`name`, `post`.`content` FROM `user` FULL OUTER JOIN `post` ON (`user`.`id` = `post`.`userId`)'
+  },
+  mssql: {
+    text: 'SELECT [user].[name], [post].[content] FROM [user] FULL OUTER JOIN [post] ON ([user].[id] = [post].[userId])',
+    string: 'SELECT [user].[name], [post].[content] FROM [user] FULL OUTER JOIN [post] ON ([user].[id] = [post].[userId])'
+  },
+  oracle: {
+    text: 'SELECT "user"."name", "post"."content" FROM "user" FULL OUTER JOIN "post" ON ("user"."id" = "post"."userId")',
+    string: 'SELECT "user"."name", "post"."content" FROM "user" FULL OUTER JOIN "post" ON ("user"."id" = "post"."userId")'
+  },
+  params: []
+});
+
+Harness.test({
+  query: user.select(user.name, post.content)
+    .from(user.rightJoin(post)
+    .on(user.id.equals(post.userId))),
+  pg: {
+    text: 'SELECT "user"."name", "post"."content" FROM "user" RIGHT JOIN "post" ON ("user"."id" = "post"."userId")',
+    string: 'SELECT "user"."name", "post"."content" FROM "user" RIGHT JOIN "post" ON ("user"."id" = "post"."userId")'
+  },
+  mysql: {
+    text: 'SELECT `user`.`name`, `post`.`content` FROM `user` RIGHT JOIN `post` ON (`user`.`id` = `post`.`userId`)',
+    string: 'SELECT `user`.`name`, `post`.`content` FROM `user` RIGHT JOIN `post` ON (`user`.`id` = `post`.`userId`)'
+  },
+  mssql: {
+    text: 'SELECT [user].[name], [post].[content] FROM [user] RIGHT JOIN [post] ON ([user].[id] = [post].[userId])',
+    string: 'SELECT [user].[name], [post].[content] FROM [user] RIGHT JOIN [post] ON ([user].[id] = [post].[userId])'
+  },
+  oracle: {
+    text: 'SELECT "user"."name", "post"."content" FROM "user" RIGHT JOIN "post" ON ("user"."id" = "post"."userId")',
+    string: 'SELECT "user"."name", "post"."content" FROM "user" RIGHT JOIN "post" ON ("user"."id" = "post"."userId")'
+  },
+  params: []
+});
