@@ -128,7 +128,7 @@ declare module "sql" {
 	}
 	type Table<Name extends string, T> = TableNode & Queryable<T> & Named<Name> & Columns<T> & {
 		getName(): string;
-		getSchema(): string;
+		getSchema(): string | undefined;
 
 		literal(statement: string): any;
 
