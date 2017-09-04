@@ -36,7 +36,7 @@ declare module "sql" {
 
 	interface TableDefinition<Name extends string, Row> {
 		name: Name;
-		schema: string;
+		schema?: string;
 		columns: {[CName in keyof Row]: ColumnDefinition<CName, Row[CName]>};
 		dialect?: SQLDialects;
 		isTemporary?: boolean;
@@ -128,7 +128,7 @@ declare module "sql" {
 	}
 	type Table<Name extends string, T> = TableNode & Queryable<T> & Named<Name> & Columns<T> & {
 		getName(): string;
-		getSchema(): string;
+		getSchema(): string | undefined;
 
 		literal(statement: string): any;
 
