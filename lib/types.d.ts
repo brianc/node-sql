@@ -36,7 +36,7 @@ declare module "sql" {
 
 	interface TableDefinition<Name extends string, Row> {
 		name: Name;
-		schema: string;
+		schema?: string;
 		columns: {[CName in keyof Row]: ColumnDefinition<CName, Row[CName]>};
 		dialect?: SQLDialects;
 		isTemporary?: boolean;
