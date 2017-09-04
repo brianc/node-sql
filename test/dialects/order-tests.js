@@ -337,3 +337,29 @@ Harness.test({
   },
   params: []
 });
+
+Harness.test({
+  query: post.select(post.content).order([]),
+  pg: {
+    text  : 'SELECT "post"."content" FROM "post"',
+    string: 'SELECT "post"."content" FROM "post"'
+  },
+  sqlite: {
+    text  : 'SELECT "post"."content" FROM "post"',
+    string: 'SELECT "post"."content" FROM "post"'
+  },
+  mysql: {
+    text  : 'SELECT `post`.`content` FROM `post`',
+    string: 'SELECT `post`.`content` FROM `post`'
+  },
+  mssql: {
+    text  : 'SELECT [post].[content] FROM [post]',
+    string: 'SELECT [post].[content] FROM [post]'
+  },
+  oracle: {
+    text  : 'SELECT "post"."content" FROM "post"',
+    string: 'SELECT "post"."content" FROM "post"'
+  },
+  params: []
+});
+

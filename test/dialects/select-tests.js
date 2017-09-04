@@ -2,6 +2,7 @@
 
 var Harness = require('./support');
 var post = Harness.definePostTable();
+var user = Harness.defineUserTable();
 var customerAlias = Harness.defineCustomerAliasTable();
 var Sql = require('../../lib');
 
@@ -380,6 +381,81 @@ Harness.test({
     string: 'SELECT SUM(1) "constant_sum" FROM "post"'
   },
   params: [1]
+});
+
+Harness.test({
+  query: Sql.select(post.select(post.id).as("column1")),
+  pg: {
+    text  : 'SELECT (SELECT "post"."id" FROM "post") AS "column1"',
+    string: 'SELECT (SELECT "post"."id" FROM "post") AS "column1"'
+  },
+  sqlite: {
+    text  : 'SELECT (SELECT "post"."id" FROM "post") AS "column1"',
+    string: 'SELECT (SELECT "post"."id" FROM "post") AS "column1"'
+  },
+  mysql: {
+    text  : 'SELECT (SELECT `post`.`id` FROM `post`) AS `column1`',
+    string: 'SELECT (SELECT `post`.`id` FROM `post`) AS `column1`'
+  },
+  mssql: {
+    text  : 'SELECT (SELECT [post].[id] FROM [post]) AS [column1]',
+    string: 'SELECT (SELECT [post].[id] FROM [post]) AS [column1]'
+  },
+  oracle: {
+    text  : 'SELECT (SELECT "post"."id" FROM "post") "column1"',
+    string: 'SELECT (SELECT "post"."id" FROM "post") "column1"'
+  },
+  params: []
+});
+
+Harness.test({
+  query: Sql.select(post.select(post.count()).as("column1")),
+  pg: {
+    text  : 'SELECT (SELECT COUNT("post".*) AS "post_count" FROM "post") AS "column1"',
+    string: 'SELECT (SELECT COUNT("post".*) AS "post_count" FROM "post") AS "column1"'
+  },
+  sqlite: {
+    text  : 'SELECT (SELECT COUNT("post".*) AS "post_count" FROM "post") AS "column1"',
+    string: 'SELECT (SELECT COUNT("post".*) AS "post_count" FROM "post") AS "column1"'
+  },
+  mysql: {
+    text  : 'SELECT (SELECT COUNT(*) AS `post_count` FROM `post`) AS `column1`',
+    string: 'SELECT (SELECT COUNT(*) AS `post_count` FROM `post`) AS `column1`'
+  },
+  mssql: {
+    text  : 'SELECT (SELECT COUNT(*) AS [post_count] FROM [post]) AS [column1]',
+    string: 'SELECT (SELECT COUNT(*) AS [post_count] FROM [post]) AS [column1]'
+  },
+  oracle: {
+    text  : 'SELECT (SELECT COUNT(*) "post_count" FROM "post") "column1"',
+    string: 'SELECT (SELECT COUNT(*) "post_count" FROM "post") "column1"'
+  },
+  params: []
+});
+
+Harness.test({
+  query: Sql.select(post.select(post.id).as("column1"),user.select(user.id).as("column2")),
+  pg: {
+    text  : 'SELECT (SELECT "post"."id" FROM "post") AS "column1", (SELECT "user"."id" FROM "user") AS "column2"',
+    string: 'SELECT (SELECT "post"."id" FROM "post") AS "column1", (SELECT "user"."id" FROM "user") AS "column2"'
+  },
+  sqlite: {
+    text  : 'SELECT (SELECT "post"."id" FROM "post") AS "column1", (SELECT "user"."id" FROM "user") AS "column2"',
+    string: 'SELECT (SELECT "post"."id" FROM "post") AS "column1", (SELECT "user"."id" FROM "user") AS "column2"'
+  },
+  mysql: {
+    text  : 'SELECT (SELECT `post`.`id` FROM `post`) AS `column1`, (SELECT `user`.`id` FROM `user`) AS `column2`',
+    string: 'SELECT (SELECT `post`.`id` FROM `post`) AS `column1`, (SELECT `user`.`id` FROM `user`) AS `column2`'
+  },
+  mssql: {
+    text  : 'SELECT (SELECT [post].[id] FROM [post]) AS [column1], (SELECT [user].[id] FROM [user]) AS [column2]',
+    string: 'SELECT (SELECT [post].[id] FROM [post]) AS [column1], (SELECT [user].[id] FROM [user]) AS [column2]'
+  },
+  oracle: {
+    text  : 'SELECT (SELECT "post"."id" FROM "post") "column1", (SELECT "user"."id" FROM "user") "column2"',
+    string: 'SELECT (SELECT "post"."id" FROM "post") "column1", (SELECT "user"."id" FROM "user") "column2"'
+  },
+  params: []
 });
 
 

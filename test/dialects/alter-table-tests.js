@@ -22,6 +22,10 @@ Harness.test({
     text  : 'ALTER TABLE [post] DROP COLUMN [content]',
     string: 'ALTER TABLE [post] DROP COLUMN [content]'
   },
+  oracle: {
+    text  : 'ALTER TABLE "post" DROP ("content")',
+    string: 'ALTER TABLE "post" DROP ("content")'
+  },
   params: []
 });
 
@@ -43,6 +47,10 @@ Harness.test({
     text  : 'ALTER TABLE [post] DROP COLUMN [content], [userId]',
     string: 'ALTER TABLE [post] DROP COLUMN [content], [userId]'
   },
+  oracle: {
+    text  : 'ALTER TABLE "post" DROP ("content", "userId")',
+    string: 'ALTER TABLE "post" DROP ("content", "userId")'
+  },
   params: []
 });
 
@@ -63,6 +71,10 @@ Harness.test({
   mssql: {
     text  : 'ALTER TABLE [post] DROP COLUMN [content], [userId]',
     string: 'ALTER TABLE [post] DROP COLUMN [content], [userId]'
+  },
+  oracle: {
+    text  : 'ALTER TABLE "post" DROP ("content", "userId")',
+    string: 'ALTER TABLE "post" DROP ("content", "userId")'
   },
   params: []
 });
@@ -118,6 +130,10 @@ Harness.test({
     text  : 'ALTER TABLE [group] ADD [id] varchar(100)',
     string: 'ALTER TABLE [group] ADD [id] varchar(100)'
   },
+  oracle: {
+    text  : 'ALTER TABLE "group" ADD ("id" varchar(100))',
+    string: 'ALTER TABLE "group" ADD ("id" varchar(100))'
+  },
   params: []
 });
 
@@ -139,6 +155,10 @@ Harness.test({
     text  : 'ALTER TABLE [group] ADD [id] varchar(100), [userId] varchar(100)',
     string: 'ALTER TABLE [group] ADD [id] varchar(100), [userId] varchar(100)'
   },
+  oracle: {
+    text  : 'ALTER TABLE "group" ADD ("id" varchar(100), "userId" varchar(100))',
+    string: 'ALTER TABLE "group" ADD ("id" varchar(100), "userId" varchar(100))'
+  },
   params: []
 });
 
@@ -159,6 +179,10 @@ Harness.test({
   mssql: {
     text  : 'ALTER TABLE [group] ADD [id] varchar(100), [userId] varchar(100)',
     string: 'ALTER TABLE [group] ADD [id] varchar(100), [userId] varchar(100)'
+  },
+  oracle: {
+    text  : 'ALTER TABLE "group" ADD ("id" varchar(100), "userId" varchar(100))',
+    string: 'ALTER TABLE "group" ADD ("id" varchar(100), "userId" varchar(100))'
   },
   params: []
 });
@@ -286,8 +310,8 @@ Harness.test({
     string: 'ALTER TABLE `post` ADD COLUMN `userId` int REFERENCES `user`(`id`)'
   },
   oracle: {
-    text  : 'ALTER TABLE "post" ADD COLUMN "userId" int REFERENCES "user"("id")',
-    string: 'ALTER TABLE "post" ADD COLUMN "userId" int REFERENCES "user"("id")'
+    text  : 'ALTER TABLE "post" ADD ("userId" int REFERENCES "user"("id"))',
+    string: 'ALTER TABLE "post" ADD ("userId" int REFERENCES "user"("id"))'
   },
   params: []
 });
@@ -307,8 +331,8 @@ Harness.test({
     string: 'ALTER TABLE `post` ADD COLUMN `picture` varchar(100)'
   },
   oracle: {
-    text  : 'ALTER TABLE "post" ADD COLUMN "picture" varchar(100)',
-    string: 'ALTER TABLE "post" ADD COLUMN "picture" varchar(100)'
+    text  : 'ALTER TABLE "post" ADD ("picture" varchar(100))',
+    string: 'ALTER TABLE "post" ADD ("picture" varchar(100))'
   },
   params: []
 });

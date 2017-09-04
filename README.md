@@ -183,5 +183,5 @@ Usually after a few high-quality pull requests and friendly interactions we will
 After all, open source belongs to everyone.
 
 
-##license
+## license
 MIT

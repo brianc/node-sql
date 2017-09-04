@@ -2,7 +2,7 @@
   "author": "brianc <brian.m.carlson@gmail.com>",
   "name": "sql",
   "description": "sql builder",
-  "version": "0.70.1",
+  "version": "0.78.0",
   "homepage": "https://github.com/brianc/node-sql",
   "license": "MIT",
   "repository": {
@@ -10,6 +10,7 @@
     "url": "git://github.com/brianc/node-sql.git"
   },
   "main": "lib/",
+  "types": "lib/types.d.ts",
   "scripts": {
     "test": "node_modules/.bin/mocha",
     "lint": "jshint lib test",
