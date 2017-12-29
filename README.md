@@ -23,7 +23,7 @@ var sql = require('sql');
 
 //(optionally) set the SQL dialect
 sql.setDialect('postgres');
-//possible dialects: mssql, mysql, postgres (default), sqlite
+//possible dialects: mssql, mysql, postgres (default), oracle and sqlite
 
 //first we define our tables
 var user = sql.define({
@@ -106,6 +106,33 @@ var user = sql.define({
 //now, instead of user.state_or_province, you can just use user.state
 console.log(user.select().where(user.state.equals('WA')).toQuery().text);
 // "SELECT "user".* FROM "user" WHERE ("user"."state_or_province" = $1)"
+```
+
+### CURD Example
+
+```js
+// Create
+
+let query = model
+  .insert(
+    model.name.value(user.name),
+    model.username.value(user.username),
+    model.password.value(user.password),
+    model.client.value(user.client),
+    model.email.value(user.email),
+    model.created_at.value(new Date())
+  )
+  .toQuery();
+ //read
+ let query = model.select(model.star())
+      .where(user)
+      .toQuery();
+//update
+let query = model.update(user).where(model.username.equals(user.username)).toQuery();
+//delete
+model.delete()
+      .where(model.email.equals('test3@test.com').or(model.email.equals('test4@test.com')))
+      .toQuery();
 ```
 
 There are a __lot__ more examples included in the [test/dialects](https://github.com/brianc/node-sql/tree/master/test/dialects) folder.  We encourage you to read through them if you have any questions on usage!
