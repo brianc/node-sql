@@ -111,31 +111,42 @@ console.log(user.select().where(user.state.equals('WA')).toQuery().text);
 ### CURD Example
 
 ```js
+const sql = require('sql');
+sql.setDialect('oracle');
+const user = sql.define({
+  name: 'user',
+  columns: ['name', 'username', 'email']
+});
 // Create
+let create = user.insert({name: 'Name', email: 'teste@test.com'}).toQuery();
 
-let query = model
-  .insert(
-    model.name.value(user.name),
-    model.username.value(user.username),
-    model.password.value(user.password),
-    model.client.value(user.client),
-    model.email.value(user.email),
-    model.created_at.value(new Date())
-  )
-  .toQuery();
- //read
- let query = model.select(model.star())
-      .where(user)
-      .toQuery();
-//update
-let query = model.update(user).where(model.username.equals(user.username)).toQuery();
-//delete
-model.delete()
-      .where(model.email.equals('test3@test.com').or(model.email.equals('test4@test.com')))
-      .toQuery();
+console.log(create.text);
+// "INSERT INTO "user" ("name", "email") VALUES (:1, :2)"
+
+// Read
+let read = user.select(user.star()).where(user.name.equals("Test")).toQuery();
+
+console.log(read.text);
+// "SELECT "user".* FROM "user" WHERE ("user"."name" = :1)
+
+// Update
+let update = user.update({email: 'test0@test.com', username: 'teste-user'})
+.where(user.email.equals('test@test.com').or(user.email.equals('test@test.com'))).toQuery();
+
+console.log(update.text);
+// "UPDATE "user" SET "email" = :1, "username" = :2 WHERE ("user"."email" = :3)"
+
+// Delete
+let deleteUser = user.delete().where({username: 'test'}).toQuery();
+
+console.log(deleteUser.text);
+// "DELETE FROM "user" WHERE ("user"."username" = :1)"
 ```
+## More examples:
 
-There are a __lot__ more examples included in the [test/dialects](https://github.com/brianc/node-sql/tree/master/test/dialects) folder.  We encourage you to read through them if you have any questions on usage!
+There are a __lot__ more examples included in the [test/dialects](https://github.com/brianc/node-sql/tree/master/test/dialects) folder and on
+[node-sql-examples.github.io](https://node-sql-examples.github.io).
+We encourage you to read through them if you have any questions on usage!
 
 ## from the command line
 You can use the [sql-generate module](https://github.com/tmont/node-sql-generate)
