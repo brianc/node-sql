@@ -151,8 +151,8 @@ Harness.test({
     string: 'INSERT INTO `post` (`content`) VALUES (\'whoah\'), (\'hey\')'
   },
   oracle: {
-    text  : 'INSERT INTO "post" ("content") VALUES (:1), (:2)',
-    string: 'INSERT INTO "post" ("content") VALUES (\'whoah\'), (\'hey\')'
+    text  : 'INSERT ALL INTO "post" ("content") VALUES (:1) INTO "post" ("content") VALUES (:2) SELECT * FROM dual',
+    string: 'INSERT ALL INTO "post" ("content") VALUES (\'whoah\') INTO "post" ("content") VALUES (\'hey\') SELECT * FROM dual',
   },
   params: ['whoah', 'hey']
 });
@@ -179,8 +179,8 @@ Harness.test({
     string: 'INSERT INTO `post` (`content`, `userId`) VALUES (\'whoah\', 1), (\'hey\', 2)'
   },
   oracle: {
-    text  : 'INSERT INTO "post" ("content", "userId") VALUES (:1, :2), (:3, :4)',
-    string: 'INSERT INTO "post" ("content", "userId") VALUES (\'whoah\', 1), (\'hey\', 2)'
+    text  : 'INSERT ALL INTO "post" ("content", "userId") VALUES (:1, :2) INTO "post" ("content", "userId") VALUES (:3, :4) SELECT * FROM dual',
+    string: 'INSERT ALL INTO "post" ("content", "userId") VALUES (\'whoah\', 1) INTO "post" ("content", "userId") VALUES (\'hey\', 2) SELECT * FROM dual',
   },
   params: ['whoah', 1, 'hey', 2]
 });
@@ -212,8 +212,8 @@ Harness.test({
     string: 'INSERT INTO [post] ([content], [userId]) VALUES (\'whoah\', 1), (\'hey\', 2)'
   },
   oracle: {
-    text  : 'INSERT INTO "post" ("content", "userId") VALUES (:1, :2), (:3, :4)',
-    string: 'INSERT INTO "post" ("content", "userId") VALUES (\'whoah\', 1), (\'hey\', 2)'
+    text  : 'INSERT ALL INTO "post" ("content", "userId") VALUES (:1, :2) INTO "post" ("content", "userId") VALUES (:3, :4) SELECT * FROM dual',
+    string: 'INSERT ALL INTO "post" ("content", "userId") VALUES (\'whoah\', 1) INTO "post" ("content", "userId") VALUES (\'hey\', 2) SELECT * FROM dual',
   },
   params: ['whoah', 1, 'hey', 2]
 });
@@ -377,8 +377,8 @@ Harness.test({
     params: ['whoah', 1, 'hey']
   },
   oracle: {
-    text  : 'INSERT INTO "post" ("content", "userId") VALUES (:1, :2), (:3, DEFAULT)',
-    string: 'INSERT INTO "post" ("content", "userId") VALUES (\'whoah\', 1), (\'hey\', DEFAULT)',
+    text  : 'INSERT ALL INTO "post" ("content", "userId") VALUES (:1, :2) INTO "post" ("content", "userId") VALUES (:3, DEFAULT) SELECT * FROM dual',
+    string: 'INSERT ALL INTO "post" ("content", "userId") VALUES (\'whoah\', 1) INTO "post" ("content", "userId") VALUES (\'hey\', DEFAULT) SELECT * FROM dual',
     params: ['whoah', 1, 'hey']
   },
 });
@@ -411,10 +411,10 @@ Harness.test({
     params: [1, 2, 'hey']
   },
   oracle: {
-    text  : 'INSERT INTO "post" ("userId", "content") VALUES (:1, DEFAULT), (:2, :3)',
-    string: 'INSERT INTO "post" ("userId", "content") VALUES (1, DEFAULT), (2, \'hey\')',
+    text  : 'INSERT ALL INTO "post" ("userId", "content") VALUES (:1, DEFAULT) INTO "post" ("userId", "content") VALUES (:2, :3) SELECT * FROM dual',
+    string: 'INSERT ALL INTO "post" ("userId", "content") VALUES (1, DEFAULT) INTO "post" ("userId", "content") VALUES (2, \'hey\') SELECT * FROM dual',
     params: [1, 2, 'hey']
-  }
+  },
 });
 
 Harness.test({
@@ -621,8 +621,8 @@ Harness.test({
     string: 'INSERT INTO [post] ([content]) VALUES (\'\\x77686f6168\'), (\'\\x686579\')'
   },
   oracle: {
-    text  : 'INSERT INTO "post" ("content") VALUES (:1), (:2)',
-    string: 'INSERT INTO "post" ("content") VALUES (utl_raw.cast_to_varchar2(hextoraw(\'77686f6168\'))), (utl_raw.cast_to_varchar2(hextoraw(\'686579\')))'
+    text  : 'INSERT ALL INTO "post" ("content") VALUES (:1) INTO "post" ("content") VALUES (:2) SELECT * FROM dual',
+    string: 'INSERT ALL INTO "post" ("content") VALUES (utl_raw.cast_to_varchar2(hextoraw(\'77686f6168\'))) INTO "post" ("content") VALUES (utl_raw.cast_to_varchar2(hextoraw(\'686579\'))) SELECT * FROM dual',
   },
   params: [new Buffer('whoah'), new Buffer('hey')]
 });
