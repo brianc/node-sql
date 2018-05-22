@@ -1,13 +1,13 @@
 {
   "author": "brianc <brian.m.carlson@gmail.com>",
-  "name": "sql",
+  "name": "node-sql-2",
   "description": "sql builder",
   "version": "0.78.0",
-  "homepage": "https://github.com/brianc/node-sql",
+  "homepage": "https://github.com/TokyoFarmer/node-sql-2",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git://github.com/brianc/node-sql.git"
+    "url": "git://github.com/TokyoFarmer/node-sql-2.git"
   },
   "main": "lib/",
   "types": "lib/types.d.ts",
@@ -21,7 +21,7 @@
   },
   "dependencies": {
     "sliced": "0.0.x",
-    "lodash": "4.1.x"
+    "lodash": "^4.17.5"
   },
   "devDependencies": {
     "jshint": "*",
