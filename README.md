@@ -1,13 +1,7 @@
 # node-sql
 _sql string builder for node_ - supports PostgreSQL, mysql, Microsoft SQL Server, Oracle and sqlite dialects.
 
-Building SQL statements by hand is no fun, especially in a language which has clumsy support for multi-line strings.
-
-So let's build it with JavaScript.
-
-Maybe it's still not fun, but at least it's _less not fun_.
-
-[![Build Status](https://secure.travis-ci.org/brianc/node-sql.png)](http://travis-ci.org/brianc/node-sql)
+[![Build Status](https://secure.travis-ci.org/brianc/node-sql.png)](http://travis-ci.org/TokyoFarmer/node-sql-2)
 
 ## install
 
@@ -108,7 +102,7 @@ console.log(user.select().where(user.state.equals('WA')).toQuery().text);
 // "SELECT "user".* FROM "user" WHERE ("user"."state_or_province" = $1)"
 ```
 
-There are a __lot__ more examples included in the [test/dialects](https://github.com/brianc/node-sql/tree/master/test/dialects) folder.  We encourage you to read through them if you have any questions on usage!
+For more examples, check out [node-sql-examples](https://node-sql-examples.github.io/)
 
 ## from the command line
 You can use the [sql-generate module](https://github.com/tmont/node-sql-generate)
