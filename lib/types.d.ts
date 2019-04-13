@@ -36,13 +36,13 @@ declare module "sql" {
 
 	interface TableDefinition<Name extends string, Row> {
 		name: Name;
-		schema: string;
-		columns: {[CName in keyof Row]: ColumnDefinition<CName, Row[CName]>};
+		columns: string[] | {[CName in Extract<keyof Row, string>]: ColumnDefinition<CName, Row[CName]>};
+		schema?: string;
 		dialect?: SQLDialects;
 		isTemporary?: boolean;
 		foreignKeys?: {
 			table: string,
-			columns: (keyof Row)[],
+			columns: string[] | Extract<keyof Row, string>[],
 			refColumns: string[],
 			onDelete?: 'restrict' | 'cascade' | 'no action' | 'set null' | 'set default';
 			onUpdate?: 'restrict' | 'cascade' | 'no action' | 'set null' | 'set default';
