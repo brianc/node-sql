@@ -434,3 +434,15 @@ Harness.test({
   },
   params: ['test', 2, 'testupdate']
 });
+
+Harness.test({
+  query: post.insert({
+    content: 'test',
+    userId: 2
+  }).comment('db=hostgroup').comment('shard=1'),
+  mysql: {
+    text  : 'INSERT INTO `post` (`content`, `userId`) VALUES (?, ?) /**db=hostgroup**/ /**shard=1**/',
+    string: 'INSERT INTO `post` (`content`, `userId`) VALUES (\'test\', 2) /**db=hostgroup**/ /**shard=1**/'
+  },
+  params: ['test', 2]
+});
