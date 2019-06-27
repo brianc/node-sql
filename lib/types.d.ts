@@ -4,7 +4,7 @@
  * Whole project is MIT licensed, so, we can use it. We also feed back any
  * improvements, questions, concerns.
  */
-declare module "sql" {
+declare module "node-sql-2" {
 
 	type SQLDialects =
 		| "mssql"
