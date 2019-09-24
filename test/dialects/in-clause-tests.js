@@ -177,3 +177,79 @@ Harness.test({
   },
   params: [1, 2]
 });
+
+Harness.test({
+  query: post.select(post.star()).where(post.id.in(post.literal(''))),
+  pg: {
+    text  : 'SELECT "post".* FROM "post" WHERE (1=0)',
+    string: 'SELECT "post".* FROM "post" WHERE (1=0)'
+  },
+  sqlite: {
+    text  : 'SELECT "post".* FROM "post" WHERE (1=0)',
+    string: 'SELECT "post".* FROM "post" WHERE (1=0)'
+  },
+  mysql: {
+    text  : 'SELECT `post`.* FROM `post` WHERE (1=0)',
+    string: 'SELECT `post`.* FROM `post` WHERE (1=0)'
+  },
+  mssql: {
+    text  : 'SELECT [post].* FROM [post] WHERE (1=0)',
+    string: 'SELECT [post].* FROM [post] WHERE (1=0)'
+  },
+  oracle: {
+    text  : 'SELECT "post".* FROM "post" WHERE (1=0)',
+    string: 'SELECT "post".* FROM "post" WHERE (1=0)'
+  },
+  params: []
+});
+
+Harness.test({
+  query: post.select(post.star()).where(post.id.in(post.literal('()'))),
+  pg: {
+    text  : 'SELECT "post".* FROM "post" WHERE (1=0)',
+    string: 'SELECT "post".* FROM "post" WHERE (1=0)'
+  },
+  sqlite: {
+    text  : 'SELECT "post".* FROM "post" WHERE (1=0)',
+    string: 'SELECT "post".* FROM "post" WHERE (1=0)'
+  },
+  mysql: {
+    text  : 'SELECT `post`.* FROM `post` WHERE (1=0)',
+    string: 'SELECT `post`.* FROM `post` WHERE (1=0)'
+  },
+  mssql: {
+    text  : 'SELECT [post].* FROM [post] WHERE (1=0)',
+    string: 'SELECT [post].* FROM [post] WHERE (1=0)'
+  },
+  oracle: {
+    text  : 'SELECT "post".* FROM "post" WHERE (1=0)',
+    string: 'SELECT "post".* FROM "post" WHERE (1=0)'
+  },
+  params: []
+});
+
+Harness.test({
+  query: post.select(post.star()).where(post.id.in(post.literal('(10,20)'))),
+  pg: {
+    text  : 'SELECT "post".* FROM "post" WHERE ("post"."id" IN (10,20))',
+    string: 'SELECT "post".* FROM "post" WHERE ("post"."id" IN (10,20))'
+  },
+  sqlite: {
+    text  : 'SELECT "post".* FROM "post" WHERE ("post"."id" IN (10,20))',
+    string: 'SELECT "post".* FROM "post" WHERE ("post"."id" IN (10,20))'
+  },
+  mysql: {
+    text  : 'SELECT `post`.* FROM `post` WHERE (`post`.`id` IN (10,20))',
+    string: 'SELECT `post`.* FROM `post` WHERE (`post`.`id` IN (10,20))'
+  },
+  mssql: {
+    text  : 'SELECT [post].* FROM [post] WHERE ([post].[id] IN (10,20))',
+    string: 'SELECT [post].* FROM [post] WHERE ([post].[id] IN (10,20))'
+  },
+  oracle: {
+    text  : 'SELECT "post".* FROM "post" WHERE ("post"."id" IN (10,20))',
+    string: 'SELECT "post".* FROM "post" WHERE ("post"."id" IN (10,20))'
+  },
+  params: []
+});
+
