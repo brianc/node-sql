@@ -100,9 +100,25 @@ declare module "sql" {
 		notExists(subQuery:SubQuery<any>):BinaryNode
 	}
 
+	interface OnConflictOptionsBase {
+		update?: string[]
+	}
+
+	interface OnConflictOptionsWithConstraint extends OnConflictOptionsBase {
+		constraint: string
+		columns?: undefined
+	}
+
+	interface OnConflictOptionsWithColumns extends OnConflictOptionsBase {
+		columns: string[]
+		constraint?: undefined
+	}
+
+	type OnConflictOptions = OnConflictOptionsWithConstraint | OnConflictOptionsWithColumns | (OnConflictOptionsWithConstraint & OnConflictOptionsWithColumns)
 
 	interface ModifyingQuery extends Executable {
 		returning<U>(...nodes:any[]):Query<U>
+		onConflict(options: OnConflictOptions): ModifyingQuery
 		where(...nodes:any[]):ModifyingQuery
 	}
 
