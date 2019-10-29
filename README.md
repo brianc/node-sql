@@ -23,7 +23,7 @@ var sql = require('sql');
 
 //(optionally) set the SQL dialect
 sql.setDialect('postgres');
-//possible dialects: mssql, mysql, postgres (default), sqlite
+//possible dialects: mssql, mysql, postgres (default), oracle and sqlite
 
 //first we define our tables
 var user = sql.define({
@@ -108,7 +108,45 @@ console.log(user.select().where(user.state.equals('WA')).toQuery().text);
 // "SELECT "user".* FROM "user" WHERE ("user"."state_or_province" = $1)"
 ```
 
-There are a __lot__ more examples included in the [test/dialects](https://github.com/brianc/node-sql/tree/master/test/dialects) folder.  We encourage you to read through them if you have any questions on usage!
+### CURD Example
+
+```js
+const sql = require('sql');
+sql.setDialect('oracle');
+const user = sql.define({
+  name: 'user',
+  columns: ['name', 'username', 'email']
+});
+// Create
+let create = user.insert({name: 'Name', email: 'teste@test.com'}).toQuery();
+
+console.log(create.text);
+// "INSERT INTO "user" ("name", "email") VALUES (:1, :2)"
+
+// Read
+let read = user.select(user.star()).where(user.name.equals("Test")).toQuery();
+
+console.log(read.text);
+// "SELECT "user".* FROM "user" WHERE ("user"."name" = :1)
+
+// Update
+let update = user.update({email: 'test0@test.com', username: 'teste-user'})
+.where(user.email.equals('test@test.com').or(user.email.equals('test@test.com'))).toQuery();
+
+console.log(update.text);
+// "UPDATE "user" SET "email" = :1, "username" = :2 WHERE ("user"."email" = :3)"
+
+// Delete
+let deleteUser = user.delete().where({username: 'test'}).toQuery();
+
+console.log(deleteUser.text);
+// "DELETE FROM "user" WHERE ("user"."username" = :1)"
+```
+## More examples:
+
+There are a __lot__ more examples included in the [test/dialects](https://github.com/brianc/node-sql/tree/master/test/dialects) folder and on
+[node-sql-examples.github.io](https://node-sql-examples.github.io).
+We encourage you to read through them if you have any questions on usage!
 
 ## from the command line
 You can use the [sql-generate module](https://github.com/tmont/node-sql-generate)
