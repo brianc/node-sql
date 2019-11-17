@@ -7,7 +7,7 @@ So let's build it with JavaScript.
 
 Maybe it's still not fun, but at least it's _less not fun_.
 
-[![Build Status](https://secure.travis-ci.org/brianc/node-sql.png)](http://travis-ci.org/brianc/node-sql)
+[![Build Status](https://secure.travis-ci.org/brianc/node-sql.svg)](http://travis-ci.org/brianc/node-sql)
 
 ## install
 
