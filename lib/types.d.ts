@@ -142,7 +142,7 @@ declare module "sql" {
 		select<U>(...nodes:any[]):Query<U>
 		from<U>(table:TableNode):Query<U>
 		from<U>(statement:string):Query<U>
-		star():Column<void, void>
+		star({prefix: string}?):Column<void, void>
 		subQuery<U>():SubQuery<U>
 		columns:Column<void, void>[]
 		sql: SQL;
