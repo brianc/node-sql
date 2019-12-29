@@ -6,7 +6,7 @@ _sql string builder for node_ - supports PostgreSQL, mysql, Microsoft SQL Server
 ## install
 
 ```sh
-$ npm install sql
+$ npm install node-sql-2
 ```
 
 ## use
