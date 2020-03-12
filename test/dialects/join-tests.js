@@ -174,3 +174,57 @@ Harness.test({
   },
   params: []
 });
+
+Harness.test({
+  query: user.select().from(user.leftJoinLateral(post.subQuery().select(post.userId))),
+  pg: {
+    text  : 'SELECT "user".* FROM "user" LEFT JOIN LATERAL (SELECT "post"."userId" FROM "post") ON true',
+    string: 'SELECT "user".* FROM "user" LEFT JOIN LATERAL (SELECT "post"."userId" FROM "post") ON true'
+  },
+  mssql: {
+    text  : 'SELECT [user].* FROM [user] OUTER APPLY (SELECT [post].[userId] FROM [post])',
+    string: 'SELECT [user].* FROM [user] OUTER APPLY (SELECT [post].[userId] FROM [post])'
+  },
+  oracle: {
+    text  : 'SELECT "user".* FROM "user" OUTER APPLY (SELECT "post"."userId" FROM "post")',
+    string: 'SELECT "user".* FROM "user" OUTER APPLY (SELECT "post"."userId" FROM "post")'
+  },
+  params: []
+});
+
+Harness.test({
+  query: user.select().from(user.leftJoinLateral(post.subQuery().select(post.userId).where(user.id.equals(post.userId)))),
+  pg: {
+    text  : 'SELECT "user".* FROM "user" LEFT JOIN LATERAL (SELECT "post"."userId" FROM "post" WHERE ("user"."id" = "post"."userId")) ON true',
+    string: 'SELECT "user".* FROM "user" LEFT JOIN LATERAL (SELECT "post"."userId" FROM "post" WHERE ("user"."id" = "post"."userId")) ON true'
+  },
+  mssql: {
+    text  : 'SELECT [user].* FROM [user] OUTER APPLY (SELECT [post].[userId] FROM [post] WHERE ([user].[id] = [post].[userId]))',
+    string: 'SELECT [user].* FROM [user] OUTER APPLY (SELECT [post].[userId] FROM [post] WHERE ([user].[id] = [post].[userId]))'
+  },
+  oracle: {
+    text  : 'SELECT "user".* FROM "user" OUTER APPLY (SELECT "post"."userId" FROM "post" WHERE ("user"."id" = "post"."userId"))',
+    string: 'SELECT "user".* FROM "user" OUTER APPLY (SELECT "post"."userId" FROM "post" WHERE ("user"."id" = "post"."userId"))'
+  },
+  params: []
+});
+
+Harness.test({
+  query: user.select().from(user
+  	.leftJoinLateral(post.subQuery().select(post.userId))
+  	.leftJoinLateral(comment.subQuery().select(comment.postId))),
+  pg: {
+    text  : 'SELECT "user".* FROM "user" LEFT JOIN LATERAL (SELECT "post"."userId" FROM "post") ON true LEFT JOIN LATERAL (SELECT "comment"."postId" FROM "comment") ON true',
+    string: 'SELECT "user".* FROM "user" LEFT JOIN LATERAL (SELECT "post"."userId" FROM "post") ON true LEFT JOIN LATERAL (SELECT "comment"."postId" FROM "comment") ON true'
+  },
+  mssql: {
+    text  : 'SELECT [user].* FROM [user] OUTER APPLY (SELECT [post].[userId] FROM [post]) OUTER APPLY (SELECT [comment].[postId] FROM [comment])',
+    string: 'SELECT [user].* FROM [user] OUTER APPLY (SELECT [post].[userId] FROM [post]) OUTER APPLY (SELECT [comment].[postId] FROM [comment])'
+  },
+  oracle: {
+    text  : 'SELECT "user".* FROM "user" OUTER APPLY (SELECT "post"."userId" FROM "post") OUTER APPLY (SELECT "comment"."postId" FROM "comment")',
+    string: 'SELECT "user".* FROM "user" OUTER APPLY (SELECT "post"."userId" FROM "post") OUTER APPLY (SELECT "comment"."postId" FROM "comment")'
+  },
+  params: []
+});
+
