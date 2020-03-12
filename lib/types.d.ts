@@ -207,6 +207,8 @@ declare module "node-sql-2" {
 		sum():Column<any, number>
 		count():Column<any, number>
 		count(name:string):Column<any, number>
+		min(name:string):Column<any, number>
+		max(name:string):Column<any, number>
 		distinct():Column<Name, T>
 		as<OtherName>(name:OtherName):Column<OtherName, T>
 		ascending:OrderByValueNode
