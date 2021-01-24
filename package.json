@@ -21,7 +21,7 @@
   },
   "dependencies": {
     "sliced": "0.0.x",
-    "lodash": "4.1.x"
+    "lodash": "*"
   },
   "devDependencies": {
     "jshint": "*",
