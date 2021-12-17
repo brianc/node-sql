@@ -434,7 +434,7 @@ Harness.test({
 
 // TEMPORARY TABLE TESTS
 
-// This tests explicitly setting the isTemporary flag to false, as opposed to all the test above here which have it
+// This its explicitly setting the isTemporary flag to false, as opposed to all the it above here which have it
 // as undefined.
 Harness.test({
   query: Table.define({
