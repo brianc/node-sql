@@ -114,20 +114,46 @@ Harness.test({
   query: post.select(post.id).where(post.content.equals(new Buffer('test'))),
   pg: {
     text  : 'SELECT "post"."id" FROM "post" WHERE ("post"."content" = $1)',
-    string: 'SELECT "post"."id" FROM "post" WHERE ("post"."content" = \'\\x74657374\')',
+    string: 'SELECT "post"."id" FROM "post" WHERE ("post"."content" = \'\\x74657374\')'
   },
   sqlite: {
     text  : 'SELECT "post"."id" FROM "post" WHERE ("post"."content" = $1)',
-    string: 'SELECT "post"."id" FROM "post" WHERE ("post"."content" = x\'74657374\')',
+    string: 'SELECT "post"."id" FROM "post" WHERE ("post"."content" = x\'74657374\')'
   },
   mysql: {
     text  : 'SELECT `post`.`id` FROM `post` WHERE (`post`.`content` = ?)',
-    string: 'SELECT `post`.`id` FROM `post` WHERE (`post`.`content` = x\'74657374\')',
+    string: 'SELECT `post`.`id` FROM `post` WHERE (`post`.`content` = x\'74657374\')'
   },
   oracle: {
     text  : 'SELECT "post"."id" FROM "post" WHERE ("post"."content" = :1)',
-    string: 'SELECT "post"."id" FROM "post" WHERE ("post"."content" = utl_raw.cast_to_varchar2(hextoraw(\'74657374\')))',
+    string: 'SELECT "post"."id" FROM "post" WHERE ("post"."content" = utl_raw.cast_to_varchar2(hextoraw(\'74657374\')))'
   },
   params: [new Buffer('test')]
+});
+
+// concat tests
+Harness.test({
+  query: post.select(post.content.concat(post.tags)),
+  pg: {
+    text  : 'SELECT ("post"."content" || "post"."tags") FROM "post"',
+    string: 'SELECT ("post"."content" || "post"."tags") FROM "post"'
+  },
+  sqlite: {
+    text  : 'SELECT ("post"."content" || "post"."tags") FROM "post"',
+    string: 'SELECT ("post"."content" || "post"."tags") FROM "post"'
+  },
+  mysql: {
+    text  : 'SELECT (`post`.`content` || `post`.`tags`) FROM `post`',
+    string: 'SELECT (`post`.`content` || `post`.`tags`) FROM `post`'
+  },
+  mssql: {
+    text  : 'SELECT ([post].[content] + [post].[tags]) FROM [post]',
+    string: 'SELECT ([post].[content] + [post].[tags]) FROM [post]'
+  },
+  oracle: {
+    text  : 'SELECT ("post"."content" || "post"."tags") FROM "post"',
+    string: 'SELECT ("post"."content" || "post"."tags") FROM "post"'
+  },
+  params: []
 });
 

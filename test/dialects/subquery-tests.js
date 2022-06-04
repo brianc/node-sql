@@ -219,3 +219,55 @@ Harness.test({
   params: []
 });
 
+// Top-level subQuery
+Harness.test({
+  query: Sql.subQuery().select(user.id).from(user),
+  pg: {
+    text  : '(SELECT "user"."id" FROM "user")',
+    string: '(SELECT "user"."id" FROM "user")'
+  },
+  sqlite: {
+    text  : '(SELECT "user"."id" FROM "user")',
+    string: '(SELECT "user"."id" FROM "user")'
+  },
+  mysql: {
+    text  : '(SELECT `user`.`id` FROM `user`)',
+    string: '(SELECT `user`.`id` FROM `user`)'
+  },
+  mssql: {
+    text  : '(SELECT [user].[id] FROM [user])',
+    string: '(SELECT [user].[id] FROM [user])'
+  },
+  oracle: {
+    text  : '(SELECT "user"."id" FROM "user")',
+    string: '(SELECT "user"."id" FROM "user")'
+  },
+  params: []
+});
+
+// Top-level subQuery with alias
+Harness.test({
+  query: Sql.subQuery("x").select(user.id).from(user),
+  pg: {
+    text  : '(SELECT "user"."id" FROM "user") "x"',
+    string: '(SELECT "user"."id" FROM "user") "x"'
+  },
+  sqlite: {
+    text  : '(SELECT "user"."id" FROM "user") "x"',
+    string: '(SELECT "user"."id" FROM "user") "x"'
+  },
+  mysql: {
+    text  : '(SELECT `user`.`id` FROM `user`) `x`',
+    string: '(SELECT `user`.`id` FROM `user`) `x`'
+  },
+  mssql: {
+    text  : '(SELECT [user].[id] FROM [user]) [x]',
+    string: '(SELECT [user].[id] FROM [user]) [x]'
+  },
+  oracle: {
+    text  : '(SELECT "user"."id" FROM "user") "x"',
+    string: '(SELECT "user"."id" FROM "user") "x"'
+  },
+  params: []
+});
+
