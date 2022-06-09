@@ -3,7 +3,7 @@
 var Harness = require('./support');
 var post = Harness.definePostTable();
 
-Harness.it({
+Harness.test({
   query : post.select(post.userId, post.content.count()).group(post.userId).having(post.userId.gt(10)),
   pg    : {
     text  : 'SELECT "post"."userId", COUNT("post"."content") AS "content_count" FROM "post" GROUP BY "post"."userId" HAVING ("post"."userId" > $1)',
@@ -28,7 +28,7 @@ Harness.it({
   params: [10]
 });
 
-Harness.it({
+Harness.test({
   query : post.select(post.userId, post.content.count()).group(post.userId).having(post.userId.gt(10), post.userId.lt(100)),
   pg    : {
     text  : 'SELECT "post"."userId", COUNT("post"."content") AS "content_count" FROM "post" GROUP BY "post"."userId" HAVING ("post"."userId" > $1) AND ("post"."userId" < $2)',
@@ -53,7 +53,7 @@ Harness.it({
   params: [10, 100]
 });
 
-Harness.it({
+Harness.test({
   query : post.select(post.userId, post.content.count()).group(post.userId).having([post.userId.gt(10), post.userId.lt(100)]),
   pg    : {
     text  : 'SELECT "post"."userId", COUNT("post"."content") AS "content_count" FROM "post" GROUP BY "post"."userId" HAVING ("post"."userId" > $1) AND ("post"."userId" < $2)',

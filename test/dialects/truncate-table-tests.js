@@ -3,7 +3,7 @@
 var Harness = require('./support');
 var post = Harness.definePostTable();
 
-Harness.it({
+Harness.test({
   query: post.truncate(),
   pg: {
     text  : 'TRUNCATE TABLE "post"',

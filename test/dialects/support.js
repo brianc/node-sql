@@ -13,7 +13,7 @@ var dialects = {
 };
 
 module.exports = {
-  it: function(expected) {
+  test: function(expected) {
     // for each dialect
     Object.keys(dialects).forEach(function(dialect) {
       var expectedObject = expected[dialect];

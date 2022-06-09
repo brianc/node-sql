@@ -4,7 +4,7 @@ var Harness = require('./support');
 var post = Harness.definePostTable();
 var Table = require(__dirname + '/../../lib/table');
 
-Harness.it({
+Harness.test({
   query: post.alter().dropColumn(post.content),
   pg: {
     text  : 'ALTER TABLE "post" DROP COLUMN "content"',
@@ -29,7 +29,7 @@ Harness.it({
   params: []
 });
 
-Harness.it({
+Harness.test({
   query: post.alter().dropColumn(post.content).dropColumn(post.userId),
   pg: {
     text  : 'ALTER TABLE "post" DROP COLUMN "content", DROP COLUMN "userId"',
@@ -54,7 +54,7 @@ Harness.it({
   params: []
 });
 
-Harness.it({
+Harness.test({
   query: post.alter().dropColumn('content').dropColumn('userId'),
   pg: {
     text  : 'ALTER TABLE "post" DROP COLUMN "content", DROP COLUMN "userId"',
@@ -79,7 +79,7 @@ Harness.it({
   params: []
 });
 
-Harness.it({
+Harness.test({
   query: post.alter().rename('posts'),
   pg: {
     text  : 'ALTER TABLE "post" RENAME TO "posts"',
@@ -112,7 +112,7 @@ var group = Table.define({
   ]
 });
 
-Harness.it({
+Harness.test({
   query: group.alter().addColumn(group.id),
   pg: {
     text  : 'ALTER TABLE "group" ADD COLUMN "id" varchar(100)',
@@ -137,7 +137,7 @@ Harness.it({
   params: []
 });
 
-Harness.it({
+Harness.test({
   query: group.alter().addColumn(group.id).addColumn(group.userId),
   pg: {
     text  : 'ALTER TABLE "group" ADD COLUMN "id" varchar(100), ADD COLUMN "userId" varchar(100)',
@@ -162,7 +162,7 @@ Harness.it({
   params: []
 });
 
-Harness.it({
+Harness.test({
   query: group.alter().addColumn('id', 'varchar(100)').addColumn('userId', 'varchar(100)'),
   pg: {
     text  : 'ALTER TABLE "group" ADD COLUMN "id" varchar(100), ADD COLUMN "userId" varchar(100)',
@@ -187,7 +187,7 @@ Harness.it({
   params: []
 });
 
-Harness.it({
+Harness.test({
   query: group.alter().renameColumn('userId', 'newUserId'),
   pg: {
     text  : 'ALTER TABLE "group" RENAME COLUMN "userId" TO "newUserId"',
@@ -208,7 +208,7 @@ Harness.it({
   params: []
 });
 
-Harness.it({
+Harness.test({
   query: group.alter().renameColumn(group.userId, 'newUserId'),
   pg: {
     text  : 'ALTER TABLE "group" RENAME COLUMN "userId" TO "newUserId"',
@@ -229,7 +229,7 @@ Harness.it({
   params: []
 });
 
-Harness.it({
+Harness.test({
   query: group.alter().renameColumn('userId', group.id),
   pg: {
     text  : 'ALTER TABLE "group" RENAME COLUMN "userId" TO "id"',
@@ -259,7 +259,7 @@ var UserWithSignature = Table.define({
   ]
 });
 
-Harness.it({
+Harness.test({
   query: UserWithSignature.alter().renameColumn(UserWithSignature.get('Signature'), 'sig'),
   pg: {
     text  : 'ALTER TABLE "UserWithSignature" RENAME COLUMN "Signature" TO "sig"',
@@ -295,7 +295,7 @@ var post = Table.define({
     }]
 });
 
-Harness.it({
+Harness.test({
   query: post.alter().addColumn(post.userId),
   pg: {
     text  : 'ALTER TABLE "post" ADD COLUMN "userId" int REFERENCES "user"("id")',
@@ -316,7 +316,7 @@ Harness.it({
   params: []
 });
 
-Harness.it({
+Harness.test({
   query: post.alter().addColumn(post.picture),
   pg: {
     text  : 'ALTER TABLE "post" ADD COLUMN "picture" varchar(100)',

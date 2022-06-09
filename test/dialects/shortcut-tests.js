@@ -5,7 +5,7 @@ var user = Harness.defineUserTable();
 var post = Harness.definePostTable();
 
 // shortcut: 'select * from <table>'
-Harness.it({
+Harness.test({
   query: user,
   pg: {
     text  : 'SELECT "user".* FROM "user"',
@@ -30,7 +30,7 @@ Harness.it({
   params: []
 });
 
-Harness.it({
+Harness.test({
   query: user.where(user.name.equals(3)),
   pg: {
     text  : 'SELECT * FROM "user" WHERE ("user"."name" = $1)',
@@ -55,7 +55,7 @@ Harness.it({
   params: [3]
 });
 
-Harness.it({
+Harness.test({
   query: user.where(user.name.equals(3)).where(user.id.equals(1)),
   pg: {
     text  : 'SELECT * FROM "user" WHERE (("user"."name" = $1) AND ("user"."id" = $2))',
@@ -81,7 +81,7 @@ Harness.it({
 });
 
 // shortcut: no 'from'
-Harness.it({
+Harness.test({
   query: post.select(post.content),
   pg: {
     text  : 'SELECT "post"."content" FROM "post"',
@@ -106,7 +106,7 @@ Harness.it({
   params: []
 });
 
-Harness.it({
+Harness.test({
   query: post.select(post.content).where(post.userId.equals(1)),
   pg: {
     text  : 'SELECT "post"."content" FROM "post" WHERE ("post"."userId" = $1)',
@@ -131,7 +131,7 @@ Harness.it({
   params: [1]
 });
 
-Harness.it({
+Harness.test({
   query: post.where(post.content.isNull()).or({
     content: ''
   }).and({

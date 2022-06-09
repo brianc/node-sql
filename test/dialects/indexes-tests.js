@@ -3,7 +3,7 @@
 var Harness = require('./support');
 var post = Harness.definePostTable();
 
-Harness.it({
+Harness.test({
   query: post.indexes(),
   pg: {
     text  : 'SELECT relname FROM pg_class WHERE oid IN ( SELECT indexrelid FROM pg_index, pg_class WHERE pg_class.relname=\'post\' AND pg_class.relnamespace IN (SELECT pg_namespace.oid FROM pg_namespace WHERE nspname = \'public\') AND pg_class.oid=pg_index.indrelid)',
@@ -24,7 +24,7 @@ Harness.it({
   params: []
 });
 
-Harness.it({
+Harness.test({
   query: post.indexes().create('index_name').unique().using('btree').on(post.id, post.userId).withParser('foo'),
   pg: {
     text  : 'CREATE UNIQUE INDEX "index_name" USING BTREE ON "post" ("id","userId") WITH PARSER foo',
@@ -45,7 +45,7 @@ Harness.it({
   params: []
 });
 
-Harness.it({
+Harness.test({
   query: post.indexes().create().fulltext().on(post.id),
   pg: {
     text  : 'CREATE FULLTEXT INDEX "post_id" ON "post" ("id")',
@@ -62,7 +62,7 @@ Harness.it({
   params: []
 });
 
-Harness.it({
+Harness.test({
   query: post.indexes().create().spatial().on(post.id),
   pg: {
     text  : 'CREATE SPATIAL INDEX "post_id" ON "post" ("id")',
@@ -79,7 +79,7 @@ Harness.it({
   params: []
 });
 
-Harness.it({
+Harness.test({
   query: post.indexes().create().on(post.userId, post.id),
   pg: {
     text  : 'CREATE INDEX "post_id_userId" ON "post" ("userId","id")',
@@ -100,7 +100,7 @@ Harness.it({
   params: []
 });
 
-Harness.it({
+Harness.test({
   query: post.indexes().create().on(post.userId).on(post.id),
   pg: {
     text  : 'CREATE INDEX "post_id_userId" ON "post" ("userId","id")',
@@ -121,7 +121,7 @@ Harness.it({
   params: []
 });
 
-Harness.it({
+Harness.test({
   query: post.indexes().create().on(post.userId, post.id.desc),
   pg: {
     text  : 'CREATE INDEX "post_id_userId" ON "post" ("userId","id" DESC)',
@@ -146,7 +146,7 @@ Harness.it({
   params: []
 });
 
-Harness.it({
+Harness.test({
   query: post.indexes().create().on(post.userId).on(post.id.descending),
   pg: {
     text  : 'CREATE INDEX "post_id_userId" ON "post" ("userId","id" DESC)',
@@ -172,7 +172,7 @@ Harness.it({
 });
 
 
-Harness.it({
+Harness.test({
   query: post.indexes().create(),
   pg: {
     text  : 'No columns defined!',
@@ -192,7 +192,7 @@ Harness.it({
   }
 });
 
-Harness.it({
+Harness.test({
   query: post.indexes().drop('index_name'),
   pg: {
     text  : 'DROP INDEX "public"."index_name"',
@@ -213,7 +213,7 @@ Harness.it({
   params: []
 });
 
-Harness.it({
+Harness.test({
   query: post.indexes().drop(post.userId, post.id),
   pg: {
     text  : 'DROP INDEX "public"."post_id_userId"',

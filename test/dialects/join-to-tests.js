@@ -36,7 +36,7 @@ var post = sql.define({
   }
 });
 
-Harness.it({
+Harness.test({
   query: user.joinTo(post),
   pg: {
     text  : '"user" INNER JOIN "post" ON ("user"."id" = "post"."ownerId")',
@@ -61,7 +61,7 @@ Harness.it({
   params: []
 });
 
-Harness.it({
+Harness.test({
   query: post.joinTo(user),
   pg: {
     text  : '"post" INNER JOIN "user" ON ("user"."id" = "post"."ownerId")',
@@ -86,7 +86,7 @@ Harness.it({
   params: []
 });
 
-Harness.it({
+Harness.test({
   query: user.joinTo(photo),
   pg: {
     text  : '"user" INNER JOIN "photo" ON ("user"."id" = "photo"."ownerId")',

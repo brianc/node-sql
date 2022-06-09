@@ -11,7 +11,7 @@ var arrayTable = require('../../lib/table').define({
     columns: ['id', 'numbers']
 });
 
-Harness.it({
+Harness.test({
   query: post.insert(post.content.value('test'), post.userId.value(1)),
   pg: {
     text  : 'INSERT INTO "post" ("content", "userId") VALUES ($1, $2)',
@@ -32,7 +32,7 @@ Harness.it({
   params: ['test', 1]
 });
 
-Harness.it({
+Harness.test({
   query: post.insert(post.content.value('whoah')),
   pg: {
     text  : 'INSERT INTO "post" ("content") VALUES ($1)',
@@ -57,7 +57,7 @@ Harness.it({
   params: ['whoah']
 });
 
-Harness.it({
+Harness.test({
   query: post.insert({length: 0}),
   pg: {
     text  : 'INSERT INTO "post" ("length") VALUES ($1)',
@@ -82,7 +82,7 @@ Harness.it({
   params: [0]
 });
 
-Harness.it({
+Harness.test({
   query: post.insert({
     content: 'test',
     userId: 2
@@ -106,7 +106,7 @@ Harness.it({
   params: ['test', 2]
 });
 
-Harness.it({
+Harness.test({
   query: post.insert({
     content: post.sql.functions.LOWER('TEST'),
     userId: 2
@@ -131,7 +131,7 @@ Harness.it({
 });
 
 // allow bulk insert
-Harness.it({
+Harness.test({
   query: post.insert([{
       content: 'whoah'
     }, {
@@ -157,7 +157,7 @@ Harness.it({
   params: ['whoah', 'hey']
 });
 
-Harness.it({
+Harness.test({
   query: post.insert([{
       content: 'whoah',
       userId: 1
@@ -186,7 +186,7 @@ Harness.it({
 });
 
 // consistent order
-Harness.it({
+Harness.test({
   query: post.insert([{
       content: 'whoah',
       userId: 1
@@ -218,7 +218,7 @@ Harness.it({
   params: ['whoah', 1, 'hey', 2]
 });
 
-Harness.it({
+Harness.test({
   query: post.insert({}),
   pg: {
     text  : 'INSERT INTO "post" DEFAULT VALUES',
@@ -243,7 +243,7 @@ Harness.it({
   params: []
 });
 
-Harness.it({
+Harness.test({
   query: post.insert({}).returning('*'),
   pg: {
     text  : 'INSERT INTO "post" DEFAULT VALUES RETURNING *',
@@ -264,7 +264,7 @@ Harness.it({
   params: []
 });
 
-Harness.it({
+Harness.test({
   query: post.insert({}).returning(post.star()),
   pg: {
     text  : 'INSERT INTO "post" DEFAULT VALUES RETURNING *',
@@ -285,7 +285,7 @@ Harness.it({
   params: []
 });
 
-Harness.it({
+Harness.test({
   query: post.insert({}).returning(post.id),
   pg: {
     text  : 'INSERT INTO "post" DEFAULT VALUES RETURNING "id"',
@@ -306,7 +306,7 @@ Harness.it({
   params: []
 });
 
-Harness.it({
+Harness.test({
   query: post.insert({}).returning(post.id, post.content),
   pg: {
     text  : 'INSERT INTO "post" DEFAULT VALUES RETURNING "id", "content"',
@@ -327,7 +327,7 @@ Harness.it({
   params: []
 });
 
-Harness.it({
+Harness.test({
   query: post.insert({}).returning([post.id, post.content]),
   pg: {
     text  : 'INSERT INTO "post" DEFAULT VALUES RETURNING "id", "content"',
@@ -349,7 +349,7 @@ Harness.it({
 });
 
 // handle missing columns
-Harness.it({
+Harness.test({
   query: post.insert([{
       content: 'whoah',
       userId: 1
@@ -383,7 +383,7 @@ Harness.it({
   },
 });
 
-Harness.it({
+Harness.test({
   query: post.insert([{
       userId: 1
     }, {
@@ -417,7 +417,7 @@ Harness.it({
   }
 });
 
-Harness.it({
+Harness.test({
   query: post.insert(post.content, post.userId)
       .select('\'test\'', user.id).from(user).where(user.name.like('A%')),
   pg: {
@@ -443,7 +443,7 @@ Harness.it({
   params: ['A%']
 });
 
-Harness.it({
+Harness.test({
   query: post.insert([post.content, post.userId])
       .select('\'test\'', user.id).from(user).where(user.name.like('A%')),
   pg: {
@@ -469,7 +469,7 @@ Harness.it({
   params: ['A%']
 });
 
-Harness.it({
+Harness.test({
   query: post.insert(post.userId)
       .select(user.id).from(user).where(user.name.like('A%')),
   pg: {
@@ -491,7 +491,7 @@ Harness.it({
   params: ['A%']
 });
 
-Harness.it({
+Harness.test({
   query: post.insert(post.userId)
       .select(post.userId).from(user.join(post).on(user.id.equals(post.userId))).where(post.tags.like('A%')),
   pg: {
@@ -517,7 +517,7 @@ Harness.it({
   params: ['A%']
 });
 
-Harness.it({
+Harness.test({
   query: post.insert(post.userId).select(user.id).distinct().from(user),
   pg: {
     text  : 'INSERT INTO "post" ("userId") SELECT DISTINCT "user"."id" FROM "user"',
@@ -543,7 +543,7 @@ Harness.it({
 });
 
 // Binary inserts
-Harness.it({
+Harness.test({
   query: post.insert(post.content.value(new Buffer('test')), post.userId.value(2)),
   pg: {
     text  : 'INSERT INTO "post" ("content", "userId") VALUES ($1, $2)',
@@ -568,7 +568,7 @@ Harness.it({
   params: [new Buffer('test'), 2]
 });
 
-Harness.it({
+Harness.test({
   query: post.insert({
     content: new Buffer('test'),
     userId: 2
@@ -596,7 +596,7 @@ Harness.it({
   params: [new Buffer('test'), 2]
 });
 
-Harness.it({
+Harness.test({
   query: post.insert([{
       content: new Buffer('whoah')
     }, {
@@ -627,7 +627,7 @@ Harness.it({
   params: [new Buffer('whoah'), new Buffer('hey')]
 });
 
-Harness.it({
+Harness.test({
   query: post.insert({
     content: 'test',
     userId: 2
@@ -653,7 +653,7 @@ Harness.it({
   params: ['test', 2, 'testupdate']
 });
 
-Harness.it({
+Harness.test({
   query: customerAliasTable.insert({
     id : 2,
     name : 'test'
@@ -680,7 +680,7 @@ Harness.it({
   params: [2, 'test']
 });
 
-Harness.it({
+Harness.test({
   query: customerAliasTable.insert({
     id : 2,
     name : 'test'
@@ -704,7 +704,7 @@ Harness.it({
   params: [2, 'test']
 });
 
-Harness.it({
+Harness.test({
   query: post.insert({
     content: 'test',
     userId: 2
@@ -731,7 +731,7 @@ Harness.it({
   params: ['test', 2]
 });
 
-Harness.it({
+Harness.test({
   query: post.insert({
     content: 'test',
     userId: 2
@@ -758,7 +758,7 @@ Harness.it({
   params: ['test', 2]
 });
 
-Harness.it({
+Harness.test({
   query: post.insert({
     content: 'test',
     userId: 2
@@ -785,7 +785,7 @@ Harness.it({
   params: ['test', 2, 2]
 });
 
-Harness.it({
+Harness.test({
   query: post.insert({
     content: 'test',
     userId: 2
@@ -812,7 +812,7 @@ Harness.it({
   params: ['test', 2, 2]
 });
 
-Harness.it({
+Harness.test({
   query: post.insert({
     content: 'test',
     userId: 2
@@ -838,7 +838,7 @@ Harness.it({
   params: ['test', 2]
 });
 
-Harness.it({
+Harness.test({
   query: post.insert({
     content: 'test',
     userId: 2
@@ -864,7 +864,7 @@ Harness.it({
   params: ['test', 2]
 });
 
-Harness.it({
+Harness.test({
   query: contentTable.insert({
     contentId: 20,
     text : "something" 
@@ -890,7 +890,7 @@ Harness.it({
   params: [20, "something"]
 });
 
-Harness.it({
+Harness.test({
   query: contentTable.insert({
     contentId: 20,
     text : "something",
@@ -918,7 +918,7 @@ Harness.it({
   params: [20, "something", "another thing"]
 });
 
-Harness.it({
+Harness.test({
   query: post.insert([]),
 
   mysql: {
@@ -928,7 +928,7 @@ Harness.it({
   params: []
 });
 
-Harness.it({
+Harness.test({
   query: arrayTable.insert(arrayTable.id.value(1), arrayTable.numbers.value([2, 3, 4])),
   pg: {
     text  : 'INSERT INTO "arraytest" ("id", "numbers") VALUES ($1, $2)',
@@ -948,7 +948,7 @@ Harness.it({
   }
 });
 
-Harness.it({
+Harness.test({
   query: arrayTable.insert(arrayTable.id.value(1), arrayTable.numbers.value(["one", "two", "three"])),
   pg: {
     text  : 'INSERT INTO "arraytest" ("id", "numbers") VALUES ($1, $2)',
@@ -968,7 +968,7 @@ Harness.it({
   }
 });
 
-Harness.it({
+Harness.test({
   query: post.insert(post.userId).select(user.id).from(user),
   pg: {
     text  : 'INSERT INTO "post" ("userId") SELECT "user"."id" FROM "user"',
@@ -993,7 +993,7 @@ Harness.it({
   params: []
 });
 
-Harness.it({
+Harness.test({
   query: post.insert(post.userId).select(user.id).from(user).onConflict({
     columns: ['userId'],
     update: ['content']
@@ -1017,7 +1017,7 @@ Harness.it({
   params: []
 });
 
-Harness.it({
+Harness.test({
   query: post.insert(post.userId).add(user.select(user.id)),
   pg: {
     text  : 'INSERT INTO "post" ("userId") SELECT "user"."id" FROM "user"',
@@ -1042,7 +1042,7 @@ Harness.it({
   params: []
 });
 
-Harness.it({
+Harness.test({
   query: post.insert(post.userId).add(user.select(user.id).from(user)),
   pg: {
     text  : 'INSERT INTO "post" ("userId") SELECT "user"."id" FROM "user"',
@@ -1067,7 +1067,7 @@ Harness.it({
   params: []
 });
 
-Harness.it({
+Harness.test({
   query: post.insert(post.userId).add(user.select(user.id).order(user.id)),
   pg: {
     text  : 'INSERT INTO "post" ("userId") SELECT "user"."id" FROM "user" ORDER BY "user"."id"',

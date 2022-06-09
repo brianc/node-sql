@@ -1,7 +1,7 @@
 var Harness = require('./support');
 var user = Harness.defineUserTable();
 
-Harness.it({
+Harness.test({
   query: user.insert({name: 'joe'}).returning(),
   pg: {
     text  : 'INSERT INTO "user" ("name") VALUES ($1) RETURNING *',
@@ -10,7 +10,7 @@ Harness.it({
   params: ['joe']
 });
 
-Harness.it({
+Harness.test({
   query: user.insert({name: 'joe'}).returning('id'),
   pg: {
     text  : 'INSERT INTO "user" ("name") VALUES ($1) RETURNING id',

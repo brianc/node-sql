@@ -6,7 +6,7 @@ var user = Harness.defineUserTable();
 var post = Harness.definePostTable();
 
 var u = user.as('u');
-Harness.it({
+Harness.test({
   query: u.select(u.name).from(u),
   pg: {
     text  : 'SELECT "u"."name" FROM "user" AS "u"',
@@ -31,7 +31,7 @@ Harness.it({
   params: []
 });
 
-Harness.it({
+Harness.test({
   query: u.select(u.star()).from(u),
   pg: {
     text  : 'SELECT "u".* FROM "user" AS "u"',
@@ -57,7 +57,7 @@ Harness.it({
 });
 
 var p = post.as('p');
-Harness.it({
+Harness.test({
   query: u.select(u.name).from(u.join(p).on(u.id.equals(p.userId).and(p.id.equals(3)))),
   pg: {
     text  : 'SELECT "u"."name" FROM "user" AS "u" INNER JOIN "post" AS "p" ON (("u"."id" = "p"."userId") AND ("p"."id" = $1))',
@@ -82,7 +82,7 @@ Harness.it({
   params: [3]
 });
 
-Harness.it({
+Harness.test({
   query: u.select(p.content, u.name).from(u.join(p).on(u.id.equals(p.userId).and(p.content.isNotNull()))),
   pg: {
     text  : 'SELECT "p"."content", "u"."name" FROM "user" AS "u" INNER JOIN "post" AS "p" ON (("u"."id" = "p"."userId") AND ("p"."content" IS NOT NULL))',
@@ -120,7 +120,7 @@ var comment = Table.define({
   ]
 });
 
-Harness.it({
+Harness.test({
   query: comment.select(comment.text, comment.userId),
   pg: {
     text  : 'SELECT "comment"."text", "comment"."userId" FROM "comment"',

@@ -5,7 +5,7 @@ var Harness = require('./support');
 var post    = Harness.definePostTable();
 
 // Null
-Harness.it({
+Harness.test({
   query: post.content.equals(null),
   pg: {
     text  : '("post"."content" = $1)',
@@ -31,7 +31,7 @@ Harness.it({
 });
 
 // Number
-Harness.it({
+Harness.test({
   query: post.content.equals(3.14),
   pg: {
     text  : '("post"."content" = $1)',
@@ -57,7 +57,7 @@ Harness.it({
 });
 
 // String
-Harness.it({
+Harness.test({
   query: post.content.equals('hello\''),
   pg: {
     text  : '("post"."content" = $1)',
@@ -83,7 +83,7 @@ Harness.it({
 });
 
 // Array
-Harness.it({
+Harness.test({
   query: post.content.equals([1, '2', null]),
   pg: {
     text  : '("post"."content" = ($1, $2, $3))',
@@ -109,7 +109,7 @@ Harness.it({
 });
 
 // Date
-Harness.it({
+Harness.test({
   query: post.content.equals(new Date('Sat, 01 Jan 2000 00:00:00 GMT')),
   pg: {
     text  : '("post"."content" = $1)',
@@ -135,7 +135,7 @@ Harness.it({
 });
 
 // Date to milliseconds
-Harness.it({
+Harness.test({
   query: post.content.equals(new Date('Sat, 01 Jan 2000 00:00:00 GMT')),
   pg: {
     text  : '("post"."content" = $1)',
@@ -170,7 +170,7 @@ var customObject = {
   }
 };
 
-Harness.it({
+Harness.test({
   query: post.content.equals(customObject),
   pg: {
     text  : '("post"."content" = $1)',

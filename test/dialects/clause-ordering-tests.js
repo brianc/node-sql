@@ -5,7 +5,7 @@ var user = Harness.defineUserTable();
 var post = Harness.definePostTable();
 
 // FROM - SELECT
-Harness.it({
+Harness.test({
   query: user.from(user.join(post).on(user.id.equals(post.userId))).select(user.name, post.content),
   pg: {
     text  : 'SELECT "user"."name", "post"."content" FROM "user" INNER JOIN "post" ON ("user"."id" = "post"."userId")',
@@ -31,7 +31,7 @@ Harness.it({
 });
 
 // WHERE - FROM - SELECT
-Harness.it({
+Harness.test({
   query: user.where({
     name: ''
   }).from(user).select(user.id),
@@ -59,7 +59,7 @@ Harness.it({
 });
 
 // SELECT - FROM - WHERE
-Harness.it({
+Harness.test({
   query: user
     .select(user.name, post.content)
     .from(user.join(post).on(user.id.equals(post.userId)))
@@ -90,7 +90,7 @@ Harness.it({
 });
 
 // SELECT - FROM - WHERE
-Harness.it({
+Harness.test({
   query: user.select(user.id).from(user).where({
     name: ''
   }),

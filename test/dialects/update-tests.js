@@ -5,7 +5,7 @@ var post = Harness.definePostTable();
 var user = Harness.defineUserTable();
 var variable = Harness.defineVariableTable();
 
-Harness.it({
+Harness.test({
   query: post.update({
     content: 'test'
   }),
@@ -32,7 +32,7 @@ Harness.it({
   params: ['test']
 });
 
-Harness.it({
+Harness.test({
   query: post.update({
     content: 'test',
     userId: 3
@@ -60,7 +60,7 @@ Harness.it({
   params: ['test', 3]
 });
 
-Harness.it({
+Harness.test({
   query: post.update({
     content: null,
     userId: 3
@@ -88,7 +88,7 @@ Harness.it({
   params: [null, 3]
 });
 
-Harness.it({
+Harness.test({
   query: post.update({
     content: 'test',
     userId: 3
@@ -116,7 +116,7 @@ Harness.it({
   params: ['test', 3, 'no']
 });
 
-Harness.it({
+Harness.test({
   query: post.update({
     content: user.name
   }).from(user).where(post.userId.equals(user.id)),
@@ -144,7 +144,7 @@ Harness.it({
 });
 
 // update() needs to prefix ambiguous source columns; prefixing target columns is not allowed
-Harness.it({
+Harness.test({
   query: post.update({
     userId: user.id
   }).from(user).where(post.userId.equals(user.id)),
@@ -172,7 +172,7 @@ Harness.it({
 });
 
 // Binary updates
-Harness.it({
+Harness.test({
   query: post.update({
     content: new Buffer('test')
   }),
@@ -196,7 +196,7 @@ Harness.it({
 });
 
 // Boolean updates
-Harness.it({
+Harness.test({
   query: variable.update({
     a: true,
     b: false
@@ -221,7 +221,7 @@ Harness.it({
 });
 
 // Object updates
-Harness.it({
+Harness.test({
   query: variable.update({
     a: {"id": 1, "value": 2},
     b: [{"id": 2, "value": 3}, {"id": 3, "value": 4}]

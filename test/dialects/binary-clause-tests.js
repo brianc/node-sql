@@ -6,7 +6,7 @@ var customerAlias = Harness.defineCustomerAliasTable();
 var post = Harness.definePostTable();
 
 
-Harness.it({
+Harness.test({
   query: customer.select(customer.name.plus(customer.age)),
   pg: {
     text  : 'SELECT ("customer"."name" + "customer"."age") FROM "customer"',
@@ -31,7 +31,7 @@ Harness.it({
   params: []
 });
 
-Harness.it({
+Harness.test({
   query: customerAlias.select(customerAlias.name_alias.plus(customerAlias.age_alias)),
   pg: {
     text  : 'SELECT ("customer"."name" + "customer"."age") FROM "customer"',
@@ -52,7 +52,7 @@ Harness.it({
   params: []
 });
 
-Harness.it({
+Harness.test({
   query: post.select(post.content.plus('!')).where(post.userId. in (customer.subQuery().select(customer.id))),
   pg: {
     text  : 'SELECT ("post"."content" + $1) FROM "post" WHERE ("post"."userId" IN (SELECT "customer"."id" FROM "customer"))',
@@ -77,7 +77,7 @@ Harness.it({
   params: ['!']
 });
 
-Harness.it({
+Harness.test({
   query: post.select(post.id.plus(': ').plus(post.content)).where(post.userId.notIn(customer.subQuery().select(customer.id))),
   pg: {
     text  : 'SELECT (("post"."id" + $1) + "post"."content") FROM "post" WHERE ("post"."userId" NOT IN (SELECT "customer"."id" FROM "customer"))',

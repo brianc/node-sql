@@ -5,7 +5,7 @@ var customer = Harness.defineCustomerTable();
 var customerAlias = Harness.defineCustomerAliasTable();
 
 // Cast columns.
-Harness.it({
+Harness.test({
   query: customer.select(customer.age.cast('int')),
   pg: {
     text  : 'SELECT CAST("customer"."age" AS int) FROM "customer"',
@@ -30,7 +30,7 @@ Harness.it({
   params: []
 });
 
-Harness.it({
+Harness.test({
   query: customer.select(customer.name.cast('varchar(10)')),
   pg: {
     text  : 'SELECT CAST("customer"."name" AS varchar(10)) FROM "customer"',
@@ -56,7 +56,7 @@ Harness.it({
 });
 
 // Cast binary expressions.
-Harness.it({
+Harness.test({
   query: customer.select(customer.name.plus(customer.age).cast('varchar(15)')),
   pg: {
     text  : 'SELECT CAST(("customer"."name" + "customer"."age") AS varchar(15)) FROM "customer"',
@@ -82,7 +82,7 @@ Harness.it({
 });
 
 // Cast cast expressions.
-Harness.it({
+Harness.test({
   query: customer.select(customer.name.cast('varchar(15)').cast('varchar(10)')),
   pg: {
     text  : 'SELECT CAST(CAST("customer"."name" AS varchar(15)) AS varchar(10)) FROM "customer"',
@@ -108,7 +108,7 @@ Harness.it({
 });
 
 // Cast in WHERE.
-Harness.it({
+Harness.test({
   query: customer.select(customer.name).where(customer.age.cast('int').plus(100).equals(150)),
   pg: {
     text  : 'SELECT "customer"."name" FROM "customer" WHERE ((CAST("customer"."age" AS int) + $1) = $2)',
@@ -134,7 +134,7 @@ Harness.it({
 });
 
 // Alias cast.
-Harness.it({
+Harness.test({
   query: customer.select(customer.age.cast('int').as('age_int')),
   pg: {
     text  : 'SELECT CAST("customer"."age" AS int) AS "age_int" FROM "customer"',
@@ -160,7 +160,7 @@ Harness.it({
 });
 
 // Cast Aliased columns.
-Harness.it({
+Harness.test({
   query: customerAlias.select(customerAlias.age_alias.cast('int')),
   pg: {
     text  : 'SELECT CAST("customer"."age" AS int) FROM "customer"',
@@ -185,7 +185,7 @@ Harness.it({
   params: []
 });
 
-Harness.it({
+Harness.test({
   query: customerAlias.select(customerAlias.name_alias.cast('varchar(10)')),
   pg: {
     text  : 'SELECT CAST("customer"."name" AS varchar(10)) FROM "customer"',
@@ -210,7 +210,7 @@ Harness.it({
   params: []
 });
 // Cast binary expressions for Aliased Column.
-Harness.it({
+Harness.test({
   query: customerAlias.select(customerAlias.name_alias.plus(customerAlias.age_alias).cast('varchar(15)')),
   pg: {
     text  : 'SELECT CAST(("customer"."name" + "customer"."age") AS varchar(15)) FROM "customer"',
@@ -236,7 +236,7 @@ Harness.it({
 });
 
 // Cast cast expressions for aliased columns.
-Harness.it({
+Harness.test({
   query: customerAlias.select(customerAlias.name_alias.cast('varchar(15)').cast('varchar(10)')),
   pg: {
     text  : 'SELECT CAST(CAST("customer"."name" AS varchar(15)) AS varchar(10)) FROM "customer"',
@@ -262,7 +262,7 @@ Harness.it({
 });
 
 // Cast in WHERE for aliased columns.
-Harness.it({
+Harness.test({
   query: customerAlias.select(customerAlias.name_alias).where(customerAlias.age_alias.cast('int').plus(100).equals(150)),
   pg: {
     text  : 'SELECT "customer"."name" AS "name_alias" FROM "customer" WHERE ((CAST("customer"."age" AS int) + $1) = $2)',
@@ -288,7 +288,7 @@ Harness.it({
 });
 
 // Alias cast.
-Harness.it({
+Harness.test({
   query: customerAlias.select(customerAlias.age_alias.cast('int').as('age_int')),
   pg: {
     text  : 'SELECT CAST("customer"."age" AS int) AS "age_int" FROM "customer"',

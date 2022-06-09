@@ -3,7 +3,7 @@
 var Harness = require('./support');
 var user = Harness.defineUserTable();
 
-Harness.it({
+Harness.test({
   query: user.where(user.id.isNotNull(), user.name.isNotNull()),
   pg: {
     text  : 'SELECT * FROM "user" WHERE (("user"."id" IS NOT NULL) AND ("user"."name" IS NOT NULL))',
@@ -28,7 +28,7 @@ Harness.it({
   params: []
 });
 
-Harness.it({
+Harness.test({
   query: user.and(user.id.isNotNull(), user.name.isNotNull()),
   pg: {
     text  : 'SELECT * FROM "user" WHERE (("user"."id" IS NOT NULL) AND ("user"."name" IS NOT NULL))',
@@ -53,7 +53,7 @@ Harness.it({
   params: []
 });
 
-Harness.it({
+Harness.test({
   query: user.where([user.id.isNotNull(), user.name.isNotNull()]),
   pg: {
     text  : 'SELECT * FROM "user" WHERE (("user"."id" IS NOT NULL) AND ("user"."name" IS NOT NULL))',
@@ -78,7 +78,7 @@ Harness.it({
   params: []
 });
 
-Harness.it({
+Harness.test({
   query: user.where([]),
   pg: {
     text  : 'SELECT * FROM "user" WHERE (1 = 1)',
@@ -103,7 +103,7 @@ Harness.it({
   params: []
 });
 
-Harness.it({
+Harness.test({
   query: user.select().where(user.id.equals(1)).and(user.name.equals('a')),
   pg: {
     text  : 'SELECT "user".* FROM "user" WHERE (("user"."id" = $1) AND ("user"."name" = $2))',
@@ -128,7 +128,7 @@ Harness.it({
   params: [1,'a']
 });
 
-Harness.it({
+Harness.test({
   query: user.select().and(user.id.equals(1)),
   pg: {
     text  : 'SELECT "user".* FROM "user" WHERE ("user"."id" = $1)',
@@ -153,7 +153,7 @@ Harness.it({
   params: [1]
 });
 
-Harness.it({
+Harness.test({
   query: user.select().or(user.id.equals(1)),
   pg: {
     text  : 'SELECT "user".* FROM "user" WHERE ("user"."id" = $1)',
@@ -178,7 +178,7 @@ Harness.it({
   params: [1]
 });
 
-Harness.it({
+Harness.test({
   query: user.select().and(user.id.equals(1)).or(user.name.equals('a')),
   pg: {
     text  : 'SELECT "user".* FROM "user" WHERE (("user"."id" = $1) OR ("user"."name" = $2))',

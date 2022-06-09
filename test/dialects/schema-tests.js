@@ -10,7 +10,7 @@ var userWithSchema = Table.define({
   columns: ['id', 'name']
 });
 
-Harness.it({
+Harness.test({
   query: userWithSchema.select(userWithSchema.id).from(userWithSchema),
   pg: {
     text  : 'SELECT "staging"."user"."id" FROM "staging"."user"',
@@ -35,7 +35,7 @@ Harness.it({
   params: []
 });
 
-Harness.it({
+Harness.test({
   query: userWithSchema.select(userWithSchema.id.count()).from(userWithSchema),
   pg: {
     text  : 'SELECT COUNT("staging"."user"."id") AS "id_count" FROM "staging"."user"',
@@ -60,7 +60,7 @@ Harness.it({
   params: []
 });
 
-Harness.it({
+Harness.test({
   query: userWithSchema.select(userWithSchema.id, userWithSchema.name).from(userWithSchema),
   pg: {
     text  : 'SELECT "staging"."user"."id", "staging"."user"."name" FROM "staging"."user"',
@@ -86,7 +86,7 @@ Harness.it({
 });
 
 var uws = userWithSchema.as('uws');
-Harness.it({
+Harness.test({
   query: uws.select(uws.name).from(uws),
   pg: {
     text  : 'SELECT "uws"."name" FROM "staging"."user" AS "uws"',
@@ -117,7 +117,7 @@ var postWithSchema = Table.define({
   columns: ['id', 'userId', 'content']
 });
 
-Harness.it({
+Harness.test({
   query: userWithSchema.select(userWithSchema.name, postWithSchema.content).from(userWithSchema.join(postWithSchema).on(userWithSchema.id.equals(postWithSchema.userId))),
   pg: {
     text  : 'SELECT "staging"."user"."name", "dev"."post"."content" FROM "staging"."user" INNER JOIN "dev"."post" ON ("staging"."user"."id" = "dev"."post"."userId")',
@@ -142,7 +142,7 @@ Harness.it({
   params: []
 });
 
-Harness.it({
+Harness.test({
   query: uws.select(uws.name, postWithSchema.content).from(uws.join(postWithSchema).on(uws.id.equals(postWithSchema.userId))),
   pg: {
     text  : 'SELECT "uws"."name", "dev"."post"."content" FROM "staging"."user" AS "uws" INNER JOIN "dev"."post" ON ("uws"."id" = "dev"."post"."userId")',

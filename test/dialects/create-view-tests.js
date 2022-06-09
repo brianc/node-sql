@@ -4,7 +4,7 @@ var Harness = require('./support');
 var user = Harness.defineUserTable();
 
 //simple view create
-Harness.it({
+Harness.test({
   query: user.select(user.star()).createView('allUsersView'),
   pg: {
     text  : '(CREATE VIEW "allUsersView" AS SELECT "user".* FROM "user")',
@@ -29,7 +29,7 @@ Harness.it({
 });
 
 //create view with parameters
-Harness.it({
+Harness.test({
   query: user.select(user.star()).where(user.id.equals(1)).createView('oneUserView'),
   pg: {
     text  : '(CREATE VIEW "oneUserView" AS SELECT "user".* FROM "user" WHERE ("user"."id" = 1))',
@@ -54,7 +54,7 @@ Harness.it({
 });
 
 //Tests error raised for non-SELECT create view attempts
-Harness.it({
+Harness.test({
   query: user.delete().where(user.id.equals(1)).createView('oneUserView'),
   pg: {
     text  : 'Create View requires a Select.',

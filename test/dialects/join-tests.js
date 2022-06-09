@@ -5,7 +5,7 @@ var user = Harness.defineUserTable();
 var post = Harness.definePostTable();
 var comment = Harness.defineCommentTable();
 
-Harness.it({
+Harness.test({
   query: user.select(user.name, post.content).from(user.join(post).on(user.id.equals(post.userId))),
   pg: {
     text  : 'SELECT "user"."name", "post"."content" FROM "user" INNER JOIN "post" ON ("user"."id" = "post"."userId")',
@@ -30,7 +30,7 @@ Harness.it({
   params: []
 });
 
-Harness.it({
+Harness.test({
   query: user.join(post).on(user.id.equals(post.userId)),
   pg: {
     text  : '"user" INNER JOIN "post" ON ("user"."id" = "post"."userId")',
@@ -55,7 +55,7 @@ Harness.it({
   params: []
 });
 
-Harness.it({
+Harness.test({
   query: user
     .select(user.name, post.content, comment.text)
     .from(
@@ -85,7 +85,7 @@ Harness.it({
   params: []
 });
 
-Harness.it({
+Harness.test({
   query: user.select(user.name, post.content).from(user.leftJoin(post).on(user.id.equals(post.userId))),
   pg: {
     text  : 'SELECT "user"."name", "post"."content" FROM "user" LEFT JOIN "post" ON ("user"."id" = "post"."userId")',
@@ -110,7 +110,7 @@ Harness.it({
   params: []
 });
 
-Harness.it({
+Harness.test({
   query: user
     .select(user.name, post.content)
     .from(
@@ -147,7 +147,7 @@ var subposts = post
   post.userId.as('subpostUserId'))
   .from(post);
 
-Harness.it({
+Harness.test({
   query: user
     .select(user.name, subposts.content)
     .from(user.join(subposts)
@@ -175,7 +175,7 @@ Harness.it({
   params: []
 });
 
-Harness.it({
+Harness.test({
   query: user.select().from(user.leftJoinLateral(post.subQuery().select(post.userId))),
   pg: {
     text  : 'SELECT "user".* FROM "user" LEFT JOIN LATERAL (SELECT "post"."userId" FROM "post") ON true',
@@ -192,7 +192,7 @@ Harness.it({
   params: []
 });
 
-Harness.it({
+Harness.test({
   query: user.select().from(user.leftJoinLateral(post.subQuery().select(post.userId).where(user.id.equals(post.userId)))),
   pg: {
     text  : 'SELECT "user".* FROM "user" LEFT JOIN LATERAL (SELECT "post"."userId" FROM "post" WHERE ("user"."id" = "post"."userId")) ON true',
@@ -209,7 +209,7 @@ Harness.it({
   params: []
 });
 
-Harness.it({
+Harness.test({
   query: user.select().from(user
   	.leftJoinLateral(post.subQuery().select(post.userId))
   	.leftJoinLateral(comment.subQuery().select(comment.postId))),

@@ -3,7 +3,7 @@
 var Harness = require('./support');
 var post = Harness.definePostTable();
 
-Harness.it({
+Harness.test({
   query: post.select(post.content).group(post.userId),
   pg: {
     text  : 'SELECT "post"."content" FROM "post" GROUP BY "post"."userId"',
@@ -28,7 +28,7 @@ Harness.it({
   params: []
 });
 
-Harness.it({
+Harness.test({
   query: post.select(post.content).group(post.userId, post.id),
   pg: {
     text  : 'SELECT "post"."content" FROM "post" GROUP BY "post"."userId", "post"."id"',
@@ -53,7 +53,7 @@ Harness.it({
   params: []
 });
 
-Harness.it({
+Harness.test({
   query: post.select(post.content.arrayAgg()).group(post.userId),
   pg: {
     text  : 'SELECT array_agg("post"."content") AS "contents" FROM "post" GROUP BY "post"."userId"',
@@ -78,7 +78,7 @@ Harness.it({
   params: []
 });
 
-Harness.it({
+Harness.test({
   query: post.select(post.content.arrayAgg('post contents')).group(post.userId),
   pg: {
     text  : 'SELECT array_agg("post"."content") AS "post contents" FROM "post" GROUP BY "post"."userId"',
@@ -103,7 +103,7 @@ Harness.it({
   params: []
 });
 
-Harness.it({
+Harness.test({
   query: post.select(post.content).group([post.userId, post.id]),
   pg: {
     text  : 'SELECT "post"."content" FROM "post" GROUP BY "post"."userId", "post"."id"',

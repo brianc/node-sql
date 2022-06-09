@@ -4,7 +4,7 @@ var Harness = require('./support');
 var user = Harness.defineUserTable();
 var Sql = require('../../lib').setDialect('postgres');
 
-Harness.it({
+Harness.test({
   query: user.select().distinctOn(user.id),
   pg: {
     text  : 'SELECT DISTINCT ON("user"."id") "user".* FROM "user"',
@@ -13,7 +13,7 @@ Harness.it({
   params: []
 });
 
-Harness.it({
+Harness.test({
   query: user.select(user.id,user.name).distinctOn(user.id),
   pg: {
     text  : 'SELECT DISTINCT ON("user"."id") "user"."id", "user"."name" FROM "user"',

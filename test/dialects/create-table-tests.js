@@ -15,7 +15,7 @@ var group = Table.define({
   ]
 });
 
-Harness.it({
+Harness.test({
   query: group.create(),
   pg: {
     text  : 'CREATE TABLE "group" ("id" varchar(100), "user_id" varchar(100))',
@@ -40,7 +40,7 @@ Harness.it({
   params: []
 });
 
-Harness.it({
+Harness.test({
   query: group.create().ifNotExists(),
   pg: {
     text  : 'CREATE TABLE IF NOT EXISTS "group" ("id" varchar(100), "user_id" varchar(100))',
@@ -65,7 +65,7 @@ Harness.it({
   params: []
 });
 
-Harness.it({
+Harness.test({
   query: Table.define({
     name: 'user',
     columns: [{
@@ -97,7 +97,7 @@ Harness.it({
   }
 });
 
-Harness.it({
+Harness.test({
   query: Table.define({
     name: 'user',
     columns: [{
@@ -129,7 +129,7 @@ Harness.it({
   }
 });
 
-Harness.it({
+Harness.test({
   query: Table.define({
     name: 'user',
     columns: [{
@@ -162,7 +162,7 @@ Harness.it({
   }
 });
 
-Harness.it({
+Harness.test({
   query: Table.define({
     name: 'user',
     columns: [{
@@ -193,7 +193,7 @@ Harness.it({
   }
 });
 
-Harness.it({
+Harness.test({
   query: Table.define({
     name: 'user',
     columns: [{
@@ -220,7 +220,7 @@ Harness.it({
   }
 });
 
-Harness.it({
+Harness.test({
   query: Table.define({
     name: 'user',
     columns: [{
@@ -248,7 +248,7 @@ Harness.it({
   }
 });
 
-Harness.it({
+Harness.test({
   query: Table.define({
     name: 'user',
     columns: [{
@@ -281,7 +281,7 @@ Harness.it({
   }
 });
 
-Harness.it({
+Harness.test({
   query: Table.define({
     name: 'post',
     columns: [{
@@ -314,7 +314,7 @@ Harness.it({
   params: []
 });
 
-Harness.it({
+Harness.test({
   query: Table.define({
   name: 'picture',
   columns: [{
@@ -349,7 +349,7 @@ Harness.it({
   params: []
 });
 
-Harness.it({
+Harness.test({
   query: Table.define({
   name: 'picture',
   columns: [{
@@ -381,7 +381,7 @@ Harness.it({
   params: []
 });
 
-Harness.it({
+Harness.test({
   query: Table.define({
     name: 'post',
     columns: [{
@@ -409,7 +409,7 @@ Harness.it({
   params: []
 });
 
-Harness.it({
+Harness.test({
   query: Table.define({
     name: 'membership',
     columns: {
@@ -436,7 +436,7 @@ Harness.it({
 
 // This tests explicitly setting the isTemporary flag to false, as opposed to all the test above here which have it
 // as undefined.
-Harness.it({
+Harness.test({
   query: Table.define({
     name: 'post',
     columns: [{
@@ -468,7 +468,7 @@ Harness.it({
   params: []
 });
 
-Harness.it({
+Harness.test({
   query: Table.define({
     name: 'post',
     columns: [{
@@ -511,7 +511,7 @@ var users = Table.define({
   }
 });
 
-Harness.it({
+Harness.test({
   query: users.create(),
   pg: {
     text: 'CREATE TABLE "users" ("id" int PRIMARY KEY REFERENCES "entity"("id") DEFERRABLE INITIALLY DEFERRED)',
@@ -537,7 +537,7 @@ Harness.it({
 });
 
 // UNIQUE COLUMN TESTS
-Harness.it({
+Harness.test({
   query: Table.define({
     name: 'post',
     columns: [{
@@ -587,7 +587,7 @@ var noUsers = Table.define({
   }
 });
 
-Harness.it({
+Harness.test({
   query: noUsers.create(),
   pg: {
     text  : 'CREATE TABLE "no_users" ("id" int PRIMARY KEY REFERENCES "entity"("id"))',
@@ -612,7 +612,7 @@ Harness.it({
   params: []
 });
 
-Harness.it({
+Harness.test({
   query: Table.define({
     name: 'post',
     columns: [{
@@ -646,7 +646,7 @@ Harness.it({
   params: []
 });
 
-Harness.it({
+Harness.test({
   query: Table.define({
     name: 'post',
     columns: [{
@@ -680,7 +680,7 @@ Harness.it({
   params: []
 });
 
-Harness.it({
+Harness.test({
   query: Table.define({
     name: 'post',
     columns: [{
@@ -715,7 +715,7 @@ Harness.it({
   params: []
 });
 
-Harness.it({
+Harness.test({
   query: Table.define({
     name: 'replies',
     columns: [{

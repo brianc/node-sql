@@ -4,7 +4,7 @@ var Harness = require('./support');
 var customer = Harness.defineCustomerTable();
 var post = Harness.definePostTable();
 
-Harness.it({
+Harness.test({
   query: customer.select().where(customer.age.isNotNull()),
   pg: {
     text  : 'SELECT "customer".* FROM "customer" WHERE ("customer"."age" IS NOT NULL)',
@@ -29,7 +29,7 @@ Harness.it({
   params: []
 });
 
-Harness.it({
+Harness.test({
   query: post.select().where(post.userId. in (customer.subQuery().select(customer.id).where(customer.age.isNull()))),
   pg: {
     text  : 'SELECT "post".* FROM "post" WHERE ("post"."userId" IN (SELECT "customer"."id" FROM "customer" WHERE ("customer"."age" IS NULL)))',
