@@ -4,7 +4,7 @@ var Harness = require('./support');
 var customer = Harness.defineCustomerCompositeTable();
 var Sql = require('../../lib').setDialect('postgres');
 
-Harness.test({
+Harness.it({
   query: customer.select(customer.info.subfields.age),
   pg: {
     text  : 'SELECT ("customer"."info")."age" FROM "customer"',
@@ -14,7 +14,7 @@ Harness.test({
 });
 
 
-Harness.test({
+Harness.it({
   query: customer.select(customer.info.subfields.age.as('years')),
   pg: {
     text  : 'SELECT ("customer"."info")."age" AS "years" FROM "customer"',
@@ -23,7 +23,7 @@ Harness.test({
   params: []
 });
 
-Harness.test({
+Harness.it({
   query: customer.select(customer.id).where(customer.info.subfields.salary.equals(10)),
   pg: {
     text  : 'SELECT "customer"."id" FROM "customer" WHERE (("customer"."info")."salary" = $1)',
@@ -32,7 +32,7 @@ Harness.test({
   params: [10]
 });
 
-Harness.test({
+Harness.it({
   query: customer.select(customer.info.subfields.name.distinct()),
   pg: {
     text  : 'SELECT DISTINCT(("customer"."info")."name") FROM "customer"',

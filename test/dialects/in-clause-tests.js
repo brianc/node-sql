@@ -3,7 +3,7 @@
 var Harness = require('./support');
 var post = Harness.definePostTable();
 
-Harness.test({
+Harness.it({
   query: post.select(post.star()).where(post.id.in([])),
   pg: {
     text  : 'SELECT "post".* FROM "post" WHERE (1=0)',
@@ -28,7 +28,7 @@ Harness.test({
   params: []
 });
 
-Harness.test({
+Harness.it({
   query: post.select(post.star()).where(post.id.in([1])),
   pg: {
     text  : 'SELECT "post".* FROM "post" WHERE ("post"."id" IN ($1))',
@@ -53,7 +53,7 @@ Harness.test({
   params: [1]
 });
 
-Harness.test({
+Harness.it({
   query: post.select(post.star()).where(post.id.in([null])),
   pg: {
     text  : 'SELECT "post".* FROM "post" WHERE ("post"."id" IS NULL)',
@@ -78,7 +78,7 @@ Harness.test({
   params: []
 });
 
-Harness.test({
+Harness.it({
   query: post.select(post.star()).where(post.id.in([1, 2])),
   pg: {
     text  : 'SELECT "post".* FROM "post" WHERE ("post"."id" IN ($1, $2))',
@@ -103,7 +103,7 @@ Harness.test({
   params: [1, 2]
 });
 
-Harness.test({
+Harness.it({
   query: post.select(post.star()).where(post.id.in([null, null])),
   pg: {
     text  : 'SELECT "post".* FROM "post" WHERE ("post"."id" IS NULL)',
@@ -128,7 +128,7 @@ Harness.test({
   params: []
 });
 
-Harness.test({
+Harness.it({
   query: post.select(post.star()).where(post.id.in([1, null, 2])),
   pg: {
     text  : 'SELECT "post".* FROM "post" WHERE ("post"."id" IN ($1, $2) OR "post"."id" IS NULL)',
@@ -153,7 +153,7 @@ Harness.test({
   params: [1, 2]
 });
 
-Harness.test({
+Harness.it({
   query: post.select(post.star()).where(post.id.in([1, null, 2, null])),
   pg: {
     text  : 'SELECT "post".* FROM "post" WHERE ("post"."id" IN ($1, $2) OR "post"."id" IS NULL)',

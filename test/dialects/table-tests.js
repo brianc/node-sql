@@ -3,7 +3,7 @@
 var Harness = require('./support');
 var user = Harness.defineUserTable();
 
-Harness.test({
+Harness.it({
   query: user.select(user.id).from(user),
   pg: {
     text  : 'SELECT "user"."id" FROM "user"',
@@ -28,7 +28,7 @@ Harness.test({
   params: []
 });
 
-Harness.test({
+Harness.it({
   query: user.select(user.id, user.name).from(user),
   pg: {
     text  : 'SELECT "user"."id", "user"."name" FROM "user"',
@@ -53,7 +53,7 @@ Harness.test({
   params: []
 });
 
-Harness.test({
+Harness.it({
   query: user.select(user.star()).from(user),
   pg: {
     text  : 'SELECT "user".* FROM "user"',
@@ -78,7 +78,7 @@ Harness.test({
   params: []
 });
 
-Harness.test({
+Harness.it({
   query: user.select(user.id, [ user.name ]).from(user),
   pg: {
     text: 'SELECT "user"."id", "user"."name" FROM "user"',
@@ -99,7 +99,7 @@ Harness.test({
   params: []
 });
 
-Harness.test({
+Harness.it({
   query: user.select([ user.id ], user.name).from(user),
   pg: {
     text: 'SELECT "user"."id", "user"."name" FROM "user"',
@@ -120,7 +120,7 @@ Harness.test({
   params: []
 });
 
-Harness.test({
+Harness.it({
   query: user.select([ user.id , user.name ]).from(user),
   pg: {
     text: 'SELECT "user"."id", "user"."name" FROM "user"',
@@ -141,7 +141,7 @@ Harness.test({
   params: []
 });
 
-Harness.test({
+Harness.it({
   query: user.select(user.star(), user.star({ prefix: 'foo_' }), user.star({ prefix: 'bar_' })).from(user),
   pg: {
     text: 'SELECT "user".*, "user"."id" AS "foo_id", "user"."name" AS "foo_name", "user"."id" AS "bar_id", "user"."name" AS "bar_name" FROM "user"',
@@ -162,7 +162,7 @@ Harness.test({
   params: []
 });
 
-Harness.test({
+Harness.it({
   query: user.select(user.id).from(user).where(user.name.equals('foo')),
   pg: {
     text  : 'SELECT "user"."id" FROM "user" WHERE ("user"."name" = $1)',
@@ -187,7 +187,7 @@ Harness.test({
   params: ['foo']
 });
 
-Harness.test({
+Harness.it({
   query: user.select(user.id).from(user).where(user.name.equals('foo').or(user.name.equals('bar'))),
   pg: {
     text  : 'SELECT "user"."id" FROM "user" WHERE (("user"."name" = $1) OR ("user"."name" = $2))',
@@ -212,7 +212,7 @@ Harness.test({
   params: ['foo', 'bar']
 });
 
-Harness.test({
+Harness.it({
   query: user.select(user.id).from(user).where(user.name.equals('foo').and(user.name.equals('bar'))),
   pg: {
     text  : 'SELECT "user"."id" FROM "user" WHERE (("user"."name" = $1) AND ("user"."name" = $2))',
@@ -237,7 +237,7 @@ Harness.test({
   params: ['foo', 'bar']
 });
 
-Harness.test({
+Harness.it({
   query: user.select(user.id).from(user).where(user.name.equals('foo')).or(user.name.equals('bar')),
   pg: {
     text  : 'SELECT "user"."id" FROM "user" WHERE (("user"."name" = $1) OR ("user"."name" = $2))',
@@ -262,7 +262,7 @@ Harness.test({
   params: ['foo', 'bar']
 });
 
-Harness.test({
+Harness.it({
   query: user.select(user.id).from(user).where(user.name.equals('foo')).or(user.name.equals('baz')).and(user.name.equals('bar')),
   pg: {
     text  : 'SELECT "user"."id" FROM "user" WHERE ((("user"."name" = $1) OR ("user"."name" = $2)) AND ("user"."name" = $3))',
@@ -287,7 +287,7 @@ Harness.test({
   params: ['foo', 'baz', 'bar']
 });
 
-Harness.test({
+Harness.it({
   query: user.select(user.id).from(user).where(user.name.in(['foo', 'bar'])),
   pg: {
     text  : 'SELECT "user"."id" FROM "user" WHERE ("user"."name" IN ($1, $2))',
@@ -312,7 +312,7 @@ Harness.test({
   params: ['foo', 'bar']
 });
 
-Harness.test({
+Harness.it({
   query: user.select(user.id).from(user).where(user.name.in(['foo', 'bar']).and(user.id.equals(1))),
   pg: {
     text  : 'SELECT "user"."id" FROM "user" WHERE (("user"."name" IN ($1, $2)) AND ("user"."id" = $3))',
@@ -337,7 +337,7 @@ Harness.test({
   params: ['foo', 'bar', 1]
 });
 
-Harness.test({
+Harness.it({
   query: user.select(user.columns),
   pg: {
     text  : 'SELECT "user"."id", "user"."name" FROM "user"',
@@ -363,7 +363,7 @@ Harness.test({
 });
 
 
-Harness.test({
+Harness.it({
   query: user
     .select(user.id)
     .from(user)
@@ -394,7 +394,7 @@ Harness.test({
   params: ['boom', 1, 'bang', 2]
 });
 
-Harness.test({
+Harness.it({
   query: user.select(user.name.as('user name'), user.id.as('user id')).from(user),
   pg: {
     text  : 'SELECT "user"."name" AS "user name", "user"."id" AS "user id" FROM "user"',
@@ -419,7 +419,7 @@ Harness.test({
   params: []
 });
 
-Harness.test({
+Harness.it({
   query: user.select(user.name.as('user name')).from(user).where(user.name.equals('brian')),
   pg: {
     text  : 'SELECT "user"."name" AS "user name" FROM "user" WHERE ("user"."name" = $1)',
@@ -444,7 +444,7 @@ Harness.test({
   params: ['brian']
 });
 
-Harness.test({
+Harness.it({
   query: user.select(user.name).from(user).where(user.name.equals('brian')),
   pg: {
     text  : 'SELECT "user"."name" FROM "user" WHERE ("user"."name" = $1)',
@@ -469,7 +469,7 @@ Harness.test({
   params: ['brian']
 });
 
-Harness.test({
+Harness.it({
   query: user.select('name').from('user').where('name <> NULL'),
   pg: {
     text  : 'SELECT name FROM user WHERE (name <> NULL)',
@@ -494,7 +494,7 @@ Harness.test({
   params: []
 });
 
-Harness.test({
+Harness.it({
   query: user.select('name,id').from('user').where('name <> NULL'),
   pg: {
     text  : 'SELECT name,id FROM user WHERE (name <> NULL)',
@@ -519,7 +519,7 @@ Harness.test({
   params: []
 });
 
-Harness.test({
+Harness.it({
   query: user.select('name', 'id').from('user').where('name <> NULL'),
   pg: {
     text  : 'SELECT name, id FROM user WHERE (name <> NULL)',
@@ -544,7 +544,7 @@ Harness.test({
   params: []
 });
 
-Harness.test({
+Harness.it({
   query: user.select('name', 'id').from('user').where('name <> NULL').and('id <> NULL'),
   pg: {
     text  : 'SELECT name, id FROM user WHERE ((name <> NULL) AND (id <> NULL))',
@@ -569,7 +569,7 @@ Harness.test({
   params: []
 });
 
-Harness.test({
+Harness.it({
   query: user.select('name').from('user').where({
     name: 'brian'
   }),
@@ -596,7 +596,7 @@ Harness.test({
   params: ['brian']
 });
 
-Harness.test({
+Harness.it({
   query: user.select('name').from('user').where({
     name: 'brian',
     id: 1
@@ -624,7 +624,7 @@ Harness.test({
   params: ['brian', 1]
 });
 
-Harness.test({
+Harness.it({
   query: user.select(user.name.as('quote"quote"tick`tick`')),
   pg: {
     text  : 'SELECT "user"."name" AS "quote""quote""tick`tick`" FROM "user"',
@@ -649,7 +649,7 @@ Harness.test({
   params: []
 });
 
-Harness.test({
+Harness.it({
   query: user.select(user.star()).where(user.id.in(user.subQuery().select(user.id))),
   pg: {
     text  : 'SELECT "user".* FROM "user" WHERE ("user"."id" IN (SELECT "user"."id" FROM "user"))',

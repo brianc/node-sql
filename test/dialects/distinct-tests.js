@@ -3,7 +3,7 @@
 var Harness = require('./support');
 var user = Harness.defineUserTable();
 
-Harness.test({
+Harness.it({
   query: user.select(user.id.distinct()),
   pg: {
     text  : 'SELECT DISTINCT("user"."id") FROM "user"',
@@ -28,7 +28,7 @@ Harness.test({
   params: []
 });
 
-Harness.test({
+Harness.it({
   query: user.select(user.id.count().distinct().as('count')),
   pg: {
     text  : 'SELECT COUNT(DISTINCT("user"."id")) AS "count" FROM "user"',
@@ -55,7 +55,7 @@ Harness.test({
 
 // BELOW HERE TEST DISTINCT ON THE ENTIRE RESULTS SET, NOT JUST ONE COLUMN
 
-Harness.test({
+Harness.it({
   query: user.select().distinct(),
   pg: {
     text  : 'SELECT DISTINCT "user".* FROM "user"',
@@ -80,7 +80,7 @@ Harness.test({
   params: []
 });
 
-Harness.test({
+Harness.it({
   query: user.select(user.id).distinct(),
   pg: {
     text  : 'SELECT DISTINCT "user"."id" FROM "user"',
@@ -105,7 +105,7 @@ Harness.test({
   params: []
 });
 
-Harness.test({
+Harness.it({
   query: user.select(user.id,user.name).distinct(),
   pg: {
     text  : 'SELECT DISTINCT "user"."id", "user"."name" FROM "user"',

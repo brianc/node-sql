@@ -12,7 +12,7 @@
   "main": "lib/",
   "types": "lib/types.d.ts",
   "scripts": {
-    "test": "node_modules/.bin/mocha",
+    "test": "mocha",
     "lint": "jshint lib test",
     "posttest": "jshint lib test"
   },
@@ -20,8 +20,8 @@
     "node": "*"
   },
   "dependencies": {
-    "sliced": "0.0.x",
-    "lodash": "4.1.x"
+    "sliced": "1.0.x",
+    "lodash": "4.17.x"
   },
   "devDependencies": {
     "jshint": "*",

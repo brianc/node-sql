@@ -8,7 +8,7 @@ var Foo = Table.define({
   columns: ['baz','bar']
 });
 
-test('operators', function() {
+it ('operators', function() {
   assert.equal(Foo.baz.equals(1).operator, '=');
   assert.equal(Foo.baz.equal(1).operator, '=');
   assert.equal(Foo.baz.notEqual(1).operator, '<>');

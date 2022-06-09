@@ -4,7 +4,7 @@ var Harness = require('./support');
 var post = Harness.definePostTable();
 var user = Harness.defineUserTable();
 
-Harness.test({
+Harness.it({
   query: post.select(post.star()).forUpdate(),
   pg: {
     text  : 'SELECT "post".* FROM "post" FOR UPDATE',
@@ -17,7 +17,7 @@ Harness.test({
   params: []
 });
 
-Harness.test({
+Harness.it({
   query: post.select(post.star()).from(post.join(user).on(user.id.equals(post.userId))).where(post.content.equals('foo')).forUpdate(),
   pg: {
     text  : 'SELECT "post".* FROM "post" INNER JOIN "user" ON ("user"."id" = "post"."userId") WHERE ("post"."content" = $1) FOR UPDATE',

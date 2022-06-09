@@ -6,7 +6,7 @@ var customerAlias = Harness.defineCustomerAliasTable();
 var sql = require(__dirname + '/../../lib').setDialect('postgres');
 
 //Postgres needs the to_tsquery function to use with @@ operator
-Harness.test({
+Harness.it({
   query: post.select(post.star()).where(post.content.match(sql.functions.TO_TSQUERY('hello'))),
   pg: {
     text  : 'SELECT "post".* FROM "post" WHERE ("post"."content" @@ TO_TSQUERY($1))',
@@ -16,7 +16,7 @@ Harness.test({
 });
 
 
-Harness.test({
+Harness.it({
   query: post.select(post.star()).where(post.content.match('hello')),
   sqlite: {
     text  : 'SELECT "post".* FROM "post" WHERE ("post"."content" MATCH $1)',
@@ -38,7 +38,7 @@ Harness.test({
 });
 
 //matches, ordered by best rank first
-Harness.test({
+Harness.it({
   query: post.select(post.id, sql.functions.TS_RANK_CD(post.content, sql.functions.TO_TSQUERY('hello')).as('rank')).
   where(post.content.match(sql.functions.TO_TSQUERY('hello'))).order(sql.functions.TS_RANK_CD(post.content, sql.functions.TO_TSQUERY('hello')).descending()),
   pg: {

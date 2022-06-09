@@ -11,7 +11,7 @@ var arrayTable = require('../../lib/table').define({
     columns: ['id', 'numbers']
 });
 
-Harness.test({
+Harness.it({
   query: post.replace(post.content.value('test'), post.userId.value(1)),
   pg: {
     throws: true
@@ -33,7 +33,7 @@ Harness.test({
   params: ['test', 1]
 });
 
-Harness.test({
+Harness.it({
   query: post.replace(post.content.value('whoah')),
   pg: {
     throws: true
@@ -55,7 +55,7 @@ Harness.test({
   params: ['whoah']
 });
 
-Harness.test({
+Harness.it({
   query: post.replace({length: 0}),
   pg: {
     throws: true
@@ -77,7 +77,7 @@ Harness.test({
   params: [0]
 });
 
-Harness.test({
+Harness.it({
   query: post.replace({
     content: 'test',
     userId: 2
@@ -98,7 +98,7 @@ Harness.test({
   params: ['test', 2]
 });
 
-Harness.test({
+Harness.it({
   query: post.replace({
     content: post.sql.functions.LOWER('TEST'),
     userId: 2
@@ -120,7 +120,7 @@ Harness.test({
 });
 
 // allow bulk replace
-Harness.test({
+Harness.it({
   query: post.replace([{
       content: 'whoah'
     }, {
@@ -143,7 +143,7 @@ Harness.test({
   params: ['whoah', 'hey']
 });
 
-Harness.test({
+Harness.it({
   query: post.replace([{
       content: 'whoah',
       userId: 1
@@ -169,7 +169,7 @@ Harness.test({
 });
 
 // consistent order
-Harness.test({
+Harness.it({
   query: post.replace([{
       content: 'whoah',
       userId: 1
@@ -198,7 +198,7 @@ Harness.test({
   params: ['whoah', 1, 'hey', 2]
 });
 
-Harness.test({
+Harness.it({
   query: post.replace({}),
   pg: {
     throws: true
@@ -220,7 +220,7 @@ Harness.test({
   params: []
 });
 
-Harness.test({
+Harness.it({
   query: post.replace({}).returning('*'),
   pg: {
     throws: true
@@ -240,7 +240,7 @@ Harness.test({
   params: []
 });
 
-Harness.test({
+Harness.it({
   query: post.replace({}).returning(post.star()),
   pg: {
     throws: true
@@ -260,7 +260,7 @@ Harness.test({
   params: []
 });
 
-Harness.test({
+Harness.it({
   query: post.replace({}).returning(post.id),
   pg: {
     throws: true
@@ -280,7 +280,7 @@ Harness.test({
   params: []
 });
 
-Harness.test({
+Harness.it({
   query: post.replace({}).returning(post.id, post.content),
   pg: {
     throws: true
@@ -300,7 +300,7 @@ Harness.test({
   params: []
 });
 
-Harness.test({
+Harness.it({
   query: post.replace({}).returning([post.id, post.content]),
   pg: {
     throws: true
@@ -321,7 +321,7 @@ Harness.test({
 });
 
 // handle missing columns
-Harness.test({
+Harness.it({
   query: post.replace([{
       content: 'whoah',
       userId: 1
@@ -349,7 +349,7 @@ Harness.test({
   },
 });
 
-Harness.test({
+Harness.it({
   query: post.replace([{
       userId: 1
     }, {
@@ -377,7 +377,7 @@ Harness.test({
   },
 });
 
-Harness.test({
+Harness.it({
   query: post.replace(post.content, post.userId)
       .select('\'test\'', user.id).from(user).where(user.name.like('A%')),
   pg: {
@@ -400,7 +400,7 @@ Harness.test({
   params: ['A%']
 });
 
-Harness.test({
+Harness.it({
   query: post.replace([post.content, post.userId])
       .select('\'test\'', user.id).from(user).where(user.name.like('A%')),
   pg: {
@@ -423,7 +423,7 @@ Harness.test({
   params: ['A%']
 });
 
-Harness.test({
+Harness.it({
   query: post.replace(post.userId)
       .select(user.id).from(user).where(user.name.like('A%')),
   pg: {
@@ -442,7 +442,7 @@ Harness.test({
   params: ['A%']
 });
 
-Harness.test({
+Harness.it({
   query: post.replace(post.userId)
       .select(post.userId).from(user.join(post).on(user.id.equals(post.userId))).where(post.tags.like('A%')),
   pg: {
@@ -465,7 +465,7 @@ Harness.test({
   params: ['A%']
 });
 
-Harness.test({
+Harness.it({
   query: post.replace(post.userId).select(user.id).distinct().from(user),
   pg: {
     throws: true
@@ -488,7 +488,7 @@ Harness.test({
 });
 
 // Binary replaces
-Harness.test({
+Harness.it({
   query: post.replace(post.content.value(new Buffer('test')), post.userId.value(2)),
   pg: {
     throws: true
@@ -510,7 +510,7 @@ Harness.test({
   params: [new Buffer('test'), 2]
 });
 
-Harness.test({
+Harness.it({
   query: post.replace({
     content: new Buffer('test'),
     userId: 2
@@ -535,7 +535,7 @@ Harness.test({
   params: [new Buffer('test'), 2]
 });
 
-Harness.test({
+Harness.it({
   query: post.replace([{
       content: new Buffer('whoah')
     }, {
@@ -562,7 +562,7 @@ Harness.test({
   params: [new Buffer('whoah'), new Buffer('hey')]
 });
 
-Harness.test({
+Harness.it({
   query: post.replace({
     content: 'test',
     userId: 2
@@ -588,7 +588,7 @@ Harness.test({
   params: ['test', 2, 'testupdate']
 });
 
-Harness.test({
+Harness.it({
   query: customerAliasTable.replace({
     id : 2,
     name : 'test'
@@ -614,7 +614,7 @@ Harness.test({
   params: [2, 'test']
 });
 
-Harness.test({
+Harness.it({
   query: customerAliasTable.replace({
     id : 2,
     name : 'test'
@@ -638,7 +638,7 @@ Harness.test({
   params: [2, 'test']
 });
 
-Harness.test({
+Harness.it({
   query: post.replace({
     content: 'test',
     userId: 2
@@ -664,7 +664,7 @@ Harness.test({
   params: ['test', 2]
 });
 
-Harness.test({
+Harness.it({
   query: post.replace({
     content: 'test',
     userId: 2
@@ -690,7 +690,7 @@ Harness.test({
   params: ['test', 2]
 });
 
-Harness.test({
+Harness.it({
   query: post.replace({
     content: 'test',
     userId: 2
@@ -716,7 +716,7 @@ Harness.test({
   params: ['test', 2, 2]
 });
 
-Harness.test({
+Harness.it({
   query: post.replace({
     content: 'test',
     userId: 2
@@ -742,7 +742,7 @@ Harness.test({
   params: ['test', 2, 2]
 });
 
-Harness.test({
+Harness.it({
   query: post.replace({
     content: 'test',
     userId: 2
@@ -767,7 +767,7 @@ Harness.test({
   params: ['test', 2]
 });
 
-Harness.test({
+Harness.it({
   query: post.replace({
     content: 'test',
     userId: 2
@@ -792,7 +792,7 @@ Harness.test({
   params: ['test', 2]
 });
 
-Harness.test({
+Harness.it({
   query: contentTable.replace({
     contentId: 20,
     text : "something"
@@ -817,7 +817,7 @@ Harness.test({
   params: [20, "something"]
 });
 
-Harness.test({
+Harness.it({
   query: contentTable.replace({
     contentId: 20,
     text : "something",
@@ -844,7 +844,7 @@ Harness.test({
   params: [20, "something", "another thing"]
 });
 
-Harness.test({
+Harness.it({
   query: post.replace([]),
 
   mysql: {
@@ -854,7 +854,7 @@ Harness.test({
   params: []
 });
 
-Harness.test({
+Harness.it({
   query: arrayTable.replace(arrayTable.id.value(1), arrayTable.numbers.value([2, 3, 4])),
   pg: {
     throws: true
@@ -871,7 +871,7 @@ Harness.test({
   }
 });
 
-Harness.test({
+Harness.it({
   query: arrayTable.replace(arrayTable.id.value(1), arrayTable.numbers.value(["one", "two", "three"])),
   pg: {
     throws: true
@@ -888,7 +888,7 @@ Harness.test({
   }
 });
 
-Harness.test({
+Harness.it({
   query: post.replace(post.userId).select(user.id).from(user),
   pg: {
     throws: true
@@ -910,7 +910,7 @@ Harness.test({
   params: []
 });
 
-Harness.test({
+Harness.it({
   query: post.replace(post.userId).select(user.id).from(user).onConflict({
     columns: ['userId'],
     update: ['content']
@@ -933,7 +933,7 @@ Harness.test({
   params: []
 });
 
-Harness.test({
+Harness.it({
   query: post.replace(post.userId).add(user.select(user.id)),
   pg: {
     throws: true
@@ -955,7 +955,7 @@ Harness.test({
   params: []
 });
 
-Harness.test({
+Harness.it({
   query: post.replace(post.userId).add(user.select(user.id).from(user)),
   pg: {
     throws: true
@@ -977,7 +977,7 @@ Harness.test({
   params: []
 });
 
-Harness.test({
+Harness.it({
   query: post.replace(post.userId).add(user.select(user.id).order(user.id)),
   pg: {
     throws: true

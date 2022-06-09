@@ -4,7 +4,7 @@ var Harness = require('./support');
 var post = Harness.definePostTable();
 var user = Harness.defineUserTable();
 
-Harness.test({
+Harness.it({
   query: post.delete().where(post.content.equals("hello's world")),
   pg: {
     text  : 'DELETE FROM "post" WHERE ("post"."content" = $1)',
@@ -29,7 +29,7 @@ Harness.test({
   params: ["hello's world"]
 });
 
-Harness.test({
+Harness.it({
   query: post.delete(post).from(post),
   pg: {
     text: 'DELETE "post" FROM "post"',
@@ -46,7 +46,7 @@ Harness.test({
   params: []
 });
 
-Harness.test({
+Harness.it({
   query: post.delete([post, post]).from(post),
   pg: {
     text: 'DELETE "post", "post" FROM "post"',
@@ -63,7 +63,7 @@ Harness.test({
   params: []
 });
 
-Harness.test({
+Harness.it({
   query: user
     .delete(user)
     .from(user.join(post).on(post.userId.equals(user.id)))
@@ -87,7 +87,7 @@ Harness.test({
   params: [ 'foo' ]
 });
 
-Harness.test({
+Harness.it({
   query: post.delete().where({
     content: ''
   }),
@@ -114,7 +114,7 @@ Harness.test({
   params: ['']
 });
 
-Harness.test({
+Harness.it({
   query: post.delete({
     content: ''
   }),
@@ -141,7 +141,7 @@ Harness.test({
   params: ['']
 });
 
-Harness.test({
+Harness.it({
   query: post.delete({
     content: ''
   }).or(post.content.isNull()),

@@ -4,7 +4,7 @@ var Harness = require('./support');
 var customer = Harness.defineCustomerTable();
 
 // Check case expression with primary when expressions and else branch.
-Harness.test({
+Harness.it({
   query: customer.select(customer.age.case([true, false], [0, 1], 2)),
   pg: {
     text  : 'SELECT (CASE WHEN $1 THEN $2 WHEN $3 THEN $4 ELSE $5 END) FROM "customer"',
@@ -32,7 +32,7 @@ Harness.test({
 });
 
 // Check case expression as a subexpression.
-Harness.test({
+Harness.it({
   query: customer.select(customer.age.plus(customer.age.case([true, false], [0, 1], 2))),
   pg: {
     text  : 'SELECT ("customer"."age" + (CASE WHEN $1 THEN $2 WHEN $3 THEN $4 ELSE $5 END)) FROM "customer"',
@@ -60,7 +60,7 @@ Harness.test({
 });
 
 // Check case expression as subexpression on the left.
-Harness.test({
+Harness.it({
   query: customer.select(customer.age.case([true, false], [0, 1], 2).plus(3)),
   pg: {
     text  : 'SELECT ((CASE WHEN $1 THEN $2 WHEN $3 THEN $4 ELSE $5 END) + $6) FROM "customer"',
@@ -88,7 +88,7 @@ Harness.test({
 });
 
 // Check case expression with primary when expressions and compound else expression.
-Harness.test({
+Harness.it({
   query: customer.select(customer.age.case([true, false], [0, 1], customer.age.between(10, 20))),
   pg: {
     text  : 'SELECT (CASE WHEN $1 THEN $2 WHEN $3 THEN $4 ELSE ("customer"."age" BETWEEN $5 AND $6) END) FROM "customer"',
@@ -116,7 +116,7 @@ Harness.test({
 });
 
 // Check case expression with primary when expressions without else branch.
-Harness.test({
+Harness.it({
   query: customer.select(customer.age.case([true, false], [0, 1])),
   pg: {
     text  : 'SELECT (CASE WHEN $1 THEN $2 WHEN $3 THEN $4 END) FROM "customer"',
@@ -144,7 +144,7 @@ Harness.test({
 });
 
 // Check case expression with compound when expressions and else branch.
-Harness.test({
+Harness.it({
   query: customer.select(customer.age.case([customer.age.in([10, 20, 30]), customer.age.lte(60)], [0, 1], 2)),
   pg: {
     text  : 'SELECT (CASE WHEN ("customer"."age" IN ($1, $2, $3)) THEN $4 WHEN ("customer"."age" <= $5) THEN $6 ELSE $7 END) FROM "customer"',
@@ -170,7 +170,7 @@ Harness.test({
 });
 
 // Check case expression without else branch.
-Harness.test({
+Harness.it({
   query: customer.select(customer.age.case([customer.age.in([10, 20, 30]), customer.age.lte(60)], [0, 1])),
   pg: {
     text  : 'SELECT (CASE WHEN ("customer"."age" IN ($1, $2, $3)) THEN $4 WHEN ("customer"."age" <= $5) THEN $6 END) FROM "customer"',
@@ -196,7 +196,7 @@ Harness.test({
 });
 
 // Check case expression with compound then expressions.
-Harness.test({
+Harness.it({
   query: customer.select(customer.age.case([customer.age.in([10, 20, 30]), customer.age.lte(60)], [customer.age.plus(5), customer.age.minus(1)])),
   pg: {
     text  : 'SELECT (CASE WHEN ("customer"."age" IN ($1, $2, $3)) THEN ("customer"."age" + $4) WHEN ("customer"."age" <= $5) THEN ("customer"."age" - $6) END) FROM "customer"',

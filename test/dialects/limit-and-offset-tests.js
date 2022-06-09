@@ -6,7 +6,7 @@ var user = Harness.defineUserTable();
 // For compatibility with PostgreSQL, MySQL also supports the LIMIT row_count OFFSET offset syntax.
 // http://dev.mysql.com/doc/refman/5.0/en/select.html
 
-Harness.test({
+Harness.it({
   query: user.select(user.star()).from(user).order(user.name.asc).limit(1),
   pg: {
     text  : 'SELECT "user".* FROM "user" ORDER BY "user"."name" LIMIT 1',
@@ -27,7 +27,7 @@ Harness.test({
   params: []
 });
 
-Harness.test({
+Harness.it({
   query: user.select(user.star()).from(user).order(user.name.asc).limit(3).offset(6),
   pg: {
     text  : 'SELECT "user".* FROM "user" ORDER BY "user"."name" LIMIT 3 OFFSET 6',
@@ -48,7 +48,7 @@ Harness.test({
   params: []
 });
 
-Harness.test({
+Harness.it({
   query: user.select(user.star()).from(user).order(user.name.asc).offset(10),
   pg: {
     text  : 'SELECT "user".* FROM "user" ORDER BY "user"."name" OFFSET 10',
@@ -73,7 +73,7 @@ Harness.test({
   params: []
 });
 
-Harness.test({
+Harness.it({
   query: user.select(user.star()).where({
     name: 'John'
   }).offset(user.subQuery().select('FLOOR(RANDOM() * COUNT(*))').where({

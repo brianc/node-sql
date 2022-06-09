@@ -3,7 +3,7 @@
 var Harness = require('./support');
 var post = Harness.definePostTable();
 
-Harness.test({
+Harness.it({
   query: post.drop(),
   pg: {
     text  : 'DROP TABLE "post"',
@@ -28,7 +28,7 @@ Harness.test({
   params: []
 });
 
-Harness.test({
+Harness.it({
   query: post.drop().ifExists(),
   pg: {
     text  : 'DROP TABLE IF EXISTS "post"',
@@ -53,7 +53,7 @@ Harness.test({
   params: []
 });
 
-Harness.test({
+Harness.it({
   query: post.drop().cascade(),
   pg: {
     text  : 'DROP TABLE "post" CASCADE',
@@ -74,7 +74,7 @@ Harness.test({
   params: []
 });
 
-Harness.test({
+Harness.it({
   query: post.drop().restrict(),
   pg: {
     text  : 'DROP TABLE "post" RESTRICT',

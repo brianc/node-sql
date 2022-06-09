@@ -4,7 +4,7 @@ var Harness = require('./support');
 var customer = Harness.defineCustomerTable();
 var Sql = require('../../lib').setDialect('postgres');
 
-Harness.test({
+Harness.it({
   query: customer.select(customer.name.isNull().as('nameIsNull')),
   pg: {
     text  : 'SELECT ("customer"."name" IS NULL) AS "nameIsNull" FROM "customer"',
@@ -29,7 +29,7 @@ Harness.test({
   params: []
 });
 
-Harness.test({
+Harness.it({
   query: customer.select(customer.name.plus(customer.age).as('nameAndAge')).where(customer.age.gt(10).and(customer.age.lt(20))),
   pg: {
     text  : 'SELECT ("customer"."name" + "customer"."age") AS "nameAndAge" FROM "customer" WHERE (("customer"."age" > $1) AND ("customer"."age" < $2))',
@@ -54,7 +54,7 @@ Harness.test({
   params: [10, 20]
 });
 
-Harness.test({
+Harness.it({
   query: customer.select(customer.age.between(10, 20).as('ageBetween')),
   pg: {
     text  : 'SELECT ("customer"."age" BETWEEN $1 AND $2) AS "ageBetween" FROM "customer"',
@@ -79,7 +79,7 @@ Harness.test({
   params: [10, 20]
 });
 
-Harness.test({
+Harness.it({
   query: customer.select(Sql.functions.ROUND(customer.age.as('ageBetween'), 2)),
   pg: {
     text  : 'SELECT ROUND("customer"."age", $1) FROM "customer"',
@@ -104,7 +104,7 @@ Harness.test({
   params: [2]
 });
 
-Harness.test({
+Harness.it({
   query: customer.select(customer.age.notBetween(10, 20).as('ageNotBetween')),
   pg: {
     text  : 'SELECT ("customer"."age" NOT BETWEEN $1 AND $2) AS "ageNotBetween" FROM "customer"',

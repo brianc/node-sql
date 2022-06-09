@@ -4,7 +4,7 @@ var Harness = require('./support');
 var post    = Harness.definePostTable();
 var sql     = require('../../lib');
 
-Harness.test({
+Harness.it({
   query: post.select(post.content).order(post.content),
   pg: {
     text  : 'SELECT "post"."content" FROM "post" ORDER BY "post"."content"',
@@ -29,7 +29,7 @@ Harness.test({
   params: []
 });
 
-Harness.test({
+Harness.it({
   query: post.select(post.content).order(post.content, post.userId.descending),
   pg: {
     text  : 'SELECT "post"."content" FROM "post" ORDER BY "post"."content", "post"."userId" DESC',
@@ -54,7 +54,7 @@ Harness.test({
   params: []
 });
 
-Harness.test({
+Harness.it({
   query: post.select(post.content).order(post.content.asc, post.userId.desc),
   pg: {
     text  : 'SELECT "post"."content" FROM "post" ORDER BY "post"."content", "post"."userId" DESC',
@@ -79,7 +79,7 @@ Harness.test({
   params: []
 });
 
-Harness.test({
+Harness.it({
   query: post.select(post.content).order([post.content, post.userId.descending]),
   pg: {
     text  : 'SELECT "post"."content" FROM "post" ORDER BY "post"."content", "post"."userId" DESC',
@@ -104,7 +104,7 @@ Harness.test({
   params: []
 });
 
-Harness.test({
+Harness.it({
   query: post.select(post.content).order(post.content).order(post.userId.descending),
   pg: {
     text  : 'SELECT "post"."content" FROM "post" ORDER BY "post"."content", "post"."userId" DESC',
@@ -129,7 +129,7 @@ Harness.test({
   params: []
 });
 
-Harness.test({
+Harness.it({
   query: post.select(post.content.isNull()).order(post.content.isNull()),
   pg: {
     text  : 'SELECT ("post"."content" IS NULL) FROM "post" ORDER BY ("post"."content" IS NULL)',
@@ -154,7 +154,7 @@ Harness.test({
   params: []
 });
 
-Harness.test({
+Harness.it({
   query: post.select(post.content.isNull()).order(post.content.isNull().descending()),
   pg: {
     text  : 'SELECT ("post"."content" IS NULL) FROM "post" ORDER BY ("post"."content" IS NULL) DESC',
@@ -179,7 +179,7 @@ Harness.test({
   params: []
 });
 
-Harness.test({
+Harness.it({
   query: post.select(post.content.isNull()).order(post.content.isNull()),
   pg: {
     text  : 'SELECT ("post"."content" IS NULL) FROM "post" ORDER BY ("post"."content" IS NULL)',
@@ -204,7 +204,7 @@ Harness.test({
   params: []
 });
 
-Harness.test({
+Harness.it({
   query: post.select(sql.functions.RTRIM(post.content)).order(sql.functions.RTRIM(post.content)),
   pg: {
     text  : 'SELECT RTRIM("post"."content") FROM "post" ORDER BY RTRIM("post"."content")',
@@ -229,7 +229,7 @@ Harness.test({
   params: []
 });
 
-Harness.test({
+Harness.it({
   query: post.select(sql.functions.RTRIM(post.content)).order(sql.functions.RTRIM(post.content).descending()),
   pg: {
     text  : 'SELECT RTRIM("post"."content") FROM "post" ORDER BY RTRIM("post"."content") DESC',
@@ -254,7 +254,7 @@ Harness.test({
   params: []
 });
 
-Harness.test({
+Harness.it({
   query: post.select(post.content).order(post.content.descending),
   pg: {
     text  : 'SELECT "post"."content" FROM "post" ORDER BY "post"."content" DESC NULLS LAST',
@@ -282,7 +282,7 @@ Harness.test({
   params: []
 });
 
-Harness.test({
+Harness.it({
   query: post.select(post.content).order(post.content),
   pg: {
     text  : 'SELECT "post"."content" FROM "post" ORDER BY "post"."content" NULLS LAST',
@@ -310,7 +310,7 @@ Harness.test({
   params: []
 });
 
-Harness.test({
+Harness.it({
   query: post.select(post.content).order(post.content.asc),
   pg: {
     text  : 'SELECT "post"."content" FROM "post" ORDER BY "post"."content" NULLS FIRST',
@@ -338,7 +338,7 @@ Harness.test({
   params: []
 });
 
-Harness.test({
+Harness.it({
   query: post.select(post.content).order([]),
   pg: {
     text  : 'SELECT "post"."content" FROM "post"',

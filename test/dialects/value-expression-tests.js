@@ -6,7 +6,7 @@ var post = Harness.definePostTable();
 var v = Harness.defineVariableTable();
 
 // Test composition of binary methods +, *, -, =.
-Harness.test({
+Harness.it({
   query: customer.select(customer.name, customer.income.modulo(100)).where(customer.age.plus(5).multiply(customer.age.minus(2)).equals(10)),
   pg: {
     text  : 'SELECT "customer"."name", ("customer"."income" % $1) FROM "customer" WHERE ((("customer"."age" + $2) * ("customer"."age" - $3)) = $4)',
@@ -32,7 +32,7 @@ Harness.test({
 });
 
 // Test composition of binary (e.g. +) and unary (e.g. like) methods.
-Harness.test({
+Harness.it({
   query: customer.select(customer.name).where(customer.name.like(customer.id.plus('hello'))),
   pg: {
     text  : 'SELECT "customer"."name" FROM "customer" WHERE ("customer"."name" LIKE ("customer"."id" + $1))',
@@ -59,7 +59,7 @@ Harness.test({
 
 // Test implementing simple formulas.
 // Acceleration formula. (a * t^2 / 2) + (v * t) = d
-Harness.test({
+Harness.it({
   query: v.select(v.a.multiply(v.a).divide(2).plus(v.v.multiply(v.t)).equals(v.d)),
   pg: {
     text  : 'SELECT (((("variable"."a" * "variable"."a") / $1) + ("variable"."v" * "variable"."t")) = "variable"."d") FROM "variable"',
@@ -85,7 +85,7 @@ Harness.test({
 });
 
 // Pythagorean theorem. a^2 + b^2 = c^2.
-Harness.test({
+Harness.it({
   query: v.select(v.a.multiply(v.a).plus(v.b.multiply(v.b)).equals(v.c.multiply(v.c))),
   pg: {
     text  : 'SELECT ((("variable"."a" * "variable"."a") + ("variable"."b" * "variable"."b")) = ("variable"."c" * "variable"."c")) FROM "variable"',
@@ -110,7 +110,7 @@ Harness.test({
   params: []
 });
 
-Harness.test({
+Harness.it({
   query: post.select(post.id).where(post.content.equals(new Buffer('test'))),
   pg: {
     text  : 'SELECT "post"."id" FROM "post" WHERE ("post"."content" = $1)',
@@ -132,7 +132,7 @@ Harness.test({
 });
 
 // concat tests
-Harness.test({
+Harness.it({
   query: post.select(post.content.concat(post.tags)),
   pg: {
     text  : 'SELECT ("post"."content" || "post"."tags") FROM "post"',

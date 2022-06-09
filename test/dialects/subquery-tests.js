@@ -6,7 +6,7 @@ var user = Harness.defineUserTable();
 var post = Harness.definePostTable();
 var Sql = require('../../lib');
 
-Harness.test({
+Harness.it({
   query: user.select(user.name).where(user.id.in(post.select(post.userId))),
   pg: {
     text:   'SELECT "user"."name" FROM "user" WHERE ("user"."id" IN (SELECT "post"."userId" FROM "post"))',
@@ -31,7 +31,7 @@ Harness.test({
   params: []
 });
 
-Harness.test({
+Harness.it({
   query: user.name.in(
     customer.subQuery().select(customer.name).where(
       user.name.in(
@@ -60,7 +60,7 @@ Harness.test({
   params: ['%HELLO%']
 });
 
-Harness.test({
+Harness.it({
   query: Sql.select('*').from(user.subQuery()),
   pg: {
     text  : 'SELECT * FROM (SELECT * FROM "user")',
@@ -86,7 +86,7 @@ Harness.test({
 });
 
 // Subquery with a date
-Harness.test({
+Harness.it({
   query: Sql.select('*').from(post.subQuery().where(post.content.equals(new Date('Sat, 01 Jan 2000 00:00:00 GMT')))),
   pg: {
     text  : 'SELECT * FROM (SELECT * FROM "post" WHERE ("post"."content" = $1))',
@@ -115,7 +115,7 @@ Harness.test({
 });
 
 
-Harness.test({
+Harness.it({
   query: Sql.select('*').from(customer.subQuery('T1')).from(user.subQuery('T2')),
   pg: {
     text  : 'SELECT * FROM (SELECT * FROM "customer") "T1" , (SELECT * FROM "user") "T2"',
@@ -140,7 +140,7 @@ Harness.test({
   params: []
 });
 
-Harness.test({
+Harness.it({
   query: customer.name.between(
     customer.subQuery().select(Sql.functions.MIN(customer.name)),
     customer.subQuery().select(Sql.functions.MAX(customer.name))
@@ -168,7 +168,7 @@ Harness.test({
   params: []
 });
 
-Harness.test({
+Harness.it({
   query: user.subQuery().where(user.name.equals(customer.name)).exists(),
   pg: {
     text  : '(EXISTS (SELECT * FROM "user" WHERE ("user"."name" = "customer"."name")))',
@@ -194,7 +194,7 @@ Harness.test({
 });
 
 var limitUsers = user.subQuery('limit-users').select(user.id, user.name).from(user).order(user.name).limit(10).offset(10);
-Harness.test({
+Harness.it({
   query: Sql.select(limitUsers.name, post.tags).from(limitUsers.leftJoin(post).on(post.userId.equals(limitUsers.id))),
   pg: {
     text  : 'SELECT "limit-users"."name", "post"."tags" FROM (SELECT "user"."id", "user"."name" FROM "user" ORDER BY "user"."name" LIMIT 10 OFFSET 10) "limit-users" LEFT JOIN "post" ON ("post"."userId" = "limit-users"."id")',
@@ -220,7 +220,7 @@ Harness.test({
 });
 
 // Top-level subQuery
-Harness.test({
+Harness.it({
   query: Sql.subQuery().select(user.id).from(user),
   pg: {
     text  : '(SELECT "user"."id" FROM "user")',
@@ -246,7 +246,7 @@ Harness.test({
 });
 
 // Top-level subQuery with alias
-Harness.test({
+Harness.it({
   query: Sql.subQuery("x").select(user.id).from(user),
   pg: {
     text  : '(SELECT "user"."id" FROM "user") "x"',

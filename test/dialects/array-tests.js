@@ -5,7 +5,7 @@ var post = Harness.definePostTable();
 var Sql = require('../../lib');
 
 // Array columns
-Harness.test({
+Harness.it({
   query: post.update({
     tags: post.tags.concat(Sql.array('nodejs'))
   }),
@@ -16,7 +16,7 @@ Harness.test({
   params: ['nodejs']
 });
 
-Harness.test({
+Harness.it({
   query: post.select(
     post.tags.contains(Sql.array('nodejs', 'js'))
   ),
@@ -27,7 +27,7 @@ Harness.test({
   params: ['nodejs', 'js']
 });
 
-Harness.test({
+Harness.it({
   query: post.select(
     post.tags.containedBy(Sql.array('nodejs', 'js'))
   ),
@@ -38,7 +38,7 @@ Harness.test({
   params: ['nodejs', 'js']
 });
 
-Harness.test({
+Harness.it({
   query: post.select(
     post.tags.overlap(Sql.array('nodejs', 'js'))
   ),
@@ -49,7 +49,7 @@ Harness.test({
   params: ['nodejs', 'js']
 });
 
-Harness.test({
+Harness.it({
   query: post.select(post.tags.slice(2,3)),
   pg: {
     text  : 'SELECT ("post"."tags")[$1:$2] FROM "post"',
@@ -58,7 +58,7 @@ Harness.test({
   params: [2, 3]
 });
 
-Harness.test({
+Harness.it({
   query: post.select(post.tags.at(2)),
   pg: {
     text  : 'SELECT ("post"."tags")[$1] FROM "post"',
@@ -68,7 +68,7 @@ Harness.test({
 });
 
 // Array literals
-Harness.test({
+Harness.it({
   query: post.select(Sql.array(1,2,3)),
   pg: {
     text  : 'SELECT ARRAY[$1, $2, $3] FROM "post"',
@@ -77,7 +77,7 @@ Harness.test({
   params: [1, 2, 3]
 });
 
-Harness.test({
+Harness.it({
   query: post.select(Sql.array(1,2,3).slice(2,3)),
   pg: {
     text  : 'SELECT (ARRAY[$1, $2, $3])[$4:$5] FROM "post"',
@@ -86,7 +86,7 @@ Harness.test({
   params: [1,2,3,2,3]
 });
 
-Harness.test({
+Harness.it({
   query: post.select(Sql.array(1,2,3).at(2)),
   pg: {
     text  : 'SELECT (ARRAY[$1, $2, $3])[$4] FROM "post"',

@@ -4,7 +4,7 @@ var Harness = require('./support');
 var customer = Harness.defineCustomerTable();
 var Sql = require('../../lib');
 
-Harness.test({
+Harness.it({
   query: customer.select(Sql.functions.YEAR(customer.metadata)),
   pg: {
     text  : 'SELECT EXTRACT(YEAR FROM "customer"."metadata") FROM "customer"',
@@ -29,7 +29,7 @@ Harness.test({
   params: []
 });
 
-Harness.test({
+Harness.it({
   query: customer.select(Sql.functions.MONTH(customer.metadata)),
   pg: {
     text  : 'SELECT EXTRACT(MONTH FROM "customer"."metadata") FROM "customer"',
@@ -57,7 +57,7 @@ Harness.test({
   params: []
 });
 
-Harness.test({
+Harness.it({
   query: customer.select(Sql.functions.DAY(customer.metadata)),
   pg: {
     text  : 'SELECT EXTRACT(DAY FROM "customer"."metadata") FROM "customer"',
@@ -82,7 +82,7 @@ Harness.test({
   params: []
 });
 
-Harness.test({
+Harness.it({
   query: customer.select(Sql.functions.HOUR(customer.metadata)),
   pg: {
     text  : 'SELECT EXTRACT(HOUR FROM "customer"."metadata") FROM "customer"',
@@ -110,7 +110,7 @@ Harness.test({
   params: []
 });
 
-Harness.test({
+Harness.it({
   query: customer.select(Sql.functions.CURRENT_TIMESTAMP()),
   pg: {
     text  : 'SELECT CURRENT_TIMESTAMP FROM "customer"',
@@ -135,7 +135,7 @@ Harness.test({
   params: []
 });
 
-Harness.test({
+Harness.it({
   query: Sql.select(Sql.functions.CURRENT_TIMESTAMP().plus(Sql.interval({hours:1}))),
   pg: {
     text  : 'SELECT (CURRENT_TIMESTAMP + INTERVAL \'1 HOUR\')',
@@ -148,7 +148,7 @@ Harness.test({
   params: []
 });
 
-Harness.test({
+Harness.it({
   query: Sql.select(Sql.functions.CURRENT_TIMESTAMP().minus(Sql.interval({years:3}))),
   pg: {
     text  : 'SELECT (CURRENT_TIMESTAMP - INTERVAL \'3 YEAR\')',
@@ -161,7 +161,7 @@ Harness.test({
   params: []
 });
 
-Harness.test({
+Harness.it({
   query: Sql.select(Sql.functions.CURRENT_TIMESTAMP().minus(Sql.interval({years:3, months:2}))),
   pg: {
     text  : 'SELECT (CURRENT_TIMESTAMP - INTERVAL \'3 YEAR 2 MONTH\')',
@@ -174,7 +174,7 @@ Harness.test({
   params: []
 });
 
-Harness.test({
+Harness.it({
   query: Sql.select(Sql.functions.CURRENT_TIMESTAMP().plus(Sql.interval({hours:1, minutes:20}))),
   pg: {
     text  : 'SELECT (CURRENT_TIMESTAMP + INTERVAL \'1 HOUR 20 MINUTE\')',
@@ -187,7 +187,7 @@ Harness.test({
   params: []
 });
 
-Harness.test({
+Harness.it({
   query: Sql.select(Sql.functions.CURRENT_TIMESTAMP().plus(Sql.interval({hours:'sql\'injection', minutes:20}))),
   pg: {
     text  : 'SELECT (CURRENT_TIMESTAMP + INTERVAL \'20 MINUTE\')',
@@ -200,7 +200,7 @@ Harness.test({
   params: []
 });
 
-Harness.test({
+Harness.it({
   query: Sql.select(Sql.functions.CURRENT_TIMESTAMP().minus(Sql.interval({days: 1, hours:5, minutes: 'sql\'injection'}))),
   pg: {
     text  : 'SELECT (CURRENT_TIMESTAMP - INTERVAL \'1 DAY 5 HOUR\')',
@@ -213,7 +213,7 @@ Harness.test({
   params: []
 });
 
-Harness.test({
+Harness.it({
   query: Sql.select(Sql.functions.CURRENT_TIMESTAMP().minus(Sql.interval({years: 2, months: 5}))),
   pg: {
     text  : 'SELECT (CURRENT_TIMESTAMP - INTERVAL \'2 YEAR 5 MONTH\')',

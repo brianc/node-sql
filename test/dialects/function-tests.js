@@ -5,7 +5,7 @@ var Sql = require('../../lib');
 
 var post = Harness.definePostTable();
 
-Harness.test({
+Harness.it({
   query: post.select(Sql.functions.LENGTH(post.content)),
   pg: {
     text  : 'SELECT LENGTH("post"."content") FROM "post"',
@@ -30,7 +30,7 @@ Harness.test({
   params: []
 });
 
-Harness.test({
+Harness.it({
   query: post.select(Sql.functions.LEFT(post.content,4)),
   pg: {
     text  : 'SELECT LEFT("post"."content", $1) FROM "post"',
@@ -55,7 +55,7 @@ Harness.test({
   params: [4]
 });
 
-Harness.test({
+Harness.it({
   query: post.select(Sql.functions.RIGHT(post.content,4)),
   pg: {
     text  : 'SELECT RIGHT("post"."content", $1) FROM "post"',

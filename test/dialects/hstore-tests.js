@@ -4,7 +4,7 @@ var Harness = require('./support');
 var customer = Harness.defineCustomerTable();
 var Sql = require('../../lib').setDialect('postgres');
 
-Harness.test({
+Harness.it({
   query: customer.update({
     metadata: customer.metadata.concat(Sql.functions.HSTORE('age', 20))
   }),
@@ -15,7 +15,7 @@ Harness.test({
   params: ['age', 20]
 });
 
-Harness.test({
+Harness.it({
   query: customer.select(customer.metadata.key('age')),
   pg: {
     text  : 'SELECT ("customer"."metadata" -> $1) FROM "customer"',

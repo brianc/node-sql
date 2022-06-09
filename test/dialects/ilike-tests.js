@@ -5,7 +5,7 @@ var post = Harness.definePostTable();
 var user = Harness.defineUserTable();
 var Sql = require('../../lib').setDialect('postgres');
 
-Harness.test({
+Harness.it({
   query: post.select(post.content, post.userId).where(post.content.ilike('A%')),
   pg: {
     text  : 'SELECT "post"."content", "post"."userId" FROM "post" WHERE ("post"."content" ILIKE $1)',
@@ -14,7 +14,7 @@ Harness.test({
   params: ['A%']
 });
 
-Harness.test({
+Harness.it({
   query: post.insert(post.content, post.userId)
       .select('\'test\'', user.id).from(user).where(user.name.ilike('A%')),
   pg: {
@@ -24,7 +24,7 @@ Harness.test({
   params: ['A%']
 });
 
-Harness.test({
+Harness.it({
   query: post.insert([post.content, post.userId])
       .select('\'test\'', user.id).from(user).where(user.name.ilike('A%')),
   pg: {
@@ -34,7 +34,7 @@ Harness.test({
   params: ['A%']
 });
 
-Harness.test({
+Harness.it({
   query: post.insert(post.userId)
       .select(user.id).from(user).where(user.name.ilike('A%')),
   pg: {

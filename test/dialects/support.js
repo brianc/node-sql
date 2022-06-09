@@ -13,7 +13,7 @@ var dialects = {
 };
 
 module.exports = {
-  test: function(expected) {
+  it: function(expected) {
     // for each dialect
     Object.keys(dialects).forEach(function(dialect) {
       var expectedObject = expected[dialect];
@@ -22,7 +22,7 @@ module.exports = {
         var DialectClass = dialects[dialect];
 
         var title = dialect + ': ' + (expected.title || expectedObject.text || expectedObject);
-        test(title, function() {
+        it(title, function() {
 
           // check if this query is expected to throw
           if (expectedObject.throws) {

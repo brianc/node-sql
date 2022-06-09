@@ -4,7 +4,7 @@ var Harness = require('./support');
 var customer = Harness.defineCustomerTable();
 var Sql = require('../../lib').setDialect('postgres');
 
-Harness.test({
+Harness.it({
   query: customer.select(customer.metadata.key('age')),
   pg: {
     text  : 'SELECT ("customer"."metadata" -> $1) FROM "customer"',
@@ -13,7 +13,7 @@ Harness.test({
   params: ['age']
 });
 
-Harness.test({
+Harness.it({
   query: customer.select(customer.metadata.keyText('age')),
   pg: {
     text  : 'SELECT ("customer"."metadata" ->> $1) FROM "customer"',
@@ -22,7 +22,7 @@ Harness.test({
   params: ['age']
 });
 
-Harness.test({
+Harness.it({
   query: customer.select(customer.metadata.path('{address,city}')),
   pg: {
     text  : 'SELECT ("customer"."metadata" #> $1) FROM "customer"',
@@ -31,7 +31,7 @@ Harness.test({
   params: ['{address,city}']
 });
 
-Harness.test({
+Harness.it({
   query: customer.select(customer.metadata.pathText('{address,city}')),
   pg: {
     text  : 'SELECT ("customer"."metadata" #>> $1) FROM "customer"',
