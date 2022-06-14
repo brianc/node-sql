@@ -1,8 +1,8 @@
 {
   "author": "Atul <atul.chauhan@gmail.com>",
-  "name": "@stillalive/node-sql",
+  "name": "@atul898/node-sql",
   "description": "sql builder, forked from https://github.com/brianc/node-sql since that package has gone stale, this is forked so we can keep it udpated, so 'npm audit' does not have any issue",
-  "version": "1.0.0.0",
+  "version": "1.0.0",
   "homepage": "https://github.com/atul898/node-sql",
   "license": "MIT",
   "repository": {
