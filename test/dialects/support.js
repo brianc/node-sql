@@ -22,7 +22,7 @@ module.exports = {
         var DialectClass = dialects[dialect];
 
         var title = dialect + ': ' + (expected.title || expectedObject.text || expectedObject);
-        test(title, function() {
+        it(title, function() {
 
           // check if this query is expected to throw
           if (expectedObject.throws) {

@@ -13,15 +13,15 @@ var user = sql.define({
     ]
 });
 
-suite('function', function() {
-  test('alias function call', function() {
+describe('function', function() {
+  it('alias function call', function() {
     var upper = sql.functions.UPPER;
     var aliasedUpper = upper(user.email).as('upperAlias').toQuery();
 
     assert.equal(aliasedUpper.text, 'UPPER("user"."email") AS "upperAlias"');
   });
 
-  test('function call on aliased column', function() {
+  it('function call on aliased column', function() {
     var round = sql.functions.ROUND;
     var aliasedRound = round(user.howOld, 2).toQuery();
 
@@ -29,7 +29,7 @@ suite('function', function() {
     assert.equal(aliasedRound.values[0], 2);
   });
 
-  test('creating function call works', function() {
+  it('creating function call works', function() {
     var upper = sql.functionCallCreator('UPPER');
     var functionCall = upper('hello', 'world').toQuery();
 
@@ -38,7 +38,7 @@ suite('function', function() {
     assert.equal(functionCall.values[1], 'world');
   });
 
-  test('creating function call on columns works', function() {
+  it('creating function call on columns works', function() {
     var upper = sql.functionCallCreator('UPPER');
     var functionCall = upper(user.id, user.email).toQuery();
 
@@ -46,7 +46,7 @@ suite('function', function() {
     assert.equal(functionCall.values.length, 0);
   });
 
-  test('function call inside select works', function() {
+  it('function call inside select works', function() {
     var upper = sql.functionCallCreator('UPPER');
     var query = sql.select(upper(user.id, user.email)).from(user).where(user.email.equals('brian.m.carlson@gmail.com')).toQuery();
 
@@ -54,7 +54,7 @@ suite('function', function() {
     assert.equal(query.values[0], 'brian.m.carlson@gmail.com');
   });
 
-  test('standard aggregate functions with having clause', function() {
+  it('standard aggregate functions with having clause', function() {
     var count = sql.functions.COUNT;
     var distinct = sql.functions.DISTINCT;
     var distinctEmailCount = count(distinct(user.email));
@@ -65,7 +65,7 @@ suite('function', function() {
     assert.equal(query.values[0], 100);
   });
 
-  test('custom and standard functions behave the same', function() {
+  it('custom and standard functions behave the same', function() {
     var standardUpper = sql.functions.UPPER;
     var customUpper = sql.functionCallCreator('UPPER');
 
@@ -77,7 +77,7 @@ suite('function', function() {
     assert.equal(customQuery.text, expectedQuery);
   });
 
-  test('combine function with operations', function() {
+  it('combine function with operations', function() {
     var f = sql.functions;
     var query = user.select(f.AVG(f.DISTINCT(f.COUNT(user.id).plus(f.MAX(user.id))).minus(f.MIN(user.id))).multiply(100)).toQuery();
 
@@ -85,7 +85,7 @@ suite('function', function() {
     assert.equal(query.values[0], 100);
   });
 
-  test('use custom function', function() {
+  it('use custom function', function() {
     var query = user.select(sql.function('PHRASE_TO_TSQUERY')('simple', user.name)).toQuery();
     assert.equal(query.text, 'SELECT PHRASE_TO_TSQUERY($1, "user"."name") FROM "user"');
     assert.equal(query.values[0], 'simple');

@@ -15,7 +15,7 @@ var Boom = Node.define({
   }
 });
 
-test('clause definition', function() {
+it('clause definition', function() {
   var select = new Bang();
   assert.equal(select.type, 'SELECT');
   assert.equal(select.nodes.length, 0);

@@ -8,7 +8,7 @@ var Foo = Table.define({
   columns: ['baz','bar']
 });
 
-test('operators', function() {
+it('operators', function() {
   assert.equal(Foo.bar.between(1, 2).operator, 'BETWEEN');
   assert.equal(Foo.baz.between(1, 2).separator, 'AND');
 });

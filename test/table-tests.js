@@ -5,20 +5,20 @@ var Table = require(__dirname + '/../lib/table');
 var Column = require(__dirname + '/../lib/column');
 var Sql = require('../');
 
-suite('table', function() {
+describe('table', function() {
   var table = new Table({
     name: 'bang'
   });
 
-  test('has name', function() {
+  it('has name', function() {
     assert.equal(table.getName(), 'bang');
   });
 
-  test('has no columns', function() {
+  it('has no columns', function() {
     assert.equal(table.columns.length, 0);
   });
 
-  test('can add column', function() {
+  it('can add column', function() {
     var col = new Column({
       table: table,
       name: 'boom'
@@ -32,17 +32,17 @@ suite('table', function() {
     assert.equal(table.boom, col);
   });
 
-  test('creates query node', function() {
+  it('creates query node', function() {
     var sel = table.select(table.boom);
     assert.equal(sel.type, 'QUERY');
   });
 
-  test('creates *-query if no args is provided to select()', function() {
+  it('creates *-query if no args is provided to select()', function() {
     var sel = table.select();
     assert.ok(sel.nodes[0].nodes[0].star);
   });
 
-  test('can be defined', function() {
+  it('can be defined', function() {
     var user = Table.define({
       name: 'user',
       columns: ['id', 'name']
@@ -57,7 +57,7 @@ suite('table', function() {
   });
 });
 
-test('table with user-defined column property names', function () {
+it('table with user-defined column property names', function () {
   var table = Table.define({
     name: 'blah',
     columns: [{
@@ -78,7 +78,7 @@ test('table with user-defined column property names', function () {
   assert(table.email === undefined, 'Expected table.email to not exist');
 });
 
-test('table with fancier column definitions', function() {
+it('table with fancier column definitions', function() {
   var table = Table.define({
     name: 'blah',
     columns: [{
@@ -109,7 +109,7 @@ test('table with fancier column definitions', function() {
   assert.equal(email.anythingYouWant, 'awesome');
 });
 
-test('table with object structured column definitions', function() {
+it('table with object structured column definitions', function() {
   var table = Table.define({
     name: 'blah',
     columns: {
@@ -141,7 +141,7 @@ test('table with object structured column definitions', function() {
   assert.equal(email.anythingYouWant, 'awesome');
 });
 
-test('table with dynamic column definition', function() {
+it('table with dynamic column definition', function() {
   var table = Table.define({ name: 'foo', columns: [] });
   assert.equal(table.columns.length, 0);
 
@@ -159,7 +159,7 @@ test('table with dynamic column definition', function() {
   assert.equal(table.columns.length, 1);
 });
 
-test('hasColumn', function() {
+it('hasColumn', function() {
   var table = Table.define({ name: 'foo', columns: [] });
 
   assert.equal(table.hasColumn('baz'), false);
@@ -167,7 +167,7 @@ test('hasColumn', function() {
   assert.equal(table.hasColumn('baz'), true);
 });
 
-test('hasColumn with user-defined column property', function() {
+it('hasColumn with user-defined column property', function() {
   var table = Table.define({
     name: 'blah',
     columns: [{
@@ -180,40 +180,40 @@ test('hasColumn with user-defined column property', function() {
   assert.equal(table.hasColumn('theId'), true);
 });
 
-test('the column "from" does not overwrite the from method', function() {
+it('the column "from" does not overwrite the from method', function() {
   var table = Table.define({ name: 'foo', columns: [] });
   table.addColumn('from');
   assert.equal(typeof table.from, 'function');
 });
 
-test('getColumn returns the from column', function() {
+it('getColumn returns the from column', function() {
   var table = Table.define({ name: 'foo', columns: [] });
   table.addColumn('from');
   assert(table.getColumn('from') instanceof Column);
   assert(table.get('from') instanceof Column);
 });
 
-test('set and get schema', function () {
+it('set and get schema', function () {
   var table = Table.define({ name: 'foo', schema: 'bar', columns: [] });
   assert.equal(table.getSchema(), 'bar');
   table.setSchema('barbarz');
   assert.equal(table.getSchema(), 'barbarz');
 });
 
-suite('table.clone', function() {
-  test('check if it is a copy, not just a reference', function() {
+describe('table.clone', function() {
+  it('check if it is a copy, not just a reference', function() {
     var table = Table.define({ name: 'foo', columns: [] });
     var copy = table.clone();
     assert.notEqual(table, copy);
   });
 
-  test('copy columns', function() {
+  it('copy columns', function() {
     var table = Table.define({ name: 'foo', columns: ['bar'] });
     var copy = table.clone();
     assert(copy.get('bar') instanceof Column);
   });
 
-  test('overwrite config while copying', function() {
+  it('overwrite config while copying', function() {
     var table = Table.define({
       name: 'foo',
       schema: 'foobar',
@@ -223,18 +223,18 @@ suite('table.clone', function() {
     });
 
     var copy = table.clone({
-      schema: 'test',
+      schema: 'it',
       snakeToCamel: false,
       columnWhiteList: false
     });
 
-    assert.equal(copy.getSchema(), 'test');
+    assert.equal(copy.getSchema(), 'it');
     assert.equal(copy.snakeToCamel, false);
     assert.equal(copy.columnWhiteList, false);
   });
 });
 
-test('dialects', function () {
+it('dialects', function () {
   var sql = new Sql.Sql('mysql');
   var foo = sql.define({ name: 'foo', columns: [ 'id' ] }),
     bar = sql.define({ name: 'bar', columns: [ 'id' ] });
@@ -249,7 +249,7 @@ test('dialects', function () {
   assert.equal(actual, '"foo" INNER JOIN "bar" ON ("bar"."id" = 1)');
 });
 
-test('limit', function () {
+it('limit', function () {
   var user = Table.define({name: 'user', columns: ['id', 'name']});
   var query = user.limit(3);
   assert.equal(query.nodes.length, 1);
@@ -257,7 +257,7 @@ test('limit', function () {
   assert.equal(query.nodes[0].count, 3);
 });
 
-test('offset', function () {
+it('offset', function () {
   var user = Table.define({name: 'user', columns: ['id', 'name']});
   var query = user.offset(20);
   assert.equal(query.nodes.length, 1);
@@ -265,7 +265,7 @@ test('offset', function () {
   assert.equal(query.nodes[0].count, 20);
 });
 
-test('order', function () {
+it('order', function () {
   var user = Table.define({name: 'user', columns: ['id', 'name']});
   var query = user.order(user.name);
   assert.equal(query.nodes.length, 1);
