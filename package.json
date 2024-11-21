@@ -25,6 +25,6 @@
   },
   "devDependencies": {
     "jshint": "*",
-    "mocha": "*"
+    "mocha": "3.5.x"
   }
 }
